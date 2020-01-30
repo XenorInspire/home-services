@@ -4,6 +4,7 @@ C application to generate a QRCode in pdf format
 
 #include "pdfgen.h"
 #include "QR_Encode.h"
+#include "QRcodeGenerator.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,23 +13,19 @@ C application to generate a QRCode in pdf format
 #include <windows.h>
 #include <tchar.h>
 
-static void generateQR(const unsigned char *data, int width);
+void generateQRcode(const char *inputString){
 
-int main(int argc, char* argv[])
-{   
-    //Input
-    char string[100] = "Petit test pour le QRcode";
-    
     //Level of redundonce for error correction
-    QR_Level level = QR_LEVEL_H;//L,M,Q,H 
+    QR_Level level = QR_LEVEL_H; //L,M,Q,H
     int version = 0;
     QR_MaskPattern mask = QR_MaskAuto;
     int ch;
 
     unsigned char encoded[MAX_BITDATA];
 
-    int width = EncodeData(level, version, mask, string, 0, encoded);
-    if (width <= 0) {
+    int width = EncodeData(level, version, mask, inputString, 0, encoded);
+    if (width <= 0)
+    {
         exit(EXIT_FAILURE);
     }
     int size = ((width * width) / 8) + (((width * width) % 8) ? 1 : 0);
@@ -36,13 +33,12 @@ int main(int argc, char* argv[])
     printf("QR Code width: %d\n", width);
 
     //Draw QRcode in the PDF file
-    generateQR(encoded, width);
+    generateQRcodeToPDF(encoded, width);
 
-    return 0;
+    // system("pause");
 }
 
-
-static void generateQR(const unsigned char* data, int width)
+void generateQRcodeToPDF(const unsigned char *data, int width)
 {
     //Creation of the pdf format 
     struct pdf_info info = {.creator = "My software",
