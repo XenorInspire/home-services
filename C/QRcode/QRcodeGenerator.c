@@ -1,3 +1,7 @@
+/*
+C application to generate a QRCode
+*/
+
 #include "pdfgen.h"
 #include "QR_Encode.h"
 #include <fcntl.h>
@@ -130,7 +134,7 @@ static void white(void)
         last_color = was_white;
     }
     // Color(0);
-    printf("  ");
+    // printf("  ");
 }
 
 static void black(void)
@@ -142,7 +146,7 @@ static void black(void)
         last_color = was_black;
     }
     // Color(0);
-    printf("  ");
+    // printf("  ");
 }
 
 static void nl(void)
@@ -212,8 +216,8 @@ static void ansi_qr(const unsigned char* data, int width)
     }
     // top_bottom_margin(width);
 
-    pdf_save(pdf, "newQrcode.pdf");
+    pdf_save(pdf, "newQRcode.pdf");
     pdf_destroy(pdf);
 }
 
-//gcc pdfgen.o QR_Encode.o QRCodeGenerator.c -o QRcodeGenerator.exe
+//gcc pdfgen.o QR_Encode.o QRcodeGenerator.c -o QRcodeGenerator.exe
