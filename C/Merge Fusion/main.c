@@ -4,7 +4,9 @@
 #include <dirent.h>
 #include <string.h>
 
-#define LENGTH(X) sizeof(X) / sizeof(char *)
+#include "includes/system.h"
+
+#define DIR_SIZE 256
 
 int main(int argc, char const *argv[]) {
 
@@ -15,8 +17,7 @@ int main(int argc, char const *argv[]) {
   struct dirent * currentFile;
   int16_t counter = 0;
 
-  if(rep == NULL)
-    exit(0);
+  checkDepository(rep);
 
   while ((currentFile = readdir(rep)) != NULL)
     counter++;
@@ -24,11 +25,10 @@ int main(int argc, char const *argv[]) {
 
   nameSQLFiles = malloc(counter * sizeof(char *));
   for(int16_t i = 0; i < counter; i++)
-    nameSQLFiles[i] = malloc(256 * sizeof(char));
+    nameSQLFiles[i] = malloc(DIR_SIZE * sizeof(char));
 
   rep = opendir(".");
-  if(rep == NULL)
-    exit(0);
+  checkDepository(rep);
 
   for(int16_t k = 0; k < counter; k++){
 
@@ -37,17 +37,7 @@ int main(int argc, char const *argv[]) {
 
   }
   closedir(rep);
-
-
-  for(int16_t j = 0; j < counter; j++){
-
-    printf("%s\n",nameSQLFiles[j]);
-    free(nameSQLFiles[j]);
-
-  }
-
-
-  free(nameSQLFiles);
+  freeStringArray(&nameSQLFiles, counter);
 
   return 0;
 }

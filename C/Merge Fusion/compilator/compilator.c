@@ -11,7 +11,7 @@ int main(int argc, char const *argv[]) {
 
     system("gcc -c ../functions/system.c");
     system("gcc -c ../main.c");
-    system("gcc -o SQLFusion.exe main.o  system.o");
+    system("gcc -o SQLFusion.exe main.o system.o");
 
     system("mv system.o ../functions/system.o");
     system("mv main.o ../main.o");
