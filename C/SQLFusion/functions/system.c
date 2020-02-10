@@ -16,7 +16,7 @@ void checkDepository(DIR * rep) {
 }
 
 // Check if a simple pointer is NULL
-void checkSimplePtr(void * ptr){
+void checkSimplePtr(char * ptr){
 
   if(ptr == NULL){
 
@@ -29,7 +29,7 @@ void checkSimplePtr(void * ptr){
 }
 
 // Check if a double pointer is NULL
-void checkDoublePtr(void ** ptr){
+void checkDoublePtr(char ** ptr){
 
   if(ptr == NULL){
 
@@ -42,12 +42,11 @@ void checkDoublePtr(void ** ptr){
 }
 
 // Free an entire string array
-void freeStringArray(char *** ptr, int16_t size){
+void freeStringArray(char ** ptr, int16_t size){
 
   for(int16_t j = 0; j < size; j++)
-    free(*ptr[j]);
+    free(ptr[j]);
 
-  free(*ptr);
   free(ptr);
 
 }

@@ -10,10 +10,12 @@ int main(int argc, char const *argv[]) {
     if((argv[1] != NULL) && ((strncmp(argv[1],"-c",2)) == 0)) system("clear");
 
     system("gcc -c ../functions/system.c");
+    system("gcc -c ../functions/repository.c");
     system("gcc -c ../main.c");
-    system("gcc -o SQLFusion.exe main.o system.o");
+    system("gcc -o SQLFusion.exe main.o system.o repository.o");
 
     system("mv system.o ../functions/system.o");
+    system("mv repository.o ../functions/repository.o");
     system("mv main.o ../main.o");
     system("mv SQLFusion.exe ../SQLFusion.exe");
 
