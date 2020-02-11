@@ -52,3 +52,6 @@ dkms.conf
 
 #VSCode
 *.vscode
+C/QRcode/test.c
+
+C/QRcode/test.exe

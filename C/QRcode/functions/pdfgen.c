@@ -113,7 +113,7 @@ typedef SSIZE_T ssize_t;
 #include <sys/stat.h>
 #include <time.h>
 
-#include "pdfgen.h"
+#include "../includes/pdfgen.h"
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 

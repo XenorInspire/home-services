@@ -2,9 +2,9 @@
 C application to generate a QRCode in pdf format
 */
 
-#include "pdfgen.h"
-#include "QR_Encode.h"
-#include "QRcodeGenerator.h"
+#include "../includes/pdfgen.h"
+#include "../includes/QR_Encode.h"
+#include "../includes/QRcodeGenerator.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>

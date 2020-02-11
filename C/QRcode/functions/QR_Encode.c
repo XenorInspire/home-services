@@ -1,4 +1,4 @@
-#include "QR_Encode.h"
+#include "../includes/QR_Encode.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
