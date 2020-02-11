@@ -19,3 +19,6 @@ void checkDoublePtr(char ** ptr);
 
 // Free an entire string array
 void freeStringArray(char ** ptr, int16_t size);
+
+// Check if a file * is NULL
+void checkFile(FILE * SQLFile);

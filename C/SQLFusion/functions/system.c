@@ -50,3 +50,16 @@ void freeStringArray(char ** ptr, int16_t size){
   free(ptr);
 
 }
+
+// Check if a file * is NULL
+void checkFile(FILE * SQLFile){
+
+  if(SQLFile == NULL){
+
+    printf("Vous ne disposez pas d'assez de m%cmoire disponible, le programme va donc s'%cteindre \n",130,130);
+    SLEEP(3000);
+    exit(0);
+
+  }
+
+}
