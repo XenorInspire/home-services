@@ -32,10 +32,11 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
   FILE * SQLResult = fopen(fileName,"wb");
   checkFile(SQLResult);
 
+  // For all the SQL files we have to merge
   for(int16_t k = 0; k < SQLDirectory->nbSQLFiles; k++){
 
-    sqlFiles[k] = fopen(SQLDirectory->nameSQLFiles[k],"rb");
     int32_t nbLinesSQL = nbLines(SQLDirectory->nameSQLFiles[k]);
+    sqlFiles[k] = fopen(SQLDirectory->nameSQLFiles[k],"rb");
     buffer = malloc(nbLinesSQL * sizeof(char *));
 
     for(int16_t j = 0; j < nbLinesSQL; j++){
@@ -45,6 +46,7 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
 
     }
 
+    // Copy all the INSERT in a buffer
     while(fgets(temp, SIZE_LINE - 1, sqlFiles[k]) != NULL){
 
       if(strstr(temp,"INSERT INTO") != NULL || strstr(temp,"insert into") != NULL){
@@ -58,7 +60,7 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
     
     fclose(sqlFiles[k]);
 
-    writeSQL(SQLResult, buffer, indexBuffer);
+    writeSQL(SQLResult, buffer, indexBuffer, SQLDirectory->nameSQLFiles[k]);
     indexBuffer = 0;
     freeStringArray(buffer,nbLinesSQL);
 
@@ -87,9 +89,10 @@ int32_t nbLines(const char * fileName){
 
 }
 
-// Check if the filename has only one extension
+// Check if the file name has only one SQL extension (or not)
 char * verifyExtension(char * fileName){
 
+  // If there isn't a .sql extension
   if(strstr(fileName,".sql") == NULL){
     
     strcat(fileName, ".sql");
@@ -100,6 +103,7 @@ char * verifyExtension(char * fileName){
   int8_t counter = 0;
   char * ptr = fileName;
 
+  // If there are several .sql extension in the file name
   while((ptr = strstr(ptr,".sql")) != NULL){
 
     counter++;
@@ -120,7 +124,9 @@ char * verifyExtension(char * fileName){
 }
 
 // Write data in the final SQL file
-void writeSQL(FILE * SQLResult, char ** buffer, int32_t size){
+void writeSQL(FILE * SQLResult, char ** buffer, int32_t size, char * fileName){
+
+  fprintf(SQLResult,"%s %s\n","--",fileName);
 
   for(int32_t i = 0; i < size; i++)
     fprintf(SQLResult,"%s",buffer[i]);

@@ -10,4 +10,4 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName);
 char * verifyExtension(char * fileName);
 
 // Write data in the final SQL file
-void writeSQL(FILE * SQLResult, char ** buffer, int32_t size);
+void writeSQL(FILE * SQLResult, char ** buffer, int32_t size, char * fileName);
