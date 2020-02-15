@@ -7,6 +7,9 @@
 #include "includes/struct.h"
 #include "includes/system.h"
 #include "includes/repository.h"
+#include "includes/sqlmanage.h"
+
+#define SIZE_FILE_NAME 256
 
 int main(int argc, char const *argv[]) {
 
@@ -18,12 +21,22 @@ int main(int argc, char const *argv[]) {
 
   }
 
-  // FILE ** sqlFiles = malloc(SQLDirectory.nbSQLFiles * sizeof(FILE));
+  char * fileName = malloc(SIZE_FILE_NAME * sizeof(char));
+  checkSimplePtr(fileName);
 
-  for(int16_t i = 0; i < SQLDirectory.nbSQLFiles; i++)
-    printf("|%s| \n",SQLDirectory.nameSQLFiles[i]);
+  printf("Nom du fichier : \n");
+  fflush(stdin);
+  fgets(fileName,SIZE_FILE_NAME,stdin);
+
+  if(fileName[strlen(fileName) - 1] == '\n')
+    fileName[strlen(fileName) - 1] = '\0';
+
+  extractData(&SQLDirectory, fileName);
+  free(fileName);
+
+  // for(int16_t i = 0; i < SQLDirectory.nbSQLFiles; i++)
+  //   printf("|%s| \n",SQLDirectory.nameSQLFiles[i]);
 
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
-
   return 0;
 }
