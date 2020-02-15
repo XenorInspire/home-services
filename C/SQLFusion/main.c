@@ -33,10 +33,8 @@ int main(int argc, char const *argv[]) {
 
   extractData(&SQLDirectory, fileName);
   free(fileName);
-
-  // for(int16_t i = 0; i < SQLDirectory.nbSQLFiles; i++)
-  //   printf("|%s| \n",SQLDirectory.nameSQLFiles[i]);
-
+  
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
   return 0;
+
 }

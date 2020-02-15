@@ -8,7 +8,7 @@
 #include "../includes/sqlmanage.h"
 #include "../includes/system.h"
 
-#define SIZE_LINE 256
+#define SIZE_LINE 3000
 
 // This function is charged to organize the saving of the final SQL file
 void extractData(DIR_INFO * SQLDirectory, char * fileName){
@@ -26,7 +26,7 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
 
   int32_t indexBuffer = 0;
   char ** buffer;
-  char * temp = malloc(SIZE_LINE * sizeof(char *));
+  char * temp = malloc(SIZE_LINE * sizeof(char));
   checkSimplePtr(temp);
 
   FILE * SQLResult = fopen(fileName,"wb");
@@ -47,17 +47,19 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
 
     while(fgets(temp, SIZE_LINE - 1, sqlFiles[k]) != NULL){
 
-      if(strstr(temp,"INSERT INTO") != NULL)
+      if(strstr(temp,"INSERT INTO") != NULL || strstr(temp,"insert into") != NULL){
+
         strcpy(buffer[indexBuffer], temp);
-      
-      indexBuffer++;
+        indexBuffer++;
+
+      }
 
     }
     
     fclose(sqlFiles[k]);
-    writeSQL(SQLResult, buffer, indexBuffer - 1);
+
+    writeSQL(SQLResult, buffer, indexBuffer);
     indexBuffer = 0;
-    //fonction qui écrit dans le fichier SQL final
     freeStringArray(buffer,nbLinesSQL);
 
   }
@@ -120,8 +122,9 @@ char * verifyExtension(char * fileName){
 // Write data in the final SQL file
 void writeSQL(FILE * SQLResult, char ** buffer, int32_t size){
 
-  fseek(SQLResult, 0, SEEK_END);
   for(int32_t i = 0; i < size; i++)
     fprintf(SQLResult,"%s",buffer[i]);
+
+  fprintf(SQLResult,"%s","\n");
 
 }
