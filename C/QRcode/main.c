@@ -17,32 +17,25 @@ Project Chrysalead
 #include <windows.h>
 #include <tchar.h>
 
+// G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userData);
+
 int main(int argc, char *argv[])
 {
     //Create Widget for the main window
-    GtkBuilder *builder;
     GtkWidget *window;
-    // GdkPixbuf *pixbuf;
+
+    // GtkBuilder *builder;
+    GLOBALDATA data;
+    data.builder = gtk_builder_new();
 
     //GTK initialisation
     gtk_init(&argc, &argv);
 
-    builder = gtk_builder_new();
-    gtk_builder_add_from_file(builder, "builder/mainWindow.glade", NULL);
+    gtk_builder_add_from_file(data.builder, "builder/mainWindow.glade", NULL);
 
-    window = GTK_WIDGET(gtk_builder_get_object(builder, "mainWindow"));
-    if (gtk_builder_get_object(builder, "mainWindow") != NULL)
-    {
-        printf("NICE");
-    }
-    gtk_builder_connect_signals(builder, NULL);
+    window = GTK_WIDGET(gtk_builder_get_object(data.builder, "mainWindow"));
 
-    g_object_unref(builder);
-
-    // pixbuf = gdk_pixbuf_new_from_file("builder/logo.png",NULL);
-    
-    // gtk_window_set_icon_from_file(GTK_WINDOW(window), "builder/logo.png", NULL);
-    // gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
+    gtk_builder_connect_signals(data.builder, &data);
 
     gtk_widget_show(window);
 

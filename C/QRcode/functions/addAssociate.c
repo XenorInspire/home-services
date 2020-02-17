@@ -1,11 +1,11 @@
 
 #include "../includes/struct.h"
-#include"../includes/addAssociate.h"
+#include "../includes/addAssociate.h"
 #include<gtk/gtk.h>
 #include<stdio.h>
 #include<string.h>
 
-void identifierGnerator(ASSOCIATE * associate, char * identifier){
+void identifierGenerator(ASSOCIATE * associate, char * identifier){
     char firstName[255] = " ";
     char lastName[255] = " ";
     int sirenNumber;

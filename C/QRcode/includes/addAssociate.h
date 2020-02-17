@@ -3,7 +3,7 @@
  * @param associate Struct ASSOCIATE 
  * @param identifier String where to write the identifier of the asscociate
 */
-void identifierGnerator(ASSOCIATE *associate, char *identifier);
+void identifierGenerator(ASSOCIATE *associate, char *identifier);
 
 /**
  * @brief get the associate data (array) ans put in a struct ASSOCIATE
