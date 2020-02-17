@@ -1,7 +1,7 @@
 #include "../includes/struct.h"
-#include <gtk/gtk.h>
-#include "../includes/addAssociate.h"
 #include "../includes/QRcodeGenerator.h"
+#include "../includes/addAssociate.h"
+#include <gtk/gtk.h>
 #include "../includes/gui.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -62,5 +62,6 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     printf("%s\n", associate.companyName);
     printf("%s\n", identifier);
 
+    generateQRcode(identifier);
 
 }
