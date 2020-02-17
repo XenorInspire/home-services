@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     //Create Widget for the main window
     GtkBuilder *builder;
     GtkWidget *window;
-    GdkPixbuf *pixbuf;
+    // GdkPixbuf *pixbuf;
 
     //GTK initialisation
     gtk_init(&argc, &argv);
@@ -31,6 +31,10 @@ int main(int argc, char *argv[])
     gtk_builder_add_from_file(builder, "builder/mainWindow.glade", NULL);
 
     window = GTK_WIDGET(gtk_builder_get_object(builder, "mainWindow"));
+    if (gtk_builder_get_object(builder, "mainWindow") != NULL)
+    {
+        printf("NICE");
+    }
     gtk_builder_connect_signals(builder, NULL);
 
     g_object_unref(builder);
@@ -60,7 +64,7 @@ int main(int argc, char *argv[])
  * 
  * Compilation commands
  * gcc -c `pkg-config --cflags gtk+-3.0` functions/*.c `pkg-config --libs gtk+-3.0`
- * gcc `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
+ * gcc `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
  * 
  * Without the shell
  * gcc -mwindows `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
