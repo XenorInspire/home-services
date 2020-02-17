@@ -50,7 +50,7 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     associate.sirenNumber = atoi(gtk_entry_get_text(sirenNumberEntry));
     sprintf(associate.companyName, "%s", gtk_entry_get_text(companyNameEntry));
 
-    // identifierGenerator(&associate, identifier);
+    identifierGenerator(&associate, identifier);
 
     printf("%s\n", associate.lastName);
     printf("%s\n", associate.firstName);
@@ -60,7 +60,7 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     printf("%s\n", associate.town);
     printf("%d\n", associate.sirenNumber);
     printf("%s\n", associate.companyName);
-    // printf("%s\n", identifier);
+    printf("%s\n", identifier);
 
 
 }

@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
  * 
  * Compilation commands
  * gcc -c `pkg-config --cflags gtk+-3.0` functions/*.c `pkg-config --libs gtk+-3.0`
- * gcc `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
+ * gcc `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o addAssociate.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
  * 
  * Without the shell
  * gcc -mwindows `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
