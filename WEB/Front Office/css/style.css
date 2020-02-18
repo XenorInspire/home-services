@@ -1,3 +1,5 @@
+/* Navigation bar */
+
 #navhm {
 
   background-color: black;
@@ -13,5 +15,31 @@ nav {
 nav a {
 
   font-size: 20px;
+
+}
+
+#hm-connect {
+
+  right: -95%;
+
+}
+
+#hm-regis {
+
+  right: -105%;
+  position: relative;
+
+}
+
+#hm-home {
+
+  margin: auto;
+
+}
+
+#hm-logo {
+
+  height: 110px;
+  width: auto;
 
 }
