@@ -54,4 +54,21 @@ nav a {
 
 }
 
+main {
+
+  background-color: whitesmoke;
+
+}
+
+/* /////////////////////////// */
+
+/* Registration Page */
+
+#regis_button:hover {
+
+  background-color: #FD8C51;
+  border: 1px rgb(61, 9, 9)) solid;
+
+}
+
 /* /////////////////////////// */
