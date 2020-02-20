@@ -71,4 +71,18 @@ main {
 
 }
 
+#password_same {
+  
+  display: none;
+  color: red;
+
+}
+
+#password_size {
+  
+  display: none;
+  color: red;
+
+}
+
 /* /////////////////////////// */

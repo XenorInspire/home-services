@@ -49,11 +49,13 @@
         </div>
         <div class="form-group">
           <label>Mot de passe</label>
-          <input type="password" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
+          <input type="password" id="password_length" name="passwd" onkeyup="checkPassword()" class="form-control" placeholder="Entrez votre mot de passe" required>
+          <small id="password_size" class="form-text">6 caractères minimum</small>
         </div>
         <div class="form-group">
           <label>Confirmation</label>
-          <input type="password" name="passwd_confirmed" class="form-control" placeholder="Confirmez votre mot de passe" required>
+          <input type="password" id="same" onkeyup="samePassword()" name="passwd_confirmed" class="form-control" placeholder="Confirmez votre mot de passe" required>
+          <small id="password_same" class="form-text">Ce mot de passe est différent du champs précédent !</small>
         </div>
         <div class="form-group">
           <label>Entrez le code affiché ci-dessous</label>
@@ -73,6 +75,7 @@
     </main>
 
     <?php require_once("include/footer.php"); ?>
+    <script src="js/password.js"></script>
 
   </body>
 </html>
