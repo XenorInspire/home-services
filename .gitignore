@@ -54,3 +54,25 @@ C/QRcode/test.c
 C/QRcode/test.exe
 
 C/SQLFusion/test/
+
+C/QRcode/mysql-linux/bin/
+
+C/QRcode/mysql-linux/lib/mecab/dic/ipadic_euc-jp/
+
+C/QRcode/mysql-linux/lib/mecab/dic/ipadic_sjis/
+
+C/QRcode/mysql-linux/lib/mecab/dic/ipadic_utf-8/
+
+C/QRcode/mysql-linux/man/man1/
+
+C/QRcode/mysql-linux/share/charsets/
+
+C/QRcode/mysql-linux/share/danish/
+
+C/QRcode/mysql-linux/share/
+
+C/QRcode/mysql-linux/lib/pkgconfig/
+
+C/QRcode/mysql-linux/lib/mecab/etc/
+
+C/QRcode/mysql-linux/
