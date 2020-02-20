@@ -16,6 +16,7 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     ASSOCIATE associate;
 
     const gchar *entry;
+    char command[255];
     char identifier[255];
 
     GLOBALDATA *data = (GLOBALDATA *)userData;
@@ -62,6 +63,7 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     printf("%s\n", associate.companyName);
     printf("%s\n", identifier);
 
-    generateQRcode(identifier);
+    sprintf(command,"QRcode.exe %s",identifier);
+    system(command);
 
 }
