@@ -1,7 +1,7 @@
 /*
 C application to generate a QRCode in pdf format
 */
-
+#include "../includes/struct.h"
 #include "../includes/pdfgen.h"
 #include "../includes/QR_Encode.h"
 #include "../includes/QRcodeGenerator.h"
@@ -12,8 +12,17 @@ C application to generate a QRCode in pdf format
 #include <unistd.h>
 #include <windows.h>
 #include <tchar.h>
+#include <stdio.h>
+#include <time.h>
 
-void generateQRcode(const char *inputString){
+void generateQRcode(const char *inputString, const char *lastName, const char *firstName)
+{
+    //Generating Time
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    char pdfName[255] = " ";
+    sprintf(pdfName, "%s-%s-%02d-%02d-%02d", lastName, firstName, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 
     //Level of redundonce for error correction
     QR_Level level = QR_LEVEL_H; //L,M,Q,H
@@ -33,13 +42,15 @@ void generateQRcode(const char *inputString){
     // printf("QR Code width: %d\n", width);
 
     //Draw QRcode in the PDF file
-    generateQRcodeToPDF(encoded, width);
+    generateQRcodeToPDF(encoded, width,pdfName);
 
     // system("pause");
 }
 
-void generateQRcodeToPDF(const unsigned char *data, int width)
+void generateQRcodeToPDF(const unsigned char *data, int width, const char *pdfName)
 {
+    char newPdfName[255] = " ";
+    strcpy(newPdfName,pdfName);
     //Creation of the pdf format 
     struct pdf_info info = {.creator = "My software",
                             .producer = "My software",
@@ -72,7 +83,8 @@ void generateQRcodeToPDF(const unsigned char *data, int width)
         }
     }
     //Save PDF
-    pdf_save(pdf, "newQRcode.pdf");
+    strcat(newPdfName,".pdf");
+    pdf_save(pdf,newPdfName);
     pdf_destroy(pdf);
 }
 /** 

@@ -63,7 +63,7 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     // printf("%s\n", associate.companyName);
     // printf("%s\n", identifier);
 
-    sprintf(command,"QRcode.exe %s",identifier);
+    sprintf(command, "QRcode.exe %s %s %s", identifier, associate.lastName, associate.firstName);
     system(command);
 
 }

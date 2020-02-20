@@ -19,7 +19,7 @@ Project Chrysalead
 int main(int argc, char *argv[])
 {
     if ((argv[1] != NULL)){
-        generateQRcode(argv[1]);
+        generateQRcode(argv[1],argv[2],argv[3]);
     }
     return 0;
 }

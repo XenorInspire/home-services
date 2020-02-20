@@ -15,7 +15,3 @@ void identifierGenerator(ASSOCIATE * associate, char * identifier){
     sirenNumber = associate->sirenNumber % 10000;
     sprintf(identifier,"HM-%d-%s%s",sirenNumber,firstName,lastName);
 }
-
-int getAssociateData(ASSOCIATE * associate, char **getAssociateData){
-    
-}
