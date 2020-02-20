@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
           <label>Ville</label>
-          <input type="text" name="address" class="form-control" placeholder="Entrez votre ville" required>
+          <input type="text" name="city" class="form-control" placeholder="Entrez votre ville" required>
         </div>
         <div class="form-group">
           <label>Mot de passe</label>
@@ -54,6 +54,11 @@
         <div class="form-group">
           <label>Confirmation</label>
           <input type="password" name="passwd_confirmed" class="form-control" placeholder="Confirmez votre mot de passe" required>
+        </div>
+        <div class="form-group">
+          <label>Entrez le code affiché ci-dessous</label>
+          <input type="text" name="captcha" class="form-control" required>
+          <img src="captcha/captcha.php" alt="captcha">
         </div>
         <button id="regis_button" type="submit" class="btn btn-primary">S'inscrire</button>
       </form>
