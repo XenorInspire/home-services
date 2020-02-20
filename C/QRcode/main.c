@@ -1,5 +1,5 @@
 /*
-C application to generate a QRCode in pdf format
+C application to generate a QRCode in pdf format and insert all Associate information into the database with GUI 
 Project Chrysalead
 */
 
@@ -31,12 +31,16 @@ int main(int argc, char *argv[])
     //GTK initialisation
     gtk_init(&argc, &argv);
 
+    //Adding the glade file to the builder
     gtk_builder_add_from_file(data.builder, "builder/mainWindow.glade", NULL);
 
+    //Getting the wmain window Widget
     window = GTK_WIDGET(gtk_builder_get_object(data.builder, "mainWindow"));
 
+    //Making all the connection to the signal
     gtk_builder_connect_signals(data.builder, &data);
 
+    //Display the main window
     gtk_widget_show(window);
 
     //GTK loop

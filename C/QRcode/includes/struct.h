@@ -1,3 +1,7 @@
+/**
+ * @file struct.h
+ */
+
 #include<gtk/gtk.h>
 
 typedef struct associate
@@ -13,6 +17,9 @@ typedef struct associate
     char companyName[255];
 } ASSOCIATE;
 
+/**
+ * @brief for giving all the data to a signal
+ */
 typedef struct
 {
     GtkBuilder *builder;

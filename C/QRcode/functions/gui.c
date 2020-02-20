@@ -53,15 +53,15 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
 
     identifierGenerator(&associate, identifier);
 
-    printf("%s\n", associate.lastName);
-    printf("%s\n", associate.firstName);
-    printf("%s\n", associate.email);
-    printf("%s\n", associate.phoneNumber);
-    printf("%s\n", associate.address);
-    printf("%s\n", associate.town);
-    printf("%d\n", associate.sirenNumber);
-    printf("%s\n", associate.companyName);
-    printf("%s\n", identifier);
+    // printf("%s\n", associate.lastName);
+    // printf("%s\n", associate.firstName);
+    // printf("%s\n", associate.email);
+    // printf("%s\n", associate.phoneNumber);
+    // printf("%s\n", associate.address);
+    // printf("%s\n", associate.town);
+    // printf("%d\n", associate.sirenNumber);
+    // printf("%s\n", associate.companyName);
+    // printf("%s\n", identifier);
 
     sprintf(command,"QRcode.exe %s",identifier);
     system(command);

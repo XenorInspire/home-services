@@ -4,10 +4,3 @@
  * @param identifier String where to write the identifier of the asscociate
 */
 void identifierGenerator(ASSOCIATE *associate, char *identifier);
-
-/**
- * @brief get the associate data (array) ans put in a struct ASSOCIATE
- * @param associate Struct ASSOCIATE 
- * @param associateData Data of the associate in an array
-*/
-int getAssociateData(ASSOCIATE *associate, char **associateData);

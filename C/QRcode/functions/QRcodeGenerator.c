@@ -30,7 +30,7 @@ void generateQRcode(const char *inputString){
     }
     int size = ((width * width) / 8) + (((width * width) % 8) ? 1 : 0);
 
-    printf("QR Code width: %d\n", width);
+    // printf("QR Code width: %d\n", width);
 
     //Draw QRcode in the PDF file
     generateQRcodeToPDF(encoded, width);
