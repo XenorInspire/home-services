@@ -53,3 +53,17 @@ dkms.conf
 #VSCode
 *.vscode
 C/SQLFusion/test/
+
+C/QRcode/mysql-linux/share/spanish/
+
+C/QRcode/mysql-linux/share/swedish/
+
+C/QRcode/mysql-linux/share/ukrainian/
+
+C/QRcode/mysql-linux/share/slovak/
+
+C/QRcode/mysql-linux/share/charsets/
+
+C/QRcode/mysql-linux/share/
+
+C/QRcode/mysql-linux/
