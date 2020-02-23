@@ -10,7 +10,7 @@ class Customer
     private $address;
     private $city;
     private $password;
-    
+
     public function __construct($firstname, $lastname, $mail, $phone_number, $address, $city, $password)
     {
         $this->firstname = $firstname;
@@ -20,7 +20,9 @@ class Customer
         $this->address = $address;
         $this->city = $city;
         $this->password = $password;
-        $this->id = hash('sha256', $firstname . date('dMY') . $lastname);
+
+        date_default_timezone_set('Europe/Paris');
+        $this->id = hash('sha256', $lastname . date('dMY-H:m:s') . $phone_number);
     }
 
     /**

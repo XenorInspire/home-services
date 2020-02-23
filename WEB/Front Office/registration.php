@@ -101,15 +101,15 @@
       <form action="valid_registration.php" method="POST">
         <div class="form-group">
           <label>Nom</label>
-          <input type="text" name="lastname" class="form-control" placeholder="Entrez votre nom" required>
+          <input type="text" name="lastname" class="form-control" placeholder="Entrez votre nom" max="255" required>
         </div>
         <div class="form-group">
           <label>Prénom</label>
-          <input type="text" name="firstname" class="form-control" placeholder="Entrez votre prénom" required>
+          <input type="text" name="firstname" class="form-control" placeholder="Entrez votre prénom" max="255" required>
         </div>
         <div class="form-group">
           <label>Adresse mail</label>
-          <input type="email" name="mail" class="form-control" placeholder="Enter email" required>
+          <input type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" max="255" required>
           <small id="emailHelp" class="form-text text-muted">Votre adresse mail ne sera pas partagée.</small>
         </div>
         <div class="form-group">
@@ -118,11 +118,11 @@
         </div>
         <div class="form-group">
           <label>Adresse</label>
-          <input type="text" name="address" class="form-control" placeholder="Entrez votre adresse" required>
+          <input type="text" name="address" class="form-control" placeholder="Entrez votre adresse" max="255" required>
         </div>
         <div class="form-group">
           <label>Ville</label>
-          <input type="text" name="city" class="form-control" placeholder="Entrez votre ville" required>
+          <input type="text" name="city" class="form-control" placeholder="Entrez votre ville" max="255" required>
         </div>
         <div class="form-group">
           <label>Mot de passe</label>
