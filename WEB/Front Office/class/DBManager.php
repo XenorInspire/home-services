@@ -16,7 +16,8 @@ class DBManager
   public function addCustomer(Customer $user)
   {
 
-    $q = "INSERT INTO customer(customerId,email,lastName,firstName,phoneNumber,address,town,password,enable) VALUES (:customerId,:email,:lastName,:firstName,:phoneNumber,:address,:town,:password,:enable)";
+    $q = "INSERT INTO customer(customerId, email, lastName, firstName, phoneNumber, address, town, password, enable)
+          VALUES (:customerId, :email, :lastName, :firstName, :phoneNumber, :address, :town, :password, :enable)";
     $res = $this->db->prepare($q);
     $res->execute(array(
       'customerId' => $user->getId(),
@@ -55,4 +56,13 @@ class DBManager
     $req = $this->db->prepare($q);
     $req->execute([$string]);
   }
+
+  public function getSubscritionTypes()
+  {
+    $q = "SELECT (typeName, openDays, openTime, closeTime, serviceTimeAmount, price) FROM SubscriptionType";
+    $req = $this->db->prepare($q);
+    $req->execute();
+  }
+
+  
 }
