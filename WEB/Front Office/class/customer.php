@@ -13,33 +13,16 @@ class Customer
 
     public function __construct($firstname, $lastname, $mail, $phone_number, $address, $city, $password)
     {
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
+        $this->firstname = htmlspecialchars(trim($firstname));
+        $this->lastname = htmlspecialchars(trim($lastname));
         $this->mail = $mail;
         $this->phone_number = $phone_number;
-        $this->address = $address;
-        $this->city = $city;
-        $this->password = $password;
+        $this->address = htmlspecialchars(trim($address));
+        $this->city = htmlspecialchars(trim($city));
+        $this->password = hash('sha512', $password . 'ChrysaleadProject');
 
         date_default_timezone_set('Europe/Paris');
         $this->id = hash('sha256', $lastname . date('dMY-H:m:s') . $phone_number);
-    }
-
-    /**
-     * Get the value of password
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set the value of password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
     }
 
     /**
@@ -154,12 +137,17 @@ class Customer
         return $this->id;
     }
 
-    /**
-     * Set the value of id
-     */
-    public function setId($id)
+    public function __toString(): string
     {
-        $this->id = $id;
-        return $this;
+        $vars = get_object_vars($this);
+        return json_encode($vars);
+    }
+
+    /**
+     * Get the value of password
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

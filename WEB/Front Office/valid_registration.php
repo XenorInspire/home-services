@@ -1,0 +1,113 @@
+<?php
+
+// Page ayant pour but de vérifier la validité et l'intégrité des inputs utilisateurs
+session_start();
+
+if (empty($_POST['captcha'])) {
+
+	header('Location: registration.php?error=captcha_inv');
+	exit;
+}
+
+if ($_POST['captcha'] != $_SESSION['captcha']) {
+
+	header('Location: registration.php?error=captcha_inv');
+	exit;
+}
+
+// Connexion à la base de données
+require_once('include/config.php');
+require_once('class/DBManager.php');
+
+if (
+	isset($_POST['lastname']) && !empty(trim($_POST['lastname'])) && isset($_POST['firstname']) && !empty(trim($_POST['firstname'])) && isset($_POST['address']) && !empty(trim($_POST['address'])) && isset($_POST['phone_number']) && !empty(trim($_POST['phone_number'])) &&
+	isset($_POST['mail']) && !empty(trim($_POST['mail'])) && isset($_POST['passwd']) && !empty(trim($_POST['passwd'])) && isset($_POST['passwd_confirmed']) &&
+	!empty(trim($_POST['passwd_confirmed'])) && isset($_POST['city']) && !empty(trim($_POST['city']))
+) {
+
+	if ($_POST['passwd'] != $_POST['passwd_confirmed']) {
+
+		header('Location: registration.php?error=password_inv');
+		exit;
+	}
+
+	if (strlen($_POST['passwd']) < 6) {
+
+		header('Location: registration.php?error=password_length');
+		exit;
+	}
+
+	if (is_numeric($_POST['lastname']) || is_numeric($_POST['firstname']) || is_numeric($_POST['city'])) {
+
+		header('Location: registration.php?error=inputs_inv');
+		exit;
+	}
+
+	if (strlen($_POST['lastname']) > 255) {
+
+		header('Location: registration.php?error=lname_length');
+		exit;
+	}
+
+	if (strlen($_POST['firstname']) > 255) {
+
+		header('Location: registration.php?error=fname_length');
+		exit;
+	}
+
+	if (strlen($_POST['city']) > 255) {
+
+		header('Location: registration.php?error=city_length');
+		exit;
+	}
+
+	if (strlen($_POST['address']) > 255) {
+
+		header('Location: registration.php?error=ad_length');
+		exit;
+	}
+
+	if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+
+		header('Location: registration.php?inscription=email_inv');
+		exit;
+	}
+
+	if (strlen($_POST['mail']) > 255) {
+
+		header('Location: registration.php?error=mail_length');
+		exit;
+	}
+
+	$q = "SELECT customerId FROM Customer WHERE email = ?";
+	$req = $bdd->prepare($q);
+	$req->execute([$_POST['mail']]);
+
+	$results = [];
+	while ($user = $req->fetch()) {
+
+		$results[] = $user;
+	}
+
+	if (count($results) != 0) {
+
+		header('Location: registration.php?error=mail_taken');
+		exit;
+	}
+	$hm_database = new DBManager($bdd);
+	$user = new Customer($_POST['firstname'],$_POST['lastname'],$_POST['mail'],$_POST['phone_number'],$_POST['address'],$_POST['city'],$_POST['passwd']);
+
+	$hm_database->addCustomer($user);
+
+	// $_SESSION['customer'] = $mail;
+	// setcookie('customer', $mail, time() + 48 * 3600, null, null, false, true);
+	// //durée de 48 heures
+
+	echo $user;
+	header('Location: waiting_register.php');
+	exit;
+} else {
+
+	header('Location: registration.php?error=inputs_inv');
+	exit;
+}
