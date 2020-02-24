@@ -37,7 +37,7 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="services.php">Accueil</a>
+          <a class="nav-link" href="index.php">Accueil</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="publications.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,7 +48,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="advanced_research.php">Espace Prestataire</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="advanced_research.php">Espace Abonnement</a>
+            <a class="dropdown-item" href="subscriptions.php">Espace Abonnement</a>
           </div>
         </li>
       </ul>
