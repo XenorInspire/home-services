@@ -1,5 +1,8 @@
 <header>
 	<nav id="navhm" class="navbar navbar-expand-md navbar-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <img id="hm-logo" src="img/favicon.png" alt="logo">
     <ul id="hm-home" class="navbar-nav">

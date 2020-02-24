@@ -79,33 +79,24 @@ if (
 		exit;
 	}
 
-	$q = "SELECT customerId FROM Customer WHERE email = ?";
-	$req = $bdd->prepare($q);
-	$req->execute([$_POST['mail']]);
+	$hm_database = new DBManager($bdd);
+	$user = new Customer($_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['phone_number'], $_POST['address'], $_POST['city'], $_POST['passwd']);
 
-	$results = [];
-	while ($user = $req->fetch()) {
-
-		$results[] = $user;
-	}
-
-	if (count($results) != 0) {
+	if ($hm_database->doesMailExist($user) != 0) {
 
 		header('Location: registration.php?error=mail_taken');
 		exit;
 	}
-	$hm_database = new DBManager($bdd);
-	$user = new Customer($_POST['firstname'],$_POST['lastname'],$_POST['mail'],$_POST['phone_number'],$_POST['address'],$_POST['city'],$_POST['passwd']);
 
 	$hm_database->addCustomer($user);
 
-	// $_SESSION['customer'] = $mail;
-	// setcookie('customer', $mail, time() + 48 * 3600, null, null, false, true);
-	// //durée de 48 heures
+	$_SESSION['customer'] = $user->getId();
+	setcookie('customer', $user->getId(), time() + 48 * 3600, null, null, false, true);
+	//durée de 48 heures
 
-	echo $user;
 	header('Location: waiting_register.php');
 	exit;
+
 } else {
 
 	header('Location: registration.php?error=inputs_inv');
