@@ -6,12 +6,6 @@
 
 }
 
-  /* nav {
-
-    height: 80px;
-
-  } */
-
 nav a {
 
   font-size: 20px;
@@ -20,13 +14,12 @@ nav a {
 
 #hm-connect {
 
-  right: -95%;
+  position: relative;
 
 }
 
 #hm-regis {
 
-  right: -105%;
   position: relative;
 
 }
@@ -41,6 +34,12 @@ nav a {
 
   height: 110px;
   width: auto;
+
+}
+
+.nav-item {
+
+  position: relative;
 
 }
 
@@ -86,3 +85,13 @@ main {
 }
 
 /* /////////////////////////// */
+
+@media screen and (max-width:767px){
+
+  #hm-logo {
+
+    display: none;
+
+  }
+
+}

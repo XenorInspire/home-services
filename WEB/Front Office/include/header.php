@@ -1,4 +1,4 @@
-<!-- <header>
+<header>
 	<nav id="navhm" class="navbar navbar-expand-md navbar-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -30,9 +30,9 @@
     </ul>
   </div>
 </nav>
-</header> -->
+</header>
 
-<header>
+<!-- <header>
   <nav id="navhm" class="navbar navbar-expand-md navbar-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
@@ -71,4 +71,4 @@
       </ul>
     </div>
   </nav>
-</header>
+</header> -->
