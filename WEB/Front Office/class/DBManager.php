@@ -62,7 +62,11 @@ class DBManager
     $q = "SELECT (typeName, openDays, openTime, closeTime, serviceTimeAmount, price) FROM SubscriptionType";
     $req = $this->db->prepare($q);
     $req->execute();
+
+    $results = $req->fetchAll();
+
+    return $results[];
   }
 
-  
+
 }
