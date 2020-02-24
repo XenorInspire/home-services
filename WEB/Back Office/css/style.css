@@ -1,0 +1,88 @@
+/* Navigation bar */
+
+#navhm {
+
+  background-color: black;
+
+}
+
+  /* nav {
+
+    height: 80px;
+
+  } */
+
+nav a {
+
+  font-size: 20px;
+
+}
+
+#hm-connect {
+
+  right: -95%;
+
+}
+
+#hm-regis {
+
+  right: -105%;
+  position: relative;
+
+}
+
+#hm-home {
+
+  margin: auto;
+
+}
+
+#hm-logo {
+
+  height: 110px;
+  width: auto;
+
+}
+
+/* /////////////////////////// */
+
+/* Home Page */
+
+#home-pic {
+
+  width: 100%;
+
+}
+
+main {
+
+  background-color: whitesmoke;
+
+}
+
+/* /////////////////////////// */
+
+/* Registration Page */
+
+#regis_button:hover {
+
+  background-color: #FD8C51;
+  border: 1px rgb(61, 9, 9) solid;
+
+}
+
+#password_same {
+  
+  display: none;
+  color: red;
+
+}
+
+#password_size {
+  
+  display: none;
+  color: red;
+
+}
+
+/* /////////////////////////// */
