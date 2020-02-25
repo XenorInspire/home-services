@@ -18,6 +18,10 @@ class SubscriptionType
         $this->closeTime = $closeTime;
         $this->serviceTimeAmount = $serviceTimeAmount;
         $this->price = $price;
+
+        date_default_timezone_set('Europe/Paris');
+        $this->typeId = hash('sha256', $typeName . date('dMY-H:m:s'));
+
     }   
 
 

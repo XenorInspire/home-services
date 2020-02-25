@@ -103,7 +103,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jours disponibles dans la semaine</label>
-                    <input type="number" class="form-control" value="5" min="1" max="7" required>
+                    <input type="number" class="form-control" value="5" min="1" max="7" name="openDays" required>
                     <small class="form-text text-muted">Exemple : 5j/7</small>
                 </div>
                 <div class="form-group">
@@ -120,7 +120,7 @@
                 </div>
                 <div class="form-group">
                     <label>Montant de l'abonnement en <strong>euros / an</strong></label>
-                    <input type="number" class="form-control" value="12" min="0" name="serviceTimeAmount" required>
+                    <input type="number" class="form-control" value="12" min="0" name="price" step="0.01" required>
                 </div>
                 <button id="regis_button" type="submit" class="btn btn-primary">Créer l'abonnement</button>
             </form>
