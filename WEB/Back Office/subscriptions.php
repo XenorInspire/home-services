@@ -1,3 +1,7 @@
+<?php
+require_once('include/config.php');
+require_once('class/DBManager.php');
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -19,10 +23,22 @@
             <br>
             <br>
             <br>
+
+            <a href="create_subscription.php"><button type="button" class="btn btn-dark">Créer un abonnement</button></a>
+
+            <br>
+            <br>
+            
             <h1>Liste des abonnements</h1>
+            <?php
+            $hm_database = new DBManager($bdd);
+            $subscriptions = [];
+            $subscriptions = $hm_database->getSubscriptionTypeList();
+            foreach ($subscriptions as $sub) {
+                echo $sub->getTypeName() . "<br>";
+            }
 
-            <h1><a href="create_subscription.php">Creer un abonnement</a></h1>
-
+            ?>
             <br>
             <br>
             <br>

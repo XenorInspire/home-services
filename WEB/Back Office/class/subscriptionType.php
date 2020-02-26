@@ -10,7 +10,7 @@ class SubscriptionType
     private $price;
 
 
-    public function __construct($typeName, $openDays, $openTime, $closeTime, $serviceTimeAmount, $price)
+    public function __construct($typeId, $typeName, $openDays, $openTime, $closeTime, $serviceTimeAmount, $price)
     {
         $this->typeName = htmlspecialchars(trim($typeName));
         $this->openDays = $openDays;
@@ -19,8 +19,9 @@ class SubscriptionType
         $this->serviceTimeAmount = $serviceTimeAmount;
         $this->price = $price;
 
-        date_default_timezone_set('Europe/Paris');
-        $this->typeId = hash('sha256', $typeName . date('dMY-H:m:s'));
+        $this->typeId = $typeId;
+        // date_default_timezone_set('Europe/Paris');
+        // $this->typeId = hash('sha256', $typeName . date('dMY-H:m:s'));
 
     }   
 

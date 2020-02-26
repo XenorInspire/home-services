@@ -12,7 +12,9 @@ class DBManager
         $this->db = $bdd;
     }
 
-    public function addSubscriptionType(SubscriptionType $subscription){
+    //Insert subscription in db
+    public function addSubscriptionType(SubscriptionType $subscription)
+    {
         $q = "INSERT INTO subscriptionType(typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price) VALUES (:typeId,:typeName,:openDays,:openTime,:closeTime,:serviceTimeAmount,:price)";
         $res = $this->db->prepare($q);
         $res->execute(array(
@@ -24,5 +26,17 @@ class DBManager
             'serviceTimeAmount' => $subscription->getServiceTimeAmount(),
             'price' => $subscription->getPrice()
         ));
+    }
+
+    public function getSubscriptionTypeList(){
+        $subscriptions = [];
+
+        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM subscriptionType ORDER BY typeName');
+
+        while ($data = $q->fetch(PDO::FETCH_ASSOC)) {
+            $subscriptions[] = new SubscriptionType($data['typeId'],$data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price']);
+        }
+
+        return $subscriptions;
     }
 }

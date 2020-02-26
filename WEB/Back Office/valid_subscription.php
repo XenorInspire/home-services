@@ -15,7 +15,10 @@ if (
     // all verif with if
 
 	$hm_database = new DBManager($bdd);
-	$subscription = new SubscriptionType($_POST['typeName'], $_POST['openDays'], $_POST['openTime'], $_POST['closeTime'], $_POST['serviceTimeAmount'], $_POST['price']);
+
+	date_default_timezone_set('Europe/Paris');
+	$hashiD = hash('sha256', $_POST['typeName'] . date('dMY-H:m:s'));
+	$subscription = new SubscriptionType($hashiD,$_POST['typeName'], $_POST['openDays'], $_POST['openTime'], $_POST['closeTime'], $_POST['serviceTimeAmount'], $_POST['price']);
 
 	$hm_database->addSubscriptionType($subscription);
 
