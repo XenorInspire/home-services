@@ -1,5 +1,6 @@
 import logins
 import smtplib
+import sys
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -18,7 +19,7 @@ message = 'This is a test in python'
 
 # setup the parameters of the message
 msg['From']=logins.MY_ADDRESS
-msg['To']= 'nicolas.fouchard94370@gmail.com'
+msg['To']= sys.argv[1]
 msg['Subject']="This is TEST"
 
 # add in the message body

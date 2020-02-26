@@ -94,6 +94,8 @@ if (
 	setcookie('customer', $user->getId(), time() + 48 * 3600, null, null, false, true);
 	//durée de 48 heures
 
+	system('python.exe mail/mail.py ' . $user->getMail());
+
 	header('Location: waiting_register.php');
 	exit;
 
