@@ -14,15 +14,17 @@ nav a {
 
 #hm-connect {
 
-  position: relative;
+  position: absolute;
+  right: 12%;
 
 }
 
 #hm-regis {
 
-  position: relative;
-
+    position: absolute;
+    right: 4%;
 }
+
 
 #hm-home {
 
@@ -92,12 +94,21 @@ main {
 
 /* /////////////////////////// */
 
-@media screen and (max-width:767px){
+@media screen and (max-width:991px){
 
   #hm-logo {
 
     display: none;
 
   }
+
+  #hm-connect,
+  #hm-regis
+  {
+
+    position: relative;
+    right: 0;
+  }
+  
 
 }
