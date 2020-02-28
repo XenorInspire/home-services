@@ -92,6 +92,27 @@ main {
 
 }
 
+.subscriptions {
+  width: 33%;
+  min-width: 320px;
+  padding-bottom: 10px;
+  display: inline-block;
+  background-color: #EEEEEE;
+  text-align: center;
+}
+
+.subscrib_button {
+  text-align: center;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+#subscrib_description {
+  font-style: ;
+}
+
 /* /////////////////////////// */
 
 @media screen and (max-width:991px){
@@ -111,12 +132,4 @@ main {
   }
 
 
-}
-
-.subscription{
-  width:100%;
-  padding-right:15px;
-  padding-left:15px;
-  margin-right:auto;
-  margin-left:auto;
 }
