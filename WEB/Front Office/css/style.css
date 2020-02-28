@@ -79,14 +79,14 @@ main {
 }
 
 #password_same {
-  
+
   display: none;
   color: red;
 
 }
 
 #password_size {
-  
+
   display: none;
   color: red;
 
@@ -109,6 +109,14 @@ main {
     position: relative;
     right: 0;
   }
-  
 
+
+}
+
+.subscription{
+  width:100%;
+  padding-right:15px;
+  padding-left:15px;
+  margin-right:auto;
+  margin-left:auto;
 }
