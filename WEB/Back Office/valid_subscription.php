@@ -22,9 +22,7 @@ if (
 
 	$hm_database->addSubscriptionType($subscription);
 
-	// echo $subscription;
-
-	header('Location: subscriptions.php?create_successful');
+	header('Location: subscriptions.php?create=successful');
 	exit;
 
 } else {
