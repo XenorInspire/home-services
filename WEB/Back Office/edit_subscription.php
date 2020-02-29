@@ -31,7 +31,7 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
 
             <?php
             if (isset($_GET['error']) == "name_tasken") {
-                echo '<div class="alert alert-danger text-center" role="alert">Ce nom a déjà été utilisé</div>';
+                echo '<div class="alert alert-danger text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Ce nom a déjà été utilisé</div>';
             }
             ?>
 
@@ -73,10 +73,58 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
 
                 <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
 
-                <!-- <button id="regis_button" type="submit" class="btn btn-primary"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Modifier l'abonnement</button> -->
+                <div class="text-center">
+                    <div class="btn btn-outline-success" data-toggle="modal" data-target="#modalSave"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Enregistrer les modifications</a></div>
+                    <div class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">Supprimer l'abonnement</a></div>
+                </div>
 
-                <button class="btn btn-outline-success" type="submit"><a onclick="return confirm('Enregistrer les modifications ?');"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Enregistrer les modifications</a></button>
-                <a class="" onclick="return confirm('Etes-vous certain de supprimer cet abonnement ?');" href="delete_subscription.php?id=<?= $_GET['id'] ?>"><div class="btn btn-outline-danger"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">Supprimer l'abonnement</div></a>
+                <!-- Modal for saving -->
+                <div class="modal fade" id="modalSave">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modification de l'abonnement : <?= $sub->getTypeName() ?></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Voulez-vous enregistrer les modifictions de cet abonnement ?
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button class="btn btn-outline-success" type="submit">Enregistrer les modifications</button>
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal for delete -->
+                <div class="modal fade" id="modalDelete">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Suppression de l'abonnement : <?= $sub->getTypeName() ?></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Etes-vous certain de supprimer cet abonnement ?
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a class="" href="delete_subscription.php?id=<?= $_GET['id'] ?>">
+                                    <div class="btn btn-outline-danger">Supprimer l'abonnement</div>
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </form>
             <br>
             <br>

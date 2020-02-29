@@ -54,7 +54,32 @@
                     <label>Montant de l'abonnement en <strong>euros / an</strong></label>
                     <input type="number" class="form-control" value="12" min="0" name="price" step="0.01" required>
                 </div>
-                <button id="regis_button" type="submit" class="btn btn-primary">Créer l'abonnement</button>
+                <div class="text-center">
+                    <div class="btn btn-outline-success" data-toggle="modal" data-target="#modalSave">Créer l'abonnement</a></div>
+                </div>
+
+
+                <!-- Modal for saving -->
+                <div class="modal fade" id="modalSave">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Création de l'abonnement</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Voulez-vous créer de cet abonnement ?
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button class="btn btn-outline-success" type="submit">Créer l'abonnement</button>
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
             <br>
             <br>
@@ -63,6 +88,9 @@
             <br>
             <br>
         </section>
+
+
+
 
     </main>
 
