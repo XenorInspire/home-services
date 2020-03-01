@@ -9,6 +9,9 @@
 int main(int argc, char **argv) {
   // Initialization of a variable that will be used for the connection
   MYSQL *con = mysql_init(NULL);
+  MYSQL_RES *result;
+  MYSQL_ROW row;
+  int num_fields;
   char password[255];
   char login[255];
   char server[255];
@@ -53,7 +56,32 @@ int main(int argc, char **argv) {
   //fgets(input, INPUT_SIZE, stdin);
   if (mysql_query(con, "INSERT INTO `user` VALUES ('steven');")) printf("%s\n", mysql_error(con));
 
-  if (mysql_query(con, "SELECT 'no' from `user`;")) printf("%s\n", mysql_error(con));
+  if (mysql_query(con, "SELECT * from `user`;")) printf("%s\n", mysql_error(con));
+
+  // The results are stored in result
+  result = mysql_store_result(con);
+
+  if (result == NULL)
+  {
+      printf("%s\n", mysql_error(con));
+  }
+
+  // The rows are counted and stored in num_fields
+  num_fields = mysql_num_fields(result);
+
+  // For each row, the informations are displayed
+  while ((row = mysql_fetch_row(result)))
+  {
+      for(int i = 0; i < num_fields; i++)
+      {
+          printf("%s ", row[i] ? row[i] : "NULL");
+      }
+          printf("\n");
+  }
+
+  // Result is freed
+  mysql_free_result(result);
+
 
 
   /*if (mysql_real_connect(con, server, login, password,
@@ -70,6 +98,8 @@ int main(int argc, char **argv) {
   mysql_close(con);
   exit(0);
 }
+
+
 
 // gcc -Wall -g -c .\test.c -o main.o
 // gcc -o test.exe main.o lib\libmysql.lib
