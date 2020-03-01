@@ -93,7 +93,7 @@ if (
 	setcookie('customer', $user->getId(), time() + 48 * 3600, null, null, false, true);
 	//durée de 48 heures
 
-	$_SESSION['enable'] = $user->getId();
+	$_SESSION['enable'] = hash('sha256', $user->getMail());
 	setcookie('enable', hash('sha256', $user->getMail()), time() + 2 * 3600, null, null, false, true);
 
 	system('python.exe mail/mail.py ' . $user->getMail() . ' ' . $user->getId());
