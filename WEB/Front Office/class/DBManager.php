@@ -58,13 +58,15 @@ class DBManager
     $req->execute([$id]);
   }
 
-  public function getSubscritionTypes()
+  public function getSubscriptionTypes()
   {
-    $q = "SELECT (typeName, openDays, openTime, closeTime, serviceTimeAmount, price) FROM SubscriptionType";
+    $q = "SELECT typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
     $req = $this->db->prepare($q);
     $req->execute();
 
-    $results = $req->fetchAll();
+    $results = [];
+    $results[] = $req->fetchAll();
+
     return $results;
   }
 

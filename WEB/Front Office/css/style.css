@@ -79,17 +79,38 @@ main {
 }
 
 #password_same {
-  
+
   display: none;
   color: red;
 
 }
 
 #password_size {
-  
+
   display: none;
   color: red;
 
+}
+
+.subscriptions {
+  width: 33%;
+  min-width: 320px;
+  padding-bottom: 10px;
+  display: inline-block;
+  background-color: #EEEEEE;
+  text-align: center;
+}
+
+.subscrib_button {
+  text-align: center;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+#subscrib_description {
+  font-style: ;
 }
 
 /* /////////////////////////// */
@@ -109,6 +130,6 @@ main {
     position: relative;
     right: 0;
   }
-  
+
 
 }
