@@ -52,8 +52,24 @@ dkms.conf
 
 #VSCode
 *.vscode
-C/QRcode/test.c
-
-C/QRcode/test.exe
-
 C/SQLFusion/test/
+
+C/QRcode/mysql-linux/share/spanish/
+
+C/QRcode/mysql-linux/share/swedish/
+
+C/QRcode/mysql-linux/share/ukrainian/
+
+C/QRcode/mysql-linux/share/slovak/
+
+C/QRcode/mysql-linux/share/charsets/
+
+C/QRcode/mysql-linux/share/
+
+C/QRcode/mysql-linux/
+
+WEB/Front Office/test.php
+
+WEB/Front Office/mail/logins.py
+
+WEB/Front Office/mail/__pycache__/logins.cpython-38.pyc
