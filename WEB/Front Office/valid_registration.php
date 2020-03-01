@@ -16,7 +16,6 @@ if ($_POST['captcha'] != $_SESSION['captcha']) {
 }
 
 // Connexion à la base de données
-require_once('include/config.php');
 require_once('class/DBManager.php');
 
 if (
@@ -97,11 +96,11 @@ if (
 	$_SESSION['enable'] = $user->getId();
 	setcookie('enable', hash('sha256', $user->getMail()), time() + 2 * 3600, null, null, false, true);
 
-	system('python.exe mail/mail.py ' . $user->getMail());
+	system('python.exe mail/mail.py ' . $user->getMail() . ' ' . $user->getId());
 
 	header('Location: waiting_register.php');
 	exit;
-	
+
 } else {
 
 	header('Location: registration.php?error=inputs_inv');

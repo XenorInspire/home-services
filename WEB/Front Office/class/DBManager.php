@@ -65,15 +65,17 @@ class DBManager
     $req->execute();
 
     $results = $req->fetchAll();
-
     return $results;
   }
 
   public function getUser($id)
   {
 
-    $q = "SELECT (customerId,lastName,firstName,email,phoneNumber,address,town,password) FROM Customer WHERE customerId = ?";
+    $q = "SELECT * FROM Customer WHERE customerId = ?";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
+
+    $results = $req->fetch();
+    return $results;
   }
 }
