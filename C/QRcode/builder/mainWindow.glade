@@ -158,6 +158,9 @@
                   <object class="GtkEntry" id="lastNameEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">lastname of the assocciate</property>
+                    <property name="input_purpose">name</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -169,6 +172,9 @@
                   <object class="GtkEntry" id="firstNameEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">Firstname</property>
+                    <property name="input_purpose">name</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -180,6 +186,8 @@
                   <object class="GtkEntry" id="emailEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
+                    <property name="input_purpose">email</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -191,6 +199,8 @@
                   <object class="GtkEntry" id="phoneNumberEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
+                    <property name="input_purpose">phone</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -202,6 +212,7 @@
                   <object class="GtkEntry" id="addressEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -213,6 +224,7 @@
                   <object class="GtkEntry" id="townEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -224,6 +236,7 @@
                   <object class="GtkEntry" id="sirenNumberEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="input_purpose">number</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -235,6 +248,7 @@
                   <object class="GtkEntry" id="companyNameEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">255</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>

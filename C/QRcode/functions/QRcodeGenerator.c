@@ -64,7 +64,7 @@ void generateQRcodeToPDF(const unsigned char *data, int width, const char *pdfNa
 
     //Variables for drawing
     int i, j;
-    int QRcodeWidth = 150;
+    int QRcodeWidth = 240;
     int QrcodeHeight = 600;
     int pixelWidth = 5;
 

@@ -10,6 +10,7 @@ Project Chrysalead
 #include "includes/QR_Encode.h"
 #include "includes/addAssociate.h"
 #include "includes/gui.h"
+#include "includes/mysql/mysql.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,6 +22,7 @@ Project Chrysalead
 
 int main(int argc, char *argv[])
 {
+    //MYSQL *con = mysql_init(NULL);
     //Create Widget for the main window
     GtkWidget *window;
 
@@ -64,5 +66,10 @@ int main(int argc, char *argv[])
  * gcc `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o addAssociate.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
  * 
  * Without the shell
- * gcc -mwindows `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
+ * gcc -mwindows `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o main.c -L/functions -lmysqlclient -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
+ * 
+ * gcc `pkg-config --cflags gtk+-3.0` main.c pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o functions/libmysqlclient.a -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
+ * 
+ * gcc -mwindows `pkg-config --cflags gtk+-3.0` main.c functions/libmysqlclient.a pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o logo.o -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
+ * gcc `pkg-config --cflags gtk+-3.0` main.c pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o addAssociate.o logo.o -Lfunctions -lmysqlclient -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`
 */
