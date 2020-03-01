@@ -80,4 +80,10 @@ class DBManager
     $results = $req->fetch();
     return $results;
   }
+
+  public function doesAccountIsActivated(){
+
+    
+
+  }
 }

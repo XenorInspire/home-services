@@ -26,7 +26,7 @@
             <br>
             <li>Vous n'avez pas reçu de confirmation ?</li>
             <br>
-            <button type="button" onclick="window.location.href = 'mail_again.php';" class="btn btn-dark">Renvoyer</button>
+            <button type=" button" onclick="window.location.href = 'mail_again.php';" class="btn btn-dark">Renvoyer</button>
         </section>
         <br>
         <br>

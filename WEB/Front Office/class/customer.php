@@ -21,7 +21,6 @@ class Customer
         $this->city = htmlspecialchars(trim($city));
         $this->password = hash('sha512', $password . 'ChrysaleadProject');
         $this->id = NULL;
-
     }
 
     /**
@@ -154,7 +153,7 @@ class Customer
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId()
     {
         date_default_timezone_set('Europe/Paris');

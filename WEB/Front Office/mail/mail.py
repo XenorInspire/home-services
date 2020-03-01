@@ -15,7 +15,7 @@ s.login(logins.MY_ADDRESS, logins.PASSWORD)
 msg = MIMEMultipart()       # create a message
 
 # add in the actual person name to the message template
-message = 'Hi there !\nThanks for using Home-Services !\nClick right here to purshase your registration : \nhttp://localhost/user_registered?a=' + sys.argv[2]
+message = 'Hi there !\nThanks for using Home-Services !\nClick right here to purshase your registration : \nhttp://localhost/user_registered.php?a=' + sys.argv[2]
 
 # setup the parameters of the message
 msg['From']=logins.MY_ADDRESS

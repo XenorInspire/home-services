@@ -30,12 +30,16 @@ require_once('class/DBManager.php');
 $hm_database = new DBManager($bdd);
 
 $user = $hm_database->getUser($id);
-
-if(hash('sha256',$user['email']) != $enable){
+if (empty($user)) {
 
     header('Location: index.php');
     exit;
+}
 
+if (hash('sha256', $user['email']) != $enable) {
+
+    header('Location: index.php');
+    exit;
 }
 
 system('python.exe mail/mail.py ' . $user['email'] . ' ' . $id);

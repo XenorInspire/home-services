@@ -1,0 +1,117 @@
+<?php session_start();
+
+if (empty(trim($_GET['a'])) || !isset($_GET['a'])) {
+
+    header('Location: index.php');
+    exit;
+}
+
+if (isset($_SESSION['customer']) || !empty($_SESSION['customer'])) {
+
+    $id = $_SESSION['customer'];
+} else if (isset($_COOKIE['customer']) || !empty($_COOKIE['customer'])) {
+
+    $id = $_COOKIE['customer'];
+}
+
+if (isset($id)) {
+
+    if ($id != $_GET['a']) {
+
+        header('Location: index.php');
+        exit;
+    }
+    
+} else {
+
+    $id = $_GET['a'];
+}
+
+if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
+
+    $enable = $_SESSION['enable'];
+} else if (isset($_COOKIE['enable']) && !empty($_SESSION['enable'])) {
+
+    $enable = $_COOKIE['enable'];
+} else {
+
+    header('Location: index.php');
+    exit;
+}
+
+require_once('class/DBManager.php');
+$hm_database = new DBManager($bdd);
+
+$user = $hm_database->getUser($id);
+if (empty($user)) {
+
+    header('Location: index.php');
+    exit;
+}
+
+if (hash('sha256', $user['email']) != $enable) {
+
+    header('Location: index.php');
+    exit;
+}
+
+$hm_database->enableCustomerAccount($id);
+
+?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Home Services - Inscription validée !</title>
+    <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body onload="activate()">
+
+    <?php require_once("include/header.php"); ?>
+
+    <main>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <section class="container text-center"">
+            <h1><i>Votre compte client est maintenant activé !</i></h1>
+            <br>
+            <li>Cliquez sur le bouton si vous n'êtes pas redirigé automatiquement</li>
+            <br>
+            <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark">Accueil</button>
+        </section>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </main>
+    <script src="js/redirect.js"></script>
+    <?php require_once("include/footer.php"); ?>
+
+</body>
+
+</html>
