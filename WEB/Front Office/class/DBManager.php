@@ -15,6 +15,7 @@ class DBManager
 
   public function addCustomer(Customer $user)
   {
+    $user->setId();
 
     $q = "INSERT INTO customer(customerId, email, lastName, firstName, phoneNumber, address, town, password, enable)
           VALUES (:customerId, :email, :lastName, :firstName, :phoneNumber, :address, :town, :password, :enable)";
@@ -49,12 +50,12 @@ class DBManager
       return 0;
   }
 
-  public function enableCustomerAccount($string)
+  public function enableCustomerAccount($id)
   {
 
     $q = "UPDATE Customer SET enable = 1 WHERE customer.customerId = ?";
     $req = $this->db->prepare($q);
-    $req->execute([$string]);
+    $req->execute([$id]);
   }
 
   public function getSubscritionTypes()
@@ -65,8 +66,14 @@ class DBManager
 
     $results = $req->fetchAll();
 
-    return $results[];
+    return $results;
   }
 
+  public function getUser($id)
+  {
 
+    $q = "SELECT (customerId,lastName,firstName,email,phoneNumber,address,town,password) FROM Customer WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+  }
 }

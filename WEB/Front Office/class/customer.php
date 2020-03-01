@@ -20,9 +20,8 @@ class Customer
         $this->address = htmlspecialchars(trim($address));
         $this->city = htmlspecialchars(trim($city));
         $this->password = hash('sha512', $password . 'ChrysaleadProject');
+        $this->id = NULL;
 
-        date_default_timezone_set('Europe/Paris');
-        $this->id = hash('sha256', $lastname . date('dMY-H:m:s') . $phone_number);
     }
 
     /**
@@ -149,5 +148,17 @@ class Customer
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId()
+    {
+        date_default_timezone_set('Europe/Paris');
+        $this->id = hash('sha256', $this->getLastname() . date('dMY-H:m:s') . $this->getPhone_number());
+        return $this;
     }
 }
