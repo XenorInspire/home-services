@@ -11,3 +11,9 @@ void identifierGenerator(ASSOCIATE *associate, char *identifier);
  * @param identifier String where to write the identifier of the asscociate
 */
 void writeAssociate(ASSOCIATE *associate, const char *identifier);
+
+/**
+ * @brief Encrypt the sring containning alll data of the associate
+ * @param string data of the associate 
+*/
+void encryptString(char *string);

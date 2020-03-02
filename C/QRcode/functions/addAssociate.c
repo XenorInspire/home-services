@@ -20,7 +20,24 @@ void identifierGenerator(ASSOCIATE *associate, char *identifier)
 void writeAssociate(ASSOCIATE *associate, const char *identifier)
 {
     FILE *fp;
+    char string[2500];
     fp = fopen("associate.temp", "w+");
-    fprintf(fp, "lastName:%s\nfirstName:%s\nemail:%s\nphoneNumber%s\naddress:%s\ntown:%s\nsirenNumber:%d\ncompanyName:%s\nidentifier:%s\n", associate->lastName, associate->firstName, associate->email, associate->phoneNumber, associate->address, associate->town, associate->sirenNumber, associate->companyName, identifier);
+    
+    sprintf(string, "%s:%s:%s:%s:%s:%s:%d:%s:%s:", associate->lastName, associate->firstName, associate->email, associate->phoneNumber, associate->address, associate->town, associate->sirenNumber, associate->companyName, identifier);
+
+    encryptString(string);
+
+    fprintf(fp,"%s",string);
+
     fclose(fp);
+}
+
+void encryptString(char *string)
+{
+    int i;
+    const int increment = 100;
+    for (i = 0; i < strlen(string); i++)
+    {
+        string[i] = string[i] + increment;
+    }
 }
