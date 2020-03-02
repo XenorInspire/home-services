@@ -55,8 +55,8 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     // if(associate.firstName == NULL ){
     //     printf("A");
     // }
-    printf("%s",associate.firstName);
-    printf("%s",associate.lastName);
+    // printf("%s",associate.firstName);
+    // printf("%s",associate.lastName);
     // printf("S");
 
     //Create the identifier for the associate 
@@ -83,4 +83,7 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     //Launch the created PDF
     sprintf(command, "%s-%s-%02d-%02d-%02d.pdf", associate.lastName, associate.firstName, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
     system(command);
+
+    //Write associate
+    writeAssociate(&associate, identifier);
 }
