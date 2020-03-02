@@ -21,10 +21,18 @@ if (isset($id)) {
         header('Location: index.php');
         exit;
     }
-    
 } else {
 
     $id = $_GET['a'];
+}
+
+require_once('class/DBManager.php');
+$hm_database = new DBManager($bdd);
+
+if ($hm_database->doesAccountIsActivated($id) == 1) {
+
+    header('Location: index.php');
+    exit;
 }
 
 if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
@@ -38,9 +46,6 @@ if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
     header('Location: index.php');
     exit;
 }
-
-require_once('class/DBManager.php');
-$hm_database = new DBManager($bdd);
 
 $user = $hm_database->getUser($id);
 if (empty($user)) {

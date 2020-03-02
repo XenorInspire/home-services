@@ -81,9 +81,14 @@ class DBManager
     return $results;
   }
 
-  public function doesAccountIsActivated(){
+  public function doesAccountIsActivated($id)
+  {
 
-    
+    $q = "SELECT enable FROM Customer WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+    $results = $req->fetch();
 
+    return $results[0];
   }
 }
