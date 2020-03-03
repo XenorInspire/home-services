@@ -89,7 +89,7 @@ void generateQRcodeToPDF(const unsigned char *data, int width, const char *pdfNa
 
     //Move pdf into the folder
     char command[255] = "";
-    sprintf(command,"cp %s pdf/ && rm -r %s",newPdfName,newPdfName);
+    sprintf(command,"mv %s pdf/%s",newPdfName,newPdfName);
     system(command);
 }
 /** 
