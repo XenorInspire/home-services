@@ -13,13 +13,28 @@ Project Chrysalead
 #include <unistd.h>
 #include <windows.h>
 #include <tchar.h>
+#include <time.h>
 
-// G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userData);
 
 int main(int argc, char *argv[])
 {
     if ((argv[1] != NULL)){
+        
         generateQRcode(argv[1],argv[2],argv[3]);
+
+        HANDLE thread = CreateThread(NULL, 0, NULL, NULL, 0, NULL);
+        if (thread)
+        {
+            char command[255] = "";
+            //Generating Time
+            time_t t = time(NULL);
+            struct tm tm = *localtime(&t);
+
+            //Launch the created PDF
+            sprintf(command, "cd pdf/ && %s-%s-%02d-%02d-%02d.pdf", argv[2], argv[3], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+            system(command);
+            return 0;
+        }
     }
     return 0;
 }

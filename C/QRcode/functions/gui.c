@@ -80,10 +80,13 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    //Launch the created PDF
-    sprintf(command, "cd pdf/ && %s-%s-%02d-%02d-%02d.pdf", associate.lastName, associate.firstName, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
-    system(command);
+    // //Launch the created PDF
+    // sprintf(command, "cd pdf/ && %s-%s-%02d-%02d-%02d.pdf", associate.lastName, associate.firstName, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    // system(command);
 
     //Write associate
     writeAssociate(&associate, identifier);
+
+    //Launch the mysql programm to insert data
+    
 }

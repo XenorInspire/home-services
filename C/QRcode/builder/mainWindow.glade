@@ -290,24 +290,6 @@
             <property name="position">2</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkButton" id="regenerateButton">
-            <property name="label" translatable="yes">Regenerate a QRcode</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="margin_left">400</property>
-            <property name="margin_right">25</property>
-            <property name="margin_top">25</property>
-            <property name="margin_bottom">25</property>
-            <signal name="clicked" handler="on_regenerateButton_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
       </object>
     </child>
   </object>
