@@ -47,14 +47,14 @@ if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
     exit;
 }
 
-$user = $hm_database->getUser($id);
-if (empty($user)) {
+$user = $hm_database->getUserById($id);
+if ($user == NULL) {
 
     header('Location: index.php');
     exit;
 }
 
-if (hash('sha256', $user['email']) != $enable) {
+if (hash('sha256', $user->getMail()) != $enable) {
 
     header('Location: index.php');
     exit;

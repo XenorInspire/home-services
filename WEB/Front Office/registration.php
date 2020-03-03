@@ -31,67 +31,67 @@
         if ($_GET['error'] == 'captcha_inv') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Erreur, veuillez entrer le bon numéro correspondant à l\'image</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez entrer le bon numéro correspondant à l\'image</div>';
         }
 
         if ($_GET['error'] == 'inputs_inv') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Erreur, un ou plusieurs champs n\'ont pas été complétés ou ne sont pas valides</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, un ou plusieurs champs n\'ont pas été complétés ou ne sont pas valides</div>';
         }
 
         if ($_GET['error'] == 'password_inv') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Veuillez entrer le même mot de passe lors de la confirmation de celui-ci</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer le même mot de passe lors de la confirmation de celui-ci</div>';
         }
 
         if ($_GET['error'] == 'password_length') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Veuillez entrer un mot de passe de 6 caractères minimum</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer un mot de passe de 6 caractères minimum</div>';
         }
 
         if ($_GET['error'] == 'email_inv') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Erreur, veuillez saisir une adresse e-mail valide</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
         }
 
         if ($_GET['error'] == 'mail_taken') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Cette adresse e-mail est déjà attribuée à un autre compte</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail est déjà attribuée à un autre compte</div>';
         }
 
         if ($_GET['error'] == 'lname_length') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Vous avez dépassé le maximum de caractères possibles pour le champ "Nom"</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Nom"</div>';
         }
 
         if ($_GET['error'] == 'fname_length') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Vous avez dépassé le maximum de caractères possibles pour le champ "Prénom"</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Prénom"</div>';
         }
 
         if ($_GET['error'] == 'city_length') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Vous avez dépassé le maximum de caractères possibles pour le champ "Ville"</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Ville"</div>';
         }
 
         if ($_GET['error'] == 'ps_length') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Vous avez dépassé le maximum de caractères possibles pour le champ "Pseudo"</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Pseudo"</div>';
         }
 
         if ($_GET['error'] == 'mail_length') {
 
           echo '<br>';
-          echo '<li style="color: red;text-align: center;list-style:none;">Vous avez dépassé le maximum de caractères possibles pour le champ "E-mail"</li>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "E-mail"</div>';
         }
       }
 

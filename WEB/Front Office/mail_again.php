@@ -42,7 +42,7 @@ if (hash('sha256', $user['email']) != $enable) {
     exit;
 }
 
-system('python.exe mail/mail.py ' . $user['email'] . ' ' . $id);
+system('python mail/mail.py ' . $user['email'] . ' ' . $id);
 
 header('Location: waiting_register.php');
 exit;

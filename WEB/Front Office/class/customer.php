@@ -11,7 +11,7 @@ class Customer
     private $city;
     private $password;
 
-    public function __construct($firstname, $lastname, $mail, $phone_number, $address, $city, $password)
+    public function __construct($id,$firstname, $lastname, $mail, $phone_number, $address, $city, $password)
     {
         $this->firstname = htmlspecialchars(trim($firstname));
         $this->lastname = htmlspecialchars(trim($lastname));
@@ -20,7 +20,7 @@ class Customer
         $this->address = htmlspecialchars(trim($address));
         $this->city = htmlspecialchars(trim($city));
         $this->password = hash('sha512', $password . 'ChrysaleadProject');
-        $this->id = NULL;
+        $this->id = $id;
     }
 
     /**
