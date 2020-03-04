@@ -40,13 +40,13 @@ require_once('class/DBManager.php');
             <h1>Liste des clients</h1>
             <hr>
 
-            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            <input class="form-control" id="myInput" type="text" placeholder="Recherche..">
             <br>
 
 
 
-            <table class="table table-bordered">
-                <thead>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <th>Firstname</th>
                         <th>Lastname</th>
@@ -54,6 +54,7 @@ require_once('class/DBManager.php');
                         <th>Numero</th>
                         <th>Adresse</th>
                         <th>Ville</th>
+                        <th>Modifier</th>
                     </tr>
                 </thead>
                 <tbody id="myTable">
@@ -70,13 +71,16 @@ require_once('class/DBManager.php');
                             </div>
                         </div>
                         <hr> -->
-                        <tr>
+                        <tr class="table-light">
                             <td><?= $user->getFirstName() ?></td>
                             <td><?= $user->getLastname() ?></td>
                             <td><?= $user->getEmail() ?></td>
                             <td><?= $user->getPhoneNumber() ?></td>
                             <td><?= $user->getAddress() ?></td>
                             <td><?= $user->getTown() ?></td>
+                            <td><a class="" href="edit_customer.php?id=<?= $user->getId() ?>">
+                                    <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
+                                </a> </td>
                         </tr>
 
                     <?php } ?>

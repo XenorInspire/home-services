@@ -73,7 +73,7 @@ class DBManager
 
         $data = $q->fetch();
 
-        if ($data != NULL) {
+        if ($data != NULL && $data['typeName'] != $subscription->getTypeName() ) {
             header('Location: edit_subscription.php?error=name_taken&id='.$subscription->getTypeId());
             exit;
         } else{
