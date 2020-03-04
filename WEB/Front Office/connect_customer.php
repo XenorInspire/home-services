@@ -58,7 +58,8 @@
       <form action="valid_customer_connect.php" method="POST">
         <div class="form-group">
           <label>Adresse mail</label>
-          <input type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+          <input onchange="check_mail_connection()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+          <small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
         </div>
         <div class="form-group">
           <label>Mot de passe</label>
@@ -88,6 +89,7 @@
   </main>
 
   <?php require_once("include/footer.php"); ?>
+  <script src="js/ajax_customer.js"></script>
 
 </body>
 
