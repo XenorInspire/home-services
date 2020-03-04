@@ -10,11 +10,9 @@ function check_mail() {
             if (request.responseText == "1") {
                 description.innerHTML = "Cette adresse mail existe déjà !";
                 description.style.color = "red";
-                console.log('déjà prise');
             } else {
                 description.innerHTML = "Votre adresse mail ne sera pas partagée.";
                 description.style.color = "#6c757d";
-                console.log('pas prise');
             }
         }
     }
