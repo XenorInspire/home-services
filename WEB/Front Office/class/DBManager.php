@@ -118,4 +118,12 @@ class DBManager
 
     return $results[0];
   }
+
+  /**
+   * Get the value of db
+   */ 
+  public function getDb()
+  {
+    return $this->db;
+  }
 }

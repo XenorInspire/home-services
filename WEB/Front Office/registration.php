@@ -109,7 +109,7 @@
         </div>
         <div class="form-group">
           <label>Adresse mail</label>
-          <input type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+          <input onchange="check_mail()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
           <small id="emailHelp" class="form-text text-muted">Votre adresse mail ne sera pas partagée.</small>
         </div>
         <div class="form-group">
@@ -153,6 +153,7 @@
 
   <?php require_once("include/footer.php"); ?>
   <script src="js/password.js"></script>
+  <script src="js/ajax.js"></script>
 
 </body>
 
