@@ -88,5 +88,6 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     writeAssociate(&associate, identifier);
 
     //Launch the mysql programm to insert data
-    
+    sprintf(command, "cd mysql/ && test.exe");
+    system(command);
 }

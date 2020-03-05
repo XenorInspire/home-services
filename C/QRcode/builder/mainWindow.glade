@@ -9,7 +9,6 @@
     <property name="window_position">center</property>
     <property name="default_width">640</property>
     <property name="default_height">480</property>
-    <property name="icon">logo.png</property>
     <signal name="destroy" handler="on_windowMain_destroy" swapped="no"/>
     <child type="titlebar">
       <placeholder/>
@@ -160,7 +159,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
-                    <property name="placeholder_text" translatable="yes">Lastname of the associate</property>
+                    <property name="placeholder_text" translatable="yes">Nom</property>
                     <property name="input_purpose">name</property>
                   </object>
                   <packing>
@@ -174,7 +173,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
-                    <property name="placeholder_text" translatable="yes">Firstname of the associate</property>
+                    <property name="placeholder_text" translatable="yes">Prénom</property>
                     <property name="input_purpose">name</property>
                   </object>
                   <packing>
@@ -188,6 +187,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">Courriel</property>
                     <property name="input_purpose">email</property>
                   </object>
                   <packing>
@@ -201,6 +201,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">Numéro de tél.</property>
                     <property name="input_purpose">phone</property>
                   </object>
                   <packing>
@@ -214,6 +215,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">Adresse</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -226,6 +228,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">Ville</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -237,6 +240,7 @@
                   <object class="GtkEntry" id="sirenNumberEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="placeholder_text" translatable="yes">Numéro de SIREN</property>
                     <property name="input_purpose">number</property>
                   </object>
                   <packing>
@@ -250,6 +254,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">255</property>
+                    <property name="placeholder_text" translatable="yes">Nom de l'entreprise</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>

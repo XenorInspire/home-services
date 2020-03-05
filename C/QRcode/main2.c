@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
             struct tm tm = *localtime(&t);
 
             //Launch the created PDF
-            sprintf(command, "cd pdf/ && %s-%s-%02d-%02d-%02d.pdf", argv[2], argv[3], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+            sprintf(command, "cd QRcodes/ && %s-%s-%02d-%02d-%02d.pdf", argv[2], argv[3], tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
             system(command);
             return 0;
         }
