@@ -88,6 +88,13 @@ $hm_database->enableCustomerAccount($id);
         <section class="container text-center"">
             <h1><i>Votre compte client est maintenant activé !</i></h1>
             <br>
+            <li>Vous allez être redirigé automatiquement vers l'accueil</li>
+            <br>
+            <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+            <br>
+            <br>
             <li>Cliquez sur le bouton si vous n'êtes pas redirigé automatiquement</li>
             <br>
             <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark">Accueil</button>
