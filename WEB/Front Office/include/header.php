@@ -20,7 +20,7 @@
           Connexion
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Espace client</a>
+          <a class="dropdown-item" href="connect_customer.php">Espace client</a>
           <a class="dropdown-item" href="#">Espace prestataire</a>
         </div>
       </li>
@@ -31,44 +31,3 @@
   </div>
 </nav>
 </header>
-
-<!-- <header>
-  <nav id="navhm" class="navbar navbar-expand-md navbar-dark">
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="connect.php">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="map.php">Boutiques</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="map.php">A propos</a>
-        </li>
-      </ul>
-    </div>
-    <div class="mx-auto order-0">
-      <a class="navbar-brand nav_line" href="index.php"><img src="img/favicon.png" alt="logo" width="60"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="publications.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Connexion
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="post_feed.php">Espace Client</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="advanced_research.php">Espace Prestataire</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="services.php">S'inscrire</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header> -->

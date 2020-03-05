@@ -33,12 +33,12 @@ class DBManager
     ));
   }
 
-  public function doesMailExist(Customer $user)
+  public function doesMailExist($mail)
   {
 
     $q = "SELECT customerId FROM customer WHERE email = ?";
     $req = $this->db->prepare($q);
-    $req->execute([$user->getMail($user)]);
+    $req->execute([$mail]);
 
     $results = [];
     while ($user = $req->fetch())
@@ -70,7 +70,7 @@ class DBManager
     return $results;
   }
 
-  public function getUser($id)
+  public function getUserById($id)
   {
 
     $q = "SELECT * FROM Customer WHERE customerId = ?";
@@ -78,12 +78,52 @@ class DBManager
     $req->execute([$id]);
 
     $results = $req->fetch();
-    return $results;
+
+    if (!empty($results)) {
+
+      $user = new Customer($results[0], $results[2], $results[1], $results[3], $results[4], $results[5], $results[6], $results[7]);
+      return $user;
+    } else {
+
+      return NULL;
+    }
   }
 
-  public function doesAccountIsActivated(){
+  public function getUserByMail($mail)
+  {
 
-    
+    $q = "SELECT * FROM Customer WHERE email = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$mail]);
 
+    $results = $req->fetch();
+
+    if (!empty($results)) {
+
+      $user = new Customer($results[0], $results[2], $results[1], $results[3], $results[4], $results[5], $results[6], $results[7]);
+      return $user;
+    } else {
+
+      return NULL;
+    }
+  }
+
+  public function doesAccountIsActivated($id)
+  {
+
+    $q = "SELECT enable FROM Customer WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+    $results = $req->fetch();
+
+    return $results[0];
+  }
+
+  /**
+   * Get the value of db
+   */ 
+  public function getDb()
+  {
+    return $this->db;
   }
 }

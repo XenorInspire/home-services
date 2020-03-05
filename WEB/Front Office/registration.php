@@ -26,8 +26,73 @@
       <?php
 
       if (isset($_GET['error'])) {
-        echo '<br>';
-        echo '<li style="color: red;text-align: center;list-style:none;">'.$_GET['error'].'</li>';
+
+
+        if ($_GET['error'] == 'captcha_inv') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez entrer le bon numéro correspondant à l\'image</div>';
+        }
+
+        if ($_GET['error'] == 'inputs_inv') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, un ou plusieurs champs n\'ont pas été complétés ou ne sont pas valides</div>';
+        }
+
+        if ($_GET['error'] == 'password_inv') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer le même mot de passe lors de la confirmation de celui-ci</div>';
+        }
+
+        if ($_GET['error'] == 'password_length') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer un mot de passe de 6 caractères minimum</div>';
+        }
+
+        if ($_GET['error'] == 'email_inv') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
+        }
+
+        if ($_GET['error'] == 'mail_taken') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail est déjà attribuée à un autre compte</div>';
+        }
+
+        if ($_GET['error'] == 'lname_length') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Nom"</div>';
+        }
+
+        if ($_GET['error'] == 'fname_length') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Prénom"</div>';
+        }
+
+        if ($_GET['error'] == 'city_length') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Ville"</div>';
+        }
+
+        if ($_GET['error'] == 'ps_length') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Pseudo"</div>';
+        }
+
+        if ($_GET['error'] == 'mail_length') {
+
+          echo '<br>';
+          echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "E-mail"</div>';
+        }
       }
 
       ?>
@@ -44,7 +109,7 @@
         </div>
         <div class="form-group">
           <label>Adresse mail</label>
-          <input type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+          <input onchange="check_mail_registration()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
           <small id="emailHelp" class="form-text text-muted">Votre adresse mail ne sera pas partagée.</small>
         </div>
         <div class="form-group">
@@ -88,6 +153,7 @@
 
   <?php require_once("include/footer.php"); ?>
   <script src="js/password.js"></script>
+  <script src="js/ajax_customer.js"></script>
 
 </body>
 

@@ -21,10 +21,18 @@ if (isset($id)) {
         header('Location: index.php');
         exit;
     }
-    
 } else {
 
     $id = $_GET['a'];
+}
+
+require_once('class/DBManager.php');
+$hm_database = new DBManager($bdd);
+
+if ($hm_database->doesAccountIsActivated($id) == 1) {
+
+    header('Location: index.php');
+    exit;
 }
 
 if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
@@ -39,17 +47,14 @@ if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
     exit;
 }
 
-require_once('class/DBManager.php');
-$hm_database = new DBManager($bdd);
-
-$user = $hm_database->getUser($id);
-if (empty($user)) {
+$user = $hm_database->getUserById($id);
+if ($user == NULL) {
 
     header('Location: index.php');
     exit;
 }
 
-if (hash('sha256', $user['email']) != $enable) {
+if (hash('sha256', $user->getMail()) != $enable) {
 
     header('Location: index.php');
     exit;
@@ -82,6 +87,13 @@ $hm_database->enableCustomerAccount($id);
         <br>
         <section class="container text-center"">
             <h1><i>Votre compte client est maintenant activé !</i></h1>
+            <br>
+            <li>Vous allez être redirigé automatiquement vers l'accueil</li>
+            <br>
+            <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+            <br>
             <br>
             <li>Cliquez sur le bouton si vous n'êtes pas redirigé automatiquement</li>
             <br>
