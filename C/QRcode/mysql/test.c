@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "./include/mysql.h"
+#define FILENAME "associate.temp"
 
 //#define INPUT_SIZE 3000
 
 void decryptString(char* string);
+void deleteTempFile(FILE* pf);
 
 int main(int argc, char **argv) {
   // Initialization of a variable that will be used for the connection
@@ -15,7 +17,7 @@ int main(int argc, char **argv) {
   char database[255];
   //char input[INPUT_SIZE];
   int port;
-  FILE* pf = fopen("associate.temp", "r");
+  FILE* pf = fopen(FILENAME, "r");
   char* string = malloc(sizeof(char) * 2500);
   char* stringPtr;
   char* stringPtr1;
@@ -94,26 +96,9 @@ int main(int argc, char **argv) {
     if (mysql_query(con, request)) printf("%s\n", mysql_error(con));
 
     mysql_close(con);
+    deleteTempFile(pf);
     exit(0);
   }
-
-  if (mysql_query(con, "SELECT * FROM Associate;")) printf("%s\n", mysql_error(con));
-  MYSQL_RES *result = mysql_store_result(con);
-
-  if (result == NULL) {
-    printf("%s\n", mysql_error(con));
-  }
-
-  MYSQL_ROW row;
-  int num_fields = mysql_num_fields(result);
-  while ((row = mysql_fetch_row(result))) {
-    for(int i = 0; i < num_fields; i++) {
-      printf("%s ", row[i] ? row[i] : "NULL");
-    }
-      printf("\n");
-  }
-  mysql_free_result(result);
-
 }
 
 void decryptString(char *string) {
@@ -122,6 +107,11 @@ void decryptString(char *string) {
     for (i = 0; i < strlen(string); i++) {
         string[i] = string[i] - decrement;
     }
+}
+
+void deleteTempFile(FILE *pf) {
+  fclose(pf);
+  remove(FILENAME);
 }
 
 // gcc -Wall -g -c .\test.c -o main.o
