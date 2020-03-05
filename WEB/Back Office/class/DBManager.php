@@ -2,6 +2,7 @@
 
 require_once('include/config.php');
 require_once('class/subscriptionType.php');
+require_once('class/Customer.php');
 
 class DBManager
 {
@@ -72,7 +73,7 @@ class DBManager
 
         $data = $q->fetch();
 
-        if ($data != NULL) {
+        if ($data != NULL && $data['typeName'] != $subscription->getTypeName() ) {
             header('Location: edit_subscription.php?error=name_taken&id='.$subscription->getTypeId());
             exit;
         } else{
@@ -95,6 +96,31 @@ class DBManager
     public function deleteSubscriptionType($typeId)
     {
         $this->db->exec("DELETE FROM subscriptiontype WHERE typeId = '".$typeId."'");
+    }
+
+
+    public function getCustomerList()
+    {
+
+        // $q = "SELECT * FROM customer ORDER BY lastName";
+        // $req = $this->db->prepare($q);
+        // $req->execute();
+
+        // $results = [];
+        // $results[] = $req->fetchAll();
+
+        // return $results;
+
+
+        $users = [];
+
+        $q = $this->db->query('SELECT * FROM customer ORDER BY lastName');
+
+        while ($data = $q->fetch()) {
+            $users[] = new Customer($data['customerId'],$data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town']);
+        }
+
+        return $users;
     }
 
 } 

@@ -89,6 +89,8 @@ C/QRcode/mysql-linux/
 
 WEB/Front Office/test.php
 
-WEB/Front Office/mail/logins.py
+WEB/Front Office/include/database.env
 
 WEB/Front Office/mail/__pycache__/logins.cpython-38.pyc
+
+WEB/Front Office/mail/logins.py
