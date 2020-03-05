@@ -7,23 +7,25 @@ int main(int argc, char const *argv[]) {
   char choice = 'o';
   while(choice == 'o'){
 
-    if((argv[1] != NULL) && ((strncmp(argv[1],"-c",2)) == 0)) system("clear");
+    
+      
+    //Functions
+    system("cd .. && C:\\msys64\\mingw64.exe gcc -c `pkg-config --cflags gtk+-3.0` ../functions/*.c `pkg-config --libs gtk+-3.0`");
+    //Sql
+    system("C:\\msys64\\mingw64.exe gcc mainSql.c -o SqlManage.exe lib\\libmysql.lib");
 
-    system("gcc -c ../functions/gui.c");
-    system("gcc -c ../functions/addAssociate.c");
-    system("gcc -c ../functions/pdfgen.c");
-    system("gcc -c ../functions/QR_Encode.c");
-    system("gcc -c ../functions/QRcodeGenerator.c");
-    system("gcc -c ../main.c");
-    system("gcc -o QRcodeGenerator.exe main.o gui.o addAssociate.o pdfgen.o QR_Encode.o QRcodeGenerator.o ../mysql/lib/libmysql.lib");
+    //Qrcode
+    system("C:\\msys64\\mingw64.exe gcc pdfgen.o QR_Encode.o QRcodeGenerator.o mainQRcode.c -o QRcode.exe");
 
-    system("mv gui.o ../functions/gui.o");
-    system("mv addAssociate.o ../functions/addAssociate.o");
-    system("mv pdfgen.o ../functions/pdfgen.o");
-    system("mv QR_Encode.o ../functions/QR_Encode.o");
-    system("mv QRcodeGenerator.o ../functions/QRcodeGenerator.o");
-    system("mv main.o ../main.o");
-    system("mv QRcodeGenerator.exe ../QRcodeGenerator.exe");
+    //GUI
+    if ((argv[1] != NULL) && ((strncmp(argv[1], "-w", 2)) == 0))
+    {
+      system("C:\\msys64\\mingw64.exe gcc -mwindows `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o addAssociate.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`");
+    }
+    else
+    {
+      system("C:\\msys64\\mingw64.exe gcc `pkg-config --cflags gtk+-3.0` pdfgen.o QR_Encode.o QRcodeGenerator.o gui.o addAssociate.o logo.o main.c -o QRcodeGenerator.exe `pkg-config --libs gtk+-3.0`");
+    }
 
     printf("Recompiler ? (o/n) \n");
     fflush(stdin);
@@ -33,3 +35,5 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
+
+//gcc compilator.c -o compilator.exe
