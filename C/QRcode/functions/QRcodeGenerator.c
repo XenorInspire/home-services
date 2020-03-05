@@ -86,6 +86,11 @@ void generateQRcodeToPDF(const unsigned char *data, int width, const char *pdfNa
     strcat(newPdfName,".pdf");
     pdf_save(pdf,newPdfName);
     pdf_destroy(pdf);
+
+    //Move pdf into the folder
+    char command[255] = "";
+    sprintf(command,"mv %s QRcodes/%s",newPdfName,newPdfName);
+    system(command);
 }
 /** 
  * Compilation commands

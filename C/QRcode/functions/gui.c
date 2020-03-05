@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define SQL_PROG "SqlManage.exe"
+#define QR_PROG "Qrcode.exe"
 
 G_MODULE_EXPORT void on_windowMain_destroy()
 {
@@ -55,8 +57,8 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     // if(associate.firstName == NULL ){
     //     printf("A");
     // }
-    printf("%s",associate.firstName);
-    printf("%s",associate.lastName);
+    // printf("%s",associate.firstName);
+    // printf("%s",associate.lastName);
     // printf("S");
 
     //Create the identifier for the associate 
@@ -73,14 +75,21 @@ G_MODULE_EXPORT void on_generateButton_clicked(GtkWidget *widget, gpointer userD
     // printf("%s\n", identifier);
 
     //Launch the QRcodeGenerator to create the PDF
-    sprintf(command, "QRcode.exe %s %s %s", identifier, associate.lastName, associate.firstName);
+    sprintf(command, "%s %s %s %s",QR_PROG, identifier, associate.lastName, associate.firstName);
     system(command);
 
     //Generating Time
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    //Launch the created PDF
-    sprintf(command, "%s-%s-%02d-%02d-%02d.pdf", associate.lastName, associate.firstName, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    // //Launch the created PDF
+    // sprintf(command, "cd pdf/ && %s-%s-%02d-%02d-%02d.pdf", associate.lastName, associate.firstName, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    // system(command);
+
+    //Write associate
+    writeAssociate(&associate, identifier);
+
+    //Launch the mysql programm to insert data
+    sprintf(command, "cd mysql/ && %s", SQL_PROG);
     system(command);
 }
