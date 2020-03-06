@@ -8,7 +8,7 @@
 #include "../includes/repository.h"
 #include "../includes/system.h"
 
-#define PATH "."
+#define PATH "SQLFiles/"
 #define DIR_SIZE 256
 
 // Find SQL files en the depository
