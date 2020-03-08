@@ -22,3 +22,6 @@ void freeStringArray(char ** ptr, int16_t size);
 
 // Check if a file * is NULL
 void checkFile(FILE * SQLFile);
+
+// Check if a double FILE pointer is NULL
+void checkDoubleFilePtr(FILE ** sqlFiles);

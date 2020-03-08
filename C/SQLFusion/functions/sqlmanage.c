@@ -16,13 +16,7 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
   strcpy(fileName,verifyExtension(fileName));
 
   FILE ** sqlFiles = malloc(SQLDirectory->nbSQLFiles * sizeof(FILE));
-  if(sqlFiles == NULL){
-
-    printf("Vous ne disposez pas d'assez de m%cmoire disponible \n",130);
-    SLEEP(3000);
-    exit(0);
-
-  }
+  checkDoubleFilePtr(sqlFiles);
 
   int32_t indexBuffer = 0;
   char ** buffer;
