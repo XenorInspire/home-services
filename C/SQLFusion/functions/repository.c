@@ -36,7 +36,8 @@ int8_t findSQLFiles(DIR_INFO * SQLDirectory){
 
         if(strstr(currentFile->d_name, ".sql") != NULL){
 
-            strcpy(SQLDirectory->nameSQLFiles[k], currentFile->d_name);
+            strcpy(SQLDirectory->nameSQLFiles[k],PATH);
+            strcat(SQLDirectory->nameSQLFiles[k], currentFile->d_name);
             k++;
 
         }
