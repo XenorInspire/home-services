@@ -25,3 +25,6 @@ void checkFile(FILE * SQLFile);
 
 // Check if a double FILE pointer is NULL
 void checkDoubleFilePtr(FILE ** sqlFiles);
+
+// Check if a simple integer pointer is NULL
+void checkSimpleIntPtr(int32_t *ptr);

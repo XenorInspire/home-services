@@ -33,6 +33,7 @@ int main(int argc, char const *argv[]) {
 
   extractData(&SQLDirectory, fileName);
   free(fileName);
+  free(SQLDirectory.nbLinesSQL);
   
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
   return 0;

@@ -29,16 +29,11 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
   // For all the SQL files we have to merge
   for(int16_t k = 0; k < SQLDirectory->nbSQLFiles; k++){
 
-    int32_t nbLinesSQL = nbLines(SQLDirectory->nameSQLFiles[k]);
+    int32_t nbLinesSQL = SQLDirectory->nbLinesSQL[k];
     sqlFiles[k] = fopen(SQLDirectory->nameSQLFiles[k],"rb");
     buffer = malloc(nbLinesSQL * sizeof(char *));
-
-    for(int16_t j = 0; j < nbLinesSQL; j++){
-
-      buffer[j] = malloc(SIZE_LINE * sizeof(char));
-      checkSimplePtr(buffer[j]);
-
-    }
+    checkDoublePtr(buffer);
+    buffer = initializer(buffer, nbLinesSQL);
 
     // Copy all the INSERT in a buffer
     while(fgets(temp, SIZE_LINE - 1, sqlFiles[k]) != NULL){
@@ -126,5 +121,19 @@ void writeSQL(FILE * SQLResult, char ** buffer, int32_t size, char * fileName){
     fprintf(SQLResult,"%s",buffer[i]);
 
   fprintf(SQLResult,"%s","\n");
+
+}
+
+// Allocate memory to the string array
+char ** initializer(char ** buffer, int32_t size){
+
+  for(int16_t j = 0; j < size; j++){
+
+      buffer[j] = malloc(SIZE_LINE * sizeof(char));
+      checkSimplePtr(buffer[j]);
+
+    }
+
+  return buffer;
 
 }

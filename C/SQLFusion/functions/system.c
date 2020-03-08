@@ -65,10 +65,23 @@ void checkFile(FILE *SQLFile)
 }
 
 // Check if a double FILE pointer is NULL
-void checkDoubleFilePtr(FILE ** sqlFiles)
+void checkDoubleFilePtr(FILE **sqlFiles)
 {
 
   if (sqlFiles == NULL)
+  {
+
+    printf("Vous ne disposez pas d'assez de m%cmoire disponible \n", 130);
+    SLEEP(3000);
+    exit(0);
+  }
+}
+
+// Check if a simple integer pointer is NULL
+void checkSimpleIntPtr(int32_t *ptr)
+{
+
+  if (ptr == NULL)
   {
 
     printf("Vous ne disposez pas d'assez de m%cmoire disponible \n", 130);
