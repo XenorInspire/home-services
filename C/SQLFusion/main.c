@@ -21,6 +21,7 @@ int main(int argc, char const *argv[]) {
 
   }
 
+  char ** backup;
   char * fileName = malloc(SIZE_FILE_NAME * sizeof(char));
   checkSimplePtr(fileName);
 
@@ -31,11 +32,12 @@ int main(int argc, char const *argv[]) {
   if(fileName[strlen(fileName) - 1] == '\n')
     fileName[strlen(fileName) - 1] = '\0';
 
-  extractData(&SQLDirectory, fileName);
+  backup = extractData(&SQLDirectory, fileName);
+  
   free(fileName);
   free(SQLDirectory.nbLinesSQL);
-  
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
+  freeStringArray(backup, SQLDirectory.totalNbLinesSQL);
   return 0;
 
 }

@@ -4,7 +4,7 @@
 int32_t nbLines(const char * fileName);
 
 // This function is charged to read SQL files
-void extractData(DIR_INFO * SQLDirectory, char * fileName);
+char ** extractData(DIR_INFO * SQLDirectory, char * fileName);
 
 // Check if the filename has only one extension
 char * verifyExtension(char * fileName);

@@ -11,7 +11,7 @@
 #define SIZE_LINE 3000
 
 // This function is charged to organize the saving of the final SQL file
-void extractData(DIR_INFO * SQLDirectory, char * fileName){
+char ** extractData(DIR_INFO * SQLDirectory, char * fileName){
 
   strcpy(fileName,verifyExtension(fileName));
 
@@ -19,9 +19,16 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
   checkDoubleFilePtr(sqlFiles);
 
   int32_t indexBuffer = 0;
+  int32_t indexBackup = 0;
+  
   char ** buffer;
   char * temp = malloc(SIZE_LINE * sizeof(char));
   checkSimplePtr(temp);
+
+  char ** backup;
+  backup = malloc(SQLDirectory->totalNbLinesSQL * sizeof(char *));
+  checkDoublePtr(backup);
+  backup = initializer(backup,SQLDirectory->totalNbLinesSQL);
 
   FILE * SQLResult = fopen(fileName,"wb");
   checkFile(SQLResult);
@@ -41,21 +48,27 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
       if(strstr(temp,"INSERT INTO") != NULL || strstr(temp,"insert into") != NULL){
 
         strcpy(buffer[indexBuffer], temp);
+        strcpy(backup[indexBackup], temp);
         indexBuffer++;
+        indexBackup++;
 
       }
 
     }
     
     fclose(sqlFiles[k]);
-
     writeSQL(SQLResult, buffer, indexBuffer, SQLDirectory->nameSQLFiles[k]);
+    
+    SQLDirectory->nbLinesSQL[k] = indexBuffer;
     indexBuffer = 0;
+
     freeStringArray(buffer,nbLinesSQL);
 
   }
 
   fclose(SQLResult);
+  SQLDirectory->totalNbLinesSQL = indexBackup;
+  return backup;
 
 }
 
