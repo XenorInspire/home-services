@@ -28,3 +28,6 @@ void checkDoubleFilePtr(FILE ** sqlFiles);
 
 // Check if a simple integer pointer is NULL
 void checkSimpleIntPtr(int32_t *ptr);
+
+// Allocate memory to the string array
+char ** initializer(char ** buffer, int32_t size);

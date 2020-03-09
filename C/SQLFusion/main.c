@@ -8,6 +8,7 @@
 #include "includes/system.h"
 #include "includes/repository.h"
 #include "includes/sqlmanage.h"
+#include "includes/sqltest.h"
 
 #define SIZE_FILE_NAME 256
 
@@ -32,6 +33,7 @@ int main(int argc, char const *argv[]) {
   if(fileName[strlen(fileName) - 1] == '\n')
     fileName[strlen(fileName) - 1] = '\0';
 
+  // Store the entire sql entries
   backup = extractData(&SQLDirectory, fileName);
   
   free(fileName);

@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include "../includes/system.h"
 
+#define SIZE_LINE 3000
+
 // Check if the directory is usable
 void checkDepository(DIR *rep)
 {
@@ -88,4 +90,18 @@ void checkSimpleIntPtr(int32_t *ptr)
     SLEEP(3000);
     exit(0);
   }
+}
+
+// Allocate memory to the string array
+char ** initializer(char ** buffer, int32_t size){
+
+  for(int16_t j = 0; j < size; j++){
+
+      buffer[j] = malloc(SIZE_LINE * sizeof(char));
+      checkSimplePtr(buffer[j]);
+
+    }
+
+  return buffer;
+
 }

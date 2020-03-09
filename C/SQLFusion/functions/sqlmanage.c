@@ -136,17 +136,3 @@ void writeSQL(FILE * SQLResult, char ** buffer, int32_t size, char * fileName){
   fprintf(SQLResult,"%s","\n");
 
 }
-
-// Allocate memory to the string array
-char ** initializer(char ** buffer, int32_t size){
-
-  for(int16_t j = 0; j < size; j++){
-
-      buffer[j] = malloc(SIZE_LINE * sizeof(char));
-      checkSimplePtr(buffer[j]);
-
-    }
-
-  return buffer;
-
-}

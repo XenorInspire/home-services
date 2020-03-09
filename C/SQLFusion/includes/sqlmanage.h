@@ -11,6 +11,3 @@ char * verifyExtension(char * fileName);
 
 // Write data in the final SQL file
 void writeSQL(FILE * SQLResult, char ** buffer, int32_t size, char * fileName);
-
-// Allocate memory to the string array
-char ** initializer(char ** buffer, int32_t size);
