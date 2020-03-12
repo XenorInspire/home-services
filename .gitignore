@@ -75,3 +75,5 @@ WEB/Front Office/include/database.env
 WEB/Front Office/mail/__pycache__/logins.cpython-38.pyc
 
 WEB/Front Office/mail/logins.py
+
+WEB/Back Office/include/database.env
