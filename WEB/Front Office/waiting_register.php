@@ -21,12 +21,12 @@
         <br>
         <br>
         <br>
-        <section class="container text-center"">
+        <section class="container text-center">
             <h1><i>Un mail de confirmation vous a été envoyé.</i></h1>
             <br>
             <li>Vous n'avez pas reçu de confirmation ?</li>
             <br>
-            <button type=" button" onclick="window.location.href = 'mail_again.php';" class="btn btn-dark">Renvoyer</button>
+            <button type="button" onclick="window.location.href = 'mail_again.php';" class="btn btn-dark">Renvoyer</button>
         </section>
         <br>
         <br>

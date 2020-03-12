@@ -9,7 +9,7 @@
   <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-</head>
+</head style="background-color: whitesmoke;">
 
 <body>
 
