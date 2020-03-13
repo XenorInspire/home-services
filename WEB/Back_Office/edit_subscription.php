@@ -1,5 +1,4 @@
 <?php
-require_once('include/config.php');
 require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
@@ -76,6 +75,9 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                 <div class="text-center">
                     <div class="btn btn-outline-success" data-toggle="modal" data-target="#modalSave"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Enregistrer les modifications</a></div>
                     <div class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">Supprimer l'abonnement</a></div>
+                    <a class="" href="subscriptions.php">
+                        <div class="btn btn-outline-secondary">Annuler</div>
+                    </a>
                 </div>
 
                 <!-- Modal for saving -->

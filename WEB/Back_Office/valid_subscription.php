@@ -1,6 +1,4 @@
 <?php
-
-require_once('include/config.php');
 require_once('class/DBManager.php');
 
 if (

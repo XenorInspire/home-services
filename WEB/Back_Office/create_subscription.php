@@ -56,6 +56,9 @@
                 </div>
                 <div class="text-center">
                     <div class="btn btn-outline-success" data-toggle="modal" data-target="#modalSave">Créer l'abonnement</a></div>
+                    <a class="" href="subscriptions.php">
+                        <div class="btn btn-outline-secondary">Annuler</div>
+                    </a>
                 </div>
 
 
@@ -70,7 +73,7 @@
                             </div>
                             <!-- Modal body -->
                             <div class="modal-body">
-                                Voulez-vous créer de cet abonnement ?
+                                Voulez-vous créer cet abonnement ?
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
