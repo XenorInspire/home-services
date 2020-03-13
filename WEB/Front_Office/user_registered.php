@@ -90,7 +90,7 @@ $hm_database->enableCustomerAccount($id);
             <br>
             <li>Vous allez être redirigé automatiquement vers l'accueil</li>
             <br>
-            <div class="spinner-border" role="status">
+            <div class=" spinner-border" role="status">
             <span class="sr-only">Loading...</span>
             </div>
             <br>
@@ -99,6 +99,7 @@ $hm_database->enableCustomerAccount($id);
             <br>
             <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark">Accueil</button>
         </section>
+        <!-- <br>
         <br>
         <br>
         <br>
@@ -118,8 +119,7 @@ $hm_database->enableCustomerAccount($id);
         <br>
         <br>
         <br>
-        <br>
-        <br>
+        <br> -->
     </main>
     <script src="js/redirect.js"></script>
     <?php require_once("include/footer.php"); ?>

@@ -61,9 +61,9 @@ li {
 
 }
 
-main {
+body {
 
-  background-color: whitesmoke;
+  background-color: whitesmoke !important;
 
 }
 
@@ -109,9 +109,9 @@ main {
   font-size: 20px;
 }
 
-#subscrib_description {
+/* #subscrib_description {
   font-style: ;
-}
+} */
 
 /* /////////////////////////// */
 
