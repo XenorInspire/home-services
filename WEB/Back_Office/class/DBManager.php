@@ -6,6 +6,8 @@ require_once('class/customer.php');
 require_once('class/reservation.php');
 require_once('class/serviceProvided.php');
 require_once('class/service.php');
+require_once('class/associateServices.php');
+require_once('class/associate.php');
 
 class DBManager
 {
@@ -169,6 +171,37 @@ class DBManager
         return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
     }
 
+    //AssociateServices get associate with the service id 
+    public function getAssociateServicesList($serviceId){
+
+        $associatesId = [];
+
+        $q = $this->db->query('SELECT * FROM AssociateServices WHERE serviceId = ' . $serviceId . '');
+
+        while ($data = $q->fetch()) {
+            $associatesId[] = new AssociateServices($data['serviceId'], $data['associateId']);
+        }
+
+        $associates = [];
+        foreach ($associatesId as $associateId){
+            array_push($associates, $this->getAssociate($associateId->getAssociateId()));
+        }
+
+        return $associates;
+    }
+
+    //Associate 
+    public function getAssociate($associateId){
+        $associateId = (int) $associateId;
+        $q = $this->db->query('SELECT * FROM Associate WHERE associateId = ' . $associateId . '');
+
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            header('Location: reservations.php');
+        }
+        return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
+    }
 
 
 } 

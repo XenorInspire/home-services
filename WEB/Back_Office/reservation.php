@@ -5,6 +5,7 @@ isset($_GET['serviceProvidedId']);
 $hm_database = new DBManager($bdd);
 $servPro = $hm_database->getServiceProvided($_GET['serviceProvidedId']);
 $serv = $hm_database->getService($servPro->getServiceId());
+$associates = $hm_database->getAssociateServicesList($serv->getServiceId());
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -56,6 +57,11 @@ $serv = $hm_database->getService($servPro->getServiceId());
             <h1>Liste des prestataires en relation avec la réservation du service</h1>
             <hr>
             <br>
+
+            <?php
+            foreach ($associates as $associate) { ?>
+               <h2><?php echo $associate;?><h2>
+            <?php } ?>
             <br>
             <br>
             <br>
