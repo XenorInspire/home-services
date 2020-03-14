@@ -3,6 +3,8 @@
 require_once('include/config.php');
 require_once('class/subscriptionType.php');
 require_once('class/customer.php');
+require_once('class/reservation.php');
+require_once('class/serviceProvided.php');
 
 class DBManager
 {
@@ -98,7 +100,7 @@ class DBManager
         $this->db->exec("DELETE FROM SubscriptionType WHERE typeId = '".$typeId."'");
     }
 
-
+    
     public function getCustomerList()
     {
 
@@ -122,5 +124,35 @@ class DBManager
 
         return $users;
     }
+
+
+
+    //RESERVATIONS
+    public function getReservationList(){
+        $reservations = [];
+
+        $q = $this->db->query('SELECT * FROM Reservation ORDER BY reservationDate DESC');
+
+        while ($data = $q->fetch()) {
+            $reservations[] = new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
+        }
+
+        return $reservations;
+    }
+
+
+    //Service provided
+    public function getServiceProvided($serviceProvidedId){
+        $serviceProvidedId = (int) $serviceProvidedId;
+        $q = $this->db->query('SELECT * FROM ServiceProvided WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            header('Location: reservations.php');
+        }
+        return new ServiceProvided($data['serviceProvidedId'], $data['date'], $data['hours'], $data['serviceId'], $data['pricePerHour']);
+    }
+
 
 } 

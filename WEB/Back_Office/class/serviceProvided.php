@@ -1,6 +1,6 @@
 <?php
 
-class serviceProvided{
+class ServiceProvided{
 
     private $serviceProvidedId;
     private $serviceId;
