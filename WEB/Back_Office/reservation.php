@@ -4,6 +4,7 @@ require_once('class/DBManager.php');
 isset($_GET['serviceProvidedId']);
 $hm_database = new DBManager($bdd);
 $servPro = $hm_database->getServiceProvided($_GET['serviceProvidedId']);
+$serv = $hm_database->getService($servPro->getServiceId());
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -47,7 +48,7 @@ $servPro = $hm_database->getServiceProvided($_GET['serviceProvidedId']);
 
             <h1>Infos service en question</h1>
             <?php
-            //echo $serv;
+            echo $serv;
             ?>
 
             <br>

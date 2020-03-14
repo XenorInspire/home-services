@@ -5,6 +5,7 @@ require_once('class/subscriptionType.php');
 require_once('class/customer.php');
 require_once('class/reservation.php');
 require_once('class/serviceProvided.php');
+require_once('class/service.php');
 
 class DBManager
 {
@@ -151,8 +152,23 @@ class DBManager
         if ($data == NULL) {
             header('Location: reservations.php');
         }
-        return new ServiceProvided($data['serviceProvidedId'], $data['date'], $data['hours'], $data['serviceId'], $data['pricePerHour']);
+        return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['hours'], $data['pricePerHour']);
     }
+
+    //Service
+    public function getService($serviceId)
+    {
+        $serviceId = (int) $serviceId;
+        $q = $this->db->query('SELECT * FROM Service WHERE serviceId = ' . $serviceId . '');
+
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            header('Location: reservations.php');
+        }
+        return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+    }
+
 
 
 } 
