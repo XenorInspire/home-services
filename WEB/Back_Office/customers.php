@@ -6,6 +6,7 @@ require_once('class/DBManager.php');
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Services - Clients</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
@@ -71,22 +72,22 @@ require_once('class/DBManager.php');
                         </div>
                         <hr> -->
                         <?php
-                            if($user->getEnable() == 0){
-                                echo '<tr class="table-light">';
-                            }else{
-                                echo '<tr class="table-light table-active">';
-                            }
+                        if ($user->getEnable() == 0) {
+                            echo '<tr class="table-light">';
+                        } else {
+                            echo '<tr class="table-light table-active">';
+                        }
                         ?>
                         <!-- <tr class="table-light table-active"> -->
-                            <td><?= $user->getLastname() ?></td>
-                            <td><?= $user->getFirstName() ?></td>
-                            <td><?= $user->getEmail() ?></td>
-                            <td><?= $user->getPhoneNumber() ?></td>
-                            <td><?= $user->getAddress() ?></td>
-                            <td><?= $user->getTown() ?></td>
-                            <td><a class="" href="edit_customer.php?id=<?= $user->getId() ?>">
-                                    <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
-                                </a> </td>
+                        <td><?= $user->getLastname() ?></td>
+                        <td><?= $user->getFirstName() ?></td>
+                        <td><?= $user->getEmail() ?></td>
+                        <td><?= $user->getPhoneNumber() ?></td>
+                        <td><?= $user->getAddress() ?></td>
+                        <td><?= $user->getTown() ?></td>
+                        <td><a class="" href="edit_customer.php?id=<?= $user->getId() ?>">
+                                <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
+                            </a> </td>
                         </tr>
 
                     <?php } ?>

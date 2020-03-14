@@ -6,6 +6,7 @@ require_once('class/DBManager.php');
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Services - Abonnements</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
@@ -22,7 +23,7 @@ require_once('class/DBManager.php');
             <br>
             <br>
             <?php
-            if(isset($_GET['delete']) == "successful"){
+            if (isset($_GET['delete']) == "successful") {
                 echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
             }
 
@@ -33,7 +34,7 @@ require_once('class/DBManager.php');
             if (isset($_GET['edit']) == "successful") {
                 echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
             }
-            
+
             ?>
             <br>
 
