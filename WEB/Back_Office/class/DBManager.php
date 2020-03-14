@@ -117,7 +117,7 @@ class DBManager
         $q = $this->db->query('SELECT * FROM customer ORDER BY lastName');
 
         while ($data = $q->fetch()) {
-            $users[] = new Customer($data['customerId'],$data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town']);
+            $users[] = new Customer($data['customerId'],$data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
         }
 
         return $users;

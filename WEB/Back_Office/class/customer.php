@@ -9,8 +9,9 @@ class Customer
     private $phoneNumber;
     private $address;
     private $town;
+    private $enable;
 
-    public function __construct($id,$firstname, $lastname, $email, $phoneNumber, $address, $town)
+    public function __construct($id,$firstname, $lastname, $email, $phoneNumber, $address, $town, $enable)
     {
         $this->id = $id;
         $this->firstname = htmlspecialchars(trim($firstname));
@@ -19,6 +20,7 @@ class Customer
         $this->phoneNumber = $phoneNumber;
         $this->address = htmlspecialchars(trim($address));
         $this->town = htmlspecialchars(trim($town));
+        $this->enable = $enable;
     }
 
 
@@ -165,6 +167,26 @@ class Customer
     public function setTown($town)
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of enable
+     */ 
+    public function getEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set the value of enable
+     *
+     * @return  self
+     */ 
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
 
         return $this;
     }

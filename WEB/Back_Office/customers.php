@@ -47,8 +47,8 @@ require_once('class/DBManager.php');
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Firstname</th>
                         <th>Lastname</th>
+                        <th>Firstname</th>
                         <th>Email</th>
                         <th>Numero</th>
                         <th>Adresse</th>
@@ -70,9 +70,16 @@ require_once('class/DBManager.php');
                             </div>
                         </div>
                         <hr> -->
-                        <tr class="table-light">
-                            <td><?= $user->getFirstName() ?></td>
+                        <?php
+                            if($user->getEnable() == 0){
+                                echo '<tr class="table-light">';
+                            }else{
+                                echo '<tr class="table-light table-active">';
+                            }
+                        ?>
+                        <!-- <tr class="table-light table-active"> -->
                             <td><?= $user->getLastname() ?></td>
+                            <td><?= $user->getFirstName() ?></td>
                             <td><?= $user->getEmail() ?></td>
                             <td><?= $user->getPhoneNumber() ?></td>
                             <td><?= $user->getAddress() ?></td>
