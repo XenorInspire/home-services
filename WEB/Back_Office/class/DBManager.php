@@ -2,7 +2,7 @@
 
 require_once('include/config.php');
 require_once('class/subscriptionType.php');
-require_once('class/Customer.php');
+require_once('class/customer.php');
 
 class DBManager
 {
@@ -18,7 +18,7 @@ class DBManager
     {
 
         $subName = $subscription->getTypeName();
-        $q = $this->db->query("SELECT typeName FROM subscriptiontype WHERE typeName = '" . $subName."'");
+        $q = $this->db->query("SELECT typeName FROM SubscriptionType WHERE typeName = '" . $subName."'");
 
         $data = $q->fetch();
 
@@ -26,7 +26,7 @@ class DBManager
             header('Location: create_subscription.php?error=name_taken');
             exit;
         }else{
-            $q = "INSERT INTO subscriptiontype(typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price) VALUES (:typeId,:typeName,:openDays,:openTime,:closeTime,:serviceTimeAmount,:price)";
+            $q = "INSERT INTO SubscriptionType(typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price) VALUES (:typeId,:typeName,:openDays,:openTime,:closeTime,:serviceTimeAmount,:price)";
             $res = $this->db->prepare($q);
             $res->execute(array(
                 'typeId' => $subscription->getTypeId(),
@@ -44,7 +44,7 @@ class DBManager
     public function getSubscriptionTypeList(){
         $subscriptions = [];
 
-        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM subscriptiontype ORDER BY typeName');
+        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM SubscriptionType ORDER BY typeName');
 
         while ($data = $q->fetch()) {
             $subscriptions[] = new SubscriptionType($data['typeId'],$data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price']);
@@ -56,7 +56,7 @@ class DBManager
     //Get the subscriptionType with its id 
     public function getSubscriptionType($typeId){
         $typeId = (int) $typeId;
-        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM subscriptiontype WHERE typeId = '.$typeId.'');
+        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM SubscriptionType WHERE typeId = '.$typeId.'');
 
         $data = $q->fetch();
 
@@ -69,7 +69,7 @@ class DBManager
     //Update the subscription
     public function updateSubscriptionType(SubscriptionType $subscription){
         $subName = $subscription->getTypeName();
-        $q = $this->db->query("SELECT typeName FROM subscriptiontype WHERE typeName = '" . $subName . "'");
+        $q = $this->db->query("SELECT typeName FROM SubscriptionType WHERE typeName = '" . $subName . "'");
 
         $data = $q->fetch();
 
@@ -78,7 +78,7 @@ class DBManager
             exit;
         } else{
             $id = $subscription->getTypeId();
-            $q = "UPDATE subscriptiontype SET typeName=:typeName,openDays=:openDays,openTime=:openTime,closeTime=:closeTime,serviceTimeAmount=:serviceTimeAmount,price=:price WHERE typeId='" . $id . "'";
+            $q = "UPDATE SubscriptionType SET typeName=:typeName,openDays=:openDays,openTime=:openTime,closeTime=:closeTime,serviceTimeAmount=:serviceTimeAmount,price=:price WHERE typeId='" . $id . "'";
             $req = $this->db->prepare($q);
             $req->execute(array(
                 'typeName' => $subscription->getTypeName(),
@@ -95,7 +95,7 @@ class DBManager
     //Delete the subscription with its id
     public function deleteSubscriptionType($typeId)
     {
-        $this->db->exec("DELETE FROM subscriptiontype WHERE typeId = '".$typeId."'");
+        $this->db->exec("DELETE FROM SubscriptionType WHERE typeId = '".$typeId."'");
     }
 
 
@@ -114,7 +114,7 @@ class DBManager
 
         $users = [];
 
-        $q = $this->db->query('SELECT * FROM customer ORDER BY lastName');
+        $q = $this->db->query('SELECT * FROM Customer ORDER BY lastName');
 
         while ($data = $q->fetch()) {
             $users[] = new Customer($data['customerId'],$data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
