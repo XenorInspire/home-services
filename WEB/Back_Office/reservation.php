@@ -58,19 +58,25 @@ $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
             <hr>
             <br>
 
+            <br>
+            <br>
             <?php
-            foreach ($associates as $associate) { ?>
-                <h2><?php echo $associate; ?><h2>
-                        <form action="valid_reservation.php" method="POST">
-                            <input type="hidden" name="serviceProvidedId" value="<?= $servPro->getServiceProvidedId() ?>">
-                            <input type="hidden" type="number" name="status" value="0">
-                            <input type="hidden" name="associateId" value="<?= $associate->getAssociateId() ?>">
-                            <button type="submit">Selectionner</button>
-                        </form>
-                    <?php } ?>
-
-                    <br>
-                    <br>
+            $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
+            if ($proposal != NULL) {
+                echo "En attente de la reponse du prestataire";
+                echo $hm_database->getAssociate($proposal->getAssociateId());
+            } else { ?>
+                <?php
+                foreach ($associates as $associate) { ?>
+                    <h2><?php echo $associate; ?><h2>
+                            <form action="valid_reservation.php" method="POST">
+                                <input type="hidden" name="serviceProvidedId" value="<?= $servPro->getServiceProvidedId() ?>">
+                                <input type="hidden" type="number" name="status" value="0">
+                                <input type="hidden" name="associateId" value="<?= $associate->getAssociateId() ?>">
+                                <button type="submit">Selectionner</button>
+                            </form>
+                        <?php } ?>
+            <?php } ?>
                     <br>
                     <br>
                     <br>

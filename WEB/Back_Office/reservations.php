@@ -51,7 +51,7 @@ require_once('class/DBManager.php');
                         <?php
                         echo $res;
                         ?>
-                        <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>">Affecter le prestataire</a>
+                        <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>">Affecter / Voir le prestataire</a>
                     </div>
                 </div>
                 <hr>

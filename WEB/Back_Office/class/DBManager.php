@@ -223,4 +223,16 @@ class DBManager
         ));
         //Mail sent to the associate
     }
+
+    public function getProposal($serviceProvidedId){
+        $serviceProvidedId = (int) $serviceProvidedId;
+        $q = $this->db->query('SELECT * FROM Proposal WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            return NULL;
+        }
+        return new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
+    }
 }
