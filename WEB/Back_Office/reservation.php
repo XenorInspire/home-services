@@ -60,14 +60,21 @@ $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
 
             <?php
             foreach ($associates as $associate) { ?>
-               <h2><?php echo $associate;?><h2>
-            <?php } ?>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+                <h2><?php echo $associate; ?><h2>
+                        <form action="valid_reservation.php" method="POST">
+                            <input type="hidden" name="serviceProvidedId" value="<?= $servPro->getServiceProvidedId() ?>">
+                            <input type="hidden" type="number" name="status" value="0">
+                            <input type="hidden" name="associateId" value="<?= $associate->getAssociateId() ?>">
+                            <button type="submit">Selectionner</button>
+                        </form>
+                    <?php } ?>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
         </section>
 
     </main>
