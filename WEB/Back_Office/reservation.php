@@ -46,6 +46,9 @@ $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
             <?php
             echo $servPro;
             ?>
+            <a class="" href="delete_reservation.php?reservationId=<?= $_GET['reservationId'] ?>">
+                <div class="btn btn-outline-danger">Annuler la reservation</div>
+            </a>
 
             <h1>Infos service en question</h1>
             <?php

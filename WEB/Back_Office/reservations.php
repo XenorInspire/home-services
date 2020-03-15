@@ -36,7 +36,10 @@ require_once('class/DBManager.php');
             // }
 
             ?>
-
+            <h1>Creer une reservation</h1>
+            <hr>
+            <br>
+            <br>
             <h1>Liste des réservations</h1>
             <hr>
             <br>
@@ -49,8 +52,8 @@ require_once('class/DBManager.php');
                 if ($res->getStatus() == 0) { ?>
                     <div class="row justify-content-center">
                         <div class="col-6">
-                            <?php echo $res;?>
-                            <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>">Affecter / Voir le prestataire</a>
+                            <?php echo $res; ?>
+                            <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?=$res->getReservationId()?>">Affecter / Voir le prestataire</a>
                         </div>
                     </div>
                     <hr>

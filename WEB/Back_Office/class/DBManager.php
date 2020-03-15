@@ -147,6 +147,12 @@ class DBManager
         return $reservations;
     }
 
+    //Delete reservation 
+    public function deleteReservation($reservationId)
+    {
+        $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
+    }
+
 
     //Service provided
     public function getServiceProvided($serviceProvidedId)
