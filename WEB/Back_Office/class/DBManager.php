@@ -138,7 +138,7 @@ class DBManager
     {
         $reservations = [];
 
-        $q = $this->db->query('SELECT * FROM Reservation WHERE status = 0 ORDER BY reservationDate DESC');
+        $q = $this->db->query('SELECT * FROM Reservation ORDER BY reservationDate DESC');
 
         while ($data = $q->fetch()) {
             $reservations[] = new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
@@ -224,7 +224,8 @@ class DBManager
         //Mail sent to the associate
     }
 
-    public function getProposal($serviceProvidedId){
+    public function getProposal($serviceProvidedId)
+    {
         $serviceProvidedId = (int) $serviceProvidedId;
         $q = $this->db->query('SELECT * FROM Proposal WHERE serviceProvidedId = ' . $serviceProvidedId . '');
 
@@ -232,7 +233,13 @@ class DBManager
 
         if ($data == NULL) {
             return NULL;
+        } else {
+            return new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
         }
-        return new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
+    }
+
+    public function deleteProposal($associateId)
+    {
+        $this->db->exec("DELETE FROM Proposal WHERE associateId = '" . $associateId . "'");
     }
 }

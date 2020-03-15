@@ -37,7 +37,7 @@ require_once('class/DBManager.php');
 
             ?>
 
-            <h1>Liste des demandes</h1>
+            <h1>Liste des réservations</h1>
             <hr>
             <br>
             <?php
@@ -45,16 +45,16 @@ require_once('class/DBManager.php');
             $reservations = [];
             $reservations = $hm_database->getReservationList();
             foreach ($reservations as $res) { ?>
-                <div class="row justify-content-center">
-                    <div class="col-6">
-                        <h2>Reservation id = <?= $res->getReservationId() ?>, Reservation Date : <?= $res->getReservationDate() ?></h2>
-                        <?php
-                        echo $res;
-                        ?>
-                        <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>">Affecter / Voir le prestataire</a>
+                <?php
+                if ($res->getStatus() == 0) { ?>
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <?php echo $res;?>
+                            <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>">Affecter / Voir le prestataire</a>
+                        </div>
                     </div>
-                </div>
-                <hr>
+                    <hr>
+                <?php } ?>
             <?php } ?>
             <br>
             <br>

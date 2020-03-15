@@ -54,7 +54,6 @@ $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
 
             <br>
             <br>
-            <h1>Liste des prestataires en relation avec la réservation du service</h1>
             <hr>
             <br>
 
@@ -62,25 +61,30 @@ $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
             <br>
             <?php
             $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
-            if ($proposal != NULL) {
-                echo "En attente de la reponse du prestataire";
-                echo $hm_database->getAssociate($proposal->getAssociateId());
-            } else { ?>
+            if ($proposal != NULL) { ?>
+                <h1>En attente de la reponse du prestataire</h1>
+                <?= $hm_database->getAssociate($proposal->getAssociateId()) ?>
+                <a class="" href="delete_proposal.php?associateId=<?= $hm_database->getAssociate($proposal->getAssociateId())->getAssociateId()  ?>">
+                    <div class="btn btn-outline-danger">Enlever le prestataire</div>
+                </a>
+
+            <?php } else { ?>
+                <h1>Liste des prestataires en relation avec la réservation du service</h1>
                 <?php
                 foreach ($associates as $associate) { ?>
-                    <h2><?php echo $associate; ?><h2>
-                            <form action="valid_reservation.php" method="POST">
-                                <input type="hidden" name="serviceProvidedId" value="<?= $servPro->getServiceProvidedId() ?>">
-                                <input type="hidden" type="number" name="status" value="0">
-                                <input type="hidden" name="associateId" value="<?= $associate->getAssociateId() ?>">
-                                <button type="submit">Selectionner</button>
-                            </form>
-                        <?php } ?>
+                    <?php echo $associate; ?>
+                    <form action="valid_reservation.php" method="POST">
+                        <input type="hidden" name="serviceProvidedId" value="<?= $servPro->getServiceProvidedId() ?>">
+                        <input type="hidden" type="number" name="status" value="0">
+                        <input type="hidden" name="associateId" value="<?= $associate->getAssociateId() ?>">
+                        <button type="submit">Selectionner</button>
+                    </form>
+                <?php } ?>
             <?php } ?>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+            <br>
+            <br>
+            <br>
+            <br>
         </section>
 
     </main>
