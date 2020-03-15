@@ -11,7 +11,7 @@ class Customer
     private $city;
     private $password;
 
-    public function __construct($id,$firstname, $lastname, $mail, $phone_number, $address, $city, $password)
+    public function __construct($id, $firstname, $lastname, $mail, $phone_number, $address, $city, $password)
     {
         $this->firstname = htmlspecialchars(trim($firstname));
         $this->lastname = htmlspecialchars(trim($lastname));
@@ -158,6 +158,17 @@ class Customer
     {
         date_default_timezone_set('Europe/Paris');
         $this->id = hash('sha256', $this->getLastname() . date('dMY-H:m:s') . $this->getPhone_number());
+        return $this;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */
+    public function setPassword($password)
+    {
+        $this->password = hash('sha512', $password . 'ChrysaleadProject');;
         return $this;
     }
 }

@@ -84,9 +84,9 @@ if (
 		header('Location: registration.php?error=mail_taken');
 		exit;
 	}
-	$password = hash('sha512', $_POST['passwd'] . 'ChrysaleadProject');
-	$user = new Customer(NULL,$_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['phone_number'], $_POST['address'], $_POST['city'], $password);
+	$user = new Customer(NULL,$_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['phone_number'], $_POST['address'], $_POST['city'], NULL);
 	$user->setId();
+	$user->setPassword($_POST['passwd']);
 	$hm_database->addCustomer($user);
 
 	$_SESSION['customer'] = $user->getId();

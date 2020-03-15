@@ -29,7 +29,7 @@ if (isset($id)) {
 
     if ($status == 'customer') {
 
-        if (($user = $hm_database->getUserById($id)) != NULL) {
+        if (($user = $hm_database->getUserById($id)) != NULL && $hm_database->doesAccountIsActivated($id) == 1) {
 
             $connected = 1;
         } else {
