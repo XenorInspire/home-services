@@ -17,7 +17,7 @@ class DBManager
   {
     $user->setId();
 
-    $q = "INSERT INTO customer(customerId, email, lastName, firstName, phoneNumber, address, town, password, enable)
+    $q = "INSERT INTO Customer(customerId, email, lastName, firstName, phoneNumber, address, town, password, enable)
           VALUES (:customerId, :email, :lastName, :firstName, :phoneNumber, :address, :town, :password, :enable)";
     $res = $this->db->prepare($q);
     $res->execute(array(
@@ -36,7 +36,7 @@ class DBManager
   public function doesMailExist($mail)
   {
 
-    $q = "SELECT customerId FROM customer WHERE email = ?";
+    $q = "SELECT CustomerId FROM Customer WHERE email = ?";
     $req = $this->db->prepare($q);
     $req->execute([$mail]);
 
@@ -53,7 +53,7 @@ class DBManager
   public function enableCustomerAccount($id)
   {
 
-    $q = "UPDATE Customer SET enable = 1 WHERE customer.customerId = ?";
+    $q = "UPDATE Customer SET enable = 1 WHERE Customer.customerId = ?";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
   }

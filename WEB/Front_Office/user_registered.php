@@ -61,6 +61,8 @@ if (hash('sha256', $user->getMail()) != $enable) {
 }
 
 $hm_database->enableCustomerAccount($id);
+$_SESSION['enable'] = '';
+setcookie('enable', NULL, time(), null, null, false, true);
 
 ?>
 
@@ -99,27 +101,6 @@ $hm_database->enableCustomerAccount($id);
             <br>
             <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark">Accueil</button>
         </section>
-        <!-- <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br> -->
     </main>
     <script src="js/redirect.js"></script>
     <?php require_once("include/footer.php"); ?>

@@ -1,4 +1,4 @@
-	<?php session_start(); ?>
+	<?php require_once('include/check_identity.php'); ?>
 
 	<!DOCTYPE html>
 	<html lang="en" dir="ltr">
