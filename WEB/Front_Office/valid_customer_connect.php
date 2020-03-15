@@ -1,9 +1,7 @@
 <?php
 
-$mail = htmlspecialchars($_POST['email']);
-$password = $_POST['password'];
-$password .= "ChrysaleadProject";
-$password = hash('sha512', $password);
+$mail = htmlspecialchars($_POST['mail']);
+$password = hash('sha512', $_POST['passwd'] . 'ChrysaleadProject');
 
 if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
 
@@ -16,7 +14,7 @@ require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
 
-if ($hm_database->doesMailExist($mail) != 0) {
+if ($hm_database->doesMailExist($mail) == 0) {
 
     header('Location: connect_customer.php?error=mail_nexit');
     exit;

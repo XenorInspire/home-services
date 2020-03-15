@@ -19,18 +19,102 @@ require_once('include/check_identity.php');
         <li class="nav-item">
           <a class="nav-link" href="about_us.php">A propos</a>
         </li>
-        <li id="hm-connect" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Connexion
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="connect_customer.php">Espace client</a>
-            <a class="dropdown-item" href="#">Espace prestataire</a>
-          </div>
+        <?php
+
+        if ($connected == 0) {
+
+        ?>
+          <li id="hm-connect" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Connexion
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="connect_customer.php">Espace client</a>
+              <a class="dropdown-item" href="#">Espace prestataire</a>
+            </div>
+          </li>
+
+          <?php
+
+        } else {
+
+          if ($status == 'customer') {
+
+          ?>
+
+            <li id="hm-connect" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Mon compte
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="profile_customer.php">Mes informations personnelles</a>
+                <a class="dropdown-item" href="orders.php">Mes commandes</a>
+              </div>
+            </li>
+
+          <?php
+
+          } else {
+
+          ?>
+
+            <li id="hm-connect" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Mon compte
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="profile_customer.php">Mes informations personnelles</a>
+                <a class="dropdown-item" href="deconnect.php">Déconnexion</a>
+              </div>
+            </li>
+
+        <?php
+
+          }
+        }
+
+        ?>
         </li>
-        <li id="hm-regis" class="nav-item">
-          <a class="nav-link" href="registration.php">S'inscrire</a>
-        </li>
+
+        <?php
+
+        if ($connected == 0) {
+
+        ?>
+
+          <li id="hm-regis" class="nav-item">
+            <a class="nav-link" href="registration.php">S'inscrire</a>
+          </li>
+
+          <?php
+
+        } else {
+
+          if ($status == 'customer') {
+
+          ?>
+
+            <li id="hm-regis" class="nav-item">
+              <a class="nav-link" href="deconnect.php">Déconnexion</a>
+            </li>
+
+          <?php
+
+          } else {
+
+          ?>
+
+            <li id="hm-regis" class="nav-item">
+              <a class="nav-link" href="agenda.php">Agenda</a>
+            </li>
+
+        <?php
+
+          }
+        }
+
+        ?>
+
       </ul>
     </div>
   </nav>

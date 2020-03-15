@@ -27,7 +27,7 @@ if (isset($_SESSION['associate']) && !empty($_SESSION['associate'])) {
 
 if (isset($id)) {
 
-    if($status == 'customer'){
+    if ($status == 'customer') {
 
         if (($user = $hm_database->getUserById($id)) != NULL) {
 
@@ -36,14 +36,11 @@ if (isset($id)) {
 
             $connected = 0;
         }
-
-    }else{
+    } else {
 
         //check associate identity
 
     }
-
-    
 } else {
 
     $connected = 0;

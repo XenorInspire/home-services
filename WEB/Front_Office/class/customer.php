@@ -19,7 +19,7 @@ class Customer
         $this->phone_number = $phone_number;
         $this->address = htmlspecialchars(trim($address));
         $this->city = htmlspecialchars(trim($city));
-        $this->password = hash('sha512', $password . 'ChrysaleadProject');
+        $this->password = $password;
         $this->id = $id;
     }
 
