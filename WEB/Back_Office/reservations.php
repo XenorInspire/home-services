@@ -1,5 +1,6 @@
 <?php
 require_once('class/DBManager.php');
+$hm_database = new DBManager($bdd);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -44,16 +45,25 @@ require_once('class/DBManager.php');
             <hr>
             <br>
             <?php
-            $hm_database = new DBManager($bdd);
             $reservations = [];
             $reservations = $hm_database->getReservationList();
-            foreach ($reservations as $res) { ?>
-                <?php
+            foreach ($reservations as $res) {
+                $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
+                $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
                 if ($res->getStatus() == 0) { ?>
                     <div class="row justify-content-center">
                         <div class="col-6">
-                            <?php echo $res; ?>
-                            <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?=$res->getReservationId()?>">Affecter / Voir le prestataire</a>
+                            <?php
+                            echo $res;
+                            if ($proposal == NULL) {
+                                echo 'Choisir un prestataire';
+                            } else {
+                                if ($proposal->getStatus() == 0)
+                                    echo 'En attente de reponse du prestataire';
+                            }
+                            ?>
+
+                            <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>">Affecter / Voir le prestataire</a>
                         </div>
                     </div>
                     <hr>
