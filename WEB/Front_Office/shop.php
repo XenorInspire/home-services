@@ -18,6 +18,72 @@
 
 		<main>
 
+			<section class="container text-center">
+
+				<br>
+				<br>
+				<br>
+				<h1>Abonnements</h1>
+				<br>
+
+				<?php
+
+				$hm_database = new DBManager($bdd);
+				$subs = $hm_database->getSubscriptionTypes();
+
+				for ($i = 0; $i < count($subs); $i++) {
+
+					sscanf($subs[$i]->getBeginTime(), "%d:%s", $time1, $trash);
+					sscanf($subs[$i]->getEndTime(), "%d:%s", $time2, $trash);
+
+				?>
+
+					<div style="display: inline-block; margin: 10px;" class="card mb-4 box-shadow">
+						<div class="card-header">
+							<h4 class="my-0 font-weight-normal"><?php echo $subs[$i]->getTypeName(); ?></h4>
+						</div>
+						<div class="card-body">
+							<h1 class="card-title pricing-card-title"><?php echo $subs[$i]->getPrice(); ?>€<small class="text-muted">/an</small></h1>
+							<ul class="list-unstyled mt-3 mb-4">
+								<li><?php echo $subs[$i]->getDays(); ?> jours par semaine</li>
+
+								<?php
+
+								if ($time1 == 24 && $time2 == 24) {
+
+								?>
+
+									<li>24h sur 24 !</li>
+
+								<?php
+
+								} else {
+
+								?>
+									<li>De <?php echo $time1; ?>h à <?php echo $time2; ?>h</li>
+
+								<?php
+
+								}
+
+								?>
+
+								<li>Avec un maximum de <?php echo $subs[$i]->getServiceTime(); ?>h par mois !</li>
+							</ul>
+							<button type="button" class="btn btn-lg btn-block btn-primary">S'abonner</button>
+						</div>
+					</div>
+
+				<?php
+
+				}
+
+
+				?>
+
+
+
+			</section>
 
 		</main>
 
