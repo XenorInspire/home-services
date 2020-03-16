@@ -29,7 +29,7 @@ if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
 require_once('class/DBManager.php');
 $hm_database = new DBManager($bdd);
 
-$user = $hm_database->getUser($id);
+$user = $hm_database->getUserById($id);
 if (empty($user)) {
 
     header('Location: index.php');
@@ -42,7 +42,7 @@ if (hash('sha256', $user['email']) != $enable) {
     exit;
 }
 
-system('python mail/mail.py ' . $user['email'] . ' ' . $id);
+system('python3 mail/mail.py ' . $user['email'] . ' ' . $id);
 
 header('Location: waiting_register.php');
 exit;
