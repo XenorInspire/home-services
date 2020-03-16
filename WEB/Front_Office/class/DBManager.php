@@ -2,6 +2,7 @@
 
 require_once('include/config.php');
 require_once('class/customer.php');
+require_once('class/subscription_type.php');
 
 class DBManager
 {
@@ -60,14 +61,18 @@ class DBManager
 
   public function getSubscriptionTypes()
   {
-    $q = "SELECT typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
+    $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
     $req = $this->db->prepare($q);
     $req->execute();
 
-    $results = [];
-    $results[] = $req->fetchAll();
+    while($results = $req->fetch()){
 
-    return $results;
+      $subscriptionType = new SubscriptionType($results['typeId'], $results['typeName'], $results['openDays'], $results['openTime'], $results['closeTime'], $results['serviceTimeAmount'], $results['price']);
+      $subs[] = $subscriptionType;
+
+    }
+
+    return $subs;
   }
 
   public function getUserById($id)
