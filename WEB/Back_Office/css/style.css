@@ -54,10 +54,8 @@ nav a {
 
 }
 
-main body {
-
-  background-color: whitesmoke;
-
+body {
+  background-color: rgb(240, 240, 240) !important;
 }
 
 /* /////////////////////////// */

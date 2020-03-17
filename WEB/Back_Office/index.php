@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Services - Accueil</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -15,9 +15,9 @@
     <?php require_once("include/header.php"); ?>
 
     <main>
-
+        <br>
         <section class="container-fluid text-center">
-            <p>Back Office</p>
+            <div class="display-4">Bienvenue au Back-Office de Home-Service</div>
         </section>
 
     </main>
