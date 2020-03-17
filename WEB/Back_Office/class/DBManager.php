@@ -9,6 +9,7 @@ require_once('class/service.php');
 require_once('class/associateServices.php');
 require_once('class/associate.php');
 require_once('class/proposal.php');
+require_once('class/serviceType.php');
 
 class DBManager
 {
@@ -165,7 +166,7 @@ class DBManager
         if ($data == NULL) {
             header('Location: reservations.php');
         }
-        return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['hours'], $data['pricePerHour']);
+        return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'],$data['beginHour'], $data['hours'], $data['pricePerHour'], $data['hoursAssociate']);
     }
 
     //Service
@@ -180,6 +181,32 @@ class DBManager
             header('Location: reservations.php');
         }
         return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+    }
+
+    public function getServiceListByType($serviceTypeId)
+    {
+        $services = [];
+        $serviceTypeId = (int) $serviceTypeId;
+        $q = $this->db->query('SELECT * FROM Service WHERE serviceTypeId = ' . $serviceTypeId . '');
+
+        while ($data = $q->fetch()) {
+            $services[] = new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+        }
+
+        return $services;
+    }
+
+    public function getServiceTypeList()
+    {
+        $serviceTypes = [];
+
+        $q = $this->db->query('SELECT * FROM ServiceType ORDER BY typeName');
+
+        while ($data = $q->fetch()) {
+            $serviceTypes[] = new ServiceType($data['serviceTypeId'], $data['typeName']);
+        }
+
+        return $serviceTypes;
     }
 
     //AssociateServices get associate with the service id 

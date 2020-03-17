@@ -1,3 +1,6 @@
+<?php
+isset($_GET['customerId']);
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -15,11 +18,21 @@
     <?php require_once("include/header.php"); ?>
 
     <main>
-
-        <section class="container-fluid text-center">
-            <p>Edit Customer</p>
-        </section>
-
+        <div class="container-fluid text-center">
+            <h1>Creer une reservation</h1>
+            <hr>
+            <a href="create_reservation.php?customerId=<?= $_GET['customerId']?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
+            <br>
+            <h1>Regenerer Qrcode</h1>
+            <hr>
+            <br>
+            <h1>Modifer les infos</h1>
+            <hr>
+            <br>
+            <h1>Renvoyer le mdp</h1>
+            <hr>
+            <br>
+        </div>
     </main>
 
     <?php require_once("include/footer.php"); ?>

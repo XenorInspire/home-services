@@ -37,10 +37,10 @@ $hm_database = new DBManager($bdd);
             // }
 
             ?>
-            <h1>Creer une reservation</h1>
+            <br>
+            <a href="customers.php"><button type="button" class="btn btn-dark">Créer une réservation pour un client</button></a>
+            <br>
             <hr>
-            <br>
-            <br>
             <h1>Liste des réservations</h1>
             <hr>
             <br>

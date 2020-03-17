@@ -45,7 +45,7 @@ require_once('class/DBManager.php');
 
 
 
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-responsive-lg table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th>Lastname</th>
@@ -54,7 +54,7 @@ require_once('class/DBManager.php');
                         <th>Numero</th>
                         <th>Adresse</th>
                         <th>Ville</th>
-                        <th>Modifier</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="myTable">
@@ -85,7 +85,7 @@ require_once('class/DBManager.php');
                         <td><?= $user->getPhoneNumber() ?></td>
                         <td><?= $user->getAddress() ?></td>
                         <td><?= $user->getTown() ?></td>
-                        <td><a class="" href="edit_customer.php?id=<?= $user->getId() ?>">
+                        <td><a class="" href="edit_customer.php?customerId=<?= $user->getId() ?>">
                                 <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
                             </a> </td>
                         </tr>

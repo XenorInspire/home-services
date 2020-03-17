@@ -5,16 +5,20 @@ class ServiceProvided{
     private $serviceProvidedId;
     private $serviceId;
     private $date;
+    private $beginHour;
     private $hours;
-    private $pricePerHour;
+    private $pricePerHour; 
+    private $hoursAssociate;
 
-    public function __construct($serviceProvidedId, $serviceId, $date, $hours, $pricePerHour)
+    public function __construct($serviceProvidedId, $serviceId, $date, $beginHour, $hours, $pricePerHour, $hoursAssociate)
     {
         $this->serviceProvidedId = $serviceProvidedId;
         $this->serviceId = $serviceId;
         $this->date = $date;
+        $this->beginHour = $beginHour;
         $this->hours = $hours;
         $this->pricePerHour = $pricePerHour;
+        $this->hoursAssociate = $hoursAssociate;
     }
 
     /**
@@ -121,5 +125,45 @@ class ServiceProvided{
     {
         $vars = get_object_vars($this);
         return json_encode($vars);
+    }
+
+    /**
+     * Get the value of hoursAssociate
+     */ 
+    public function getHoursAssociate()
+    {
+        return $this->hoursAssociate;
+    }
+
+    /**
+     * Set the value of hoursAssociate
+     *
+     * @return  self
+     */ 
+    public function setHoursAssociate($hoursAssociate)
+    {
+        $this->hoursAssociate = $hoursAssociate;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of beginHour
+     */ 
+    public function getBeginHour()
+    {
+        return $this->beginHour;
+    }
+
+    /**
+     * Set the value of beginHour
+     *
+     * @return  self
+     */ 
+    public function setBeginHour($beginHour)
+    {
+        $this->beginHour = $beginHour;
+
+        return $this;
     }
 }
