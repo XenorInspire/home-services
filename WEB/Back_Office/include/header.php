@@ -31,9 +31,9 @@
   </div>
 </nav>
 </header> -->
-
-<header>
-  <nav id="navhm" class="navbar navbar-expand-md navbar-dark">
+<br>
+<header class="container">
+  <nav id="navhm" class="navbar navbar-expand-md navbar-dark rounded">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
