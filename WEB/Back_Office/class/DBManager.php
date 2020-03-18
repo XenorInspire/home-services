@@ -20,6 +20,10 @@ class DBManager
         $this->db = $bdd;
     }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * SUBSCRIPTION PART * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
     //Insert subscription in db
     public function addSubscriptionType(SubscriptionType $subscription)
     {
@@ -61,7 +65,7 @@ class DBManager
         return $subscriptions;
     }
 
-    //Get the subscriptionType with its id 
+    //Get the subscriptionType with its id
     public function getSubscriptionType($typeId)
     {
         $typeId = (int) $typeId;
@@ -107,6 +111,9 @@ class DBManager
         $this->db->exec("DELETE FROM SubscriptionType WHERE typeId = '" . $typeId . "'");
     }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     public function getCustomerList()
     {
@@ -132,9 +139,11 @@ class DBManager
         return $users;
     }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * RESERVATION PART * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-    //RESERVATIONS
+    //Reservations list
     public function getReservationList()
     {
         $reservations = [];
@@ -148,7 +157,7 @@ class DBManager
         return $reservations;
     }
 
-    //Delete reservation 
+    //Delete reservation
     public function deleteReservation($reservationId)
     {
         $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
@@ -168,6 +177,10 @@ class DBManager
         }
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'],$data['beginHour'], $data['hours'], $data['pricePerHour'], $data['hoursAssociate']);
     }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * SERVICE PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     //Service
     public function getService($serviceId)
@@ -209,7 +222,7 @@ class DBManager
         return $serviceTypes;
     }
 
-    //AssociateServices get associate with the service id 
+    //AssociateServices get associate with the service id
     public function getAssociateServicesList($serviceId)
     {
 
@@ -229,7 +242,11 @@ class DBManager
         return $associates;
     }
 
-    //Associate 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * *ASSOCIATE PART* * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    //Associate
     public function getAssociate($associateId)
     {
         $associateId = (int) $associateId;
@@ -256,6 +273,10 @@ class DBManager
         ));
         //Mail sent to the associate
     }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * PROPOSAL PART* * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     public function getProposal($serviceProvidedId)
     {
