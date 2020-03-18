@@ -44,6 +44,12 @@ nav a {
 
 }
 
+
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:hover,
+.dropdown-menu>.active>a:focus{
+    background-color: #7dc290;
+}
 /* /////////////////////////// */
 
 /* Home Page */

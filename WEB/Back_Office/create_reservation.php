@@ -35,48 +35,55 @@ $servicesType = $hm_database->getServiceTypeList();
             // }
             ?>
 
+
+            <h1>Réservation d'un service</h1>
             <br>
-            <h1>Liste des types de services</h1>
-            <?php
-            foreach ($servicesType as $serviceType) { ?>
-                <?php
-                echo '<h2>Type service</h2>';
-                echo $serviceType;
-                echo '<br>';
-                echo '<h1>Les services</h1>';
-                $services = $hm_database->getServiceListByType($serviceType->getServiceTypeId());
-                foreach ($services as $serv) { ?>
-                    <?php echo $serv; ?>
-                    <!-- <a href="valid_create_reservation.php?"><button type="button" class="btn btn-dark">Créer une réservation pour un client</button></a> -->
-                <?php }
-                ?>
-            <?php
-            }
-            ?>
-            <br>
-            <br>
-
-           
-                <form class="container" action="valid_reservation.php" method="POST">
-                    <div class="form-group">
-                        <label>Date de la prestation</label>
-                        <input type="date" name="date" class="form-control" placeholder="" required>
+            <form class="container" action="valid_reservation.php" method="POST">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Type de service</label>
                     </div>
-                    <div class="form-group">
-                        <label>Heure de la prestation</label>
-                        <input type="time" name="beginHour" class="form-control" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre d'heures</label>
-                        <input type="number" name="hours" class="form-control" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-outline-success" type="submit">Creer la reservation</button>
-                    </div>
-                </form>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected disabled>Choisir un type de service...</option>
+                        <?php
+                        foreach ($servicesType as $serviceType) { ?>
+                            <option value="<?= $serviceType->getServiceTypeId() ?>"><?= $serviceType->getTypeName() ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
 
+                <div class="btn-group-toggle services" data-toggle="buttons">
+                    <?php
+                    $services = $hm_database->getServiceListByType($serviceType->getServiceTypeId());
+                    foreach ($services as $serv) { ?>
+                        <label class="btn btn-outline-secondary btn-block">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked> <?= $serv->getServiceTitle() ?> : <?= $serv->getDescription() ?>
+                        </label>
+                    <?php } ?>
+                    <label class="btn btn-outline-secondary btn-block">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> <?= $serv->getServiceTitle() ?> : <?= $serv->getDescription() ?>
+                    </label>
+                </div>
 
+                <br>
 
+                <div class="form-group">
+                    <label>Date de la prestation</label>
+                    <input type="date" name="date" class="form-control" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label>Heure de la prestation</label>
+                    <input type="time" name="beginHour" class="form-control" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label>Nombre d'heures</label>
+                    <input type="number" name="hours" class="form-control" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-success" type="submit">Creer la reservation</button>
+                </div>
+
+            </form>
             <br>
             <br>
             <br>
@@ -89,5 +96,24 @@ $servicesType = $hm_database->getServiceTypeList();
     <?php require_once("include/footer.php"); ?>
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".custom-select").change(function() {
+            var id = $(this).val();
+            var dataString = 'serviceTypeId=' + id;
+            console.log(dataString);
+            $.ajax({
+                type: "POST",
+                url: "get_services.php",
+                data: dataString,
+                cache: false,
+                success: function(html) {
+                    $(".services").html(html);
+                }
+            });
+        });
+    });
+</script>
 
 </html>
