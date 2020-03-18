@@ -1,46 +1,37 @@
-<?php require_once __DIR__ . '/class/DBManager.php' ?>
-<!DOCTYPE html>
-<html>
+ <?php
 
-<head>
-  <meta charset="utf-8">
-  <title>Page des abonnements</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="css/style.css" type="text/css">
-</head>
+    require_once('include/check_identity.php');
+    if(!($status == 'customer' && $connected == 1)){
 
-<body>
-  <?php require_once __DIR__ . '/include/header.php'; ?>
-  <main id="main">
-    <h1> ABONNEMENTS </h1>
-    <?php
-    $dbmanager = new DBManager($bdd);
-    $subscriptions = $dbmanager->getSubscriptionTypes();
-    foreach ($subscriptions as $subscription) {
-      foreach ($subscription as $s) { ?>
-        <div class="subscriptions">
-          <h3> Abonnement <?php echo $s["typeName"]; ?> </h3>
-          <p id="subscib_description">
-            <p> <?php if (substr($s["openTime"], 0, 2) != '24') {
-                  echo 'Disponible de ' .
-                    substr($s["openTime"], 0, 2) . 'h à ' .
-                    substr($s["closeTime"], 0, 2) . 'h';
-                } else echo 'Disponible 24 heures / 24'; ?> </p>
-            <p> <?php echo $s["openDays"]; ?> jours / 7 </p>
-            <p> <?php echo $s["serviceTimeAmount"] ?>h de service par mois </p>
-            <p> À partir de <?php echo $s["price"] ?>€ !</p>
-          </p>
-          <button class="btn btn-secondary subscrib_button">S'abonner !</button>
-        </div>
-    <?php
-      }
-    } ?>
+        header('Location: connect_customer.php?error=forb');
+        exit;
 
-    <script type="text/javascript" src="js/subscriptionpage.js"></script>
-  </main>
-  <footer>
+    }
 
-  </footer>
-</body>
+?>
 
-</html>
+ <!DOCTYPE html>
+ <html lang="en" dir="ltr">
+
+ <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>Home Services - Boutique</title>
+     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
+     <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+ </head <body>
+
+ <?php require_once("include/header.php"); ?>
+
+ <main>
+
+ </main>
+
+ <?php require_once("include/footer.php"); ?>
+ <script src="js/stripe.js"></script>
+ <script src="https://js.stripe.com/v3/"></script>
+
+ </body>
+
+ </html>

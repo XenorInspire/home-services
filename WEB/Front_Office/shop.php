@@ -43,7 +43,7 @@
 							<h4 class="my-0 font-weight-normal"><?php echo $subs[$i]->getTypeName(); ?></h4>
 						</div>
 						<div class="card-body">
-							<h1 class="card-title pricing-card-title"><?php echo $subs[$i]->getPrice(); ?>€<small class="text-muted">/an</small></h1>
+							<h1 class="card-title pricing-card-title"><?php echo $subs[$i]->getPrice(); ?>€ TTC<small class="text-muted">/an</small></h1>
 							<ul class="list-unstyled mt-3 mb-4">
 								<li><?php echo $subs[$i]->getDays(); ?> jours par semaine</li>
 
@@ -70,7 +70,7 @@
 
 								<li>Avec un maximum de <?php echo $subs[$i]->getServiceTime(); ?>h par mois !</li>
 							</ul>
-							<button type="button" class="btn btn-lg btn-block btn-primary">S'abonner</button>
+							<button type="button" onclick="window.location.href = 'subscription.php?s=<?php echo $subs[$i]->getTypeId(); ?>';" class="btn btn-lg btn-block btn-primary">S'abonner</button>
 						</div>
 					</div>
 

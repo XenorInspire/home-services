@@ -51,6 +51,12 @@
 						echo '<br>';
 						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte client n\'est pas activé</div>';
 					}
+
+					if ($_GET['error'] == 'forb') {
+
+						echo '<br>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette page n\'est pas accessible, veuillez vous connecter.</div>';
+					}
 				}
 
 				?>
