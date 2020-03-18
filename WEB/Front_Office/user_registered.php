@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+
+session_start();
 
 if (empty(trim($_GET['a'])) || !isset($_GET['a'])) {
 

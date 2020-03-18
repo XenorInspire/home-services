@@ -1,6 +1,6 @@
 function redir() {
 
-    self.location.href = "http://localhost/index.php";
+    self.location.href = "/";
 
 }
 
