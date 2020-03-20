@@ -7,18 +7,22 @@ class ServiceProvided{
     private $date;
     private $beginHour;
     private $hours;
-    private $pricePerHour; 
-    private $hoursAssociate;
+    private $additionalPrice; 
+    private $hoursAssociate;    
+    private $address;
+    private $town;
 
-    public function __construct($serviceProvidedId, $serviceId, $date, $beginHour, $hours, $pricePerHour, $hoursAssociate)
+    public function __construct($serviceProvidedId, $serviceId, $date, $beginHour, $hours, $additionalPrice, $hoursAssociate, $address, $town)
     {
         $this->serviceProvidedId = $serviceProvidedId;
         $this->serviceId = $serviceId;
         $this->date = $date;
         $this->beginHour = $beginHour;
         $this->hours = $hours;
-        $this->pricePerHour = $pricePerHour;
+        $this->additionalPrice = $additionalPrice;
         $this->hoursAssociate = $hoursAssociate;
+        $this->address = $address;
+        $this->town = $town;
     }
 
     /**
@@ -102,21 +106,21 @@ class ServiceProvided{
     }
 
     /**
-     * Get the value of pricePerHour
+     * Get the value of additionalPrice
      */ 
-    public function getPricePerHour()
+    public function getAdditionalPrice()
     {
-        return $this->pricePerHour;
+        return $this->additionalPrice;
     }
 
     /**
-     * Set the value of pricePerHour
+     * Set the value of additionalPrice
      *
      * @return  self
      */ 
-    public function setPricePerHour($pricePerHour)
+    public function setAdditionalPrice($additionalPrice)
     {
-        $this->pricePerHour = $pricePerHour;
+        $this->additionalPrice = $additionalPrice;
 
         return $this;
     }
@@ -163,6 +167,46 @@ class ServiceProvided{
     public function setBeginHour($beginHour)
     {
         $this->beginHour = $beginHour;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of address
+     */ 
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set the value of address
+     *
+     * @return  self
+     */ 
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of town
+     */ 
+    public function getTown()
+    {
+        return $this->town;
+    }
+
+    /**
+     * Set the value of town
+     *
+     * @return  self
+     */ 
+    public function setTown($town)
+    {
+        $this->town = $town;
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 class Customer
 {
-    private $id;
+    private $customerId;
     private $firstname;
     private $lastname;
     private $email;
@@ -11,9 +11,9 @@ class Customer
     private $town;
     private $enable;
 
-    public function __construct($id,$firstname, $lastname, $email, $phoneNumber, $address, $town, $enable)
+    public function __construct($customerId,$firstname, $lastname, $email, $phoneNumber, $address, $town, $enable)
     {
-        $this->id = $id;
+        $this->customerId = $customerId;
         $this->firstname = htmlspecialchars(trim($firstname));
         $this->lastname = htmlspecialchars(trim($lastname));
         $this->email = $email;
@@ -23,8 +23,6 @@ class Customer
         $this->enable = $enable;
     }
 
-
-
     public function __toString(): string
     {
         $vars = get_object_vars($this);
@@ -32,21 +30,21 @@ class Customer
     }
 
     /**
-     * Get the value of id
+     * Get the value of customerId
      */ 
-    public function getId()
+    public function getCustomerId()
     {
-        return $this->id;
+        return $this->customerId;
     }
 
     /**
-     * Set the value of id
+     * Set the value of customerId
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setCustomerId($customerId)
     {
-        $this->id = $id;
+        $this->customerId = $customerId;
 
         return $this;
     }

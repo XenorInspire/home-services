@@ -67,7 +67,7 @@ require_once('class/DBManager.php');
                     foreach ($users as $user) { ?>
                         <!-- <div class="row justify-content-center">
                             <div class="col-6">
-                                <h2><a title="Modifier" class="btn  btn-block" href="edit_subscription.php?id=<?= $user->getId() ?>"><?= $user->getLastname() ?></a></h2>
+                                <h2><a title="Modifier" class="btn  btn-block" href="edit_subscription.php?id=<?= $user->getCustomerId() ?>"><?= $user->getLastname() ?></a></h2>
                             </div>
                         </div>
                         <hr> -->
@@ -85,7 +85,7 @@ require_once('class/DBManager.php');
                         <td><?= $user->getPhoneNumber() ?></td>
                         <td><?= $user->getAddress() ?></td>
                         <td><?= $user->getTown() ?></td>
-                        <td><a class="" href="edit_customer.php?customerId=<?= $user->getId() ?>">
+                        <td><a class="" href="edit_customer.php?customerId=<?= $user->getCustomerId() ?>">
                                 <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
                             </a> </td>
                         </tr>

@@ -10,7 +10,7 @@ if (isset($_POST['serviceTypeId'])) {
     $services = $hm_database->getServiceListByType($id);
     foreach ($services as $serv) { ?>
         <label class="btn btn-outline-secondary btn-block">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> <?= $serv->getServiceTitle() ?> : <?= $serv->getDescription() ?>
+            <input type="radio" name="serviceId" id="option1" autocomplete="off" value="<?= $serv->getServiceId() ?>" required> <?= $serv->getServiceTitle() ?> : <?= $serv->getDescription() ?>
         </label>
     <?php } ?>
 <?php } ?>

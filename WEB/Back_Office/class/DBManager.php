@@ -20,7 +20,7 @@ class DBManager
         $this->db = $bdd;
     }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * SUBSCRIPTION PART * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -111,23 +111,24 @@ class DBManager
         $this->db->exec("DELETE FROM SubscriptionType WHERE typeId = '" . $typeId . "'");
     }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+    public function getCustomer($customerId)
+    {
+        $customerId = (int) $customerId;
+        $q = $this->db->query('SELECT * FROM Customer WHERE customerId = ' . $customerId . '');
+
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            header('Location: customers.php');
+        }
+        return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+    }
 
     public function getCustomerList()
     {
-
-        // $q = "SELECT * FROM customer ORDER BY lastName";
-        // $req = $this->db->prepare($q);
-        // $req->execute();
-
-        // $results = [];
-        // $results[] = $req->fetchAll();
-
-        // return $results;
-
-
         $users = [];
 
         $q = $this->db->query('SELECT * FROM Customer ORDER BY lastName');
@@ -139,7 +140,7 @@ class DBManager
         return $users;
     }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * RESERVATION PART * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -175,10 +176,38 @@ class DBManager
         if ($data == NULL) {
             header('Location: reservations.php');
         }
-        return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'],$data['beginHour'], $data['hours'], $data['pricePerHour'], $data['hoursAssociate']);
+        return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['additionalPrice'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    //Insert a reservation 
+    public function addReservation(Customer $customer, Reservation $reservation, ServiceProvided $serviceProvided)
+    {
+        //Insert into ServiceProvided
+        $q = "INSERT INTO ServiceProvided(serviceProvidedId,serviceId,date,beginHour,hours,address,town) VALUES (:serviceProvidedId,:serviceId,:date,:beginHour,:hours,:address,:town)";
+        $res = $this->db->prepare($q);
+        $res->execute(array(
+            'serviceProvidedId' => $serviceProvided->getServiceProvidedId(),
+            'serviceId' => $serviceProvided->getServiceId(),
+            'date' => $serviceProvided->getDate(),
+            'beginHour' => $serviceProvided->getBeginHour(),
+            'hours' => $serviceProvided->getHours(),
+            'address' => $serviceProvided->getAddress(),
+            'town' => $serviceProvided->getTown()
+        ));
+
+        //Insert into Reservation
+        $q = "INSERT INTO Reservation(reservationId,reservationDate,customerId,serviceProvidedId,status) VALUES (:reservationId,:reservationDate,:customerId,:serviceProvidedId,:status)";
+        $res = $this->db->prepare($q);
+        $res->execute(array(
+            'reservationId' => $reservation->getReservationId(),
+            'reservationDate' => $reservation->getReservationDate(),
+            'customerId' => $customer->getCustomerId(),
+            'serviceProvidedId' => $serviceProvided->getServiceProvidedId(),
+            'status' => $reservation->getStatus()
+        ));
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * SERVICE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -242,7 +271,7 @@ class DBManager
         return $associates;
     }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * *ASSOCIATE PART* * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -274,7 +303,7 @@ class DBManager
         //Mail sent to the associate
     }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * PROPOSAL PART* * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
