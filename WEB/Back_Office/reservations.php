@@ -22,7 +22,6 @@ $hm_database = new DBManager($bdd);
 
         <section class="container text-center">
             <br>
-            <br>
             <?php
             // if (isset($_GET['delete']) == "successful") {
             //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
@@ -37,38 +36,49 @@ $hm_database = new DBManager($bdd);
             // }
 
             ?>
-            <br>
             <a href="customers.php"><button type="button" class="btn btn-dark">Créer une réservation pour un client</button></a>
             <br>
             <hr>
             <h1>Liste des réservations</h1>
-            <hr>
             <br>
-            <?php
-            $reservations = [];
-            $reservations = $hm_database->getReservationList();
-            foreach ($reservations as $res) {
-                $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
-                $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
-                if ($res->getStatus() == 0) { ?>
-                    <div class="row justify-content-center">
-                        <div class="col-6">
-                            <?php
-                            echo $res;
-                            if ($proposal == NULL) {
-                                echo 'Choisir un prestataire';
-                            } else {
-                                if ($proposal->getStatus() == 0)
-                                    echo 'En attente de reponse du prestataire';
-                            }
-                            ?>
+            <div class="card-columns">
 
-                            <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>">Affecter / Voir le prestataire</a>
+                <?php
+                $reservations = [];
+                $reservations = $hm_database->getReservationList();
+                $counter = 1;
+                foreach ($reservations as $res) {
+                    $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
+                    $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
+                    $customer = $hm_database->getCustomer($res->getCustomerId());
+                    if ($res->getStatus() == 0) { ?>
+                        <div class="card text-center border-dark">
+                            <div class="card-header border-dark">
+                                Réservation # <?= $counter ?>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
+                                <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-dark">
+                                    <?php
+                                    if ($proposal == NULL) {
+                                        echo 'Choisir un prestataire';
+                                    } else {
+                                        if ($proposal->getStatus() == 0)
+                                            echo 'Voir le prestataire';
+                                    }
+                                    ?>
+                                </a>
+                            </div>
+                            <div class="card-footer text-muted border-dark">
+                                <?= $res->getReservationDate() ?>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
+                    <?php
+                        $counter++;
+                    } ?>
                 <?php } ?>
-            <?php } ?>
+            </div>
             <br>
             <br>
             <br>

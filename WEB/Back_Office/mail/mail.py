@@ -15,12 +15,12 @@ s.login(logins.MY_ADDRESS, logins.PASSWORD)
 msg = MIMEMultipart()       # create a message
 
 # add in the actual person name to the message template
-message = 'Hi there !\nThanks for using Home-Services !\nYou have receive a reservation from a customer\nClick right here to see the reservation : \nhttp://localhost/associate_reservation.php?a=' + sys.argv[2]
+message = 'Hi there !\nThanks for using Home-Services !\nYou have received a reservation from a customer\nClick right here to see the reservation : \nhttp://localhost/associate_reservation.php?a=' + sys.argv[2]
 
 # setup the parameters of the message
 msg['From']=logins.MY_ADDRESS
 msg['To']= sys.argv[1]
-msg['Subject']="Home Services - Confirm your mail address"
+msg['Subject']="Home Services - You have recieved a reservation "
 
 # add in the message body
 msg.attach(MIMEText(message, 'plain'))
