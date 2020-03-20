@@ -19,73 +19,68 @@ $hm_database = new DBManager($bdd);
     <?php require_once("include/header.php"); ?>
 
     <main>
-
-        <section class="container text-center">
+        <div class="container text-center">
             <br>
-            <?php
-            // if (isset($_GET['delete']) == "successful") {
-            //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
-            // }
-
-            // if (isset($_GET['create']) == "successful") {
-            //     echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été créé</div>';
-            // }
-
-            // if (isset($_GET['edit']) == "successful") {
-            //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
-            // }
-
-            ?>
-            <a href="customers.php"><button type="button" class="btn btn-dark">Créer une réservation pour un client</button></a>
-            <br>
-            <hr>
-            <h1>Liste des réservations</h1>
-            <br>
-            <div class="card-columns">
-
+            <div class="jumbotron">
                 <?php
-                $reservations = [];
-                $reservations = $hm_database->getReservationList();
-                $counter = 1;
-                foreach ($reservations as $res) {
-                    $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
-                    $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
-                    $customer = $hm_database->getCustomer($res->getCustomerId());
-                    if ($res->getStatus() == 0) { ?>
-                        <div class="card text-center border-dark">
-                            <div class="card-header border-dark">
-                                Réservation # <?= $counter ?>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
-                                <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-dark">
-                                    <?php
-                                    if ($proposal == NULL) {
-                                        echo 'Choisir un prestataire';
-                                    } else {
-                                        if ($proposal->getStatus() == 0)
-                                            echo 'Voir le prestataire';
-                                    }
-                                    ?>
-                                </a>
-                            </div>
-                            <div class="card-footer text-muted border-dark">
-                                <?= $res->getReservationDate() ?>
-                            </div>
-                        </div>
-                        <hr>
+                // if (isset($_GET['delete']) == "successful") {
+                //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
+                // }
+
+                // if (isset($_GET['create']) == "successful") {
+                //     echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été créé</div>';
+                // }
+
+                // if (isset($_GET['edit']) == "successful") {
+                //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
+                // }
+
+                ?>
+                <a href="customers.php"><button type="button" class="btn btn-dark">Créer une réservation pour un client</button></a>
+                <hr>
+                <div class="display-4">Réservations à traiter</div>
+                <hr>
+                <div class="card-columns">
+
                     <?php
-                        $counter++;
-                    } ?>
-                <?php } ?>
+                    $reservations = [];
+                    $reservations = $hm_database->getReservationList();
+                    $counter = 1;
+                    foreach ($reservations as $res) {
+                        $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
+                        $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
+                        $customer = $hm_database->getCustomer($res->getCustomerId());
+                        if ($res->getStatus() == 0) { ?>
+                            <div class="card text-center border-dark">
+                                <div class="card-header border-dark">
+                                    Réservation # <?= $counter ?>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
+                                    <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-dark">
+                                        <?php
+                                        if ($proposal == NULL) {
+                                            echo 'Choisir un prestataire';
+                                        } else {
+                                            if ($proposal->getStatus() == 0)
+                                                echo 'Voir le prestataire';
+                                        }
+                                        ?>
+                                    </a>
+                                </div>
+                                <div class="card-footer text-muted border-dark">
+                                    <?= $res->getReservationDate() ?>
+                                </div>
+                            </div>
+                            <hr>
+                        <?php
+                            $counter++;
+                        } ?>
+                    <?php } ?>
+                </div>
+                <br>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-        </section>
+        </div>
 
     </main>
 

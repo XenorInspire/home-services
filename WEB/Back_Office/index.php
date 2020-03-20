@@ -16,10 +16,11 @@
 
     <main>
         <br>
-        <section class="container-fluid text-center">
-            <div class="display-4">Bienvenue au Back-Office de Home-Service</div>
-        </section>
-
+        <div class="container">
+            <div class="jumbotron text-center">
+                <div class="display-4">Bienvenue au Back-Office de Home-Service</div>
+            </div>
+        </div>
     </main>
 
     <?php require_once("include/footer.php"); ?>

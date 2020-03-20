@@ -18,20 +18,20 @@ isset($_GET['customerId']);
     <?php require_once("include/header.php"); ?>
 
     <main>
-        <div class="container-fluid text-center">
-            <h1>Creer une reservation</h1>
-            <hr>
-            <a href="create_reservation.php?customerId=<?= $_GET['customerId']?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
-            <br>
-            <h1>Regenerer Qrcode</h1>
-            <hr>
-            <br>
-            <h1>Modifer les infos</h1>
-            <hr>
-            <br>
-            <h1>Renvoyer le mdp</h1>
-            <hr>
-            <br>
+        <br>
+        <div class="container">
+            <div class="jumbotron text-center">
+                <div class="display-4">Réservation</div>
+                <hr>
+                <a href="create_reservation.php?customerId=<?= $_GET['customerId'] ?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
+                <hr>
+                <div class="display-4">Regenerer Qrcode</div>
+                <hr>
+                <div class="display-4">Modifer les infos</div>
+                <hr>
+                <div class="display-4">Renvoyer le mdp</div>
+                <hr>
+            </div>
         </div>
     </main>
 
