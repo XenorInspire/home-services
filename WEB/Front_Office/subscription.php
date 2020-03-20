@@ -35,6 +35,8 @@
         'currency' => 'eur',
         'customer' => $customer->id,
     ]);
+    sscanf($subscriptionType->getBeginTime(), "%d:%s", $time1, $trash);
+    sscanf($subscriptionType->getEndTime(), "%d:%s", $time2, $trash);
 
     ?>
 
@@ -55,21 +57,58 @@
      <?php require_once("include/header.php"); ?>
 
      <main>
+         <br>
+         <br>
 
-         <section class="container-fluid">
+         <section id="subscription_block" class="container text-center">
+             <br>
+             <h2>Abonnement <?php echo $subscriptionType->getTypeName(); ?></h2>
+             <br>
+             <ul style="margin:auto;width:50%;padding:0px;">
+                 <li class="list-group-item list-group-item-info">Plus d'informations :</li>
+                 <li class="list-group-item"><?php echo $subscriptionType->getDays(); ?> jours par semaine</li>
+                 <?php
 
-             <input id="cardholder-name" type="text">
+                    if ($time1 == 24 && $time2 == 24) {
+
+                    ?>
+
+                     <li>24h sur 24 !</li>
+
+                 <?php
+
+                    } else {
+
+                    ?>
+                     <li class="list-group-item">De <?php echo $time1; ?>h à <?php echo $time2; ?>h</li>
+
+                 <?php
+
+                    }
+
+                    ?>
+
+                 <li class="list-group-item">Avec un maximum de <?php echo $subscriptionType->getServiceTime(); ?>h par mois !</li>
+                 <li class="list-group-item">Prix : <?php echo $subscriptionType->getPrice(); ?>€ TTC/an</li>
+             </ul>
+             <br>
+             <h3>Paiement</h3>
+             <br>
+             <input id="cardholder-name" type="text" placeholder="Titulaire de la carte">
              </input>
-
-             <div id="card-element">
+             <br>
+             <br>
+             <div id="card-element" class="text-center">
                  <!-- Elements will create input elements here -->
              </div>
 
              <!-- We'll put the error messages in this element -->
              <div id="card-errors" role="alert"></div>
-
-             <button id="card-button" data-secret="<?= $intent->client_secret; ?>">Pay</button>
-
+             <br>
+             <!-- <button id="card-button" data-secret="<?= $intent->client_secret; ?>" type="button" class="btn btn-elegant">Elegant</button> -->
+             <button class="btn btn-lg btn-block btn-primary" id="card-button" data-secret="<?= $intent->client_secret; ?>">Payer</button>
+             <br>
+             <br>
          </section>
 
      </main>
