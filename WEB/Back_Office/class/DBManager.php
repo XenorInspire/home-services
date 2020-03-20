@@ -300,7 +300,6 @@ class DBManager
             'status' => ($proposal->getStatus() == 0 ? false : true),
             'associateId' => $proposal->getAssociateId()
         ));
-        //Mail sent to the associate
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

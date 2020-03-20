@@ -35,6 +35,7 @@ if (
     $reservation = new Reservation($reservationId, $reservationDate, $customerId, $serviceProvidedId, false);
 
     $hm_database->addReservation($customer, $reservation, $serviceProvided);
+
     header('Location: reservations.php?create=successful');
     exit;
 } else {

@@ -15,6 +15,10 @@ if (
 
     $hm_database->proposalToAssociate($proposal);
 
+    $associate = $hm_database->getAssociate($_POST['associateId']);
+
+    system('python3 mail/mail.py ' . $associate->getEmail() . ' ' . $associate->getAssociateId());
+
     header('Location: reservations.php?proposal=successful');
     exit;
 } else {
