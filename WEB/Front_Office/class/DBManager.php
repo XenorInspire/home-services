@@ -59,20 +59,34 @@ class DBManager
     $req->execute([$id]);
   }
 
-  public function getSubscriptionTypes()
+  public function getAllSubscriptionTypes()
   {
     $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
     $req = $this->db->prepare($q);
     $req->execute();
 
-    while($results = $req->fetch()){
+    while ($results = $req->fetch()) {
 
       $subscriptionType = new SubscriptionType($results['typeId'], $results['typeName'], $results['openDays'], $results['openTime'], $results['closeTime'], $results['serviceTimeAmount'], $results['price']);
       $subs[] = $subscriptionType;
-
     }
 
     return $subs;
+  }
+
+  public function getSubscriptionTypeById($id)
+  {
+
+    $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType WHERE typeId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+
+    $result = $req->fetch();
+
+    if (empty($result)) return NULL;
+
+    $subscriptionType = new SubscriptionType($result['typeId'], $result['typeName'], $result['openDays'], $result['openTime'], $result['closeTime'], $result['serviceTimeAmount'], $result['price']);
+    return $subscriptionType;
   }
 
   public function getUserById($id)
@@ -126,7 +140,7 @@ class DBManager
 
   /**
    * Get the value of db
-   */ 
+   */
   public function getDb()
   {
     return $this->db;

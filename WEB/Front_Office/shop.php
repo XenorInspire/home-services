@@ -29,7 +29,7 @@
 				<?php
 
 				$hm_database = new DBManager($bdd);
-				$subs = $hm_database->getSubscriptionTypes();
+				$subs = $hm_database->getAllSubscriptionTypes();
 
 				for ($i = 0; $i < count($subs); $i++) {
 
