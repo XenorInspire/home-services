@@ -238,6 +238,38 @@ class DBManager
         return $services;
     }
 
+    public function addServiceType(ServiceType $service)
+    {
+
+        $subName = $service->getTypeName();
+        $q = $this->db->query("SELECT typeName FROM ServiceType WHERE typeName = '" . $subName . "'");
+
+        $data = $q->fetch();
+
+        if ($data != NULL) {
+            header('Location: add_service_type.php?error=name_taken');
+            exit;
+        } else {
+            $q = "INSERT INTO ServiceType(serviceTypeId,typeName) VALUES (:serviceTypeId,:typeName)";
+            $res = $this->db->prepare($q);
+            $res->execute(array(
+                'serviceTypeId' => $service->getServiceTypeId(),
+                'typeName' => $service->getTypeName()
+            ));
+        }
+    }
+
+    public function getServiceType($typeId)
+    {
+        $q = $this->db->query('SELECT serviceTypeId,typeName FROM ServiceType WHERE serviceTypeId = "' . $typeId . '"');
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            header('Location: service_type.php');
+        }
+        return new ServiceType($data['serviceTypeId'], $data['typeName']);
+    }
+
     public function getServiceTypeList()
     {
         $serviceTypes = [];
@@ -245,10 +277,35 @@ class DBManager
         $q = $this->db->query('SELECT * FROM ServiceType ORDER BY typeName');
 
         while ($data = $q->fetch()) {
-            $serviceTypes[] = new ServiceType($data['serviceTypeId'], $data['typeName']);
+            $serviceTypes[] = new ServiceType($data["serviceTypeId"], $data["typeName"]);
         }
 
         return $serviceTypes;
+    }
+
+    public function updateServiceType(ServiceType $service)
+    {
+        $subName = $service->getTypeName();
+        $q = $this->db->query("SELECT typeName FROM ServiceType WHERE typeName = '" . $subName . "'");
+
+        $data = $q->fetch();
+
+        if ($data != NULL && $data['typeName'] != $service->getTypeName()) {
+            header('Location: edit_service_type.php?error=name_taken&id=' . $service->getServiceTypeId());
+            exit;
+        } else {
+            $id = $service->getServiceTypeId();
+            $q = "UPDATE ServiceType SET typeName=:typeName WHERE serviceTypeId='" . $id . "'";
+            $req = $this->db->prepare($q);
+            $req->execute(array(
+                'typeName' => $service->getTypeName()
+            ));
+        }
+    }
+
+    public function deleteServiceType($typeId)
+    {
+        $this->db->exec("DELETE FROM ServiceType WHERE serviceTypeId = '" . $typeId . "'");
     }
 
     //AssociateServices get associate with the service id
