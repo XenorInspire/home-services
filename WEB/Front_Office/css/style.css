@@ -60,7 +60,6 @@
 
 }
 
-
 #card-button {
 
   margin: auto;
@@ -68,12 +67,7 @@
 
 }
 
-#subscription_block {
-
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .55rem;
-
-}
+/* /////////////////////////// */
 
 /* Navigation bar */
 

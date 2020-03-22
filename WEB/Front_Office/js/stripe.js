@@ -1,4 +1,4 @@
-function subscribe(){
+function subscribe() {
 
     var style = {
         base: {
@@ -16,20 +16,11 @@ function subscribe(){
         }
     };
 
-    // Set your publishable key: remember to change this to your live publishable key in production
-    // See your keys here: https://dashboard.stripe.com/account/apikeys
     var stripe = Stripe('pk_test_Gz8JFeemGgLj6Bfuld5OnOix00e3XMnZ1x');
     var elements = stripe.elements();
     var cardElement = elements.create('card', { style: style });
     cardElement.mount('#card-element');
     var cardholderName = document.getElementById('cardholder-name');
-
-    
-    // Create an instance of the card Element.
-    // var card = elements.create('card', { style: style });
-
-    // Add an instance of the card Element into the `card-element` <div>.
-    // card.mount('#card-element');
 
     var cardButton = document.getElementById('card-button');
     var clientSecret = cardButton.dataset.secret;
@@ -48,9 +39,54 @@ function subscribe(){
                 console.log('error');
             } else {
 
+                replace();
                 console.log('succeed');
+
             }
         });
     });
+
+}
+
+function replace() {
+
+    let section = document.getElementById("subscription_block");
+
+    while (section.firstChild)
+        section.removeChild(section.firstChild);
+
+    const img = document.createElement('img');
+    img.src = "img/valid_icon.png";
+    img.style.width = "300px";
+    section.appendChild(img);
+
+    const title = document.createElement('h1');
+    title.innerHTML = "Paiement accepté";
+    section.appendChild(title);
+
+    const text = document.createElement('h2');
+    text.innerHTML = "Vous êtes désormais abonné !";
+    section.appendChild(text);
+
+    const a = document.createElement('a');
+    a.className = "btn btn-dark";
+    a.href = "shop.php";
+    a.innerHTML = "Revenir à la boutique";
+    a.style.marginTop = "30px";
+    section.appendChild(a);
+
+}
+
+function loading() {
+
+    let section = document.getElementById("subscription_block");
+    let div = document.createElement('div');
+
+    div.className = "spinner-border";
+    section.appendChild(div);
+
+    let span = document.createElement('span');
+    span.className = "sr-only";
+    div.appendChild(span);
 
 }

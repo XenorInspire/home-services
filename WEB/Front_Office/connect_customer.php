@@ -1,87 +1,96 @@
-	<?php require_once('include/check_identity.php'); ?>
+<?php
 
-	<!DOCTYPE html>
-	<html lang="en" dir="ltr">
+require_once('include/check_identity.php');
+if ($status == 'customer' && $connected == 1) {
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Home Services - Connexion client</title>
-		<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-	</head>
+	header('Location: index.php');
+	exit;
+}
 
-	<body>
+?>
 
-		<?php require_once("include/header.php"); ?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-		<main>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home Services - Connexion client</title>
+	<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
 
-			<section class="container">
-				<br>
-				<br>
-				<br>
-				<h1 style="text-align: center;">Connexion</h1>
+<body>
 
-				<?php
+	<?php require_once("include/header.php"); ?>
 
-				if (isset($_GET['error'])) {
+	<main>
 
-					if ($_GET['error'] == 'password_inv') {
+		<section class="container">
+			<br>
+			<br>
+			<br>
+			<h1 style="text-align: center;">Connexion</h1>
 
-						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce mot de passe ne correspond pas à l\'adresse mail donnée</div>';
-					}
+			<?php
 
-					if ($_GET['error'] == 'email_inv') {
+			if (isset($_GET['error'])) {
 
-						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
-					}
+				if ($_GET['error'] == 'password_inv') {
 
-					if ($_GET['error'] == 'mail_nexit') {
-
-						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail n\'existe pas</div>';
-					}
-
-					if ($_GET['error'] == 'acc_dis') {
-
-						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte client n\'est pas activé</div>';
-					}
-
-					if ($_GET['error'] == 'forb') {
-
-						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette page n\'est pas accessible, veuillez vous connecter.</div>';
-					}
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce mot de passe ne correspond pas à l\'adresse mail donnée</div>';
 				}
 
-				?>
+				if ($_GET['error'] == 'email_inv') {
 
-				<br>
-				<form action="valid_customer_connect.php" method="POST">
-					<div class="form-group">
-						<label>Adresse mail</label>
-						<input onchange="check_mail_connection()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
-						<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
-					</div>
-					<div class="form-group">
-						<label>Mot de passe</label>
-						<input type="password" id="password_length" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
-						<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="">Cliquez ici</a></u></i></small>
-					</div>
-					<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
-				</form>
-			</section>
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
+				}
 
-		</main>
+				if ($_GET['error'] == 'mail_nexit') {
 
-		<?php require_once("include/footer.php"); ?>
-		<script src="js/ajax_customer.js"></script>
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail n\'existe pas</div>';
+				}
 
-	</body>
+				if ($_GET['error'] == 'acc_dis') {
 
-	</html>
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte client n\'est pas activé</div>';
+				}
+
+				if ($_GET['error'] == 'forb') {
+
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez vous connecter avant de poursuivre</div>';
+				}
+			}
+
+			?>
+
+			<br>
+			<form action="valid_customer_connect.php" method="POST">
+				<div class="form-group">
+					<label>Adresse mail</label>
+					<input onchange="check_mail_connection()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+					<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
+				</div>
+				<div class="form-group">
+					<label>Mot de passe</label>
+					<input type="password" id="password_length" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
+					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="">Cliquez ici</a></u></i></small>
+				</div>
+				<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
+			</form>
+		</section>
+
+	</main>
+
+	<?php require_once("include/footer.php"); ?>
+	<script src="js/ajax_customer.js"></script>
+
+</body>
+
+</html>

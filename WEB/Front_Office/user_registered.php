@@ -95,7 +95,7 @@ setcookie('enable', NULL, time(), null, null, false, true);
             <br>
             <li>Vous allez être redirigé automatiquement vers l'accueil</li>
             <br>
-            <div class=" spinner-border" role="status">
+            <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
             </div>
             <br>
