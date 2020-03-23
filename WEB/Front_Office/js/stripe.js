@@ -1,3 +1,6 @@
+var sid;
+var cid;
+
 function subscribe() {
 
     var style = {
@@ -39,6 +42,7 @@ function subscribe() {
                 console.log('error');
             } else {
 
+                insert();
                 replace();
                 console.log('succeed');
 
@@ -88,5 +92,29 @@ function loading() {
     let span = document.createElement('span');
     span.className = "sr-only";
     div.appendChild(span);
+
+}
+
+function allocate(htmlCid, htmlSid) {
+
+    sid = htmlSid;
+    cid = htmlCid;
+
+}
+
+function insert() {
+
+    let request = new XMLHttpRequest;
+
+    request.open('GET', 'customer_payment.php?cid=' + cid + '&sid=' + sid);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+
+            console.log(request.responseText);
+
+        }
+    }
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send();
 
 }

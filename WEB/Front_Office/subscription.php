@@ -1,5 +1,4 @@
  <?php
-
     if (!isset($_GET['s']) || empty($_GET['s'])) {
 
         header('Location: shop.php');
@@ -116,6 +115,9 @@
      <?php require_once("include/footer.php"); ?>
      <script src="js/stripe.js"></script>
      <script src="https://js.stripe.com/v3/"></script>
+     <script>
+         allocate("<?php echo $id; ?>", "<?php echo $_GET['s']; ?>");
+     </script>
 
  </body>
 
