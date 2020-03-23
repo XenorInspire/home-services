@@ -19,7 +19,7 @@ require_once('class/DBManager.php');
 
     <main>
         <br>
-        <div class="container text-center">
+        <div class="container-fluid text-center">
             <div class="jumbotron">
                 <?php
                 if (isset($_GET['delete']) == "successful") {

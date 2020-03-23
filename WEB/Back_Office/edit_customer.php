@@ -19,7 +19,7 @@ isset($_GET['customerId']);
 
     <main>
         <br>
-        <div class="container">
+        <div class="container-fluid">
             <div class="jumbotron text-center">
                 <a href="create_reservation.php?customerId=<?= $_GET['customerId'] ?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
                 <hr>

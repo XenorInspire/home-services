@@ -16,7 +16,7 @@
 
     <main>
         <br>
-        <div class="container">
+        <div class="container-fluid">
             <div class="jumbotron">
                 <div class="display-4 text-center">Création Abonnement</div>
 
@@ -85,6 +85,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </form>
             </div>
         </div>

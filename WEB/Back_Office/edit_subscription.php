@@ -24,7 +24,7 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
 
     <main>
         <br>
-        <div class="container">
+        <div class="container-fluid">
             <div class="display-4 text-center">Modification de l'abonnement : <?= $sub->getTypeName() ?></div>
             <?php
             if (isset($_GET['error']) == "name_tasken") {

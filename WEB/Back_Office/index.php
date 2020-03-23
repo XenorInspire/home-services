@@ -16,7 +16,7 @@
 
     <main>
         <br>
-        <div class="container">
+        <div class="container-fluid">
             <div class="jumbotron text-center">
                 <div class="display-4">Bienvenue au Back-Office de Home-Service</div>
             </div>

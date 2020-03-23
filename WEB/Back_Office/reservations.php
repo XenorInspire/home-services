@@ -19,7 +19,7 @@ $hm_database = new DBManager($bdd);
     <?php require_once("include/header.php"); ?>
 
     <main>
-        <div class="container text-center">
+        <div class="container-fluid text-center">
             <br>
             <div class="jumbotron">
                 <?php

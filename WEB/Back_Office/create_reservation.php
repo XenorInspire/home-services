@@ -25,7 +25,7 @@ $user = $hm_database->getCustomer($customerId);
 
     <main>
         <br>
-        <div class="container">
+        <div class="container-fluid">
             <div class="jumbotron">
                 <div class="display-4 text-center">Réservation d'un service</div>
                 <?php
@@ -34,7 +34,7 @@ $user = $hm_database->getCustomer($customerId);
                 // }
                 ?>
                 <br>
-                <form class="container" action="valid_create_reservation.php" method="POST">
+                <form class="container-fluid" action="valid_create_reservation.php" method="POST">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">Type de service</label>

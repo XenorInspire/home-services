@@ -32,7 +32,7 @@
 </nav>
 </header> -->
 <br>
-<header class="container">
+<header class="container-fluid">
   <nav id="navhm" class="navbar navbar-expand-md navbar-dark rounded">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
@@ -66,6 +66,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="services.php">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="service_type.php">Types de Services</a>
         </li>
       </ul>
     </div>

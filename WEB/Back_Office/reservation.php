@@ -28,7 +28,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
 
     <main>
         <br>
-        <div class="container">
+        <div class="container-fluid">
             <div class="jumbotron">
                 <div class="display-4 text-center">Réservation de</div>
                 <div class="display-4 text-center"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></div>
