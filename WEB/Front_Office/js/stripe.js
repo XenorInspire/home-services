@@ -39,7 +39,10 @@ function subscribe() {
         }
         ).then(function (result) {
             if (result.error) {
+
+                tryAgain();
                 console.log('error');
+
             } else {
 
                 insert();
@@ -83,6 +86,9 @@ function replace() {
 
 function loading() {
 
+    let msg = document.getElementById('payInfos');
+    msg.style.display = "none";
+
     let section = document.getElementById("subscription_block");
     let div = document.createElement('div');
 
@@ -110,11 +116,19 @@ function insert() {
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
 
-            console.log(request.responseText);
-
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send();
+
+}
+
+function tryAgain() {
+
+    let div = document.getElementsByClassName('spinner-border')[0];
+    let msg = document.getElementById('payInfos');
+
+    div.remove();
+    msg.style.display = "block";
 
 }

@@ -19,7 +19,7 @@ $hm_database = new DBManager($bdd);
 $q = "INSERT INTO Subscription (beginDate,customerId,typeId) VALUES (:beginDate, :customerId, :typeId)";
 $res = $hm_database->getDb()->prepare($q);
 $res->execute(array(
-    'beginDate' => date('Y-m-d-h-m-s'),
+    'beginDate' => date('Y-m-d'),
     'customerId' => $_GET['cid'],
     'typeId' => $_GET['sid']
 ));

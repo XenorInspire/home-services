@@ -107,6 +107,7 @@
              <!-- <button id="card-button" data-secret="<?= $intent->client_secret; ?>" type="button" class="btn btn-elegant">Elegant</button> -->
              <button onclick="loading()" class="btn btn-lg btn-block btn-primary" id="card-button" data-secret="<?= $intent->client_secret; ?>">Payer</button>
              <br>
+             <small style="color:red;display:none;" id="payInfos" class="form-text text-muted">Vos coordonnées bancaires sont incorrectes</small>
              <br>
          </section>
 
