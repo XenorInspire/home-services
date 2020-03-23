@@ -55,13 +55,11 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md">
                             <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave">Créer l'abonnement</a></div>
                         </div>
-                        <div class="col-6">
-                            <a class="btn-block" href="subscriptions.php">
-                                <div class="btn btn-outline-secondary btn-block">Annuler</div>
-                            </a>
+                        <div class="col-md">
+                            <div class="text-center btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
                         </div>
                     </div>
 

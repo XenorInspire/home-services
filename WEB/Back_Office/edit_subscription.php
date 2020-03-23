@@ -71,16 +71,14 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                     <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
 
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md">
                             <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Enregistrer les modifications</a></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md">
                             <div class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">Supprimer l'abonnement</a></div>
                         </div>
-                        <div class="col-4">
-                            <a class="" href="subscriptions.php">
-                                <div class="btn btn-outline-secondary btn-block">Annuler</div>
-                            </a>
+                        <div class="col-md">
+                            <div class="text-center btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
                         </div>
                     </div>
 
@@ -95,7 +93,7 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                                 </div>
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    Voulez-vous enregistrer les modifictions de cet abonnement ?
+                                    Voulez-vous enregistrer les modifications de cet abonnement ?
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">

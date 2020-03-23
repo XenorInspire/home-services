@@ -82,8 +82,37 @@ $user = $hm_database->getCustomer($customerId);
 
                     <input type="hidden" name="customerId" id="" value="<?= $_GET['customerId'] ?>">
 
-                    <div class="form-group text-center">
-                        <button class="btn btn-outline-success" type="submit">Creer la reservation</button>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave">Créer la réservation</a></div>
+                            </div>
+                            <div class="col-md">
+                                <div class="btn btn-outline-secondary btn-block text center" onclick="history.back()">Annuler</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for saving -->
+                    <div class="modal fade" id="modalSave">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Création de la réservation</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Etes-vous certain de créer cette réservation ?
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button class="btn btn-outline-success" type="submit">Créer la réservation</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </form>

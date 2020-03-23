@@ -131,7 +131,7 @@ class DBManager
     {
         $users = [];
 
-        $q = $this->db->query('SELECT * FROM Customer ORDER BY lastName');
+        $q = $this->db->query('SELECT * FROM Customer ORDER BY enable DESC, lastName');
 
         while ($data = $q->fetch()) {
             $users[] = new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
@@ -156,6 +156,18 @@ class DBManager
         }
 
         return $reservations;
+    }
+
+    public function getReservation($reservationId){
+        $reservationId = (int) $reservationId;
+        $q = $this->db->query('SELECT * FROM Reservation WHERE reservationId = ' . $reservationId . '');
+
+        $data = $q->fetch();
+
+        if ($data == NULL) {
+            header('Location: reservations.php');
+        }
+        return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
     }
 
     //Delete reservation

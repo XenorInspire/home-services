@@ -51,24 +51,24 @@ $hm_database = new DBManager($bdd);
                         $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
                         $customer = $hm_database->getCustomer($res->getCustomerId());
                         if ($res->getStatus() == 0) { ?>
-                            <div class="card text-center border-dark">
-                                <div class="card-header border-dark">
+                            <div class="card text-center border-secondary">
+                                <div class="card-header border-secondary">
                                     Réservation # <?= $counter ?>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
-                                    <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-dark">
+                                    <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-<?php if($proposal == NULL){echo 'danger';}else{echo 'primary';} ?>">
                                         <?php
                                         if ($proposal == NULL) {
                                             echo 'Choisir un prestataire';
                                         } else {
                                             if ($proposal->getStatus() == 0)
-                                                echo 'Voir le prestataire';
+                                                echo 'Changer le prestataire';
                                         }
                                         ?>
                                     </a>
                                 </div>
-                                <div class="card-footer text-muted border-dark">
+                                <div class="card-footer text-muted border-secondary">
                                     <?= $res->getReservationDate() ?>
                                 </div>
                             </div>

@@ -21,9 +21,9 @@ isset($_GET['customerId']);
         <br>
         <div class="container">
             <div class="jumbotron text-center">
-                <div class="display-4">Réservation</div>
-                <hr>
                 <a href="create_reservation.php?customerId=<?= $_GET['customerId'] ?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
+                <hr>
+                <div class="display-4">Réservation</div>
                 <hr>
                 <div class="display-4">Regenerer Qrcode</div>
                 <hr>

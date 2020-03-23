@@ -37,7 +37,6 @@ require_once('class/DBManager.php');
                 ?>
                 <div class="display-4">Liste des clients</div>
                 <hr>
-
                 <input class="form-control" id="myInput" type="text" placeholder="Recherche..">
                 <br>
                 <table class="table table-bordered table-responsive-lg table-hover">
@@ -66,9 +65,9 @@ require_once('class/DBManager.php');
                         <hr> -->
                             <?php
                             if ($user->getEnable() == 0) {
-                                echo '<tr class="table-light">';
+                                echo '<tr class="table-dark">';
                             } else {
-                                echo '<tr class="table-light table-active">';
+                                echo '<tr class="table-light">';
                             }
                             ?>
                             <!-- <tr class="table-light table-active"> -->
