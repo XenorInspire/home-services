@@ -14,10 +14,10 @@ if (
 
     $hm_database->updateServiceType($service);
 
-    header('Location: service_type.php?edit=successful');
+    header('Location: service_types.php?edit=successful');
     exit;
 } else {
 
-    header('Location: service_type.php?error=inputs_inv');
+    header('Location: service_types.php?error=inputs_inv');
     exit;
 }

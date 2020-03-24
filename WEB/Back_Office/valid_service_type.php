@@ -13,11 +13,11 @@ if ( isset($_POST['typeName']) && !empty($_POST['typeName']) ) {
 
 	$hm_database->addServiceType($serviceType);
 
-	header('Location: service_type.php?create=successful');
+	header('Location: service_types.php?create=successful');
 	exit;
 
 } else {
 
-	header('Location: service_type.php?error=inputs_inv');
+	header('Location: service_types.php?error=inputs_inv');
 	exit;
 }

@@ -37,7 +37,7 @@ require_once('class/DBManager.php');
                 ?>
 
 
-                <a href="add_service_type.php"><button type="button" class="btn btn-dark">Créer une catégorie</button></a>
+                <a href="create_service_type.php"><button type="button" class="btn btn-dark">Créer une catégorie</button></a>
 
                 <br>
                 <br>
