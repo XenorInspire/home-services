@@ -145,4 +145,21 @@ class DBManager
   {
     return $this->db;
   }
+
+  public function checkSubscription($id)
+  {
+
+    $q = "SELECT customerId FROM Subscription WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+    $results = $req->fetch();
+
+    if (!empty($results)) {
+
+      return 1;
+    } else {
+
+      return NULL;
+    }
+  }
 }

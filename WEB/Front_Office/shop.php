@@ -25,7 +25,17 @@
 				<br>
 				<h1>Abonnements</h1>
 				<br>
+				<?php
+				if (isset($_GET['err'])) {
 
+
+					if ($_GET['err'] == 'alr') {
+
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous possédez déjà un abonnement, si vous voulez changer d\'abonnement vous devez tout d\'abord le résilier.</div>';
+						echo '<br>';
+					}
+				}
+				?>
 				<?php
 
 				$hm_database = new DBManager($bdd);

@@ -17,7 +17,15 @@
         header('Location: connect_customer.php?error=forb');
         exit;
     }
+
     $hm_database = new DBManager($bdd);
+
+    if ($hm_database->checkSubscription($id) != NULL) {
+
+        header('Location: shop.php?err=alr');
+        exit;
+    }
+
     $subscriptionType = $hm_database->getSubscriptionTypeById($_GET['s']);
     if ($subscriptionType == NULL) {
 
