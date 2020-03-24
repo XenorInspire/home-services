@@ -13,15 +13,18 @@ int main(int argc, char const *argv[]) {
     system("gcc -c ../functions/repository.c");
     system("gcc -c ../functions/sqlmanage.c");
     system("gcc -c ../functions/sqltest.c");
+    system("gcc -c ../functions/sqlrequest.c");
     system("gcc -c ../main.c");
-    system("gcc -o SQLFusion.exe main.o sqltest.o system.o repository.o sqlmanage.o");
+    system("gcc -o SQLFusion.exe main.o sqltest.o system.o repository.o sqlmanage.o sqlrequest.o ../lib/libmysql.lib");
 
     system("mv system.o ../functions/system.o");
     system("mv sqltest.o ../functions/sqltest.o");
     system("mv sqlmanage.o ../functions/sqlmanage.o");
     system("mv repository.o ../functions/repository.o");
+    system("mv sqlrequest.o ../functions/sqlrequest.o");
     system("mv main.o ../main.o");
     system("mv SQLFusion.exe ../SQLFusion.exe");
+
 
     printf("Recompiler ? (o/n) \n");
     fflush(stdin);

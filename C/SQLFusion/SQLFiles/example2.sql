@@ -1,15 +1,3 @@
-CREATE TABLE Customer (
-  customerId varchar(255),
-  lastName varchar(255),
-  firstName varchar(255),
-  email varchar(255),
-  phoneNumber varchar(255),
-  address varchar(255),
-  town varchar(255),
-  password varchar(255),
-  enable tinyint
-);
-
 INSERT INTO Customer ("HM-1111-NF","Paul","Jean","jenesaispas@gmail.com","0151588496","4 rue des berges","Sucy","1ds32d13s1f3ddfs1sdf323d",1);
 INSERT INTO Customer ("HM-1457-NF","Marc","Jean","lolol@gmail.com","0054054050450","8 rue des cerises","Sucy","srthsthshthh",1);
 INSERT INTO Customer ("HM-5789-NF","Pierre","Jean","jp48652@gmail.com","0151588496","6 rue des arbres","Sucy","strhtsrhhtrsstrh",1);

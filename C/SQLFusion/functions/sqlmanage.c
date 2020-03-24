@@ -20,7 +20,7 @@ char ** extractData(DIR_INFO * SQLDirectory, char * fileName){
 
   int32_t indexBuffer = 0;
   int32_t indexBackup = 0;
-  
+
   char ** buffer;
   char * temp = malloc(SIZE_LINE * sizeof(char));
   checkSimplePtr(temp);
@@ -55,10 +55,10 @@ char ** extractData(DIR_INFO * SQLDirectory, char * fileName){
       }
 
     }
-    
+
     fclose(sqlFiles[k]);
     writeSQL(SQLResult, buffer, indexBuffer, SQLDirectory->nameSQLFiles[k]);
-    
+
     SQLDirectory->nbLinesSQL[k] = indexBuffer;
     indexBuffer = 0;
 
@@ -96,7 +96,7 @@ char * verifyExtension(char * fileName){
 
   // If there isn't a .sql extension
   if(strstr(fileName,".sql") == NULL){
-    
+
     strcat(fileName, ".sql");
     return fileName;
 
@@ -120,9 +120,9 @@ char * verifyExtension(char * fileName){
     }
 
   }
-    
+
   return fileName;
-   
+
 }
 
 // Write data in the final SQL file

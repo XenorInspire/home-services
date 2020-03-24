@@ -9,12 +9,15 @@
 #include "includes/repository.h"
 #include "includes/sqlmanage.h"
 #include "includes/sqltest.h"
+#include "includes/sqlrequest.h"
 
 #define SIZE_FILE_NAME 256
 
 int main(int argc, char const *argv[]) {
 
   DIR_INFO SQLDirectory;
+
+
   if(findSQLFiles(&SQLDirectory) != 0){
 
     printf("Aucune entr%ce SQL d%ct%cct%ce \n",130,130,130,130);
@@ -35,7 +38,9 @@ int main(int argc, char const *argv[]) {
 
   // Store the entire sql entries
   backup = extractData(&SQLDirectory, fileName);
-  
+
+  SQLExec(backup, SQLDirectory.totalNbLinesSQL);
+
   free(fileName);
   free(SQLDirectory.nbLinesSQL);
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
