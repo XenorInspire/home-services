@@ -1,5 +1,10 @@
 <?php
 require_once('class/DBManager.php');
+
+isset($_GET['serviceTypeId']);
+$serviceTypeId = $_GET['serviceTypeId'];
+$hm_database = new DBManager($bdd);
+$services = $hm_database->getServiceListByType($serviceTypeId);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -7,7 +12,7 @@ require_once('class/DBManager.php');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Catégories</title>
+    <title>Home Services - Services</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -35,30 +40,15 @@ require_once('class/DBManager.php');
                 }
 
                 ?>
-
-
-                <a href="create_service_type.php"><button type="button" class="btn btn-dark">Créer une catégorie</button></a>
-
+                <a href="create_service.php?serviceTypeId=<?= $serviceTypeId ?>"><button type="button" class="btn btn-dark">Créer un service</button></a>
                 <br>
-                <br>
-
-                <div class="display-4">Liste des catégories</div>
+                <div class="display-4">Les services disponibles</div>
                 <hr>
                 <?php
-                $hm_database = new DBManager($bdd);
-                $services = [];
-                $services = $hm_database->getServiceTypeList();
-                foreach ($services as $service) { ?>
+                foreach ($services as $serv) { ?>
                     <div class="row justify-content-center">
-                        <div class="col-6 mb-2">
-                            <h2d><a title="Modifier" class="btn btn-block btn-secondary" href="edit_service_type.php?id=<?= $service->getServiceTypeId() ?>"><?= $service->getTypeName() ?></a></h2>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md">
-                            <a class="" href="services.php?serviceTypeId=<?= $service->getServiceTypeId() ?>">
-                                <div class="btn btn-outline-secondary">Voir les services</div>
-                            </a>
+                        <div class="col-6">
+                            <h2><a title="Modifier" class="btn btn-block btn-outline-secondary" href="edit_service.php?id=<?= $serv->getServiceId() ?>"><?= $serv->getServiceTitle() ?></a></h2>
                         </div>
                     </div>
                     <hr>
@@ -71,5 +61,23 @@ require_once('class/DBManager.php');
     <?php require_once("include/footer.php"); ?>
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".custom-select").change(function() {
+            var id = $(this).val();
+            var dataString = 'serviceTypeId=' + id;
+            $.ajax({
+                type: "POST",
+                url: "get_services.php",
+                data: dataString,
+                cache: false,
+                success: function(html) {
+                    $(".services").html(html);
+                }
+            });
+        });
+    });
+</script>
 
 </html>

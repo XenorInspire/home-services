@@ -65,10 +65,7 @@
           <a class="nav-link" href="reservations.php">Réservations</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="services.php">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="service_types.php">Types de Services</a>
+          <a class="nav-link" href="service_types.php">Services</a>
         </li>
       </ul>
     </div>

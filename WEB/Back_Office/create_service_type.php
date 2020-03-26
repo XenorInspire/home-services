@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Services - Création Catégorie</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
@@ -32,10 +33,10 @@
                         <input type="text" name="typeName" class="form-control" placeholder="Entrez le nom" maxlength="255" required>
                     </div>
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md mb-3">
                             <div class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#modalSave">Créer la catégorie</a></div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md mb-3">
                             <div class="text-center btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
                         </div>
                     </div>
@@ -56,7 +57,7 @@
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button class="btn btn-outline-success" type="submit">Créer l'abonnement</button>
+                                    <button class="btn btn-outline-success" type="submit">Créer la catégorie</button>
                                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
                                 </div>
                             </div>

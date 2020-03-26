@@ -51,13 +51,13 @@ $sub = $hm_database->getServiceType($_GET['id']);
                     </div> -->
 
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md mb-3">
                             <div class="btn btn-block btn-outline-success" data-toggle="modal" data-target="#modalSave"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Enregistrer les modifications</a></div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md mb-3">
                             <div class="btn btn-block btn-outline-danger" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">Supprimer la catégorie</a></div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md mb-3">
                             <div class="text-center btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
                         </div>
                     </div>

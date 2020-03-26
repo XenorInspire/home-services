@@ -84,10 +84,10 @@ $user = $hm_database->getCustomer($customerId);
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md">
+                            <div class="col-md mb-3">
                                 <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave">Créer la réservation</a></div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-md mb-3">
                                 <div class="btn btn-outline-secondary btn-block text center" onclick="history.back()">Annuler</div>
                             </div>
                         </div>

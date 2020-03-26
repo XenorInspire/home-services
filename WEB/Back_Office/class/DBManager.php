@@ -158,7 +158,8 @@ class DBManager
         return $reservations;
     }
 
-    public function getReservation($reservationId){
+    public function getReservation($reservationId)
+    {
         $reservationId = (int) $reservationId;
         $q = $this->db->query('SELECT * FROM Reservation WHERE reservationId = ' . $reservationId . '');
 
@@ -224,6 +225,59 @@ class DBManager
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
     //Service
+    public function addService(Service $service)
+    {
+        $servTitle = $service->getServiceTitle();
+        $q = $this->db->query("SELECT serviceTitle FROM Service WHERE serviceTitle = '" . $servTitle . "'");
+
+        $data = $q->fetch();
+
+        if ($data != NULL) {
+            header('Location: create_service.php?serviceTypeId=' . base64_encode($service->getServiceTypeId()) . '&error=name_taken');
+            exit;
+        } else {
+            $q = "INSERT INTO Service(serviceId,serviceTypeId,serviceTitle,description,recurrence,timeMin,servicePrice,commission) VALUES (:serviceId,:serviceTypeId,:serviceTitle,:description,:recurrence,:timeMin,:servicePrice,:commission)";
+            $res = $this->db->prepare($q);
+
+            $res->execute(array(
+                'serviceId' => $service->getServiceId(),
+                'serviceTypeId' => $service->getServiceTypeId(),
+                'serviceTitle' => $service->getServiceTitle(),
+                'description' => $service->getDescription(),
+                'recurrence' => $service->getRecurrence(),
+                'timeMin' => $service->getTimeMin(),
+                'servicePrice' => $service->getServicePrice(),
+                'commission' => $service->getCommission()
+            ));
+        }
+    }
+
+    public function updateService(Service $service)
+    {
+        $serviceTitle = $service->getServiceTitle();
+        $q = $this->db->query("SELECT serviceTitle FROM Service WHERE serviceTitle = '" . $serviceTitle . "'");
+
+        $data = $q->fetch();
+
+        if ($data != NULL && $data['serviceTitle'] != $service->getServiceTitle()) {
+            header('Location: edit_service.php?error=name_taken&id=' . $service->getServiceId());
+            exit;
+        } else {
+            $id = $service->getServiceId();
+            $q = "UPDATE Service SET serviceTitle=:serviceTitle,description=:description,recurrence=:recurrence,timeMin=:timeMin,servicePrice=:servicePrice,commission=:commission WHERE serviceId='" . $id . "'";
+            $req = $this->db->prepare($q);
+            $req->execute(array(
+                'serviceTitle' => $service->getServiceTitle(),
+                'description' => $service->getDescription(),
+                'recurrence' => $service->getRecurrence(),
+                'timeMin' => $service->getTimeMin(),
+                'servicePrice' => $service->getServicePrice(),
+                'commission' => $service->getCommission()
+            ));
+        }
+    }
+
+
     public function getService($serviceId)
     {
         $serviceId = (int) $serviceId;
@@ -235,6 +289,11 @@ class DBManager
             header('Location: reservations.php');
         }
         return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+    }
+
+    public function deleteService($serviceId)
+    {
+        $this->db->exec("DELETE FROM Service WHERE serviceId = '" . $serviceId . "'");
     }
 
     public function getServiceListByType($serviceTypeId)
