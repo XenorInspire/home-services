@@ -1,7 +1,7 @@
 	<?php 
 	
 	require_once('include/check_identity.php');
-	if (isset($status) && $status == 'customer' && $connected == 1) {
+	if ($connected == 1) {
 
 		header('Location: index.php');
 		exit;
@@ -119,7 +119,7 @@
 					</div>
 					<div class="form-group">
 						<label>Adresse mail</label>
-						<input onchange="check_mail_registration()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+						<input onchange="check_mail_registration()" type="email" name="mail" class="form-control" placeholder="Entrez votre adresse mail" autocomplete="email" maxlength="255" required>
 						<small id="emailHelp" class="form-text text-muted">Votre adresse mail ne sera pas partagée.</small>
 					</div>
 					<div class="form-group">
