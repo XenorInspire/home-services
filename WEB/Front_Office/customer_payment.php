@@ -23,3 +23,14 @@ $res->execute(array(
     'customerId' => $_GET['cid'],
     'typeId' => $_GET['sid']
 ));
+
+$customer = $hm_database->getUserById($_GET['cid']);
+if($customer == NULL){
+
+    http_response_code(400);
+    exit;
+
+}
+
+system('python3 mail/mail.py ' . 2 . ' ' . $customer->getMail());
+http_response_code(200);

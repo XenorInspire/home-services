@@ -96,7 +96,7 @@ if (
 	$_SESSION['enable'] = hash('sha256', $user->getMail());
 	setcookie('enable', hash('sha256', $user->getMail()), time() + 2 * 3600, null, null, false, true);
 
-	system('python3 mail/mail.py ' . $user->getMail() . ' ' . $user->getId());
+	system('python3 mail/mail.py '. 1 . ' '. $user->getMail() . ' ' . $user->getId());
 
 	header('Location: waiting_register.php');
 	exit;
