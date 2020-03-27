@@ -3,13 +3,13 @@
 // Connexion à la base de données
 require_once('class/DBManager.php');
 
-if (!isset($_GET['sid']) || empty($_GET['sid'])) {
+if (!isset($_GET['sid']) || empty(trim($_GET['sid']))) {
 
     http_response_code(400);
     exit;
 }
 
-if (!isset($_GET['cid']) || empty($_GET['cid'])) {
+if (!isset($_GET['cid']) || empty(trim($_GET['cid']))) {
 
     http_response_code(400);
     exit;

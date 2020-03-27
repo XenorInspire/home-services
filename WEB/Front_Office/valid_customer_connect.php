@@ -1,13 +1,25 @@
 <?php
 
-$mail = htmlspecialchars($_POST['mail']);
-$password = hash('sha512', $_POST['passwd'] . 'ChrysaleadProject');
+if (!isset($_POST['mail']) || empty(trim($_POST['mail']))) {
 
-if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-
-    header('Location: connect_customer.php?error=email_inv');
+    header('Location: connect_customer.php?error=mail_nv');
     exit;
 }
+
+if (!isset($_POST['passwd']) || empty(trim($_POST['passwd']))) {
+
+    header('Location: connect_customer.php?error=passwd_nv');
+    exit;
+}
+
+if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+
+    header('Location: connect_customer.php?error=mail_nv');
+    exit;
+}
+
+$mail = htmlspecialchars($_POST['mail']);
+$password = hash('sha512', $_POST['passwd'] . 'ChrysaleadProject');
 
 // Connexion à la base de données
 require_once('class/DBManager.php');
@@ -24,7 +36,7 @@ $user = $hm_database->getUserByMail($mail);
 
 if ($user->getPassword() != $password) {
 
-    header('Location: connect_customer.php?error=password_inv');
+    header('Location: connect_customer.php?error=passwd_nv');
     exit;
 }
 

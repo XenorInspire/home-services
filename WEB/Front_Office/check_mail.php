@@ -1,13 +1,13 @@
 <?php
 
-// Connexion à la base de données
-require_once('class/DBManager.php');
-
-if (!isset($_POST['mail']) || empty($_POST['mail'])) {
+if (!isset($_POST['mail']) || empty(trim($_POST['mail']))) {
 
     http_response_code(400);
     exit;
 }
+
+// Connexion à la base de données
+require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
 $mail = htmlspecialchars($_POST['mail']);

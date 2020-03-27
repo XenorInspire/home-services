@@ -37,13 +37,13 @@ if ($connected == 1) {
 
 			if (isset($_GET['error'])) {
 
-				if ($_GET['error'] == 'password_inv') {
+				if ($_GET['error'] == 'passwd_nv') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce mot de passe ne correspond pas à l\'adresse mail donnée</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Mot de passe incorrect.</div>';
 				}
 
-				if ($_GET['error'] == 'email_inv') {
+				if ($_GET['error'] == 'mail_nv') {
 
 					echo '<br>';
 					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';

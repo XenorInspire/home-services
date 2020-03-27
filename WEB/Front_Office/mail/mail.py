@@ -17,8 +17,11 @@ if(sys.argv[1] == '1'):
     msg['Subject'] = "Home Services - Confirm your mail address"
     message = 'Hi there !\nThanks for using Home-Services !\nClick right here to purshase your registration : \nhttp://localhost/user_registered.php?a=' + sys.argv[3]
 elif(sys.argv[1] == '2'):
-    msg['Subject'] = "Home Services - Subscription Confirmation"
+    msg['Subject'] = "Home Services - Subscription confirmation"
     message = 'Hi there !\nThanks for using Home-Services !\nYour subscription is now effective, don\'t hesitate to contact us if you have any question !'
+elif(sys.argv[1] == 3):
+    msg['Subject'] = "Home Services - Personal information update"
+    message = 'Hi there !\nThanks for using Home-Services !\nYour personal information were updated.'
 
 # setup the parameters of the message
 msg['From'] = logins.MY_ADDRESS
