@@ -168,7 +168,7 @@ class Customer
      */
     public function setPassword($password)
     {
-        $this->password = hash('sha512', $password . 'ChrysaleadProject');;
+        $this->password = hash('sha512', $password . 'ChrysaleadProject');
         return $this;
     }
 }

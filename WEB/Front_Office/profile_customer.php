@@ -39,13 +39,13 @@
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Nom</span>
                      </div><!--
-                  --><input type="text" class="form-control inputs_account" value="<?php echo $customer->getLastname(); ?>" disabled>
+                  --><input type="text" name="lastname" class="form-control inputs_account" value="<?php echo $customer->getLastname(); ?>" disabled>
                  </div>
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Prénom</span>
                      </div><!--
-                  --><input type="text" class="form-control inputs_account" value="<?php echo $customer->getFirstname(); ?>" disabled>
+                  --><input type="text" name="firstname" class="form-control inputs_account" value="<?php echo $customer->getFirstname(); ?>" disabled>
                  </div>
              </div>
              <br>
@@ -54,13 +54,13 @@
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">@</span>
                      </div><!--
-                  --><input style="width: 79% !important;" type="text" class="form-control inputs_account" value="<?php echo $customer->getMail(); ?>" disabled>
+                  --><input style="width: 79% !important;" name="mail" type="text" class="form-control inputs_account" value="<?php echo $customer->getMail(); ?>" disabled>
                  </div>
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Téléphone</span>
                      </div><!--
-                    --><input style="width: 72% !important;" type="text" class="form-control inputs_account" value="<?php echo $customer->getPhone_number(); ?>" disabled>
+                    --><input style="width: 72% !important;" name="phone_number" type="text" class="form-control inputs_account" value="<?php echo $customer->getPhone_number(); ?>" disabled>
                  </div>
              </div>
              <br>
@@ -68,8 +68,8 @@
                  <div class="input-group-prepend">
                      <span class="input-group-text">Adresse</span>
                  </div>
-                 <input type="text" class="form-control inputs2_account" value="<?php echo $customer->getAddress(); ?>" disabled>
-                 <input type="text" class="form-control inputs2_account" value="<?php echo $customer->getCity(); ?>" disabled>
+                 <input type="text" name="address" class="form-control inputs2_account" value="<?php echo $customer->getAddress(); ?>" disabled>
+                 <input type="text" name="city" class="form-control inputs2_account" value="<?php echo $customer->getCity(); ?>" disabled>
              </div>
              <br>
              <br>
@@ -89,19 +89,19 @@
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Mot de passe actuel</span>
                      </div><!--
-                  --><input style="width: 50% !important;" type="password" class="form-control inputs_account" disabled>
+                  --><input style="width: 50% !important;" name="old_password" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Nouveau mot de passe</span>
                      </div><!--
-                  --><input style="width: 48.1% !important;" type="password" class="form-control inputs_account" disabled>
+                  --><input style="width: 48.1% !important;" name="new_password" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Confirmation</span>
                      </div><!--
-                  --><input style="width: 54.3% !important;" type="password" class="form-control inputs_account" disabled>
+                  --><input style="width: 54.3% !important;" name="new_password2" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <br>
                      <br>
@@ -120,6 +120,9 @@
 
      <?php require_once("include/footer.php"); ?>
     <script src="js/profile_customer.js"></script>
+    <script>
+         allocate("<?php echo $id; ?>");
+     </script>
  </body>
 
  </html>

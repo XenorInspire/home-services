@@ -1,3 +1,5 @@
+var cid;
+
 function enable() {
 
     let section = document.getElementsByClassName('container')[0];
@@ -16,7 +18,6 @@ function enable() {
 
     }
 
-
     newButton.innerHTML = "Annuler";
     newButton.onclick = cancel;
     newButton.className = "btn btn-dark";
@@ -26,7 +27,32 @@ function enable() {
 
 function validate() {
 
-    console.log('test');
+    let section = document.getElementsByClassName('container')[0];
+    let firstname = document.getElementsByName('firstname')[0].value;
+    let lastname = document.getElementsByName('lastname')[0].value;
+    let mail = document.getElementsByName('mail')[0].value;
+    let phone_number = document.getElementsByName('phone_number')[0].value;
+    let address = document.getElementsByName('address')[0].value;
+    let city = document.getElementsByName('city')[0].value;
+    let request = new XMLHttpRequest;
+
+    request.open('POST', 'update_customer_infos.php?mode=' + 1);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.responseText == '200') {
+
+                console.log('succeed');
+                cancel();
+
+            } else {
+
+                console.log(request.responseText);
+
+            }
+        }
+    }
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send("mail=" + mail + "&firstname=" + firstname + "&lastname=" + lastname + "&phone_number=" + phone_number + "&address=" + address + "&city=" + city + "&cid=" + cid);
 
 }
 
@@ -70,7 +96,6 @@ function enablePasswd() {
 
     }
 
-
     newButton.innerHTML = "Annuler";
     newButton.onclick = cancelPasswd;
     newButton.className = "btn btn-dark";
@@ -80,7 +105,30 @@ function enablePasswd() {
 
 function validatePasswd() {
 
-    console.log('test');
+    let section = document.getElementsByClassName('container')[1];
+    let old_password = document.getElementsByName('old_password')[0].value;
+    let new_password = document.getElementsByName('new_password')[0].value;
+    let new_password2 = document.getElementsByName('new_password2')[0].value;
+    let request = new XMLHttpRequest;
+
+    request.open('POST', 'update_customer_infos.php?mode=' + 2);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.responseText == '200') {
+
+                console.log('succeed');
+                cancelPasswd();
+
+            } else {
+
+                console.log(request.responseText);
+
+            }
+        }
+    }
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send("old_password=" + old_password + "&new_password=" + new_password + "&new_password2=" + new_password2 + "&cid=" + cid);
+
 
 }
 
@@ -103,5 +151,11 @@ function cancelPasswd() {
     }
 
     section.removeChild(oldButton);
+
+}
+
+function allocate(htmlCid) {
+
+    cid = htmlCid;
 
 }
