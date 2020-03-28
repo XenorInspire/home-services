@@ -1,12 +1,12 @@
-	<?php 
-	
+	<?php
+
 	require_once('include/check_identity.php');
 	if ($connected == 1) {
 
 		header('Location: index.php');
 		exit;
 	}
-	
+
 	?>
 
 	<!DOCTYPE html>

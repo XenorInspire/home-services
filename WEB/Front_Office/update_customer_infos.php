@@ -2,14 +2,16 @@
 
 if (!isset($_GET['mode']) || empty($_GET['mode'])) {
 
-    echo http_response_code(401);
-    exit;
+    http_response_code(400);
+    echo http_response_code();
+    return;
 }
 
 if (!isset($_POST['cid']) || empty($_POST['cid'])) {
 
-    echo http_response_code(402);
-    exit;
+    http_response_code(400);
+    echo http_response_code();
+    return;
 }
 
 // Connexion à la base de données
@@ -19,88 +21,102 @@ $hm_database = new DBManager($bdd);
 $customer = $hm_database->getUserById($_POST['cid']);
 if ($customer == NULL) {
 
-    echo http_response_code(403);
-    exit;
+    http_response_code(400);
+    echo http_response_code();
+    return;
 }
 
 if ($_GET['mode'] == 1) {
 
     if (!isset($_POST['lastname']) || empty(trim($_POST['lastname']))) {
 
-        echo http_response_code(404);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!isset($_POST['firstname']) || empty(trim($_POST['firstname']))) {
 
-        echo http_response_code(405);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!isset($_POST['mail']) || empty(trim($_POST['mail']))) {
 
-        echo http_response_code(406);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!isset($_POST['phone_number']) || empty(trim($_POST['phone_number']))) {
 
-        echo http_response_code(407);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!isset($_POST['address']) || empty(trim($_POST['address']))) {
 
-        echo http_response_code(408);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
-    if (!isset($_POST['city']) || empty(trim($_POST['city']))) {
+    if (!isset($_POST['city']) || empty($_POST['city'])) {
 
-        echo http_response_code(409);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (is_numeric($_POST['lastname']) || is_numeric($_POST['firstname']) || is_numeric($_POST['city'])) {
 
-        echo http_response_code(410);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (strlen($_POST['lastname']) > 255) {
 
-        echo http_response_code(411);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (strlen($_POST['firstname']) > 255) {
 
-        echo http_response_code(412);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (strlen($_POST['city']) > 255) {
 
-        echo http_response_code(413);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (strlen($_POST['address']) > 255) {
 
-        echo http_response_code(414);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
 
-        echo http_response_code(415);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (strlen($_POST['mail']) > 255) {
 
-        echo http_response_code(416);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if ($customer->getMail() != $_POST['mail']) {
@@ -108,8 +124,9 @@ if ($_GET['mode'] == 1) {
         $potential_user = $hm_database->getUserByMail($_POST['mail']);
         if ($potential_user != NULL) {
 
-            echo http_response_code(430);
-            exit;
+            http_response_code(400);
+            echo http_response_code();
+            return;
         }
     }
 
@@ -127,47 +144,54 @@ if ($_GET['mode'] == 1) {
 
     system('python3 mail/mail.py ' . 3 . ' ' . $_POST['mail']);
 
-    echo http_response_code(200);
-    exit;
+    http_response_code(200);
+    echo http_response_code();
+    return;
     
 } else if ($_GET['mode'] == 2) {
 
     if (!isset($_POST['old_password']) || empty(trim($_POST['old_password']))) {
 
-        echo http_response_code(417);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!isset($_POST['new_password']) || empty(trim($_POST['new_password']))) {
 
-        echo http_response_code(418);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (!isset($_POST['new_password2']) || empty(trim($_POST['new_password2']))) {
 
-        echo http_response_code(419);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if ($_POST['new_password'] != $_POST['new_password2']) {
 
-        echo http_response_code(420);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     if (strlen($_POST['new_password']) < 6) {
 
-        echo http_response_code(421);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     $old_password = hash('sha512', $_POST['old_password'] . 'ChrysaleadProject');
 
     if ($customer->getPassword() != $old_password) {
 
-        echo http_response_code(422);
-        exit;
+        http_response_code(400);
+        echo http_response_code();
+        return;
     }
 
     $password = hash('sha512', $_POST['new_password'] . 'ChrysaleadProject');
@@ -181,11 +205,13 @@ if ($_GET['mode'] == 1) {
 
     system('python3 mail/mail.py ' . 4 . ' ' . $customer->getMail());
 
-    echo http_response_code(200);
-    exit;
+    http_response_code(200);
+    echo http_response_code();
+    return;
 
 } else {
 
-    echo http_response_code(423);
-    exit;
+    http_response_code(400);
+    echo http_response_code();
+    return;
 }

@@ -72,6 +72,7 @@
                  <input type="text" name="city" class="form-control inputs2_account" value="<?php echo $customer->getCity(); ?>" disabled>
              </div>
              <br>
+             <small id="infos" class="form-text text-muted"></small>
              <br>
              <button type="button" class="btn btn-dark" onclick="enable()">Modifier mes informations</button>
          </section>
@@ -95,15 +96,18 @@
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Nouveau mot de passe</span>
                      </div><!--
-                  --><input style="width: 48.1% !important;" name="new_password" type="password" class="form-control inputs_account" disabled>
+                  --><input style="width: 48.1% !important;" id="password_length" onkeyup="checkPassword()" name="new_password" type="password" class="form-control inputs_account" disabled>
                      <br>
+                     <small id="password_size" class="form-text">6 caractères minimum</small>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Confirmation</span>
                      </div><!--
-                  --><input style="width: 54.3% !important;" name="new_password2" type="password" class="form-control inputs_account" disabled>
+                  --><input id="same" onkeyup="samePassword()" style="width: 54.3% !important;" name="new_password2" type="password" class="form-control inputs_account" disabled>
                      <br>
+                     <small id="password_same" class="form-text">Ce mot de passe est différent du champs précédent !</small>
                      <br>
+                     <small id="infos_passwd" class="form-text text-muted"></small>
                      <br>
                      
                  </div>
@@ -120,6 +124,7 @@
 
      <?php require_once("include/footer.php"); ?>
     <script src="js/profile_customer.js"></script>
+    <script src="js/password.js"></script>
     <script>
          allocate("<?php echo $id; ?>");
      </script>
