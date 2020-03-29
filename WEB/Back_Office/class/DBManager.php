@@ -425,7 +425,7 @@ class DBManager
         $res = $this->db->prepare($q);
         $res->execute(array(
             'serviceProvidedId' => $proposal->getServiceProvidedId(),
-            'status' => ($proposal->getStatus() == 0 ? false : true),
+            'status' => $proposal->getStatus(),
             'associateId' => $proposal->getAssociateId()
         ));
     }
@@ -448,8 +448,8 @@ class DBManager
         }
     }
 
-    public function deleteProposal($associateId)
+    public function deleteProposal($associateId, $serviceProvidedId)
     {
-        $this->db->exec("DELETE FROM Proposal WHERE associateId = '" . $associateId . "'");
+        $this->db->exec("DELETE FROM Proposal WHERE associateId = '" . $associateId . "'" . "AND serviceProvidedId = '" . $serviceProvidedId . "'");
     }
 }

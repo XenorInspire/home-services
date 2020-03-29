@@ -162,7 +162,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                                     </div>
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <a class="" href=" delete_proposal.php?associateId=<?= $hm_database->getAssociate($proposal->getAssociateId())->getAssociateId()  ?>">
+                                        <a class="" href=" delete_proposal.php?associateId=<?= $hm_database->getAssociate($proposal->getAssociateId())->getAssociateId()  ?>&serviceProvidedId=<?= $servPro->getServiceProvidedId() ?>">
                                             <div class="btn btn-outline-danger">Retirer le prestataire</div>
                                         </a>
                                         <button type=" button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
@@ -242,6 +242,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
     <?php require_once("include/footer.php"); ?>
