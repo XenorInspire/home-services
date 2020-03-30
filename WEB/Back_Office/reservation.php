@@ -2,9 +2,13 @@
 require_once('class/DBManager.php');
 
 isset($_GET['serviceProvidedId']);
+isset($_GET['reservationId']);
+
 $reservationId = $_GET['reservationId'];
+$serviceProvidedId = $_GET['serviceProvidedId'];
+
 $hm_database = new DBManager($bdd);
-$servPro = $hm_database->getServiceProvided($_GET['serviceProvidedId']);
+$servPro = $hm_database->getServiceProvided($serviceProvidedId);
 $serv = $hm_database->getService($servPro->getServiceId());
 $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
 $reservation = $hm_database->getReservation($reservationId);

@@ -174,8 +174,14 @@ class DBManager
     //Delete reservation
     public function deleteReservation($reservationId)
     {
+        $reservation = $this->getReservation($reservationId);
+
+        $serviceProvided = $this->getServiceProvided($reservation->getServiceProvidedId());
+
         $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
-        
+        $this->db->exec("DELETE FROM ServiceProvided WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
+        $this->db->exec("DELETE FROM Proposal WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
+
     }
 
 
