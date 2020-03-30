@@ -2,6 +2,7 @@
 
 require_once('include/config.php');
 require_once('class/customer.php');
+require_once('class/subscription_type.php');
 
 class DBManager
 {
@@ -17,7 +18,7 @@ class DBManager
   {
     $user->setId();
 
-    $q = "INSERT INTO customer(customerId, email, lastName, firstName, phoneNumber, address, town, password, enable)
+    $q = "INSERT INTO Customer(customerId, email, lastName, firstName, phoneNumber, address, town, password, enable)
           VALUES (:customerId, :email, :lastName, :firstName, :phoneNumber, :address, :town, :password, :enable)";
     $res = $this->db->prepare($q);
     $res->execute(array(
@@ -36,7 +37,7 @@ class DBManager
   public function doesMailExist($mail)
   {
 
-    $q = "SELECT customerId FROM customer WHERE email = ?";
+    $q = "SELECT CustomerId FROM Customer WHERE email = ?";
     $req = $this->db->prepare($q);
     $req->execute([$mail]);
 
@@ -53,21 +54,39 @@ class DBManager
   public function enableCustomerAccount($id)
   {
 
-    $q = "UPDATE Customer SET enable = 1 WHERE customer.customerId = ?";
+    $q = "UPDATE Customer SET enable = 1 WHERE Customer.customerId = ?";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
   }
 
-  public function getSubscriptionTypes()
+  public function getAllSubscriptionTypes()
   {
-    $q = "SELECT typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
+    $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
     $req = $this->db->prepare($q);
     $req->execute();
 
-    $results = [];
-    $results[] = $req->fetchAll();
+    while ($results = $req->fetch()) {
 
-    return $results;
+      $subscriptionType = new SubscriptionType($results['typeId'], $results['typeName'], $results['openDays'], $results['openTime'], $results['closeTime'], $results['serviceTimeAmount'], $results['price']);
+      $subs[] = $subscriptionType;
+    }
+
+    return $subs;
+  }
+
+  public function getSubscriptionTypeById($id)
+  {
+
+    $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType WHERE typeId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+
+    $result = $req->fetch();
+
+    if (empty($result)) return NULL;
+
+    $subscriptionType = new SubscriptionType($result['typeId'], $result['typeName'], $result['openDays'], $result['openTime'], $result['closeTime'], $result['serviceTimeAmount'], $result['price']);
+    return $subscriptionType;
   }
 
   public function getUserById($id)
@@ -119,11 +138,25 @@ class DBManager
     return $results[0];
   }
 
-  /**
-   * Get the value of db
-   */ 
   public function getDb()
   {
     return $this->db;
+  }
+
+  public function checkSubscription($id)
+  {
+
+    $q = "SELECT customerId FROM Subscription WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+    $results = $req->fetch();
+
+    if (!empty($results)) {
+
+      return 1;
+    } else {
+
+      return NULL;
+    }
   }
 }

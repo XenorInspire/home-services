@@ -29,20 +29,20 @@ if (isset($_SESSION['enable']) && !empty($_SESSION['enable'])) {
 require_once('class/DBManager.php');
 $hm_database = new DBManager($bdd);
 
-$user = $hm_database->getUser($id);
-if (empty($user)) {
+$user = $hm_database->getUserById($id);
+if ($user == NULL) {
 
     header('Location: index.php');
     exit;
 }
 
-if (hash('sha256', $user['email']) != $enable) {
+if (hash('sha256', $user->getMail()) != $enable) {
 
     header('Location: index.php');
     exit;
 }
 
-system('python mail/mail.py ' . $user['email'] . ' ' . $id);
+system('python3 mail/mail.py ' . 1 . ' ' . $user->getMail() . ' ' . $user->getId());
 
 header('Location: waiting_register.php');
 exit;

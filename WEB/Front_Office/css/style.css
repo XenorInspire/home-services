@@ -1,3 +1,74 @@
+/* Subscription page */
+
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #808080;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+  margin: auto;
+  width: 50%;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #1f3d7e;
+}
+
+.StripeElement:hover {
+  box-shadow: 0 1px 3px 0 #1f3d7e;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+#cardholder-name {
+
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #808080;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+  margin: auto;
+  width: 50%;
+
+}
+
+#cardholder-name--focus {
+  box-shadow: 0 1px 3px 0 #1f3d7e;
+}
+
+#cardholder-name:hover {
+  box-shadow: 0 1px 3px 0 #1f3d7e;
+}
+
+#cardholder-name::placeholder{
+
+  color: #6e757e;
+
+}
+
+#card-button {
+
+  margin: auto;
+  width: 50%;
+
+}
+
+/* /////////////////////////// */
+
 /* Navigation bar */
 
 #navhm {
@@ -15,7 +86,7 @@ nav a {
 #hm-connect {
 
   position: absolute;
-  right: 12%;
+  right: 15%;
 
 }
 
@@ -109,11 +180,49 @@ body {
   font-size: 20px;
 }
 
-/* #subscrib_description {
-  font-style: ;
-} */
+/* /////////////////////////// */
+
+/* Profile_customer Page */
+
+.inputs_account {
+
+  display: inline-block !important;
+  width: 75% !important;
+  max-width: 100%;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+
+}
+
+.inputs_account:disabled {
+
+  background-color: white !important;
+
+}
+
+.inputs2_account:disabled {
+
+  background-color: white !important;
+
+}
+
+.div_account {
+
+  display: inline-block !important;
+
+}
+
+.labels_account {
+
+  display: inline-block !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+
+}
 
 /* /////////////////////////// */
+
+
 
 @media screen and (max-width:991px){
 

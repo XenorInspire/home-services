@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+
+session_start();
 
 if (empty(trim($_GET['a'])) || !isset($_GET['a'])) {
 
@@ -61,6 +63,8 @@ if (hash('sha256', $user->getMail()) != $enable) {
 }
 
 $hm_database->enableCustomerAccount($id);
+$_SESSION['enable'] = '';
+setcookie('enable', NULL, time(), null, null, false, true);
 
 ?>
 
@@ -69,6 +73,7 @@ $hm_database->enableCustomerAccount($id);
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Services - Inscription validée !</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
@@ -90,7 +95,7 @@ $hm_database->enableCustomerAccount($id);
             <br>
             <li>Vous allez être redirigé automatiquement vers l'accueil</li>
             <br>
-            <div class=" spinner-border" role="status">
+            <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
             </div>
             <br>
@@ -99,27 +104,6 @@ $hm_database->enableCustomerAccount($id);
             <br>
             <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark">Accueil</button>
         </section>
-        <!-- <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br> -->
     </main>
     <script src="js/redirect.js"></script>
     <?php require_once("include/footer.php"); ?>

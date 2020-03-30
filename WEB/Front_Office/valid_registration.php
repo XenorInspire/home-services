@@ -84,9 +84,9 @@ if (
 		header('Location: registration.php?error=mail_taken');
 		exit;
 	}
-	
-	$user = new Customer(NULL,$_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['phone_number'], $_POST['address'], $_POST['city'], $_POST['passwd']);
+	$user = new Customer(NULL,$_POST['firstname'], $_POST['lastname'], $_POST['mail'], $_POST['phone_number'], $_POST['address'], $_POST['city'], NULL);
 	$user->setId();
+	$user->setPassword($_POST['passwd']);
 	$hm_database->addCustomer($user);
 
 	$_SESSION['customer'] = $user->getId();
@@ -96,7 +96,7 @@ if (
 	$_SESSION['enable'] = hash('sha256', $user->getMail());
 	setcookie('enable', hash('sha256', $user->getMail()), time() + 2 * 3600, null, null, false, true);
 
-	system('python mail/mail.py ' . $user->getMail() . ' ' . $user->getId());
+	system('python3 mail/mail.py '. 1 . ' '. $user->getMail() . ' ' . $user->getId());
 
 	header('Location: waiting_register.php');
 	exit;

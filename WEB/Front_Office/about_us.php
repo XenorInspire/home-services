@@ -1,27 +1,28 @@
-<?php session_start(); ?>
+	<?php require_once('include/check_identity.php'); ?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+	<!DOCTYPE html>
+	<html lang="en" dir="ltr">
 
-<head>
-  <meta charset="utf-8">
-  <title>Home Services - A propos</title>
-  <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-</head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Home Services - A propos</title>
+		<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+	</head>
 
-<body>
+	<body>
 
-  <?php require_once("include/header.php"); ?>
+		<?php require_once("include/header.php"); ?>
 
-  <main>
+		<main>
 
 
-  </main>
+		</main>
 
-  <?php require_once("include/footer.php"); ?>
+		<?php require_once("include/footer.php"); ?>
 
-</body>
+	</body>
 
-</html>
+	</html>
