@@ -80,7 +80,7 @@
 
                     ?>
 
-                     <li>24h sur 24 !</li>
+                     <li class="list-group-item">24h sur 24 !</li>
 
                  <?php
 
