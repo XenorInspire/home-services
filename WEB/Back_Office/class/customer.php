@@ -2,26 +2,26 @@
 
 class Customer
 {
-    private $id;
+    private $customerId;
     private $firstname;
     private $lastname;
     private $email;
     private $phoneNumber;
     private $address;
     private $town;
+    private $enable;
 
-    public function __construct($id,$firstname, $lastname, $email, $phoneNumber, $address, $town)
+    public function __construct($customerId,$firstname, $lastname, $email, $phoneNumber, $address, $town, $enable)
     {
-        $this->id = $id;
+        $this->customerId = $customerId;
         $this->firstname = htmlspecialchars(trim($firstname));
         $this->lastname = htmlspecialchars(trim($lastname));
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
         $this->address = htmlspecialchars(trim($address));
         $this->town = htmlspecialchars(trim($town));
+        $this->enable = $enable;
     }
-
-
 
     public function __toString(): string
     {
@@ -30,21 +30,21 @@ class Customer
     }
 
     /**
-     * Get the value of id
+     * Get the value of customerId
      */ 
-    public function getId()
+    public function getCustomerId()
     {
-        return $this->id;
+        return $this->customerId;
     }
 
     /**
-     * Set the value of id
+     * Set the value of customerId
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setCustomerId($customerId)
     {
-        $this->id = $id;
+        $this->customerId = $customerId;
 
         return $this;
     }
@@ -165,6 +165,26 @@ class Customer
     public function setTown($town)
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of enable
+     */ 
+    public function getEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set the value of enable
+     *
+     * @return  self
+     */ 
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
 
         return $this;
     }

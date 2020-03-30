@@ -7,19 +7,19 @@ class Associate
     private $firstName;
     private $email;
     private $phoneNumber;
-    private $adress;
+    private $address;
     private $town;
     private $sirenNumber;
     private $companyName;
 
-    public function __construct($associateId, $lastName, $firstName, $email, $phoneNumber, $adress, $town, $sirenNumber, $companyName)
+    public function __construct($associateId, $lastName, $firstName, $email, $phoneNumber, $address, $town, $sirenNumber, $companyName)
     {
         $this->associateId = $associateId;
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
-        $this->adress = $adress;
+        $this->address = $address;
         $this->town = $town;
         $this->sirenNumber = $sirenNumber;
         $this->companyName = $companyName;
@@ -126,21 +126,21 @@ class Associate
     }
 
     /**
-     * Get the value of adress
+     * Get the value of address
      */ 
-    public function getAdress()
+    public function getAddress()
     {
-        return $this->adress;
+        return $this->address;
     }
 
     /**
-     * Set the value of adress
+     * Set the value of address
      *
      * @return  self
      */ 
-    public function setAdress($adress)
+    public function setAddress($address)
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }

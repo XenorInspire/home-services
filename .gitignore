@@ -99,6 +99,10 @@ WEB/Front_Office/include/database.env
 
 WEB/Back_Office/include/database.env
 
+WEB/Back_Office/mail/logins.py
+
+WEB/Back_Office/include/database.env
+
 WEB/Front_Office/mail/logins.py
 
 WEB/Front_Office/mail/__pycache__/logins.cpython-38.pyc

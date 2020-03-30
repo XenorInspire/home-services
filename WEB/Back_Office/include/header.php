@@ -31,9 +31,9 @@
   </div>
 </nav>
 </header> -->
-
-<header>
-  <nav id="navhm" class="navbar navbar-expand-md navbar-dark">
+<br>
+<header class="container-fluid">
+  <nav id="navhm" class="navbar navbar-expand-md navbar-dark rounded">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -54,7 +54,7 @@
       </ul>
     </div>
     <div class="mx-auto order-0">
-      <a class="navbar-brand nav_line" href="index.php"><img src="img/favicon.png" alt="logo" width="60"></a>
+      <a class="navbar-brand nav_line" href="index.php"><img class="rounded" src="img/favicon.png" alt="logo" width="60"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -62,7 +62,10 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="services.php">A propos</a>
+          <a class="nav-link" href="reservations.php">Réservations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="service_types.php">Services</a>
         </li>
       </ul>
     </div>

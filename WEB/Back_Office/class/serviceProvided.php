@@ -1,20 +1,28 @@
 <?php
 
-class serviceProvided{
+class ServiceProvided{
 
     private $serviceProvidedId;
     private $serviceId;
     private $date;
+    private $beginHour;
     private $hours;
-    private $pricePerHour;
+    private $additionalPrice; 
+    private $hoursAssociate;    
+    private $address;
+    private $town;
 
-    public function __construct($serviceProvidedId, $serviceId, $date, $hours, $pricePerHour)
+    public function __construct($serviceProvidedId, $serviceId, $date, $beginHour, $hours, $additionalPrice, $hoursAssociate, $address, $town)
     {
         $this->serviceProvidedId = $serviceProvidedId;
         $this->serviceId = $serviceId;
         $this->date = $date;
+        $this->beginHour = $beginHour;
         $this->hours = $hours;
-        $this->pricePerHour = $pricePerHour;
+        $this->additionalPrice = $additionalPrice;
+        $this->hoursAssociate = $hoursAssociate;
+        $this->address = $address;
+        $this->town = $town;
     }
 
     /**
@@ -98,21 +106,21 @@ class serviceProvided{
     }
 
     /**
-     * Get the value of pricePerHour
+     * Get the value of additionalPrice
      */ 
-    public function getPricePerHour()
+    public function getAdditionalPrice()
     {
-        return $this->pricePerHour;
+        return $this->additionalPrice;
     }
 
     /**
-     * Set the value of pricePerHour
+     * Set the value of additionalPrice
      *
      * @return  self
      */ 
-    public function setPricePerHour($pricePerHour)
+    public function setAdditionalPrice($additionalPrice)
     {
-        $this->pricePerHour = $pricePerHour;
+        $this->additionalPrice = $additionalPrice;
 
         return $this;
     }
@@ -121,5 +129,85 @@ class serviceProvided{
     {
         $vars = get_object_vars($this);
         return json_encode($vars);
+    }
+
+    /**
+     * Get the value of hoursAssociate
+     */ 
+    public function getHoursAssociate()
+    {
+        return $this->hoursAssociate;
+    }
+
+    /**
+     * Set the value of hoursAssociate
+     *
+     * @return  self
+     */ 
+    public function setHoursAssociate($hoursAssociate)
+    {
+        $this->hoursAssociate = $hoursAssociate;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of beginHour
+     */ 
+    public function getBeginHour()
+    {
+        return $this->beginHour;
+    }
+
+    /**
+     * Set the value of beginHour
+     *
+     * @return  self
+     */ 
+    public function setBeginHour($beginHour)
+    {
+        $this->beginHour = $beginHour;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of address
+     */ 
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set the value of address
+     *
+     * @return  self
+     */ 
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of town
+     */ 
+    public function getTown()
+    {
+        return $this->town;
+    }
+
+    /**
+     * Set the value of town
+     *
+     * @return  self
+     */ 
+    public function setTown($town)
+    {
+        $this->town = $town;
+
+        return $this;
     }
 }
