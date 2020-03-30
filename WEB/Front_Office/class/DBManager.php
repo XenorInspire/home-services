@@ -3,6 +3,9 @@
 require_once('include/config.php');
 require_once('class/customer.php');
 require_once('class/subscription_type.php');
+require_once('class/reservation.php');
+require_once('class/serviceProvided.php');
+require_once('class/service.php');
 
 class DBManager
 {
@@ -158,5 +161,89 @@ class DBManager
 
       return NULL;
     }
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * SERVICE PROVIDED PART * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+  //Service provided
+  public function getServiceProvided($serviceProvidedId)
+  {
+    $serviceProvidedId = (int) $serviceProvidedId;
+    $q = $this->db->query('SELECT * FROM ServiceProvided WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+
+    $data = $q->fetch();
+
+    // if ($data == NULL) {
+    //   header('Location: reservations.php');
+    // }
+    return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['additionalPrice'], $data['hoursAssociate'], $data['address'], $data['town']);
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * RESERVATION PART * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+  public function getReservation($reservationId)
+  {
+    $reservationId = (int) $reservationId;
+    $q = $this->db->query('SELECT * FROM Reservation WHERE reservationId = ' . $reservationId . '');
+
+    $data = $q->fetch();
+
+    // if ($data == NULL) {
+    //   header('Location: reservations.php');
+    // }
+    return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
+  }
+
+  public function getReservationByServiceProvidedId($serviceProvidedId){
+    $serviceProvidedId = (int) $serviceProvidedId;
+    $q = $this->db->query('SELECT * FROM Reservation WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+
+    $data = $q->fetch();
+
+    // if ($data == NULL) {
+    //   header('Location: reservations.php');
+    // }
+    return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * SERVICE PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+  public function getService($serviceId)
+  {
+    $serviceId = (int) $serviceId;
+    $q = $this->db->query('SELECT * FROM Service WHERE serviceId = ' . $serviceId . '');
+
+    $data = $q->fetch();
+
+    // if ($data == NULL) {
+    //   header('Location: reservations.php');
+    // }
+    return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * PROPOSAL PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+  public function acceptProposal($serviceProvidedId, $associateId)
+  {
+    $q = "UPDATE Proposal SET status=:status WHERE serviceProvidedId='" . $serviceProvidedId . "'" . "AND associateId='" . $associateId . "'";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'status' => 1
+    ));
+  }
+
+  public function denyProposal($serviceProvidedId, $associateId)
+  {
+    $q = "UPDATE Proposal SET status=:status WHERE serviceProvidedId='" . $serviceProvidedId . "'" . "AND associateId='" . $associateId . "'";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'status' => 2
+    ));
   }
 }
