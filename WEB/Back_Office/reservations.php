@@ -57,13 +57,28 @@ $hm_database = new DBManager($bdd);
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
-                                    <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-<?php if($proposal == NULL){echo 'danger';}else{echo 'primary';} ?>">
+                                    <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-<?php
+                                                                                                                                                                                            if ($proposal == NULL) {
+                                                                                                                                                                                                echo 'secondary';
+                                                                                                                                                                                            } else {
+                                                                                                                                                                                                if ($proposal->getStatus() == 0) {
+                                                                                                                                                                                                    echo 'primary';
+                                                                                                                                                                                                } else if ($proposal->getStatus() == 1) {
+                                                                                                                                                                                                    echo 'success';
+                                                                                                                                                                                                } else {
+                                                                                                                                                                                                    echo 'danger';
+                                                                                                                                                                                                }
+                                                                                                                                                                                            } ?>">
                                         <?php
                                         if ($proposal == NULL) {
                                             echo 'Choisir un prestataire';
                                         } else {
                                             if ($proposal->getStatus() == 0)
-                                                echo 'Changer le prestataire';
+                                                echo 'En attente de réponse';
+                                            else if ($proposal->getStatus() == 1)
+                                                echo 'Prestation acceptée';
+                                            else
+                                                echo 'Prestation refusée';
                                         }
                                         ?>
                                     </a>
