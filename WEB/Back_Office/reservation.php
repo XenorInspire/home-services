@@ -192,6 +192,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                         </thead>
                         <tbody id="myTable">
                             <?php
+                            $counter = 1;
                             foreach ($associates as $associate) { ?>
                                 <form action="valid_reservation.php" method="POST">
                                     <tr class="table-light text-center">
@@ -202,7 +203,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                                         <td><?= $associate->getAddress() ?></td>
                                         <td><?= $associate->getTown() ?></td>
                                         <td>
-                                            <div class="btn btn-outline-secondary" data-toggle="modal" data-target="#modalAdd">Sélectionner</div>
+                                            <div class="btn btn-outline-secondary" data-toggle="modal" data-target="#modalAdd<?= $counter ?>">Sélectionner</div>
                                         </td>
                                     </tr>
                                     <input type="hidden" name="serviceProvidedId" value="<?= $servPro->getServiceProvidedId() ?>">
@@ -210,7 +211,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                                     <input type="hidden" name="associateId" value="<?= $associate->getAssociateId() ?>">
 
                                     <!-- Modal for adding -->
-                                    <div class=" modal fade" id="modalAdd">
+                                    <div class=" modal fade" id="modalAdd<?= $counter ?>">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <!-- Modal Header -->
@@ -231,7 +232,9 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                                         </div>
                                     </div>
                                 </form>
-                            <?php } ?>
+                            <?php
+                                $counter++;
+                            } ?>
                         </tbody>
                     </table>
                 <?php } ?>

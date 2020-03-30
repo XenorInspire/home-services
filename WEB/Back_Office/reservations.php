@@ -87,7 +87,6 @@ $hm_database = new DBManager($bdd);
                                     <?= $res->getReservationDate() ?>
                                 </div>
                             </div>
-                            <hr>
                         <?php
                             $counter++;
                         } ?>
