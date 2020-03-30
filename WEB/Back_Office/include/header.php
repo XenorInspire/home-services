@@ -46,7 +46,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="customers.php">Espace Client</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="advanced_research.php">Espace Prestataire</a>
+            <a class="dropdown-item" href="associates.php">Espace Prestataire</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="subscriptions.php">Espace Abonnement</a>
           </div>

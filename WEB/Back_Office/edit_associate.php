@@ -1,5 +1,5 @@
 <?php
-isset($_GET['customerId']);
+isset($_GET['associateId']);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -21,13 +21,15 @@ isset($_GET['customerId']);
         <br>
         <div class="container-fluid">
             <div class="jumbotron text-center">
-                <a href="create_reservation.php?customerId=<?= $_GET['customerId'] ?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
+                <a href="create_associate_service.php?associateId=<?= $_GET['associateId'] ?>"><button type="button" class="btn btn-dark">Ajouter un service pour le prestataire</button></a>
                 <hr>
-                <div class="display-4">Liste des réservations</div>
+                <div class="display-4">Liste des services</div>
+                <hr>
+                <div class="display-4">Regénerer Qrcode</div>
                 <hr>
                 <div class="display-4">Modifer les infos</div>
                 <hr>
-                <div class="display-4">Modifier le mdp</div>
+                <div class="display-4">Renvoyer le mdp</div>
                 <hr>
             </div>
         </div>

@@ -424,6 +424,18 @@ class DBManager
         return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
     }
 
+    public function getAssociateList(){
+        $associates = [];
+
+        $q = $this->db->query('SELECT * FROM Associate ORDER BY lastName');
+
+        while ($data = $q->fetch()) {
+            $associates[] = new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
+        }
+
+        return $associates;
+    }
+
 
     //Give the propose to the associate
     public function proposalToAssociate(Proposal $proposal)
