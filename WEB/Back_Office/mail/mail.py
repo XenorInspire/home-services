@@ -18,14 +18,15 @@ message = ''
 
 if(sys.argv[1] == 'create_proposal'):
     msg['Subject'] = "Home Services - You have recieved a reservation"
-    message = 'Hi there !\nThanks for using Home-Services !\nYou have received a reservation from a customer\nClick right here to see the reservation : \nhttp://localhost/associate_proposal_accept.php?associateId=' + sys.argv[3] + '&serviceProvidedId=' + sys.argv[4]
+    message = 'Hi there !\nThanks for using Home-Services !\nYou have received a reservation from a customer\nClick right here to see the reservation : \nhttp://176.139.121.149:7766/associate_proposal_accept.php?associateId=' + \
+        sys.argv[3] + '&serviceProvidedId=' + sys.argv[4]
 elif(sys.argv[1] == 'cancel_proposal'):
     msg['Subject'] = "Home Services - Reservation canceled"
     message = 'Hi there !\nSorry but your rservation have been canceled.'
 
 # setup the parameters of the message
-msg['From']=logins.MY_ADDRESS
-msg['To']= sys.argv[2]
+msg['From'] = logins.MY_ADDRESS
+msg['To'] = sys.argv[2]
 
 # add in the message body
 msg.attach(MIMEText(message, 'plain'))

@@ -175,6 +175,7 @@ class DBManager
     public function deleteReservation($reservationId)
     {
         $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
+        
     }
 
 
