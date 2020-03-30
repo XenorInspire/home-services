@@ -13,16 +13,16 @@ s.login(logins.MY_ADDRESS, logins.PASSWORD)
 msg = MIMEMultipart()       # create a message
 message = ''
 
-if(sys.argv[1] == '1'):
+if(sys.argv[1] == '1'): # Mail confirmation
     msg['Subject'] = "Home Services - Confirm your mail address"
     message = 'Hi there !\nThanks for using Home-Services !\nClick right here to purshase your registration : \nhttp://localhost/user_registered.php?a=' + sys.argv[3]
-elif(sys.argv[1] == '2'):
+elif(sys.argv[1] == '2'): # Subscription
     msg['Subject'] = "Home Services - Subscription confirmation"
     message = 'Hi there !\nThanks for using Home-Services !\nYour subscription is now effective, don\'t hesitate to contact us if you have any question !'
-elif(sys.argv[1] == '3'):
+elif(sys.argv[1] == '3'):  # Personal information update
     msg['Subject'] = "Home Services - Personal information update"
     message = 'Hi there !\nThanks for using Home-Services !\nYour personal information were updated.'
-elif(sys.argv[1] == '4'):
+elif(sys.argv[1] == '4'): # Password updated
     msg['Subject'] = "Home Services - Password changed"
     message = 'Hi there !\nThanks for using Home-Services !\nYour password were updated.'
 

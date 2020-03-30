@@ -149,14 +149,14 @@ class DBManager
   public function checkSubscription($id)
   {
 
-    $q = "SELECT customerId FROM Subscription WHERE customerId = ?";
+    $q = "SELECT * FROM Subscription WHERE customerId = ?";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
     $results = $req->fetch();
 
     if (!empty($results)) {
 
-      return 1;
+      return $results;
     } else {
 
       return NULL;
