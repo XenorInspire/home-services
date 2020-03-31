@@ -6,13 +6,15 @@ require_once('class/DBManager.php');
 if (!isset($_GET['sid']) || empty(trim($_GET['sid']))) {
 
     http_response_code(400);
-    exit;
+    echo http_response_code();
+    return;
 }
 
 if (!isset($_GET['cid']) || empty(trim($_GET['cid']))) {
 
     http_response_code(400);
-    exit;
+    echo http_response_code();
+    return;
 }
 
 $hm_database = new DBManager($bdd);
@@ -25,12 +27,14 @@ $res->execute(array(
 ));
 
 $customer = $hm_database->getUserById($_GET['cid']);
-if($customer == NULL){
+if ($customer == NULL) {
 
     http_response_code(400);
-    exit;
-
+    echo http_response_code();
+    return;
 }
 
 system('python3 mail/mail.py ' . 2 . ' ' . $customer->getMail());
 http_response_code(200);
+echo http_response_code();
+return;

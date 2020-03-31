@@ -3,7 +3,8 @@
 if (!isset($_POST['mail']) || empty(trim($_POST['mail']))) {
 
     http_response_code(400);
-    exit;
+    echo http_response_code();
+    return;
 }
 
 // Connexion à la base de données
