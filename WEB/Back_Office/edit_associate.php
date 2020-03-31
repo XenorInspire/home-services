@@ -1,5 +1,10 @@
 <?php
 isset($_GET['associateId']);
+require_once('class/DBManager.php');
+
+$associateId = $_GET['associateId'];
+$hm_database = new DBManager($bdd);
+$sub = $hm_database->getAssociate($associateId);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -13,8 +18,7 @@ isset($_GET['associateId']);
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
-<body>
-    <?php require_once('include/config.php'); ?>
+<body onload="">
     <?php require_once("include/header.php"); ?>
 
     <main>
@@ -26,6 +30,12 @@ isset($_GET['associateId']);
                 <div class="display-4">Liste des services</div>
                 <hr>
                 <div class="display-4">Regénerer Qrcode</div>
+                <div id="button" class="btn btn-secondary" onclick="generateQrcode(); setTimeout(link, 1000);">Regénerer le QRcode</div>
+                <input id="text" type="hidden" value="cc">
+                <div class="container text-center">
+                    <a id="qrcode" class="text-center"></a>
+                </div>
+
                 <hr>
                 <div class="display-4">Modifer les infos</div>
                 <hr>
@@ -38,5 +48,38 @@ isset($_GET['associateId']);
     <?php require_once("include/footer.php"); ?>
 
 </body>
+
+<!-- <script type="text/javascript" src="lib/jquery.min.js"></script> -->
+<script type="text/javascript" src="lib/qrcode.js"></script>
+<script type="text/javascript">
+    function generateQrcode() {
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 150,
+            height: 150
+        });
+
+        function makeCode() {
+            var elText = document.getElementById("text");
+
+            if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+            }
+
+            qrcode.makeCode(elText.value);
+        }
+
+        makeCode();
+        document.getElementById("button").removeAttribute("onclick");
+    }
+
+    function link() {
+        link = document.getElementById("QRcode").src;
+        console.log(link);
+        document.getElementById("qrcode").setAttribute("href", link);
+        document.getElementById("qrcode").setAttribute("download", "QRcode");
+    }
+</script>
 
 </html>
