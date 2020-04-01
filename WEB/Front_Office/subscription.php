@@ -14,7 +14,7 @@
     require_once('include/check_identity.php');
     if (!($status == 'customer' && $connected == 1)) {
 
-        header('Location: connect_customer.php?error=forb');
+        header('Location: connect.php?status=customer&error=forb');
         exit;
     }
 

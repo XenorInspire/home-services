@@ -2,19 +2,19 @@
 
 if (!isset($_POST['mail']) || empty(trim($_POST['mail']))) {
 
-    header('Location: connect_customer.php?error=mail_nv');
+    header('Location: connect.php?status=customer&error=mail_nv');
     exit;
 }
 
 if (!isset($_POST['passwd']) || empty(trim($_POST['passwd']))) {
 
-    header('Location: connect_customer.php?error=passwd_nv');
+    header('Location: connect.php?status=customer&error=passwd_nv');
     exit;
 }
 
 if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
 
-    header('Location: connect_customer.php?error=mail_nv');
+    header('Location: connect.php?status=customer&error=mail_nv');
     exit;
 }
 
@@ -28,7 +28,7 @@ $hm_database = new DBManager($bdd);
 
 if ($hm_database->doesMailExist($mail) == 0) {
 
-    header('Location: connect_customer.php?error=mail_nexit');
+    header('Location: connect.php?status=customer&error=mail_nexit');
     exit;
 }
 
@@ -36,13 +36,13 @@ $user = $hm_database->getUserByMail($mail);
 
 if ($user->getPassword() != $password) {
 
-    header('Location: connect_customer.php?error=passwd_nv');
+    header('Location: connect.php?status=customer&error=passwd_nv');
     exit;
 }
 
 if ($hm_database->doesAccountIsActivated($user->getId()) == 0) {
 
-    header('Location: connect_customer.php?error=acc_dis');
+    header('Location: connect.php?status=customer&error=acc_dis');
     exit;
 }
 

@@ -1,0 +1,96 @@
+<?php
+
+require_once('include/check_identity.php');
+if ($connected == 1) {
+
+    header('Location: index.php');
+    exit;
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Services - Mot de passe oublié ?</title>
+    <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <?php require_once("include/header.php"); ?>
+
+    <main>
+
+        <section class="container">
+            <br>
+            <br>
+            <br>
+            <h1 style="text-align: center;">Connexion</h1>
+
+            <?php
+
+            if (isset($_GET['error'])) {
+
+                if ($_GET['error'] == 'passwd_nv') {
+
+                    echo '<br>';
+                    echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Mot de passe incorrect.</div>';
+                }
+
+                if ($_GET['error'] == 'mail_nv') {
+
+                    echo '<br>';
+                    echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
+                }
+
+                if ($_GET['error'] == 'mail_nexit') {
+
+                    echo '<br>';
+                    echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail n\'existe pas</div>';
+                }
+
+                if ($_GET['error'] == 'acc_dis') {
+
+                    echo '<br>';
+                    echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte client n\'est pas activé</div>';
+                }
+
+                if ($_GET['error'] == 'forb') {
+
+                    echo '<br>';
+                    echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez vous connecter avant de poursuivre</div>';
+                }
+            }
+
+            ?>
+
+            <br>
+            <form action="valid_customer_connect.php" method="POST">
+                <div class="form-group">
+                    <label>Adresse mail</label>
+                    <input onchange="check_mail_connection()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+                    <small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="password_length" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
+                    <small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="">Cliquez ici</a></u></i></small>
+                </div>
+                <button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
+            </form>
+        </section>
+
+    </main>
+
+    <?php require_once("include/footer.php"); ?>
+    <script src="js/ajax_customer.js"></script>
+
+</body>
+
+</html>

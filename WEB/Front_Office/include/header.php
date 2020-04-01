@@ -29,8 +29,8 @@ require_once('include/check_identity.php');
               Connexion
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="connect_customer.php">Espace client</a>
-              <a class="dropdown-item" href="#">Espace prestataire</a>
+              <a class="dropdown-item" href="connect.php?status=customer">Espace client</a>
+              <a class="dropdown-item" href="connect.php?status=associate">Espace prestataire</a>
             </div>
           </li>
 
@@ -63,7 +63,7 @@ require_once('include/check_identity.php');
                 Mon compte
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="profile_customer.php">Mes informations personnelles</a>
+                <a class="dropdown-item" href="profile_associate.php">Mes informations personnelles</a>
                 <a class="dropdown-item" href="deconnect.php">Déconnexion</a>
               </div>
             </li>
