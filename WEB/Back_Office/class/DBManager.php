@@ -75,6 +75,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: subscriptions.php');
+            exit;
         }
         return new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price']);
     }
@@ -123,6 +124,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: customers.php');
+            exit;
         }
         return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
     }
@@ -167,6 +169,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: reservations.php');
+            exit;
         }
         return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
     }
@@ -195,6 +198,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: reservations.php');
+            exit;
         }
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['additionalPrice'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
@@ -294,6 +298,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: reservations.php');
+            exit;
         }
         return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
     }
@@ -344,6 +349,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: service_type.php');
+            exit;
         }
         return new ServiceType($data['serviceTypeId'], $data['typeName']);
     }
@@ -420,6 +426,7 @@ class DBManager
 
         if ($data == NULL) {
             header('Location: reservations.php');
+            exit;
         }
         return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
     }
