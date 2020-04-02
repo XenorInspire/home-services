@@ -19,7 +19,11 @@ function resend(mode) {
             } else {
 
                 console.log("error");
-                console.log("\n" + request.responseText);
+
+                if (mode == 1)
+                    self.location.href = "passwd_forgotten.php?status=customer&e=inputs";
+                else
+                    self.location.href = "passwd_forgotten.php?status=associate&e=inputs";
 
             }
         }

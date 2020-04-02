@@ -47,7 +47,6 @@ function subscribe() {
 
                 insert();
                 replace();
-                console.log('succeed');
 
             }
         });
@@ -115,7 +114,11 @@ function insert() {
     request.open('GET', 'customer_payment.php?cid=' + cid + '&sid=' + sid);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
+            if (request.responseText != "200") {
 
+                self.location.href = "shop.php?err=inp";
+
+            }
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

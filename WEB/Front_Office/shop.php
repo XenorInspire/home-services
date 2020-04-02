@@ -34,6 +34,12 @@
 						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous possédez déjà un abonnement, si vous voulez changer d\'abonnement vous devez tout d\'abord le résilier.</div>';
 						echo '<br>';
 					}
+
+					if ($_GET['err'] == 'inp') {
+
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Une erreur s\'est produite durant le processus de paiement.</div>';
+						echo '<br>';
+					}
 				}
 				?>
 				<?php

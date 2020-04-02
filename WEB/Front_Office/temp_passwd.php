@@ -4,8 +4,17 @@ function random()
 {
     $string = '';
     for ($i = 0; $i < 10; $i++) {
-        $nb = rand(63, 122);
-        $string .= chr(floor($nb));
+
+        $type = rand(0,100) % 3;
+
+        if($type == 0)
+            $nb = rand(48, 57);
+        elseif($type == 1)
+            $nb = rand(65, 90);
+        else
+            $nb = rand(97, 122);
+
+        $string .= chr($nb);
     }
     return $string;
 }

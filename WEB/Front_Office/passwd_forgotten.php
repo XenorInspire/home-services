@@ -52,13 +52,25 @@ if ($_GET['status'] == "customer") {
             <h1 style="text-align: center;">Mot de passe oublié</h1>
             <br>
             <br>
-                <div class="form-group">
-                    <label>Veuillez saisir l'adresse mail de votre compte <?php if ($connect_status == 1) echo "client";
-                                                                            else echo "prestataire"; ?> :</label>
-                    <input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="Entez votre email" autocomplete="email" maxlength="255" required>
-                    <small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
-                </div>
-                <button style="margin:auto;display:block;" onclick="resend(<?php echo $connect_status; ?>)" id="regis_button" type="submit" class="btn btn-primary">Confirmer</button>
+            <?php
+
+            if (isset($_GET['e'])) {
+
+                if ($_GET['e'] == 'inputs') {
+
+                    echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Une erreur s\'est produite</div>';
+                    echo '<br>';
+                }
+            }
+
+            ?>
+            <div class="form-group">
+                <label>Veuillez saisir l'adresse mail de votre compte <?php if ($connect_status == 1) echo "client";
+                                                                        else echo "prestataire"; ?> :</label>
+                <input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="Entez votre email" autocomplete="email" maxlength="255" required>
+                <small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
+            </div>
+            <button style="margin:auto;display:block;" onclick="resend(<?php echo $connect_status; ?>)" id="regis_button" type="submit" class="btn btn-primary">Confirmer</button>
         </section>
 
     </main>
