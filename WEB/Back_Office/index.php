@@ -11,14 +11,16 @@
 </head>
 
 <body>
+
     <?php require_once('include/config.php'); ?>
+    <?php require_once('include/lang.php'); ?>
     <?php require_once("include/header.php"); ?>
 
     <main>
         <br>
         <div class="container-fluid">
             <div class="jumbotron text-center">
-                <div class="display-4">Bienvenue au Back-Office de Home-Service</div>
+                <div class="display-4"><?= $index['description'] ?></div>
             </div>
         </div>
     </main>

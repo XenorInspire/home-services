@@ -70,7 +70,7 @@ $services = $hm_database->getServiceListAssociate($associateId);
                         </div>
 
                     <?php
-                    $counter++;
+                        $counter++;
                     }
                     ?>
                 </div>
