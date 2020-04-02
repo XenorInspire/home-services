@@ -32,7 +32,7 @@
 </nav>
 </header> -->
 <br>
-<header class="container-fluid">
+<header class="container-fluid sticky-top">
   <nav id="navhm" class="navbar navbar-expand-md navbar-dark rounded">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
