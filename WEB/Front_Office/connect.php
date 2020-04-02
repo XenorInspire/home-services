@@ -95,13 +95,14 @@ if ($_GET['status'] == "customer") {
 							else echo "valid_associate_connect.php"; ?>" method="POST">
 				<div class="form-group">
 					<label>Adresse mail</label>
-					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="Entez votre email" autocomplete="email" maxlength="255" required>
 					<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
 				</div>
 				<div class="form-group">
 					<label>Mot de passe</label>
 					<input type="password" id="password_length" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
-					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="">Cliquez ici</a></u></i></small>
+					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="passwd_forgotten.php?status=<?php if ($connect_status == 1) echo "customer";
+																																						else echo "associate"; ?>">Cliquez ici</a></u></i></small>
 				</div>
 				<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
 			</form>

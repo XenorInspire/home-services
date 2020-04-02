@@ -6,6 +6,7 @@ require_once('class/subscription_type.php');
 require_once('class/reservation.php');
 require_once('class/serviceProvided.php');
 require_once('class/service.php');
+require_once('class/associate.php');
 
 class DBManager
 {
@@ -16,6 +17,10 @@ class DBManager
 
     $this->db = $bdd;
   }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
   public function addCustomer(Customer $user)
   {
@@ -163,6 +168,17 @@ class DBManager
     }
   }
 
+  public function setNewPasswdCustomer($password, $id)
+  {
+
+    $q = "UPDATE Customer SET password = :password WHERE customerId = :id";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'password' => $password,
+      'id' => $id
+    ));
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * SERVICE PROVIDED PART * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -196,7 +212,8 @@ class DBManager
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
-  public function getReservationByServiceProvidedId($serviceProvidedId){
+  public function getReservationByServiceProvidedId($serviceProvidedId)
+  {
     $serviceProvidedId = (int) $serviceProvidedId;
     $q = $this->db->query('SELECT * FROM Reservation WHERE serviceProvidedId = ' . $serviceProvidedId . '');
 
@@ -244,6 +261,48 @@ class DBManager
     $req = $this->db->prepare($q);
     $req->execute(array(
       'status' => 2
+    ));
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * ASSOCIATE PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+  public function getAssociateById($associateId)
+  {
+    $associateId = (int) $associateId;
+    $q = $this->db->query('SELECT * FROM Associate WHERE associateId = ' . $associateId . '');
+
+    $data = $q->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+    return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['password']);
+  }
+
+  public function getAssociateByMail($associateMail)
+  {
+    $q = "SELECT * FROM Associate WHERE email = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$associateMail]);
+
+    $data = $req->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+    return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['password']);
+  }
+
+  public function setNewPasswdAssociate($password, $id)
+  {
+
+    $q = "UPDATE Associate SET password = :password WHERE associateId = :id";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'password' => $password,
+      'id' => $id
     ));
   }
 }
