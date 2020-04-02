@@ -1,5 +1,9 @@
 <?php
+require_once('class/DBManager.php');
 isset($_GET['customerId']);
+$customerId = $_GET['customerId'];
+$hm_database = new DBManager($bdd);
+$customer = $hm_database->getCustomer($customerId);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -21,6 +25,9 @@ isset($_GET['customerId']);
         <br>
         <div class="container-fluid">
             <div class="jumbotron text-center">
+                <div class="display-4">Client</div>
+                <div class="display-4"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></div>
+                <br>
                 <a href="create_reservation.php?customerId=<?= $_GET['customerId'] ?>"><button type="button" class="btn btn-dark">Créer une réservation</button></a>
                 <hr>
                 <div class="display-4">Liste des réservations</div>

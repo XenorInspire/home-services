@@ -16,7 +16,6 @@ class DBManager
     private $db;
     public function __construct($bdd)
     {
-
         $this->db = $bdd;
     }
 
@@ -27,7 +26,6 @@ class DBManager
     //Insert subscription in db
     public function addSubscriptionType(SubscriptionType $subscription)
     {
-
         $subName = $subscription->getTypeName();
         $q = $this->db->query("SELECT typeName FROM SubscriptionType WHERE typeName = '" . $subName . "'");
 
@@ -184,7 +182,6 @@ class DBManager
         $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
         $this->db->exec("DELETE FROM ServiceProvided WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
         $this->db->exec("DELETE FROM Proposal WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
-
     }
 
 
@@ -412,6 +409,7 @@ class DBManager
         return $associates;
     }
 
+
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * *ASSOCIATE PART* * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -431,7 +429,8 @@ class DBManager
         return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
     }
 
-    public function getAssociateList(){
+    public function getAssociateList()
+    {
         $associates = [];
 
         $q = $this->db->query('SELECT * FROM Associate ORDER BY lastName');
@@ -454,6 +453,38 @@ class DBManager
             'status' => $proposal->getStatus(),
             'associateId' => $proposal->getAssociateId()
         ));
+    }
+
+    public function addServiceToAssociate($serviceId, $associateId)
+    {
+        $q = "INSERT INTO AssociateServices(serviceId,associateId) VALUES (:serviceId,:associateId)";
+        $res = $this->db->prepare($q);
+        $res->execute(array(
+            'serviceId' => $serviceId,
+            'associateId' => $associateId
+        ));
+    }
+
+    public function getServiceListAssociate($associateId)
+    {
+        $servicesId = [];
+
+        $q = $this->db->query('SELECT * FROM AssociateServices WHERE associateId = ' . $associateId . '');
+
+        while ($data = $q->fetch()) {
+            $servicesId[] = new AssociateServices($data['serviceId'], $data['associateId']);
+        }
+
+        $services = [];
+        foreach ($servicesId as $serviceId) {
+            array_push($services, $this->getService($serviceId->getServiceId()));
+        }
+
+        return $services;
+    }
+
+    public function deleteAssociateService($serviceId, $associateId){
+        $this->db->exec("DELETE FROM AssociateServices WHERE associateId = '" . $associateId . "'" . "AND serviceId = '" . $serviceId . "'");
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

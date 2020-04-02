@@ -4,7 +4,8 @@ require_once('class/DBManager.php');
 
 $associateId = $_GET['associateId'];
 $hm_database = new DBManager($bdd);
-$sub = $hm_database->getAssociate($associateId);
+$associate = $hm_database->getAssociate($associateId);
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -25,12 +26,14 @@ $sub = $hm_database->getAssociate($associateId);
         <br>
         <div class="container-fluid">
             <div class="jumbotron text-center">
-                <a href="create_associate_service.php?associateId=<?= $_GET['associateId'] ?>"><button type="button" class="btn btn-dark">Ajouter un service pour le prestataire</button></a>
+                <div class="display-4">Prestataire</div>
+                <div class="display-4"><?= $associate->getLastName() ?> <?= $associate->getFirstName() ?></div>
+                <br>
+                <a href="associate_services.php?associateId=<?= $_GET['associateId'] ?>">
+                    <div class="btn btn-secondary">Voir ses services</div>
+                </a>
                 <hr>
-                <div class="display-4">Liste des services</div>
-                <hr>
-                <div class="display-4">Regénerer Qrcode</div>
-                <div id="button" class="btn btn-secondary" onclick="generateQrcode(); setTimeout(link, 1000);">Regénerer le QRcode</div>
+                <div id="button" class="btn btn-secondary" onclick="generateQrcode(); setTimeout(link, 1000);">Regénérer son QRcode</div>
                 <input id="text" type="hidden" value="cc">
                 <div class="container text-center">
                     <a id="qrcode" class="text-center"></a>
