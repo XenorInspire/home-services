@@ -28,15 +28,15 @@ $services = $hm_database->getServiceListByType($serviceTypeId);
             <div class="jumbotron">
                 <?php
                 if (isset($_GET['delete']) == "successful") {
-                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">La catégorie a bien été supprimée.</div>';
+                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été supprimé.</div>';
                 }
 
                 if (isset($_GET['create']) == "successful") {
-                    echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">La catégorie a bien été créée.</div>';
+                    echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">Le service a bien été créé.</div>';
                 }
 
                 if (isset($_GET['edit']) == "successful") {
-                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">La catégorie a bien été modifiée.</div>';
+                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été modifié.</div>';
                 }
 
                 ?>
