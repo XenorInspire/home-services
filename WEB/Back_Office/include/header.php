@@ -31,24 +31,25 @@
   </div>
 </nav>
 </header> -->
+<?php require_once('include/lang.php'); ?>
 <br>
 <header class="container-fluid sticky-top">
   <nav id="navhm" class="navbar navbar-expand-md navbar-dark rounded">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="index.php">Accueil</a>
+          <a class="nav-link" href="index.php"><?= $nav['homepage'] ?></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="publications.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Gestion
+            <?= $nav['manage'] ?>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="customers.php">Espace Client</a>
+            <a class="dropdown-item" href="customers.php"><?= $nav['customers'] ?></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="associates.php">Espace Prestataire</a>
+            <a class="dropdown-item" href="associates.php"><?= $nav['associates'] ?></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="subscriptions.php">Espace Abonnement</a>
+            <a class="dropdown-item" href="subscriptions.php"><?= $nav['subscriptions'] ?></a>
           </div>
         </li>
       </ul>
@@ -62,10 +63,10 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="reservations.php">Réservations</a>
+          <a class="nav-link" href="reservations.php"><?= $nav['reservations'] ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="service_types.php">Services</a>
+          <a class="nav-link" href="service_types.php"><?= $nav['services'] ?></a>
         </li>
       </ul>
     </div>

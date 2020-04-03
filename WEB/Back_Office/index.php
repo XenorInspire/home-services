@@ -13,7 +13,6 @@
 <body>
 
     <?php require_once('include/config.php'); ?>
-    <?php require_once('include/lang.php'); ?>
     <?php require_once("include/header.php"); ?>
 
     <main>
