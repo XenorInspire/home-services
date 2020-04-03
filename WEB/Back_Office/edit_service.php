@@ -126,7 +126,7 @@ $service = $hm_database->getService($serviceId);
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <a class="" href="delete_service.php?id=<?= $serviceId ?>">
+                                    <a class="" href="delete_service.php?serviceId=<?= $serviceId ?>&serviceTypeId=<?= $service->getServiceTypeId() ?>">
                                         <div class="btn btn-outline-danger">Supprimer le service</div>
                                     </a>
                                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
