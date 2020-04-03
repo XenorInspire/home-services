@@ -45,7 +45,7 @@ if ($_GET['status'] == "customer") {
 
     <main>
 
-        <section class="container">
+        <section class="container text-center">
             <br>
             <br>
             <br>
