@@ -12,12 +12,11 @@ if (
 
     $hm_database->addServiceToAssociate($serviceId, $associateId);
 
-    $url = "edit_associate.php?associateId=" . $associateId . "&create=successful";
+    $url = "associate_services.php?associateId=" . $associateId . "&create=successful";
     header('Location: ' . $url);
-    echo $url;
     exit;
 } else {
-    $url = "edit_associate.php?associateId=" . $associateId . "&error";
+    $url = "associate_services.php?associateId=" . $associateId . "&error";
     header('Location: ' . $url);
     exit;
 }

@@ -29,8 +29,9 @@ $user = $hm_database->getCustomer($customerId);
             <div class="jumbotron">
                 <div class="display-4 text-center">Réservation d'un service</div>
                 <?php
-                // if (isset($_GET['error']) == "name_tasken") {
-                //     echo '<div class="alert alert-danger text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Ce nom a déjà été utilisé</div>';
+                
+                // if (isset($_GET['delete']) == "successful") {
+                //     echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été retiré</div>';
                 // }
                 ?>
                 <br>

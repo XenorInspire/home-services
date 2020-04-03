@@ -27,6 +27,15 @@ $services = $hm_database->getServiceListAssociate($associateId);
         <br>
         <div class="container-fluid">
             <div class="jumbotron text-center">
+                <?php
+                if (isset($_GET['delete']) == "successful") {
+                    echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été retiré</div>';
+                }
+                if (isset($_GET['create']) == "successful") {
+                    echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été ajouté</div>';
+                }
+
+                ?>
                 <div class="display-4">Services de <?= $associate->getLastName() ?> <?= $associate->getFirstName() ?></div>
                 <br>
                 <a href="create_associate_service.php?associateId=<?= $_GET['associateId'] ?>"><button type="button" class="btn btn-dark">Ajouter un service pour le prestataire</button></a>
