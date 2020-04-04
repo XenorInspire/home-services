@@ -8,7 +8,6 @@
 #include "includes/system.h"
 #include "includes/repository.h"
 #include "includes/sqlmanage.h"
-#include "includes/sqltest.h"
 #include "includes/sqlrequest.h"
 
 #define SIZE_FILE_NAME 256

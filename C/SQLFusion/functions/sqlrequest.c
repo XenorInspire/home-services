@@ -7,7 +7,8 @@
 #include "../includes/mysql.h"
 #include "../includes/sqlrequest.h"
 
-void SQLExec(char ** backup, int32_t nbLines) {
+void SQLExec(char **backup, int32_t nbLines)
+{
 
   MYSQL *con = mysql_init(NULL);
   MYSQL_RES *result;
@@ -15,10 +16,10 @@ void SQLExec(char ** backup, int32_t nbLines) {
   int num_fields;
 
   char errors[nbLines][200];
-  char* select = malloc(sizeof(char) * 255);
-  char* update = malloc(sizeof(char) * 1000);
+  char *select = malloc(sizeof(char) * 255);
+  char *update = malloc(sizeof(char) * 1000);
   char id[11] = "";
-  char** infoReq;
+  char **infoReq;
 
   char login[255];
   char password[255];
@@ -30,7 +31,8 @@ void SQLExec(char ** backup, int32_t nbLines) {
   int k;
   int r;
 
-  if (con == NULL) {
+  if (con == NULL)
+  {
     // fprintf(stderr, "%s\n", mysql_error(con));
     exit(1);
   }
@@ -41,19 +43,20 @@ void SQLExec(char ** backup, int32_t nbLines) {
   strcpy(database, "home-services");
   port = 3306;
 
-// Try connection with database
-  if (mysql_real_connect(con, server, login, password, database, port, NULL, 0) == NULL) {
+  // Try connection with database
+  if (mysql_real_connect(con, server, login, password, database, port, NULL, 0) == NULL)
+  {
     mysql_close(con);
     exit(1);
   }
 
-// Send requests and get errors
+  // Send requests and get errors
   // for (i = 0; i < nbLines; i++) {
   //   if (mysql_query(con, backup[i])) strcpy(errors[i], mysql_error(con));
   //   else errors[i][0] = '\0';
   // }
 
-// If there are errors
+  // If there are errors
   // for (i = 0; i < nbLines; i++) {
   //   if (strstr(errors[i], "duplicate") != NULL) {
   //     printf("%s\n\n", backup[i]);
@@ -84,7 +87,8 @@ void SQLExec(char ** backup, int32_t nbLines) {
   // }
 
   update[0] = '\0';
-  for (i = 0; i < nbLines; i++) {
+  for (i = 0; i < nbLines; i++)
+  {
 
     strcpy(select, "SELECT * FROM Associate WHERE associateId='");
     strncpy(id, (backup[i] + 31), 10);
@@ -92,8 +96,9 @@ void SQLExec(char ** backup, int32_t nbLines) {
     strcat(select, id);
     strcat(select, "';");
 
-    if (mysql_query(con, select)) {
-        printf("%s\n", mysql_error(con));
+    if (mysql_query(con, select))
+    {
+      printf("%s\n", mysql_error(con));
     }
 
     result = mysql_store_result(con);
@@ -101,9 +106,12 @@ void SQLExec(char ** backup, int32_t nbLines) {
     num_fields = mysql_num_fields(result);
     infoReq = parse(backup[i]);
 
-    while (row = mysql_fetch_row(result)) {
-      for (j = 0; j < num_fields; j++) {
-        if (strcmp(infoReq[j], row[j]) != 0) {
+    while (row = mysql_fetch_row(result))
+    {
+      for (j = 0; j < num_fields; j++)
+      {
+        if (strcmp(infoReq[j], row[j]) != 0)
+        {
           printf("1 . Anciennes informations :\n");
           for (k = 0; k < num_fields; k++)
             printf("%s ", row[k]);
@@ -111,14 +119,16 @@ void SQLExec(char ** backup, int32_t nbLines) {
           for (k = 0; k < num_fields; k++)
             printf("%s ", infoReq[k]);
           printf("\nQuelles informations souhaitez-vous conserver ?\n");
-          do {
+          do
+          {
             fflush(stdin);
             scanf("%d", &r);
-          } while(r != 1 && r != 2);
+          } while (r != 1 && r != 2);
 
           strcpy(update, "UPDATE Associate SET lastName=\"");
 
-          if (r == 2) {
+          if (r == 2)
+          {
             strcat(update, infoReq[1]);
             strcat(update, "\",firstName=\"");
             strcat(update, infoReq[2]);
@@ -140,7 +150,8 @@ void SQLExec(char ** backup, int32_t nbLines) {
             strcat(update, infoReq[10]);
           }
 
-          if (r == 1) {
+          if (r == 1)
+          {
             strcat(update, row[1]);
             strcat(update, "\",firstName=\"");
             strcat(update, row[2]);
@@ -168,29 +179,32 @@ void SQLExec(char ** backup, int32_t nbLines) {
 
           printf("%s\n", update);
 
-          if (mysql_query(con, update)) {
-              printf("%s\n", mysql_error(con));
-          } else printf("OK !\n");
+          if (mysql_query(con, update))
+          {
+            printf("%s\n", mysql_error(con));
+          }
+          else
+            printf("OK !\n");
         }
       }
     }
   }
 
-
-
   mysql_free_result(result);
   mysql_close(con);
 }
 
-char** parse(char* query) {
-  char** result;
-  char* ptr1;
-  char* ptr2;
+char **parse(char *query)
+{
+  char **result;
+  char *ptr1;
+  char *ptr2;
   int i;
 
-  result = malloc(sizeof(char*) * 11);
+  result = malloc(sizeof(char *) * 11);
 
-  for(i = 0; i < 11; i++) {
+  for (i = 0; i < 11; i++)
+  {
     result[i] = malloc(sizeof(char) * 250);
   }
 
@@ -200,7 +214,8 @@ char** parse(char* query) {
   strncpy(result[0], ptr1, ptr2 - ptr1);
   result[0][ptr2 - ptr1] = '\0';
 
-  for(i = 1; i < 10; i++) {
+  for (i = 1; i < 10; i++)
+  {
     ptr1 = strchr(ptr2 + 1, '"') + 1;
     ptr2 = strchr(ptr1, '"');
 
