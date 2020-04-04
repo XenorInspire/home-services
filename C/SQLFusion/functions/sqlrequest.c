@@ -26,14 +26,13 @@ void SQLExec(char **backup, int32_t nbLines)
   char server[255];
   char database[255];
   int port;
+
   int i;
   int j;
   int k;
   int r;
 
-  if (con == NULL)
-  {
-    // fprintf(stderr, "%s\n", mysql_error(con));
+  if (con == NULL) {
     exit(1);
   }
 
@@ -50,43 +49,6 @@ void SQLExec(char **backup, int32_t nbLines)
     exit(1);
   }
 
-  // Send requests and get errors
-  // for (i = 0; i < nbLines; i++) {
-  //   if (mysql_query(con, backup[i])) strcpy(errors[i], mysql_error(con));
-  //   else errors[i][0] = '\0';
-  // }
-
-  // If there are errors
-  // for (i = 0; i < nbLines; i++) {
-  //   if (strstr(errors[i], "duplicate") != NULL) {
-  //     printf("%s\n\n", backup[i]);
-  //   }
-  // }
-
-  // strcpy(select, "SELECT * FROM Associate WHERE associateId='");
-  // printf("%s", select);
-  // strncpy(id, (*(backup) + 31), 10);
-  // id[11] = '\0';
-  // strcat(select, id);
-  // strcat(select, "';");
-  //
-  // if (mysql_query(con, select)) {
-  //     printf("%s", mysql_error(con));
-  // }
-  //
-  //  result = mysql_store_result(con);
-  //
-  // int num_fields = mysql_num_fields(result);
-  //
-  // while (row = mysql_fetch_row(result)) {
-  //   for(i = 0; i < num_fields; i++)
-  //   {
-  //       printf("%s ", row[i] ? row[i] : "NULL");
-  //   }
-  //       printf("\n");
-  // }
-
-  update[0] = '\0';
   for (i = 0; i < nbLines; i++)
   {
 
@@ -106,10 +68,12 @@ void SQLExec(char **backup, int32_t nbLines)
     num_fields = mysql_num_fields(result);
     infoReq = parse(backup[i]);
 
+    // While there are rows
     while (row = mysql_fetch_row(result))
     {
       for (j = 0; j < num_fields; j++)
       {
+        // Compare if there is a difference between the informations
         if (strcmp(infoReq[j], row[j]) != 0)
         {
           printf("1 . Anciennes informations :\n");
@@ -194,6 +158,7 @@ void SQLExec(char **backup, int32_t nbLines)
   mysql_close(con);
 }
 
+// Get query's informations
 char **parse(char *query)
 {
   char **result;
