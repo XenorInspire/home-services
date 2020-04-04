@@ -23,7 +23,6 @@ $password = hash('sha512', $_POST['passwd'] . 'ChrysaleadProject');
 
 // Connexion à la base de données
 require_once('class/DBManager.php');
-
 $hm_database = new DBManager($bdd);
 
 if ($hm_database->doesMailExist($mail) == 0) {

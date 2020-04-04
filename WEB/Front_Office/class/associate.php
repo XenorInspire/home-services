@@ -43,7 +43,6 @@ class Associate
     public function setAssociateId($associateId)
     {
         $this->associateId = $associateId;
-
         return $this;
     }
 
@@ -63,7 +62,6 @@ class Associate
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -83,7 +81,6 @@ class Associate
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -103,7 +100,6 @@ class Associate
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -123,7 +119,6 @@ class Associate
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
-
         return $this;
     }
 
@@ -143,7 +138,6 @@ class Associate
     public function setAddress($address)
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -163,7 +157,6 @@ class Associate
     public function setSirenNumber($sirenNumber)
     {
         $this->sirenNumber = $sirenNumber;
-
         return $this;
     }
 
@@ -183,7 +176,6 @@ class Associate
     public function setCompanyName($companyName)
     {
         $this->companyName = $companyName;
-
         return $this;
     }
 
@@ -203,7 +195,6 @@ class Associate
     public function setTown($town)
     {
         $this->town = $town;
-
         return $this;
     }
 
@@ -212,7 +203,7 @@ class Associate
      */
     public function getPassword()
     {
-        return $this->town;
+        return $this->password;
     }
 
     /**
@@ -223,7 +214,6 @@ class Associate
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
 

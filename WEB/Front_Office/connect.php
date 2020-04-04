@@ -78,7 +78,7 @@ if ($_GET['status'] == "customer") {
 				if ($_GET['error'] == 'acc_dis') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte client n\'est pas activé</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte n\'est pas encore activé</div>';
 				}
 
 				if ($_GET['error'] == 'forb') {

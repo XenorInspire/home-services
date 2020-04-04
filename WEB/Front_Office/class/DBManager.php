@@ -305,4 +305,15 @@ class DBManager
       'id' => $id
     ));
   }
+
+  public function doesAssociateAccountIsActivated($id)
+  {
+
+    $q = "SELECT enable FROM Associate WHERE associateId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+    $results = $req->fetch();
+
+    return $results[0];
+  }
 }
