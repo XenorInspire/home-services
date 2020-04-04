@@ -100,3 +100,9 @@ WEB/Front Office/include/database.env
 WEB/Front Office/mail/logins.py
 
 Web/Back_Office/include/database.env
+
+WEB/Front_Office/mail/logins.py
+
+WEB/Front_Office/test/
+
+WEB/Front_Office/include/database.env
