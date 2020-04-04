@@ -8,12 +8,15 @@
 #include "includes/system.h"
 #include "includes/repository.h"
 #include "includes/sqlmanage.h"
+#include "includes/sqlrequest.h"
 
 #define SIZE_FILE_NAME 256
 
 int main(int argc, char const *argv[]) {
 
   DIR_INFO SQLDirectory;
+
+
   if(findSQLFiles(&SQLDirectory) != 0){
 
     printf("Aucune entr%ce SQL d%ct%cct%ce \n",130,130,130,130);
@@ -21,6 +24,7 @@ int main(int argc, char const *argv[]) {
 
   }
 
+  char ** backup;
   char * fileName = malloc(SIZE_FILE_NAME * sizeof(char));
   checkSimplePtr(fileName);
 
@@ -31,10 +35,15 @@ int main(int argc, char const *argv[]) {
   if(fileName[strlen(fileName) - 1] == '\n')
     fileName[strlen(fileName) - 1] = '\0';
 
-  extractData(&SQLDirectory, fileName);
+  // Store the entire sql entries
+  backup = extractData(&SQLDirectory, fileName);
+
+  SQLExec(backup, SQLDirectory.totalNbLinesSQL);
+
   free(fileName);
-  
+  free(SQLDirectory.nbLinesSQL);
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
+  freeStringArray(backup, SQLDirectory.totalNbLinesSQL);
   return 0;
 
 }

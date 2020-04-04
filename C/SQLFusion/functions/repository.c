@@ -7,6 +7,7 @@
 #include "../includes/struct.h"
 #include "../includes/repository.h"
 #include "../includes/system.h"
+#include "../includes/sqlmanage.h"
 
 #define PATH "SQLFiles/"
 #define DIR_SIZE 256
@@ -36,7 +37,8 @@ int8_t findSQLFiles(DIR_INFO * SQLDirectory){
 
         if(strstr(currentFile->d_name, ".sql") != NULL){
 
-            strcpy(SQLDirectory->nameSQLFiles[k], currentFile->d_name);
+            strcpy(SQLDirectory->nameSQLFiles[k], PATH);
+            strcat(SQLDirectory->nameSQLFiles[k], currentFile->d_name);
             k++;
 
         }
@@ -44,6 +46,7 @@ int8_t findSQLFiles(DIR_INFO * SQLDirectory){
     }
 
     closedir(SQLDirectory->rep);
+    allocateNbLines(SQLDirectory);
     return 0;
 
 }
@@ -71,5 +74,23 @@ void cntFiles(DIR_INFO * SQLDirectory){
     SQLDirectory->nbSQLFiles = counterSQL;
 
     closedir(SQLDirectory->rep);
+
+}
+
+// Count lines in all SQL files of the depository
+void allocateNbLines(DIR_INFO * SQLDirectory){
+
+    
+    SQLDirectory->totalNbLinesSQL = 0;
+    SQLDirectory->nbLinesSQL = malloc(SQLDirectory->nbSQLFiles * sizeof(int32_t));
+    
+    checkSimpleIntPtr(SQLDirectory->nbLinesSQL);
+
+    for (int16_t i = 0; i < SQLDirectory->nbSQLFiles; i++){
+
+        SQLDirectory->nbLinesSQL[i] = nbLines(SQLDirectory->nameSQLFiles[i]);
+        SQLDirectory->totalNbLinesSQL += SQLDirectory->nbLinesSQL[i];
+
+    }
 
 }

@@ -11,23 +11,24 @@
 #define SIZE_LINE 3000
 
 // This function is charged to organize the saving of the final SQL file
-void extractData(DIR_INFO * SQLDirectory, char * fileName){
+char ** extractData(DIR_INFO * SQLDirectory, char * fileName){
 
   strcpy(fileName,verifyExtension(fileName));
 
   FILE ** sqlFiles = malloc(SQLDirectory->nbSQLFiles * sizeof(FILE));
-  if(sqlFiles == NULL){
-
-    printf("Vous ne disposez pas d'assez de m%cmoire disponible \n",130);
-    SLEEP(3000);
-    exit(0);
-
-  }
+  checkDoubleFilePtr(sqlFiles);
 
   int32_t indexBuffer = 0;
+  int32_t indexBackup = 0;
+
   char ** buffer;
   char * temp = malloc(SIZE_LINE * sizeof(char));
   checkSimplePtr(temp);
+
+  char ** backup;
+  backup = malloc(SQLDirectory->totalNbLinesSQL * sizeof(char *));
+  checkDoublePtr(backup);
+  backup = initializer(backup,SQLDirectory->totalNbLinesSQL);
 
   FILE * SQLResult = fopen(fileName,"wb");
   checkFile(SQLResult);
@@ -35,16 +36,11 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
   // For all the SQL files we have to merge
   for(int16_t k = 0; k < SQLDirectory->nbSQLFiles; k++){
 
-    int32_t nbLinesSQL = nbLines(SQLDirectory->nameSQLFiles[k]);
+    int32_t nbLinesSQL = SQLDirectory->nbLinesSQL[k];
     sqlFiles[k] = fopen(SQLDirectory->nameSQLFiles[k],"rb");
     buffer = malloc(nbLinesSQL * sizeof(char *));
-
-    for(int16_t j = 0; j < nbLinesSQL; j++){
-
-      buffer[j] = malloc(SIZE_LINE * sizeof(char));
-      checkSimplePtr(buffer[j]);
-
-    }
+    checkDoublePtr(buffer);
+    buffer = initializer(buffer, nbLinesSQL);
 
     // Copy all the INSERT in a buffer
     while(fgets(temp, SIZE_LINE - 1, sqlFiles[k]) != NULL){
@@ -52,21 +48,27 @@ void extractData(DIR_INFO * SQLDirectory, char * fileName){
       if(strstr(temp,"INSERT INTO") != NULL || strstr(temp,"insert into") != NULL){
 
         strcpy(buffer[indexBuffer], temp);
+        strcpy(backup[indexBackup], temp);
         indexBuffer++;
+        indexBackup++;
 
       }
 
     }
-    
-    fclose(sqlFiles[k]);
 
+    fclose(sqlFiles[k]);
     writeSQL(SQLResult, buffer, indexBuffer, SQLDirectory->nameSQLFiles[k]);
+
+    SQLDirectory->nbLinesSQL[k] = indexBuffer;
     indexBuffer = 0;
+
     freeStringArray(buffer,nbLinesSQL);
 
   }
 
   fclose(SQLResult);
+  SQLDirectory->totalNbLinesSQL = indexBackup;
+  return backup;
 
 }
 
@@ -94,7 +96,7 @@ char * verifyExtension(char * fileName){
 
   // If there isn't a .sql extension
   if(strstr(fileName,".sql") == NULL){
-    
+
     strcat(fileName, ".sql");
     return fileName;
 
@@ -118,9 +120,9 @@ char * verifyExtension(char * fileName){
     }
 
   }
-    
+
   return fileName;
-   
+
 }
 
 // Write data in the final SQL file

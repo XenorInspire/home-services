@@ -1,26 +1,3 @@
-CREATE TABLE Customer (
-  customerId varchar(255),
-  lastName varchar(255),
-  firstName varchar(255),
-  email varchar(255),
-  phoneNumber varchar(255),
-  address varchar(255),
-  town varchar(255),
-  password varchar(255),
-  enable tinyint
-);
-
-INSERT INTO Customer ("cccg651gh5n16g5n1h6","Paul","Jean","jenesaispas@gmail.com","0151588496","4 rue des arbres","Sucy","1ds32d13s1f3ddfs1sdf323d",1);
-INSERT INTO Customer ("cccniegfsuldbbfhsdbfsfd","Marc","Jean","lolol@gmail.com","0151588496","8 rue des arbres","Sucy","srthsthshthh",1);
-INSERT INTO Customer ("cccnfkjsdhfiqfksbdlkfbsjkbflkqs","Pierre","Jean","jp48652@gmail.com","0151588496","6 rue des arbres","Sucy","strhtsrhhtrsstrh",1);
-INSERT INTO Customer ("cccd,fkjsbflksdjbflksdbfkjbs","Jean","Jean","jp963963@gmail.com","0151588496","8 rue des arbres","Sucy","srthstrhtsrhtshrtsr",1);
-INSERT INTO Customer ("cccdnsfnsqdkjfnljsdf","Paul","Fernand","jppj@gmail.com","0151588496","4 rue des plages","Sucy","srthtsrhtrhsrthtsrhtrs",0);
-INSERT INTO Customer ("cccfsdfnkjbgdskjkl","Nicolas","Jean","gmail@gmail.com","0151588496","4 rue des navets","Sucy","sthstrhstrhtrsh",1);
-INSERT INTO Customer ("cccnmksjdgblqgbdisjgk","Max","Jean","marabouuuuu@gmail.com","0151588496","4 rue des tortues","Sucy","htsstrhstrhstrhthrs",1);
-INSERT INTO Customer ("cccg651nmdkjsbgkmjbgkjbgh5n16g5n1h6","Porter","Sam","sp@gmail.com","0151588496","2 rue des arbres","Sucy","hhstrthrtrhhtrshhstr",1);
-INSERT INTO Customer ("cccndmjsbgjsdbgkq","Paulo","Jeanne","jp@gmail.com","0151588496","1 rue des arbres","Sucy","htrshsrhthrstrhhtsrhtrht",0);
-INSERT INTO Customer ("cccbgdsuyqbgsdbgsdubg","Paul","Jean","jp@gmail.com","0151588496","4 rue des suisses","Sucy","gtrsgtgtgsrtgtgstgt",1);
-INSERT INTO Customer ("cccgdbsuibgdbqgiusdqb","Paul","Jean","jp@gmail.com","0151588496","7 rue des berges","Sucy","rtgtgrtsrgtgstrtsgtg",0);
-INSERT INTO Customer ("ccchzueaGUEZRUIRRR","Paul","Jean","jp@gmail.com","0151588496","99 rue des routes","Sucy","hgfhdjfjfgdfjgfjgfjgfd",1);
-INSERT INTO Customer ("cccbfsduiqbfqisdbflibsdlfibslqdf","Paul","Carl","jp@gmail.com","0151588496","40 rue des mots","Sucy","dsqgsdqgsdqgsqdgsqdgsdqg",1);
-INSERT INTO Customer ("cccbdksfblqbflsdbfj","Paul","Amelie","jp@gmail.com","0151588496","49 rue des cerises","Sucy","sdgqdgqsgsqdgsdqgsdqg",0);
+INSERT INTO Associate VALUES ("HM-6712-MP", "Paul", "Michel", "paul.michel@gmail.com", "0129386476", "75 rue de la villa des prés", "Nantes", "678546712", "Avia", "ergztezf4fez", 1);
+INSERT INTO Associate VALUES ("HM-9753-XL", "Xavier", "Lorin", "xav.lo@gmail.com", "0129376473", "2 impasse Jean", "Paris", "312639753", "Nfty", "iucbczphipnilkjn", 1);
+INSERT INTO Associate VALUES ("HM-1384-NS", "Noémie", "Sousi", "nosou@gmail.com", "0634567582", "22 rue des pingouins", "Rennes", "131841384", "PZE", "egfbvdcezsgf", 0);
