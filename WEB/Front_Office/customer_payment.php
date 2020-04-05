@@ -18,14 +18,6 @@ if (!isset($_GET['cid']) || empty(trim($_GET['cid']))) {
 }
 
 $hm_database = new DBManager($bdd);
-$q = "INSERT INTO Subscription (beginDate,customerId,typeId) VALUES (:beginDate, :customerId, :typeId)";
-$res = $hm_database->getDb()->prepare($q);
-$res->execute(array(
-    'beginDate' => date('Y-m-d'),
-    'customerId' => $_GET['cid'],
-    'typeId' => $_GET['sid']
-));
-
 $customer = $hm_database->getUserById($_GET['cid']);
 if ($customer == NULL) {
 
@@ -33,6 +25,23 @@ if ($customer == NULL) {
     echo http_response_code();
     return;
 }
+
+$subscriptionType = $hm_database->getSubscriptionTypeById($_GET['sid']);
+if ($subscriptionType == NULL) {
+
+    http_response_code(400);
+    echo http_response_code();
+    return;
+}
+
+$q = "INSERT INTO Subscription (beginDate,customerId,typeId,remainingHours) VALUES (:beginDate, :customerId, :typeId, :remainingHours)";
+$res = $hm_database->getDb()->prepare($q);
+$res->execute(array(
+    'beginDate' => date('Y-m-d'),
+    'customerId' => $_GET['cid'],
+    'typeId' => $_GET['sid'],
+    'remainingHours' => $subscriptionType->getServiceTime()
+));
 
 system('python3 mail/mail.py ' . 2 . ' ' . $customer->getMail());
 http_response_code(200);

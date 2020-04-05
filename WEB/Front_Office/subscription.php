@@ -33,6 +33,12 @@
         exit;
     }
 
+    if ($hm_database->checkEnableSubscriptionType($subscriptionType->getTypeId()) == NULL) {
+
+        header('Location: shop.php?err=na');
+        exit;
+    }
+
     require_once('stripe-php-master/init.php');
     \Stripe\Stripe::setApiKey('sk_test_do0SvWS6wTl1fj8ZorABYc7f00nVz5JTWp');
     $customer = \Stripe\Customer::create();

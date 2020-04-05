@@ -69,7 +69,7 @@ class DBManager
 
   public function getAllSubscriptionTypes()
   {
-    $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType";
+    $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType WHERE enable = 1";
     $req = $this->db->prepare($q);
     $req->execute();
 
@@ -95,6 +95,19 @@ class DBManager
 
     $subscriptionType = new SubscriptionType($result['typeId'], $result['typeName'], $result['openDays'], $result['openTime'], $result['closeTime'], $result['serviceTimeAmount'], $result['price']);
     return $subscriptionType;
+  }
+
+  public function checkEnableSubscriptionType($id)
+  {
+
+    $q = "SELECT enable FROM SubscriptionType WHERE typeId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+
+    $result = $req->fetch();
+    if (empty($result) || $result[0] == 0) return NULL;
+
+    return 1;
   }
 
   public function getUserById($id)

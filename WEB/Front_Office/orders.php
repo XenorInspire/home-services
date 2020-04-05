@@ -91,7 +91,7 @@
 
                      <li class="list-group-item">Avec un maximum de <?php echo $subscriptionType->getServiceTime(); ?>h par mois !</li>
                      <li class="list-group-item">Prix : <?php echo $subscriptionType->getPrice(); ?>€ TTC/an</li>
-                     <li class="list-group-item">Nombre total de jours restant : <?php echo $sub['day']; ?> jours</li>
+                     <li class="list-group-item">Nombre total de jours restant : <?php echo $sub['day'] + 1; ?> jours</li>
                  </ul>
                  <br>
                  <button type="button" class="btn btn-dark">Télécharger ma facture</button>

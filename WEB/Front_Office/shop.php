@@ -40,6 +40,12 @@
 						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Une erreur s\'est produite durant le processus de paiement.</div>';
 						echo '<br>';
 					}
+
+					if ($_GET['err'] == 'na') {
+
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cet abonnement n\'est plus disponible.</div>';
+						echo '<br>';
+					}
 				}
 				?>
 				<?php
