@@ -88,6 +88,16 @@ if ($_GET['status'] == "customer") {
 				}
 			}
 
+			if(isset($_GET['info'])){
+
+				if ($_GET['info'] == 'first_connect') {
+
+					echo '<br>';
+					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer le mot de passe communiqué par mail ainsi que votre adresse mail</div>';
+				}
+
+			}
+
 			?>
 
 			<br>

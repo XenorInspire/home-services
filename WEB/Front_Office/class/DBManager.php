@@ -316,4 +316,12 @@ class DBManager
 
     return $results[0];
   }
+
+  public function enableAssociateAccount($id)
+  {
+
+    $q = "UPDATE Associate SET enable = 1 WHERE Associate.associateId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+  }
 }
