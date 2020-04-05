@@ -483,8 +483,20 @@ class DBManager
         return $services;
     }
 
-    public function deleteAssociateService($serviceId, $associateId){
+    public function deleteAssociateService($serviceId, $associateId)
+    {
         $this->db->exec("DELETE FROM AssociateServices WHERE associateId = '" . $associateId . "'" . "AND serviceId = '" . $serviceId . "'");
+    }
+
+    public function setNewPasswdAssociate($password, $id)
+    {
+
+        $q = "UPDATE Associate SET password = :password WHERE associateId = :id";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'password' => $password,
+            'id' => $id
+        ));
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

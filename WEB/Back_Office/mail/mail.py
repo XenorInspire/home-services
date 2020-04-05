@@ -10,8 +10,6 @@ s = smtplib.SMTP(host='smtp.gmail.com', port=587)
 s.starttls()
 s.login(logins.MY_ADDRESS, logins.PASSWORD)
 
-# For each contact, send the email:
-
 msg = MIMEMultipart()       # create a message
 
 message = ''
@@ -22,7 +20,12 @@ if(sys.argv[1] == 'create_proposal'):
         sys.argv[3] + '&serviceProvidedId=' + sys.argv[4]
 elif(sys.argv[1] == 'cancel_proposal'):
     msg['Subject'] = "Home Services - Reservation canceled"
-    message = 'Hi there !\nSorry but your rservation have been canceled.'
+    message = 'Hi there !\nSorry but your reservation have been canceled.'
+elif(sys.argv[1] == 'first_connect'):
+    msg['Subject'] = "Home Services - First connection"
+    message = 'Hi there !\nThanks for using Home-Services !\nYou can now connect to Homes-Services with this password : ' + \
+        sys.argv[3] + '\nTo activate your account, please use this link : http://localhost/first_connect.php?i=' + \
+        sys.argv[4] + '&p=' + sys.argv[5]
 
 # setup the parameters of the message
 msg['From'] = logins.MY_ADDRESS
