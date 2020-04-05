@@ -21,7 +21,6 @@ $associate = $hm_database->getAssociate($associateId);
 
 <body onload="">
     <?php require_once("include/header.php"); ?>
-
     <main>
         <br>
         <div class="container-fluid">
@@ -38,21 +37,30 @@ $associate = $hm_database->getAssociate($associateId);
                 <div class="container text-center">
                     <a id="qrcode" class="text-center"></a>
                 </div>
-
                 <hr>
                 <div class="display-4">Modifer les infos</div>
                 <hr>
-                <div class="display-4">Renvoyer le mdp</div>
-                <hr>
+
+                <div>
+                    <?php
+                    if ($associate->getEnable() == 0) {
+                        echo '<div class="display-4">Mot de passe de première connexion</div>';
+                        echo '<br>';
+                        $send = "sendPassword('" . $associateId . "')";
+                        if ($associate->getPassword())
+                            echo '<button class="btn btn-secondary" id="sendButton" onclick="' . $send . '">Renvoyer le mot de passe</button>';
+                        else
+                            echo '<button class="btn btn-secondary" id="sendButton" onclick="' . $send . '">Envoyer le mot de passe</button>';
+                        echo '<hr>';
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </main>
-
     <?php require_once("include/footer.php"); ?>
-
 </body>
 
-<!-- <script type="text/javascript" src="lib/jquery.min.js"></script> -->
 <script type="text/javascript" src="lib/qrcode.js"></script>
 <script type="text/javascript">
     function generateQrcode() {
@@ -82,6 +90,27 @@ $associate = $hm_database->getAssociate($associateId);
         console.log(link);
         document.getElementById("qrcode").setAttribute("href", link);
         document.getElementById("qrcode").setAttribute("download", "QRcode");
+    }
+
+    //sending password to associate
+    function sendPassword(associateId) {
+
+        let request = new XMLHttpRequest;
+        request.open('POST', 'send_associate_passwd.php');
+        request.onreadystatechange = function() {
+            if (request.readyState === 4) {
+                if (request.responseText == "200") {
+                    var button = document.getElementById("sendButton");
+                    button.innerHTML = "Renvoyer le mot de passe";
+                    console.log("success");
+
+                } else {
+                    console.log("Error");
+                }
+            }
+        }
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send("associateId=" + associateId);
     }
 </script>
 

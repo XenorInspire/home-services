@@ -11,8 +11,10 @@ class Associate
     private $town;
     private $sirenNumber;
     private $companyName;
+    private $enable;
+    private $password;
 
-    public function __construct($associateId, $lastName, $firstName, $email, $phoneNumber, $address, $town, $sirenNumber, $companyName)
+    public function __construct($associateId, $lastName, $firstName, $email, $phoneNumber, $address, $town, $sirenNumber, $companyName, $enable, $password)
     {
         $this->associateId = $associateId;
         $this->lastName = $lastName;
@@ -23,11 +25,13 @@ class Associate
         $this->town = $town;
         $this->sirenNumber = $sirenNumber;
         $this->companyName = $companyName;
+        $this->enable = $enable;
+        $this->password = $password;
     }
 
     /**
      * Get the value of associateId
-     */ 
+     */
     public function getAssociateId()
     {
         return $this->associateId;
@@ -37,7 +41,7 @@ class Associate
      * Set the value of associateId
      *
      * @return  self
-     */ 
+     */
     public function setAssociateId($associateId)
     {
         $this->associateId = $associateId;
@@ -47,7 +51,7 @@ class Associate
 
     /**
      * Get the value of lastName
-     */ 
+     */
     public function getLastName()
     {
         return $this->lastName;
@@ -57,7 +61,7 @@ class Associate
      * Set the value of lastName
      *
      * @return  self
-     */ 
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
@@ -67,7 +71,7 @@ class Associate
 
     /**
      * Get the value of firstName
-     */ 
+     */
     public function getFirstName()
     {
         return $this->firstName;
@@ -77,7 +81,7 @@ class Associate
      * Set the value of firstName
      *
      * @return  self
-     */ 
+     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -87,7 +91,7 @@ class Associate
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -97,7 +101,7 @@ class Associate
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -107,7 +111,7 @@ class Associate
 
     /**
      * Get the value of phoneNumber
-     */ 
+     */
     public function getPhoneNumber()
     {
         return $this->phoneNumber;
@@ -117,7 +121,7 @@ class Associate
      * Set the value of phoneNumber
      *
      * @return  self
-     */ 
+     */
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
@@ -127,7 +131,7 @@ class Associate
 
     /**
      * Get the value of address
-     */ 
+     */
     public function getAddress()
     {
         return $this->address;
@@ -137,7 +141,7 @@ class Associate
      * Set the value of address
      *
      * @return  self
-     */ 
+     */
     public function setAddress($address)
     {
         $this->address = $address;
@@ -147,7 +151,7 @@ class Associate
 
     /**
      * Get the value of sirenNumber
-     */ 
+     */
     public function getSirenNumber()
     {
         return $this->sirenNumber;
@@ -157,7 +161,7 @@ class Associate
      * Set the value of sirenNumber
      *
      * @return  self
-     */ 
+     */
     public function setSirenNumber($sirenNumber)
     {
         $this->sirenNumber = $sirenNumber;
@@ -167,7 +171,7 @@ class Associate
 
     /**
      * Get the value of companyName
-     */ 
+     */
     public function getCompanyName()
     {
         return $this->companyName;
@@ -177,7 +181,7 @@ class Associate
      * Set the value of companyName
      *
      * @return  self
-     */ 
+     */
     public function setCompanyName($companyName)
     {
         $this->companyName = $companyName;
@@ -187,7 +191,7 @@ class Associate
 
     /**
      * Get the value of town
-     */ 
+     */
     public function getTown()
     {
         return $this->town;
@@ -197,10 +201,51 @@ class Associate
      * Set the value of town
      *
      * @return  self
-     */ 
+     */
     public function setTown($town)
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of enable
+     */
+    public function getEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set the value of enable
+     *
+     * @return  self
+     */
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

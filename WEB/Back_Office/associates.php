@@ -58,18 +58,24 @@ require_once('class/DBManager.php');
                         $associates = [];
                         $associates = $hm_database->getAssociateList();
                         foreach ($associates as $associate) { ?>
-                            <tr class="table-light">
-                                <!-- <tr class="table-light table-active"> -->
-                                <td><?= $associate->getLastName() ?></td>
-                                <td><?= $associate->getFirstName() ?></td>
-                                <td><?= $associate->getEmail() ?></td>
-                                <td><?= $associate->getPhoneNumber() ?></td>
-                                <td><?= $associate->getAddress() ?></td>
-                                <td><?= $associate->getTown() ?></td>
-                                <td><?= $associate->getSirenNumber() ?></td>
-                                <td><a class="" href="edit_associate.php?associateId=<?= $associate->getAssociateId() ?>">
-                                        <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
-                                    </a> </td>
+                            <?php
+                            if ($associate->getEnable() == 0) {
+                                echo '<tr class="table-dark">';
+                            } else {
+                                echo '<tr class="table-light">';
+                            }
+                            ?>
+                            <!-- <tr class="table-light table-active"> -->
+                            <td><?= $associate->getLastName() ?></td>
+                            <td><?= $associate->getFirstName() ?></td>
+                            <td><?= $associate->getEmail() ?></td>
+                            <td><?= $associate->getPhoneNumber() ?></td>
+                            <td><?= $associate->getAddress() ?></td>
+                            <td><?= $associate->getTown() ?></td>
+                            <td><?= $associate->getSirenNumber() ?></td>
+                            <td><a class="" href="edit_associate.php?associateId=<?= $associate->getAssociateId() ?>">
+                                    <div class="btn btn-outline-secondary"><img src="https://img.icons8.com/windows/32/000000/edit.png"></div>
+                                </a> </td>
                             </tr>
 
                         <?php } ?>

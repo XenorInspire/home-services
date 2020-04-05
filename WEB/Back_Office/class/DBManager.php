@@ -426,7 +426,7 @@ class DBManager
             header('Location: reservations.php');
             exit;
         }
-        return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
+        return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['enable'], $data['password']);
     }
 
     public function getAssociateList()
@@ -436,7 +436,7 @@ class DBManager
         $q = $this->db->query('SELECT * FROM Associate ORDER BY lastName');
 
         while ($data = $q->fetch()) {
-            $associates[] = new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName']);
+            $associates[] = new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['enable'], $data['password']);
         }
 
         return $associates;
