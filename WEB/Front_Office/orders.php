@@ -94,7 +94,7 @@
                      <li class="list-group-item">Nombre total de jours restant : <?php echo $sub['day'] + 1; ?> jours</li>
                  </ul>
                  <br>
-                 <button type="button" class="btn btn-dark">Télécharger ma facture</button>
+                 <button type="button" onclick="window.location.href = 'data_pdf.php?mode=1';" class="btn btn-dark">Télécharger ma facture</button>
              </section>
 
          <?php
