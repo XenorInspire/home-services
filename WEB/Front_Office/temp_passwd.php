@@ -65,7 +65,7 @@ if ($_GET['st'] == 'c') {
         return;
     }
 
-    $password = htmlspecialchars(random());
+    $password = random();
     $hm_database->setNewPasswdAssociate(hash('sha512', 'ChrysaleadProject' . $password), $associate->getAssociateId());
     system('python3 mail/mail.py ' . 5 . ' ' . $mail . ' ' . $password);
 

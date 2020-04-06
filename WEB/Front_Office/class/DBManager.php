@@ -7,6 +7,7 @@ require_once('class/reservation.php');
 require_once('class/serviceProvided.php');
 require_once('class/service.php');
 require_once('class/associate.php');
+require_once('class/subscription.php');
 
 class DBManager
 {
@@ -174,7 +175,7 @@ class DBManager
 
     if (!empty($results)) {
 
-      return $results;
+      return new Subscription($results['beginDate'], $results['customerId'], $results['typeId'], $results['remainingHours']);
     } else {
 
       return NULL;
@@ -191,6 +192,59 @@ class DBManager
       'id' => $id
     ));
   }
+
+  public function getLastSubscriptionBill($id)
+  {
+
+    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? ORDER BY billDate ASC LIMIT 1";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+
+    $results = $req->fetch();
+
+    if (!empty($results)) {
+
+      return $results;
+    } else {
+
+      return NULL;
+    }
+  }
+
+  public function getLastIdSubscriptionBill()
+  {
+
+    $req = $this->db->query('SELECT billId FROM SubscriptionBill ORDER BY billId ASC');
+    $newId = 1;
+    while ($id = $req->fetch()) {
+      if ($newId != $id['billId']) {
+        break;
+      }
+      $newId++;
+    }
+
+    return $newId;
+  }
+
+  public function addSubscriptionBill($user, $subscriptionType)
+  {
+
+    $q = "INSERT INTO SubscriptionBill(billId, customerId, customerLastName, customerFirstName, customerAddress, customerTown, email, billDate, typeName, price) VALUES (:billId, :customerId, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :billDate, :typeName, :price)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'billId' => $this->getLastIdSubscriptionBill(),
+      'customerId' => $user->getId(),
+      'customerLastName' => $user->getLastname(),
+      'customerFirstName' => $user->getFirstname(),
+      'customerAddress' => $user->getAddress(),
+      'customerTown' => $user->getCity(),
+      'email' => $user->getMail(),
+      'billDate' => date('Y-m-d'),
+      'typeName' => $subscriptionType->getTypeName(),
+      'price' => $subscriptionType->getPrice()
+    ));
+  }
+
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * SERVICE PROVIDED PART * * * * * * * * * * * * * * * *

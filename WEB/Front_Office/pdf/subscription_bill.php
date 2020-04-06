@@ -5,7 +5,7 @@ $pdf = new FPDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 
-$pdf->Image('img/favicon.png', 10, 10, 30, 30);
+$pdf->Image('../img/favicon.png', 10, 10, 30, 30);
 
 $date = "10-10-2020";
 

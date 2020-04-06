@@ -53,10 +53,10 @@
 
             if (($result = $hm_database->checkSubscription($id)) != NULL) {
 
-                $subscriptionType = $hm_database->getSubscriptionTypeById($result['typeId']);
+                $subscriptionType = $hm_database->getSubscriptionTypeById($result->getTypeId());
                 sscanf($subscriptionType->getBeginTime(), "%d:%s", $time1, $trash);
                 sscanf($subscriptionType->getEndTime(), "%d:%s", $time2, $trash);
-                $sub = dateSubtraction(strtotime($result['beginDate']) + (365 * 24 * 60 * 60), time());
+                $sub = dateSubtraction(strtotime($result->getBeginDate()) + (365 * 24 * 60 * 60), time());
 
             ?>
 
