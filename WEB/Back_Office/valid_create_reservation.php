@@ -27,7 +27,7 @@ if (
 
     //ServiceProvided
     $serviceProvidedId = hash('sha256', $customerId . $serviceId . date('dMY-H:m:s'));
-    $serviceProvided = new ServiceProvided($serviceProvidedId, $serviceId, $date, $beginHour, $hours, NULL, NULL, $address, $town);
+    $serviceProvided = new ServiceProvided($serviceProvidedId, $serviceId, $date, $beginHour, $hours, NULL, $address, $town);
 
     //Reservation
     $reservationId = hash('sha256', $customerId . $serviceProvidedId);
