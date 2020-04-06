@@ -7,6 +7,7 @@ require_once('class/reservation.php');
 require_once('class/serviceProvided.php');
 require_once('class/service.php');
 require_once('class/associate.php');
+require_once('class/proposal.php');
 require_once('class/subscription.php');
 
 class DBManager
@@ -260,7 +261,7 @@ class DBManager
     // if ($data == NULL) {
     //   header('Location: reservations.php');
     // }
-    return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['additionalPrice'], $data['hoursAssociate'], $data['address'], $data['town']);
+    return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -390,5 +391,23 @@ class DBManager
     $q = "UPDATE Associate SET enable = 1 WHERE Associate.associateId = ?";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
+  }
+
+  public function getAssociateServicesProvided($associateId)
+  {
+    $servicesProvidedId = [];
+
+    $q = $this->db->query('SELECT * FROM Proposal WHERE associateId = ' . $associateId . '');
+
+    while ($data = $q->fetch()) {
+      $servicesProvidedId[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
+    }
+
+    $servicesProvided = [];
+    foreach ($servicesProvidedId as $serviceProvidedId) {
+      array_push($servicesProvided, $this->getServiceProvided($serviceProvidedId->getServiceProvidedId()));
+    }
+
+    return $servicesProvided;
   }
 }
