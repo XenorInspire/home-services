@@ -198,7 +198,7 @@ class DBManager
   public function getLastSubscriptionBill($id)
   {
 
-    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? ORDER BY billDate ASC LIMIT 1";
+    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? ORDER BY billDate DESC LIMIT 1";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
 

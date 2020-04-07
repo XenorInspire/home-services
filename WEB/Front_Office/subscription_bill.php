@@ -14,8 +14,9 @@ if ($connected != 1 || $status != "customer") {
     exit;
 }
 $hm_database = new DBManager($bdd);
+$result = $hm_database->getLastSubscriptionBill($id);
 
-if ($hm_database->getLastSubscriptionBill($id) != $_GET['id']) {
+if ($result['billId'] != $_GET['id']) {
 
     header('Location: orders.php');
     exit;
@@ -27,9 +28,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$date = "10-10-2020";
-
-$num_fact = "Bill Number "  . $date;
+$num_fact = "Bill Number : "  . $_GET['id'];
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");

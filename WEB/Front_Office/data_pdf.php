@@ -45,7 +45,7 @@ if ($_GET['mode'] == 1) {
     $customer = $hm_database->getUserById($id);
     $resultBill = $hm_database->getLastSubscriptionBill($customer->getId());
 
-    if ($resultBill == NULL || dateSubtraction(strtotime($resultBill['billDate']) + (365 * 24 * 60 * 60), time()) > 365) {
+    if ($resultBill == NULL || dateSubtraction(time(), strtotime($resultBill['billDate']))['day'] > 365) {
 
         $subscriptionType = $hm_database->getSubscriptionTypeById($subscription->getTypeId());
         $hm_database->addSubscriptionBill($customer, $subscriptionType, $subscription->getBeginDate());
