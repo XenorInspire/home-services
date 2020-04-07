@@ -5,11 +5,11 @@ $hm_database = new DBManager($bdd);
 isset($_GET['id']);
 $sub = $hm_database->getSubscriptionType($_GET['id']);
 
-if ($sub->getEnable() == 1)
+if ($sub->getEnable() == 1) {
     $url = 'desactivate';
-else
+} else {
     $url = 'delete';
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -33,12 +33,13 @@ else
             <div class="display-4 text-center">
                 Etat :
                 <?php
-                if ($sub->getEnable() == 1)
+                if ($sub->getEnable() == 1) {
                     echo 'Activé';
-                elseif ($sub->getEnable() == 2)
+                } elseif ($sub->getEnable() == 2) {
                     echo 'Non-activé';
-                else
+                } else {
                     echo 'Désactivé';
+                }
                 ?>
             </div>
 
@@ -95,10 +96,11 @@ else
                         <div class="col-md mb-3">
                             <div class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">
                                 <?php
-                                if ($sub->getEnable() == 1)
+                                if ($sub->getEnable() == 1) {
                                     echo 'Désactiver l\'abonnement';
-                                else
+                                } else {
                                     echo 'Supprimer l\'abonnement';
+                                }
                                 ?>
                                 </a></div>
                         </div>
@@ -139,7 +141,6 @@ else
                         </div>
 
                     <? }
-
                     ?>
 
                     <!-- Modal for saving -->
@@ -171,10 +172,11 @@ else
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h4 class="modal-title"> <?php
-                                                                if ($sub->getEnable() == 1)
+                                                                if ($sub->getEnable() == 1) {
                                                                     echo 'Désactivation de l\'abonnement : ';
-                                                                else
+                                                                } else {
                                                                     echo 'Suppression de l\'abonnement : ';
+                                                                }
                                                                 ?> <?= $sub->getTypeName() ?></h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
@@ -191,11 +193,11 @@ else
                                 <div class="modal-footer">
                                     <a class="" href="<?= $url ?>_subscription.php?id=<?= $_GET['id'] ?>">
                                         <div class="btn btn-outline-danger"> <?php
-                                                                                if ($sub->getEnable() == 1)
+                                                                                if ($sub->getEnable() == 1) {
                                                                                     echo 'Désactiver l\'abonnement';
-                                                                                else
+                                                                                } else {
                                                                                     echo 'Supprimer l\'abonnement';
-                                                                                ?></div>
+                                                                                } ?></div>
                                     </a>
                                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
                                 </div>
