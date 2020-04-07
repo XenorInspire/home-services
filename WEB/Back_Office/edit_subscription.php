@@ -140,7 +140,7 @@ if ($sub->getEnable() == 1) {
                             </div>
                         </div>
 
-                    <? }
+                    <?php }
                     ?>
 
                     <!-- Modal for saving -->
