@@ -105,7 +105,7 @@ require_once('include/check_identity.php');
           ?>
 
             <li id="hm-regis" class="nav-item">
-              <a class="nav-link" href="agenda.php">Agenda</a>
+              <a class="nav-link" href="associate_services_provided.php">Préstations</a>
             </li>
 
         <?php

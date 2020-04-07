@@ -9,6 +9,7 @@ require_once('class/service.php');
 require_once('class/associate.php');
 require_once('class/proposal.php');
 require_once('class/subscription.php');
+require_once('class/additionalPrice.php');
 
 class DBManager
 {
@@ -293,6 +294,38 @@ class DBManager
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
+  public function endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices)
+  {
+    $q = "UPDATE ServiceProvided SET hoursAssociate = :hoursAssociate WHERE serviceProvidedId = :serviceProvidedId";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'hoursAssociate' => $hoursAssociate,
+      'serviceProvidedId' => $serviceProvidedId
+    ));
+
+    $q = "UPDATE Reservation SET status = :status WHERE serviceProvidedId = :serviceProvidedId";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'status' => 1,
+      'serviceProvidedId' => $serviceProvidedId
+    ));
+
+    $this->db->exec("DELETE FROM Proposal WHERE status = 0 OR status = 2 " . "AND serviceProvidedId = '" . $serviceProvidedId . "'");
+
+    if ($additionalPrices != NULL) {
+      foreach ($additionalPrices as $additionalPrice) {
+        $q = "INSERT INTO AdditionalPrice(additionalPriceId,serviceProvidedId,description,price) VALUES (:additionalPriceId,:serviceProvidedId,:description,:price)";
+        $res = $this->db->prepare($q);
+        $res->execute(array(
+          'additionalPriceId' => $additionalPrice->getAdditionalPriceId(),
+          'serviceProvidedId' => $additionalPrice->getServiceProvidedId(),
+          'description' => $additionalPrice->getDescription(),
+          'price' => $additionalPrice->getPrice()
+        ));
+      }
+    }
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * SERVICE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -406,6 +439,27 @@ class DBManager
     $servicesProvided = [];
     foreach ($servicesProvidedId as $serviceProvidedId) {
       array_push($servicesProvided, $this->getServiceProvided($serviceProvidedId->getServiceProvidedId()));
+    }
+
+    return $servicesProvided;
+  }
+
+  public function getAssociateServicesProvidedOnlyAcceptedAndUndone($associateId)
+  {
+    // $associateId = (int) $associateId;
+    $servicesProvidedId = [];
+
+    $q = $this->db->query("SELECT * FROM Proposal WHERE associateId = '" . $associateId . "'AND status = 1");
+
+    while ($data = $q->fetch()) {
+      $servicesProvidedId[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
+    }
+
+    $servicesProvided = [];
+    foreach ($servicesProvidedId as $serviceProvidedId) {
+      $reservation = $this->getReservationByServiceProvidedId($serviceProvidedId->getServiceProvidedId());
+      if ($reservation->getStatus() == 0)
+        array_push($servicesProvided, $this->getServiceProvided($serviceProvidedId->getServiceProvidedId()));
     }
 
     return $servicesProvided;
