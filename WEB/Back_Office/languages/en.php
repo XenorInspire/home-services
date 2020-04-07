@@ -1,6 +1,6 @@
 <?php
 $index = array(
-    "description" => "Welcome to Home-Servce Back Office"
+    "description" => "Welcome to Home-Services' Back Office"
 );
 
 $nav = array(
