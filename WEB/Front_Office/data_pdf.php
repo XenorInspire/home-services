@@ -27,9 +27,9 @@ if (!isset($_GET['mode']) || empty($_GET['mode'])) {
 }
 
 require_once('include/check_identity.php');
-if ($connected != 1) {
+if ($connected != 1 || $status != "customer") {
 
-    header('Location: index.php');
+    header('Location: orders.php');
     exit;
 }
 $hm_database = new DBManager($bdd);
@@ -49,10 +49,10 @@ if ($_GET['mode'] == 1) {
 
         $subscriptionType = $hm_database->getSubscriptionTypeById($subscription->getTypeId());
         $hm_database->addSubscriptionBill($customer, $subscriptionType, $subscription->getBeginDate());
-        $url = "pdf/subscription_bill.php?id=" . ($resultBill['billId'] + 1);
+        $url = "subscription_bill.php?id=" . ($resultBill['billId'] + 1);
     } else {
 
-        $url = "pdf/subscription_bill.php?id=" . $resultBill['billId'];
+        $url = "subscription_bill.php?id=" . $resultBill['billId'];
     }
 
     header('Location: ' . $url);
