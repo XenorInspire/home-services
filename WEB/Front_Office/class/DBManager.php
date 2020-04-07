@@ -228,7 +228,7 @@ class DBManager
     return $newId;
   }
 
-  public function addSubscriptionBill($user, $subscriptionType)
+  public function addSubscriptionBill($user, $subscriptionType, $beginDate)
   {
 
     $q = "INSERT INTO SubscriptionBill(billId, customerId, customerLastName, customerFirstName, customerAddress, customerTown, email, billDate, typeName, price) VALUES (:billId, :customerId, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :billDate, :typeName, :price)";
@@ -241,7 +241,7 @@ class DBManager
       'customerAddress' => $user->getAddress(),
       'customerTown' => $user->getCity(),
       'email' => $user->getMail(),
-      'billDate' => date('Y-m-d'),
+      'billDate' => $beginDate,
       'typeName' => $subscriptionType->getTypeName(),
       'price' => $subscriptionType->getPrice()
     ));
