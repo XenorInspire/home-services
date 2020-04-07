@@ -21,7 +21,8 @@ if (
     $serviceId = $serviceProvided->getServiceId();
     $service = $hm_database->getService($serviceId);
 } else {
-    header('Location :');
+    header('Location : index.php');
+    exit;
 }
 ?>
 
