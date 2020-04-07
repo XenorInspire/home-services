@@ -34,11 +34,19 @@ require_once('class/DBManager.php');
                     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
                 }
 
+                if (isset($_GET['activate']) == "successful") {
+                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été activé</div>';
+                }
+
+                if (isset($_GET['desactivate']) == "successful") {
+                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été desactivé</div>';
+                }
+
                 ?>
                 <a href="create_subscription.php"><button type="button" class="btn btn-dark">Créer un abonnement</button></a>
                 <br>
                 <br>
-                <div class="display-4">Les abonnements actifs</div>
+                <div class="display-4">Les abonnements</div>
                 <hr>
                 <?php
                 $hm_database = new DBManager($bdd);
@@ -47,7 +55,14 @@ require_once('class/DBManager.php');
                 foreach ($subscriptions as $sub) { ?>
                     <div class="row justify-content-center">
                         <div class="col-6">
-                            <h2><a title="Modifier" class="btn btn-block btn-outline-secondary" href="edit_subscription.php?id=<?= $sub->getTypeId() ?>"><?= $sub->getTypeName() ?></a></h2>
+                            <h2><a title="Modifier" class="btn btn-block btn-outline-<?php
+                                                                                        if ($sub->getEnable() == 1)
+                                                                                            echo 'success';
+                                                                                        elseif ($sub->getEnable() == 2)
+                                                                                            echo 'secondary';
+                                                                                        else
+                                                                                            echo 'danger';
+                                                                                        ?>" href="edit_subscription.php?id=<?= $sub->getTypeId() ?>"><?= $sub->getTypeName() ?></a></h2>
                         </div>
                     </div>
                     <hr>

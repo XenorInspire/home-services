@@ -8,9 +8,10 @@ class SubscriptionType
     private $closeTime;
     private $serviceTimeAmount;
     private $price;
+    private $enable;
 
 
-    public function __construct($typeId, $typeName, $openDays, $openTime, $closeTime, $serviceTimeAmount, $price)
+    public function __construct($typeId, $typeName, $openDays, $openTime, $closeTime, $serviceTimeAmount, $price, $enable)
     {
         $this->typeName = htmlspecialchars(trim($typeName));
         $this->openDays = $openDays;
@@ -18,17 +19,14 @@ class SubscriptionType
         $this->closeTime = $closeTime;
         $this->serviceTimeAmount = $serviceTimeAmount;
         $this->price = $price;
-
         $this->typeId = $typeId;
-        // date_default_timezone_set('Europe/Paris');
-        // $this->typeId = hash('sha256', $typeName . date('dMY-H:m:s'));
-
-    }   
+        $this->enable = $enable;
+    }
 
 
     /**
      * Get the value of typeId
-     */ 
+     */
     public function getTypeId()
     {
         return $this->typeId;
@@ -38,7 +36,7 @@ class SubscriptionType
      * Set the value of typeId
      *
      * @return  self
-     */ 
+     */
     public function setTypeId($typeId)
     {
         $this->typeId = $typeId;
@@ -48,7 +46,7 @@ class SubscriptionType
 
     /**
      * Get the value of typeName
-     */ 
+     */
     public function getTypeName()
     {
         return $this->typeName;
@@ -58,7 +56,7 @@ class SubscriptionType
      * Set the value of typeName
      *
      * @return  self
-     */ 
+     */
     public function setTypeName($typeName)
     {
         $this->typeName = $typeName;
@@ -68,7 +66,7 @@ class SubscriptionType
 
     /**
      * Get the value of openDays
-     */ 
+     */
     public function getOpenDays()
     {
         return $this->openDays;
@@ -78,7 +76,7 @@ class SubscriptionType
      * Set the value of openDays
      *
      * @return  self
-     */ 
+     */
     public function setOpenDays($openDays)
     {
         $this->openDays = $openDays;
@@ -88,7 +86,7 @@ class SubscriptionType
 
     /**
      * Get the value of openTime
-     */ 
+     */
     public function getOpenTime()
     {
         return $this->openTime;
@@ -98,7 +96,7 @@ class SubscriptionType
      * Set the value of openTime
      *
      * @return  self
-     */ 
+     */
     public function setOpenTime($openTime)
     {
         $this->openTime = $openTime;
@@ -108,7 +106,7 @@ class SubscriptionType
 
     /**
      * Get the value of closeTime
-     */ 
+     */
     public function getCloseTime()
     {
         return $this->closeTime;
@@ -118,7 +116,7 @@ class SubscriptionType
      * Set the value of closeTime
      *
      * @return  self
-     */ 
+     */
     public function setCloseTime($closeTime)
     {
         $this->closeTime = $closeTime;
@@ -128,7 +126,7 @@ class SubscriptionType
 
     /**
      * Get the value of serviceTimeAmount
-     */ 
+     */
     public function getServiceTimeAmount()
     {
         return $this->serviceTimeAmount;
@@ -138,7 +136,7 @@ class SubscriptionType
      * Set the value of serviceTimeAmount
      *
      * @return  self
-     */ 
+     */
     public function setServiceTime($serviceTimeAmount)
     {
         $this->serviceTimeAmount = $serviceTimeAmount;
@@ -148,7 +146,7 @@ class SubscriptionType
 
     /**
      * Get the value of price
-     */ 
+     */
     public function getPrice()
     {
         return $this->price;
@@ -158,7 +156,7 @@ class SubscriptionType
      * Set the value of price
      *
      * @return  self
-     */ 
+     */
     public function setPrice($price)
     {
         $this->price = $price;
@@ -170,5 +168,25 @@ class SubscriptionType
     {
         $vars = get_object_vars($this);
         return json_encode($vars);
+    }
+
+    /**
+     * Get the value of enable
+     */ 
+    public function getEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set the value of enable
+     *
+     * @return  self
+     */ 
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
+
+        return $this;
     }
 }

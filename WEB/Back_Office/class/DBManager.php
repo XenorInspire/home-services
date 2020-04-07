@@ -35,7 +35,7 @@ class DBManager
             header('Location: create_subscription.php?error=name_taken');
             exit;
         } else {
-            $q = "INSERT INTO SubscriptionType(typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price) VALUES (:typeId,:typeName,:openDays,:openTime,:closeTime,:serviceTimeAmount,:price)";
+            $q = "INSERT INTO SubscriptionType(typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price,enable) VALUES (:typeId,:typeName,:openDays,:openTime,:closeTime,:serviceTimeAmount,:price,:enable)";
             $res = $this->db->prepare($q);
             $res->execute(array(
                 'typeId' => $subscription->getTypeId(),
@@ -44,7 +44,8 @@ class DBManager
                 'openTime' => $subscription->getOpenTime(),
                 'closeTime' => $subscription->getCloseTime(),
                 'serviceTimeAmount' => $subscription->getServiceTimeAmount(),
-                'price' => $subscription->getPrice()
+                'price' => $subscription->getPrice(),
+                'enable' => $subscription->getEnable()
             ));
         }
     }
@@ -54,10 +55,10 @@ class DBManager
     {
         $subscriptions = [];
 
-        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM SubscriptionType ORDER BY typeName');
+        $q = $this->db->query('SELECT * FROM SubscriptionType ORDER BY typeName');
 
         while ($data = $q->fetch()) {
-            $subscriptions[] = new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price']);
+            $subscriptions[] = new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price'], $data['enable']);
         }
 
         return $subscriptions;
@@ -67,7 +68,7 @@ class DBManager
     public function getSubscriptionType($typeId)
     {
         $typeId = (int) $typeId;
-        $q = $this->db->query('SELECT typeId,typeName,openDays,openTime,closeTime,serviceTimeAmount,price FROM SubscriptionType WHERE typeId = ' . $typeId . '');
+        $q = $this->db->query('SELECT * FROM SubscriptionType WHERE typeId = ' . $typeId . '');
 
         $data = $q->fetch();
 
@@ -75,7 +76,7 @@ class DBManager
             header('Location: subscriptions.php');
             exit;
         }
-        return new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price']);
+        return new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price'], $data['enable']);
     }
 
     //Update the subscription
@@ -108,6 +109,22 @@ class DBManager
     public function deleteSubscriptionType($typeId)
     {
         $this->db->exec("DELETE FROM SubscriptionType WHERE typeId = '" . $typeId . "'");
+    }
+
+    public function desactivateSubscription($typeId){
+        $q = "UPDATE SubscriptionType SET enable=:enable WHERE typeId='" . $typeId . "'";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'enable' => 0
+        ));
+    }
+
+    public function activateSubscription($typeId){
+        $q = "UPDATE SubscriptionType SET enable=:enable WHERE typeId='" . $typeId . "'";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'enable' => 1
+        ));
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

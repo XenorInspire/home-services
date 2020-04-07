@@ -27,7 +27,7 @@
                 ?>
 
                 <br>
-                <form action="valid_subscription.php" method="POST">
+                <form action="valid_create_subscription.php" method="POST">
                     <div class="form-group">
                         <label>Nom de l'abonnement</label>
                         <input type="text" name="typeName" class="form-control" placeholder="Entrez le nom" maxlength="255" required>
