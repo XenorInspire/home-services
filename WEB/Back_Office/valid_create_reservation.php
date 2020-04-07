@@ -32,7 +32,7 @@ if (
     //Reservation
     $reservationId = hash('sha256', $customerId . $serviceProvidedId);
     $reservationDate = date("Y-m-d");
-    $reservation = new Reservation($reservationId, $reservationDate, $customerId, $serviceProvidedId, false);
+    $reservation = new Reservation($reservationId, $reservationDate, $customerId, $serviceProvidedId, 0);
 
     $hm_database->addReservation($customer, $reservation, $serviceProvided);
 
