@@ -132,7 +132,7 @@
 								<td><?= $hm_database->getServiceType($services[$i]->getServiceTypeId())->getTypeName() ?></td>
 								<td><?= $services[$i]->getServiceTitle() ?></td>
 								<td><?= $services[$i]->getServicePrice() ?>€/h</td>
-								<td><button type="button" class="btn btn-primary mb-2">Réserver</button></td>
+								<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'book_service.php?i=<?= $services[$i]->getServiceId() ?>';">Réserver</button></td>
 							</tr>
 
 						<?php

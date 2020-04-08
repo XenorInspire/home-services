@@ -417,6 +417,31 @@ class DBManager
     return $services;
   }
 
+  public function addReservation(Customer $customer, Reservation $reservation, ServiceProvided $serviceProvided)
+  {
+    $q = "INSERT INTO ServiceProvided(serviceProvidedId,serviceId,date,beginHour,hours,address,town) VALUES (:serviceProvidedId,:serviceId,:date,:beginHour,:hours,:address,:town)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'serviceProvidedId' => $serviceProvided->getServiceProvidedId(),
+      'serviceId' => $serviceProvided->getServiceId(),
+      'date' => $serviceProvided->getDate(),
+      'beginHour' => $serviceProvided->getBeginHour(),
+      'hours' => $serviceProvided->getHours(),
+      'address' => $serviceProvided->getAddress(),
+      'town' => $serviceProvided->getTown()
+    ));
+
+    $q = "INSERT INTO Reservation(reservationId,reservationDate,customerId,serviceProvidedId,status) VALUES (:reservationId,:reservationDate,:customerId,:serviceProvidedId,:status)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'reservationId' => $reservation->getReservationId(),
+      'reservationDate' => $reservation->getReservationDate(),
+      'customerId' => $customer->getId(),
+      'serviceProvidedId' => $serviceProvided->getServiceProvidedId(),
+      'status' => $reservation->getStatus()
+    ));
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

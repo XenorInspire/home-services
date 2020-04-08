@@ -30,10 +30,9 @@ class Reservation
      *
      * @return  self
      */ 
-    public function setReservationId($reservationId)
+    public function setReservationId($customerId, $serviceProvidedId)
     {
-        $this->reservationId = $reservationId;
-
+        $this->reservationId = hash('sha256', $customerId . $serviceProvidedId);
         return $this;
     }
 
@@ -53,7 +52,6 @@ class Reservation
     public function setReservationDate($reservationDate)
     {
         $this->reservationDate = $reservationDate;
-
         return $this;
     }
 
@@ -73,7 +71,6 @@ class Reservation
     public function setCustomerId($customerId)
     {
         $this->customerId = $customerId;
-
         return $this;
     }
 
@@ -93,7 +90,6 @@ class Reservation
     public function setServiceProvidedId($serviceProvidedId)
     {
         $this->serviceProvidedId = $serviceProvidedId;
-
         return $this;
     }
 
@@ -113,7 +109,6 @@ class Reservation
     public function setStatus($status)
     {
         $this->status = $status;
-        
         return $this;
     }
 

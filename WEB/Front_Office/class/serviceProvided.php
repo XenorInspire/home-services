@@ -37,10 +37,10 @@ class ServiceProvided
      *
      * @return  self
      */
-    public function setServiceProvidedId($serviceProvidedId)
+    public function setServiceProvidedId($customerId, $serviceId)
     {
-        $this->serviceProvidedId = $serviceProvidedId;
-
+        date_default_timezone_set('Europe/Paris');
+        $this->serviceProvidedId = hash('sha256', $customerId . $serviceId . date('dMY-H:m:s'));
         return $this;
     }
 
@@ -60,7 +60,6 @@ class ServiceProvided
     public function setServiceId($serviceId)
     {
         $this->serviceId = $serviceId;
-
         return $this;
     }
 
@@ -80,7 +79,6 @@ class ServiceProvided
     public function setDate($date)
     {
         $this->date = $date;
-
         return $this;
     }
 
@@ -100,7 +98,6 @@ class ServiceProvided
     public function setHours($hours)
     {
         $this->hours = $hours;
-
         return $this;
     }
 
@@ -126,7 +123,6 @@ class ServiceProvided
     public function setHoursAssociate($hoursAssociate)
     {
         $this->hoursAssociate = $hoursAssociate;
-
         return $this;
     }
 
@@ -146,7 +142,6 @@ class ServiceProvided
     public function setBeginHour($beginHour)
     {
         $this->beginHour = $beginHour;
-
         return $this;
     }
 
@@ -166,7 +161,6 @@ class ServiceProvided
     public function setAddress($address)
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -186,7 +180,6 @@ class ServiceProvided
     public function setTown($town)
     {
         $this->town = $town;
-
         return $this;
     }
 }
