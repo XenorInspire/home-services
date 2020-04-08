@@ -2,6 +2,7 @@
 
 class Invoicing
 {
+    private $customerId;
     private $customerLastName;
     private $customerFirstName;
     private $customerAddress;
@@ -12,8 +13,9 @@ class Invoicing
     private $totalPrice;
     private $serviceProvidedId;
 
-    public function __construct($customerLastName, $customerFirstName, $customerAddress, $customerTown, $email, $date, $serviceTitle, $totalPrice, $serviceProvidedId)
+    public function __construct($customerId, $customerLastName, $customerFirstName, $customerAddress, $customerTown, $email, $date, $serviceTitle, $totalPrice, $serviceProvidedId)
     {
+        $this->customerId = $customerId;
         $this->customerLastName = $customerLastName;
         $this->customerFirstName = $customerFirstName;
         $this->customerAddress = $customerAddress;
@@ -209,6 +211,26 @@ class Invoicing
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of customerId
+     */ 
+    public function getCustomerId()
+    {
+        return $this->customerId;
+    }
+
+    /**
+     * Set the value of customerId
+     *
+     * @return  self
+     */ 
+    public function setCustomerId($customerId)
+    {
+        $this->customerId = $customerId;
 
         return $this;
     }

@@ -54,9 +54,9 @@ if (
 
     $totalPrice = ($service->getServicePrice() * $hoursAssociate) + $totalAdd;
 
-    $bill = new Bill($billId, $paidSatus, $customer->getLastname(), $customer->getFirstname(), $customer->getAddress(), $customer->getCity(), $customer->getMail(), $serviceProvided->getDate(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
- 
-    $hm_database->endServiceProvided($serviceProvidedId,$hoursAssociate,$additionalPrices,$bill);
+    $bill = new Bill($billId, $paidSatus, $customerId, $customer->getLastname(), $customer->getFirstname(), $customer->getAddress(), $customer->getCity(), $customer->getMail(), $serviceProvided->getDate(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
+
+    $hm_database->endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill);
 
     $url = "associate_services_provided.php?ending=successful";
     header('Location: ' . $url);

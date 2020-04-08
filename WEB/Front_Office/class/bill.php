@@ -6,11 +6,11 @@ class Bill extends Invoicing
     private $billId;
     private $paidStatus;
 
-    public function __construct($billId, $paidStatus, $customerLastName, $customerFistName, $customerAddress, $customerTown, $email, $date, $serviceTitle, $totalPrice, $serviceProvidedId)
+    public function __construct($billId, $paidStatus, $customerId, $customerLastName, $customerFistName, $customerAddress, $customerTown, $email, $date, $serviceTitle, $totalPrice, $serviceProvidedId)
     {
         $this->billId = $billId;
         $this->paidStatus = $paidStatus;
-        parent::__construct($customerLastName, $customerFistName, $customerAddress, $customerTown, $email, $date, $serviceTitle, $totalPrice, $serviceProvidedId);
+        parent::__construct($customerId, $customerLastName, $customerFistName, $customerAddress, $customerTown, $email, $date, $serviceTitle, $totalPrice, $serviceProvidedId);
     }
 
     /**

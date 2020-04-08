@@ -364,11 +364,12 @@ class DBManager
 
   public function addBill(Bill $bill)
   {
-    $q = "INSERT INTO Bill(billId, paidStatus, customerLastName, customerFirstName, customerAddress, customerTown, email, date, serviceTitle, totalPrice, serviceProvidedId) VALUES (:billId, :paidStatus, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :date, :serviceTitle, :totalPrice, :serviceProvidedId)";
+    $q = "INSERT INTO Bill(billId, paidStatus, customerId, customerLastName, customerFirstName, customerAddress, customerTown, email, date, serviceTitle, totalPrice, serviceProvidedId) VALUES (:billId, :paidStatus, :customerId, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :date, :serviceTitle, :totalPrice, :serviceProvidedId)";
     $res = $this->db->prepare($q);
     $res->execute(array(
       'billId' => $bill->getBillId(),
       'paidStatus' => $bill->getPaidStatus(),
+      'customerId' => $bill->getCustomerId(),
       'customerLastName' => $bill->getCustomerLastName(),
       'customerFirstName' => $bill->getCustomerFirstName(),
       'customerAddress' => $bill->getCustomerAddress(),
