@@ -47,6 +47,16 @@
 						echo '<br>';
 					}
 				}
+
+				if (isset($_GET['info'])) {
+
+					if ($_GET['info'] == 'success') {
+
+						echo '<div class="alert alert-success alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre réservation a bien été enregistrée !</div>';
+						echo '<br>';
+					}
+				}
+
 				?>
 				<?php
 
@@ -100,10 +110,7 @@
 
 				}
 
-
 				?>
-
-
 
 			</section>
 
