@@ -10,6 +10,8 @@ require_once('class/associate.php');
 require_once('class/proposal.php');
 require_once('class/subscription.php');
 require_once('class/additionalPrice.php');
+// require_once('class/invoicing.php');
+require_once('class/bill.php');
 
 class DBManager
 {
@@ -247,6 +249,20 @@ class DBManager
     ));
   }
 
+  public function getCustomer($customerId)
+  {
+    $customerId = (int) $customerId;
+    $q = $this->db->query('SELECT * FROM Customer WHERE customerId = ' . $customerId . '');
+
+    $data = $q->fetch();
+
+    if ($data == NULL) {
+      header('Location: customers.php');
+      exit;
+    }
+    return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+  }
+
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * SERVICE PROVIDED PART * * * * * * * * * * * * * * * *
@@ -294,7 +310,7 @@ class DBManager
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
-  public function endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices)
+  public function endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill)
   {
     $q = "UPDATE ServiceProvided SET hoursAssociate = :hoursAssociate WHERE serviceProvidedId = :serviceProvidedId";
     $req = $this->db->prepare($q);
@@ -324,6 +340,46 @@ class DBManager
         ));
       }
     }
+
+    $this->addBill($bill);
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * BILL PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+  public function getLastIdBill()
+  {
+
+    $req = $this->db->query('SELECT billId FROM Bill ORDER BY billId ASC');
+    $newId = 1;
+    while ($id = $req->fetch()) {
+      if ($newId != $id['billId']) {
+        break;
+      }
+      $newId++;
+    }
+
+    return $newId;
+  }
+
+  public function addBill(Bill $bill)
+  {
+    $q = "INSERT INTO Bill(billId, paidStatus, customerLastName, customerFirstName, customerAddress, customerTown, email, date, serviceTitle, totalPrice, serviceProvidedId) VALUES (:billId, :paidStatus, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :date, :serviceTitle, :totalPrice, :serviceProvidedId)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'billId' => $bill->getBillId(),
+      'paidStatus' => $bill->getPaidStatus(),
+      'customerLastName' => $bill->getCustomerLastName(),
+      'customerFirstName' => $bill->getCustomerFirstName(),
+      'customerAddress' => $bill->getCustomerAddress(),
+      'customerTown' => $bill->getCustomerTown(),
+      'email' => $bill->getEmail(),
+      'date' => $bill->getDate(),
+      'serviceTitle' => $bill->getServiceTitle(),
+      'totalPrice' => $bill->getTotalPrice(),
+      'serviceProvidedId' => $bill->getServiceProvidedId()
+    ));
+    echo $bill;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
