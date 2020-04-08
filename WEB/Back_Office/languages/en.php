@@ -10,6 +10,7 @@ $nav = array(
     "associates" => "Associate section",
     "subscriptions" => "Subscription section",
     "reservations" => "Reservations",
-    "services" => "Services"
+    "services" => "Services",
+    "servicesProvided" => "Services Provided"
 );
 

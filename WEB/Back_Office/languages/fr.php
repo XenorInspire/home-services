@@ -10,5 +10,7 @@ $nav = array(
     "associates" => "Espaces Prestataires",
     "subscriptions" => "Espace Abonnements",
     "reservations" => "Réservations",
-    "services" => "Services"
+    "services" => "Services",
+    "servicesProvided" => "Prestations"
+
 );

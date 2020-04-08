@@ -1,4 +1,3 @@
-
 <?php require_once('include/lang.php'); ?>
 <br>
 <header class="container-fluid sticky-top">
@@ -22,21 +21,29 @@
         </li>
       </ul>
     </div>
-    <div class="mx-auto order-0">
-      <a class="navbar-brand nav_line" href="index.php"><img class="rounded" src="img/favicon.png" alt="logo" width="60"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <!-- <div class="mx-auto order-0"> -->
+    <a class="navbar-brand nav_line" href="index.php"><img class="rounded" src="img/favicon.png" alt="logo" width="60"></a>
+    <div class="navbar-toggler nav-link">
+      <div class="justify-content-center">
+        Home-Services
+      </div>
     </div>
+    <!-- </div> -->
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="reservations.php"><?= $nav['reservations'] ?></a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="services_provided.php"><?= $nav['servicesProvided'] ?></a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="service_types.php"><?= $nav['services'] ?></a>
         </li>
       </ul>
     </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </nav>
 </header>
