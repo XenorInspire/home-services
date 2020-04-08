@@ -2,7 +2,13 @@
 require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
-$customerId = isset($_GET['customerId']);
+
+if (!isset($_GET['customerId']) || empty($_GET['customerId'])) {
+    header('Location: customers.php');
+    exit;
+}
+
+$customerId = $_GET['customerId'];
 $servicesType = $hm_database->getServiceTypeList();
 $user = $hm_database->getCustomer($customerId);
 
@@ -29,7 +35,7 @@ $user = $hm_database->getCustomer($customerId);
             <div class="jumbotron">
                 <div class="display-4 text-center">Réservation d'un service</div>
                 <?php
-                
+
                 // if (isset($_GET['delete']) == "successful") {
                 //     echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été retiré</div>';
                 // }

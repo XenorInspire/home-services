@@ -21,7 +21,10 @@
                 <div class="display-4 text-center">Création Service</div>
 
                 <?php
-                isset($_GET['serviTypeId']);
+                if (!isset($_GET['serviceTypeId']) || empty($_GET['serviceTypeId'])) {
+                    header('Location: service_types.php');
+                    exit;
+                }
                 $serviceTypeId = $_GET['serviceTypeId'];
                 if (isset($_GET['error']) == "name_tasken") {
                     echo '<div class="alert alert-danger text-center" role="alert">Ce nom a déjà été utilisé</div>';

@@ -2,6 +2,11 @@
 isset($_GET['associateId']);
 require_once('class/DBManager.php');
 
+if (!isset($_GET['associateId']) || empty($_GET['associateId'])) {
+    header('Location: associates.php');
+    exit;
+}
+
 $associateId = $_GET['associateId'];
 $hm_database = new DBManager($bdd);
 $associate = $hm_database->getAssociate($associateId);

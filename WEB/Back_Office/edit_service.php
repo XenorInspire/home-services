@@ -2,7 +2,12 @@
 require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
-isset($_GET['id']);
+
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header('Location: service_types.php');
+    exit;
+}
+
 $serviceId = $_GET['id'];
 $service = $hm_database->getService($serviceId);
 

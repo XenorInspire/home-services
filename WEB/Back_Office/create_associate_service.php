@@ -2,7 +2,12 @@
 require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
-isset($_GET['associateId']);
+
+if (!isset($_GET['associateId']) || empty($_GET['associateId'])) {
+    header('Location: associates.php');
+    exit;
+}
+
 $associateId = $_GET['associateId'];
 $servicesType = $hm_database->getServiceTypeList();
 $associate = $hm_database->getAssociate($associateId);
