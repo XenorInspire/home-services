@@ -12,6 +12,7 @@ require_once('class/subscription.php');
 require_once('class/additionalPrice.php');
 // require_once('class/invoicing.php');
 require_once('class/bill.php');
+require_once('class/serviceType.php');
 
 class DBManager
 {
@@ -394,10 +395,42 @@ class DBManager
 
     $data = $q->fetch();
 
-    // if ($data == NULL) {
-    //   header('Location: reservations.php');
-    // }
+    if ($data == NULL) {
+      return NULL;
+    }
     return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+  }
+
+  public function getRecurringServices()
+  {
+
+    $q = "SELECT * FROM Service WHERE recurrence = 1";
+    $res = $this->db->prepare($q);
+    $res->execute();
+
+    while ($results = $res->fetch()) {
+
+      $service = new Service($results['serviceId'], $results['serviceTypeId'], $results['serviceTitle'], $results['description'], $results['recurrence'], $results['timeMin'], $results['servicePrice'], $results['commission']);
+      $services[] = $service;
+    }
+
+    return $services;
+  }
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+  public function getServiceType($typeId)
+  {
+    $q = $this->db->query('SELECT serviceTypeId,typeName FROM ServiceType WHERE serviceTypeId = "' . $typeId . '"');
+    $data = $q->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+
+    return new ServiceType($data['serviceTypeId'], $data['typeName']);
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

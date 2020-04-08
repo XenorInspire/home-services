@@ -107,6 +107,48 @@
 
 			</section>
 
+			<section class="container text-center">
+				<br>
+				<h1>Services Récurrents</h1>
+				<br>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Catégorie</th>
+							<th scope="col">Service</th>
+							<th scope="col">Prix</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<?php
+
+						$services = $hm_database->getRecurringServices();
+
+						for ($i = 0; $i < count($services); $i++) { ?>
+
+							<tr>
+								<td><?= $hm_database->getServiceType($services[$i]->getServiceTypeId())->getTypeName() ?></td>
+								<td><?= $services[$i]->getServiceTitle() ?></td>
+								<td><?= $services[$i]->getServicePrice() ?>€/h</td>
+								<td><button type="button" class="btn btn-primary mb-2">Réserver</button></td>
+							</tr>
+
+						<?php
+						}
+
+						?>
+
+					</tbody>
+				</table>
+				<br>
+				<button type="button" onclick="window.location.href = 'search_services.php';" class="btn btn-lg btn-primary">Tous les services</button>
+				<br>
+				<br>
+				<br>
+			</section>
+
 		</main>
 
 		<?php require_once("include/footer.php"); ?>

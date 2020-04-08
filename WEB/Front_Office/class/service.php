@@ -1,6 +1,7 @@
 <?php
 
-class Service{
+class Service
+{
     private $serviceId;
     private $serviceTypeId;
     private $serviceTitle;
@@ -24,7 +25,7 @@ class Service{
 
     /**
      * Get the value of serviceId
-     */ 
+     */
     public function getServiceId()
     {
         return $this->serviceId;
@@ -34,17 +35,16 @@ class Service{
      * Set the value of serviceId
      *
      * @return  self
-     */ 
+     */
     public function setServiceId($serviceId)
     {
         $this->serviceId = $serviceId;
-
         return $this;
     }
 
     /**
      * Get the value of serviceTypeId
-     */ 
+     */
     public function getServiceTypeId()
     {
         return $this->serviceTypeId;
@@ -54,17 +54,16 @@ class Service{
      * Set the value of serviceTypeId
      *
      * @return  self
-     */ 
+     */
     public function setServiceTypeId($serviceTypeId)
     {
         $this->serviceTypeId = $serviceTypeId;
-
         return $this;
     }
 
     /**
      * Get the value of serviceTitle
-     */ 
+     */
     public function getServiceTitle()
     {
         return $this->serviceTitle;
@@ -74,17 +73,16 @@ class Service{
      * Set the value of serviceTitle
      *
      * @return  self
-     */ 
+     */
     public function setServiceTitle($serviceTitle)
     {
         $this->serviceTitle = $serviceTitle;
-
         return $this;
     }
 
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -94,17 +92,16 @@ class Service{
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
 
     /**
      * Get the value of recurrence
-     */ 
+     */
     public function getRecurrence()
     {
         return $this->recurrence;
@@ -114,17 +111,16 @@ class Service{
      * Set the value of recurrence
      *
      * @return  self
-     */ 
+     */
     public function setRecurrence($recurrence)
     {
         $this->recurrence = $recurrence;
-
         return $this;
     }
 
     /**
      * Get the value of timeMin
-     */ 
+     */
     public function getTimeMin()
     {
         return $this->timeMin;
@@ -134,17 +130,16 @@ class Service{
      * Set the value of timeMin
      *
      * @return  self
-     */ 
+     */
     public function setTimeMin($timeMin)
     {
         $this->timeMin = $timeMin;
-
         return $this;
     }
 
     /**
      * Get the value of servicePrice
-     */ 
+     */
     public function getServicePrice()
     {
         return $this->servicePrice;
@@ -154,17 +149,16 @@ class Service{
      * Set the value of servicePrice
      *
      * @return  self
-     */ 
+     */
     public function setServicePrice($servicePrice)
     {
         $this->servicePrice = $servicePrice;
-
         return $this;
     }
 
     /**
      * Get the value of commission
-     */ 
+     */
     public function getCommission()
     {
         return $this->commission;
@@ -174,11 +168,10 @@ class Service{
      * Set the value of commission
      *
      * @return  self
-     */ 
+     */
     public function setCommission($commission)
     {
         $this->commission = $commission;
-
         return $this;
     }
 
