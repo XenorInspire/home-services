@@ -72,6 +72,7 @@ if (
     $reservation->setReservationId($user->getId(), $serviceProvided->getServiceProvidedId());
 
     $hm_database->addReservation($user, $reservation, $serviceProvided);
+    system('python3 mail/mail.py ' . 6 . ' ' . $user->getMail() . ' ' . $service->getServiceTitle());
 
     header('Location: shop.php?info=success');
     exit;

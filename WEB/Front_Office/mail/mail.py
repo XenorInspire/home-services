@@ -28,7 +28,12 @@ elif(sys.argv[1] == '4'):  # Password updated
     message = 'Hi there !\nThanks for using Home-Services !\nYour password were updated.'
 elif(sys.argv[1] == '5'):  # Password forgotten
     msg['Subject'] = "Home Services - Password forgotten"
-    message = 'Hi there !\nThanks for using Home-Services !\nYou can now connect to Homes-Services with this password : ' + sys.argv[3]
+    message = 'Hi there !\nThanks for using Home-Services !\nYou can now connect to Homes-Services with this password : ' + \
+        sys.argv[3]
+elif(sys.argv[1] == '6'):  # Password forgotten
+    msg['Subject'] = "Home Services - Booked service"
+    message = 'Hi there !\nThanks for using Home-Services !\nYour order was taken into account for the service : ' + \
+        sys.argv[3] + '\nIf you want more information about your orders, don\'t hesitate to check it in our platform !'
 
 # setup the parameters of the message
 msg['From'] = logins.MY_ADDRESS
