@@ -362,6 +362,16 @@ class DBManager
     $this->addBill($bill);
   }
 
+  public function deleteReservation($reservationId)
+  {
+    $reservation = $this->getReservation($reservationId);
+    $serviceProvided = $this->getServiceProvided($reservation->getServiceProvidedId());
+
+    $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
+    $this->db->exec("DELETE FROM ServiceProvided WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
+    $this->db->exec("DELETE FROM Proposal WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * BILL PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -398,6 +408,20 @@ class DBManager
       'totalPrice' => $bill->getTotalPrice(),
       'serviceProvidedId' => $bill->getServiceProvidedId()
     ));
+  }
+
+  public function checkBill($id)
+  {
+
+    $q = "SELECT * FROM Bill WHERE serviceProvidedId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$id]);
+
+    $results = $res->fetch();
+
+    if (empty($results)) return NULL;
+    if ($results['paidStatus'] == 0) return NULL;
+    return $results;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -461,7 +485,7 @@ class DBManager
   public function getReservationsByCustomerId($id)
   {
 
-    $q = "SELECT Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId";
+    $q = "SELECT Reservation.reservationId,Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
 
