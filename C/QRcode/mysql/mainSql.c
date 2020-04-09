@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 
     //if (mysql_query(con, "SELECT 'no' from `user`;")) printf("%s\n", mysql_error(con));
 
-    strcpy(request, "INSERT INTO Associate(`lastName`, `firstName`, `email`, `phoneNumber`, `address`, `town`, `sirenNumber`, `companyName`, `idAssociate`)");
+    strcpy(request, "INSERT INTO Associate(`lastName`, `firstName`, `email`, `phoneNumber`, `address`, `town`, `sirenNumber`, `companyName`, `AssociateId`, `enable`)");
     strcat(request, " VALUES ('");
     stringPtr = string;
     stringPtr = strchr(string, ':');
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
     strcat(request, "'");
     stringPtr++;
 
-    for(counter = 0; counter < 8; counter++) {
+    for(counter = 0; counter < 9; counter++) {
       strcat(request, ",'");
       stringPtr1 = stringPtr;
       stringPtr = strchr(stringPtr, ':');

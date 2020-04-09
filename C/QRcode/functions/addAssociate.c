@@ -23,7 +23,7 @@ void writeAssociate(ASSOCIATE *associate, const char *identifier)
     char string[2500];
     fp = fopen("mysql/associate.temp", "w+");
     
-    sprintf(string, "%s:%s:%s:%s:%s:%s:%d:%s:%s:", associate->lastName, associate->firstName, associate->email, associate->phoneNumber, associate->address, associate->town, associate->sirenNumber, associate->companyName, identifier);
+    sprintf(string, "%s:%s:%s:%s:%s:%s:%d:%s:%s:%d:", associate->lastName, associate->firstName, associate->email, associate->phoneNumber, associate->address, associate->town, associate->sirenNumber, associate->companyName, identifier, 0);
 
     encryptString(string);
 
