@@ -1,5 +1,11 @@
 <?php
-require_once('class/DBManager.php');
+
+require_once('include/check_identity.php');
+if (!($status == 'associate' && $connected == 1)) {
+
+	header('Location: connect.php?status=associate&error=forb');
+	exit;
+}
 
 if (
 	isset($_GET['serviceProvidedId']) && !empty($_GET['serviceProvidedId'])
@@ -11,7 +17,7 @@ if (
 
 	$servPro = $hm_database->getServiceProvided($serviceProvidedId);
 
-	$reservation= $hm_database->getReservationByServiceProvidedId($serviceProvidedId);
+	$reservation = $hm_database->getReservationByServiceProvidedId($serviceProvidedId);
 
 	$serviceId = $servPro->getServiceId();
 	$serv = $hm_database->getService($serviceId);
