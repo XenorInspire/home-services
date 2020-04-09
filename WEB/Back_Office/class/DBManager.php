@@ -221,7 +221,7 @@ class DBManager
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
 
-    //Insert a reservation 
+    //Insert a reservation
     public function addReservation(Customer $customer, Reservation $reservation, ServiceProvided $serviceProvided)
     {
         //Insert into ServiceProvided
@@ -247,6 +247,14 @@ class DBManager
             'serviceProvidedId' => $serviceProvided->getServiceProvidedId(),
             'status' => $reservation->getStatus()
         ));
+    }
+
+    function getReservationsFromDate($date) {
+      $q = $this->db->query("SELECT customerId,serviceProvidedId FROM Reservation WHERE reservationDate = '" . $date . "'");
+
+      $data = $q->fetch();
+
+      return $data;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
