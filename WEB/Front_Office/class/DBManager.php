@@ -191,7 +191,8 @@ class DBManager
   {
 
     $subscription = $this->checkSubscription($id);
-    if ($subscription == NULL || $subscription->getRemainingHours() - $hours < 0) return NULL;
+    if ($subscription == NULL) return NULL;
+    if ($subscription->getRemainingHours() - $hours < 0) return 0;
 
     $q = "UPDATE Subscription SET remainingHours = :remainingHours WHERE customerId = :customerId";
     $req = $this->db->prepare($q);
@@ -397,7 +398,6 @@ class DBManager
       'totalPrice' => $bill->getTotalPrice(),
       'serviceProvidedId' => $bill->getServiceProvidedId()
     ));
-    echo $bill;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

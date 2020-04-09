@@ -122,17 +122,21 @@
                      <?php
 
                         $services = $hm_database->getReservationsByCustomerId($customer->getId());
-                        for ($i = 0; $i < count($services); $i++) { ?>
+                        for ($i = 0; $i < count($services); $i++) {
+
+                            $parts = explode(".", $services[$i]['beginHour']);
+
+                        ?>
 
                          <tr>
                              <td><?= $services[$i]['serviceTitle'] ?></td>
                              <td><?= $services[$i]['date'] ?></td>
-                             <td><?= $services[$i]['beginHour'] ?></td>
+                             <td><?= $parts[0] ?></td>
                              <td><?= $services[$i]['servicePrice'] ?>€/h TTC</td>
 
                              <?php
 
-                                if ($result != NULL && $result->getRemainingHours() != 0) {
+                                if ($result != NULL && $services[$i]['status'] == 1) {
 
                                 ?>
 

@@ -72,8 +72,7 @@ if (
     $reservation->setReservationId($user->getId(), $serviceProvided->getServiceProvidedId());
 
     $hm_database->addReservation($user, $reservation, $serviceProvided);
-    $hm_database->remainingHours($user->getId(), $_POST['hours']);
-    //si != NULL insertion de la facture directement car prestation déjà réglée
+    // $hm_database->remainingHours($user->getId(), $_POST['hours']);
 
     system('python3 mail/mail.py ' . 6 . ' ' . $user->getMail() . ' ' . $service->getServiceTitle());
 
