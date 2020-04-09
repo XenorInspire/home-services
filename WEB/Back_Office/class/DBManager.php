@@ -10,6 +10,8 @@ require_once('class/associateServices.php');
 require_once('class/associate.php');
 require_once('class/proposal.php');
 require_once('class/serviceType.php');
+require_once('class/bill.php');
+require_once('class/additionalPrice.php');
 
 class DBManager
 {
@@ -111,7 +113,8 @@ class DBManager
         $this->db->exec("DELETE FROM SubscriptionType WHERE typeId = '" . $typeId . "'");
     }
 
-    public function desactivateSubscription($typeId){
+    public function desactivateSubscription($typeId)
+    {
         $q = "UPDATE SubscriptionType SET enable=:enable WHERE typeId='" . $typeId . "'";
         $req = $this->db->prepare($q);
         $req->execute(array(
@@ -119,7 +122,8 @@ class DBManager
         ));
     }
 
-    public function activateSubscription($typeId){
+    public function activateSubscription($typeId)
+    {
         $q = "UPDATE SubscriptionType SET enable=:enable WHERE typeId='" . $typeId . "'";
         $req = $this->db->prepare($q);
         $req->execute(array(
@@ -426,6 +430,19 @@ class DBManager
         return $associates;
     }
 
+    public function getAdditionalPrice($serviceProvidedId)
+    {
+        $serviceProvidedId = (int) $serviceProvidedId;
+        $additionalPrices = [];
+        $q = $this->db->query('SELECT * FROM AdditionalPrice WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+
+        while ($data = $q->fetch()) {
+            $additionalPrices[] = new AdditionalPrice($data['additionalPriceId'], $data['serviceProvidedId'], $data['description'], $data['price']);
+        }
+
+        return $additionalPrices;
+    }
+
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * *ASSOCIATE PART* * * * * * * * * * * * * * * * *
@@ -537,5 +554,33 @@ class DBManager
     public function deleteProposal($associateId, $serviceProvidedId)
     {
         $this->db->exec("DELETE FROM Proposal WHERE associateId = '" . $associateId . "'" . "AND serviceProvidedId = '" . $serviceProvidedId . "'");
+    }
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * BILL PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+    public function getBillList()
+    {
+
+        $bills = [];
+
+        $q = $this->db->query('SELECT * FROM Bill ORDER BY billId');
+
+        while ($data = $q->fetch()) {
+            $bills[] = new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+        }
+
+        return $bills;
+    }
+
+    public function getBill($billId)
+    {
+        $billId = (int) $billId;
+        $q = $this->db->query('SELECT * FROM Bill WHERE billId = ' . $billId . '');
+
+        $data = $q->fetch();
+
+        return new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
     }
 }

@@ -35,7 +35,7 @@
           <a class="nav-link" href="reservations.php"><?= $nav['reservations'] ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="services_provided.php"><?= $nav['servicesProvided'] ?></a>
+          <a class="nav-link" href="services_provided_bills.php"><?= $nav['servicesProvided'] ?></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="service_types.php"><?= $nav['services'] ?></a>
