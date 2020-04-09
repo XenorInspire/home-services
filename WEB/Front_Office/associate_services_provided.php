@@ -30,12 +30,13 @@ $servicesProvided = $hm_database->getAssociateServicesProvidedOnlyAcceptedAndUnd
         <div class="container-fluid">
             <div class="jumbotron text-center">
                 <?php
-                isset($_GET['ending']);
-                if ($_GET['ending'] == "successful") {
-                    echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">La prestation a bien été terminée</div>';
-                }
-                if ($_GET['ending'] == "error") {
-                    echo '<div class="alert alert-danger alert-dismissible" class="close" data-dismiss="alert" role="alert">Il y \'a eu une erreur</div>';
+                if (isset($_GET['ending'])) {
+                    if ($_GET['ending'] == "successful") {
+                        echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">La prestation a bien été terminée</div>';
+                    }
+                    if ($_GET['ending'] == "error") {
+                        echo '<div class="alert alert-danger alert-dismissible" class="close" data-dismiss="alert" role="alert">Il y \'a eu une erreur</div>';
+                    }
                 }
                 ?>
                 <div class="display-4">Préstations actuelles</div>
