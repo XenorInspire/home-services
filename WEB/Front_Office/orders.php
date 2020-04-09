@@ -63,7 +63,7 @@
              <section class="container text-center">
 
                  <br>
-                 <h2>Mon abonnement</h2>
+                 <h1>Mon abonnement</h1>
                  <br>
                  <ul style="margin:auto;width:50%;padding:0px;">
                      <li class="list-group-item list-group-item-info">Type d'abonnement : <?php echo $subscriptionType->getTypeName(); ?></li>
@@ -101,6 +101,76 @@
             }
 
             ?>
+
+         <section class="container text-center">
+             <br>
+             <br>
+             <h1>Mes réservations</h1>
+             <br>
+             <table class="table">
+                 <thead class="thead-dark">
+                     <tr>
+                         <th scope="col">Service</th>
+                         <th scope="col">Date</th>
+                         <th scope="col">Heure</th>
+                         <th scope="col">Prix</th>
+                         <th scope="col">Action</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+
+                     <?php
+
+                        $services = $hm_database->getReservationsByCustomerId($customer->getId());
+                        for ($i = 0; $i < count($services); $i++) { ?>
+
+                         <tr>
+                             <td><?= $services[$i]['serviceTitle'] ?></td>
+                             <td><?= $services[$i]['date'] ?></td>
+                             <td><?= $services[$i]['beginHour'] ?></td>
+                             <td><?= $services[$i]['servicePrice'] ?>€/h TTC</td>
+
+                             <?php
+
+                                if ($result != NULL && $result->getRemainingHours() != 0) {
+
+                                ?>
+
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+
+                             <?php
+
+                                } elseif ($services[$i]['status'] == 1) {
+
+                                ?>
+
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'pay_service.php?sp=<?= $services[$i]['serviceProvidedId'] ?>';">Payer</button></td>
+
+                             <?php
+
+                                } else {
+
+                                ?>
+
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'cancel_reservation.php?&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Annuler</button></td>
+
+                             <?php
+
+                                }
+
+                                ?>
+
+                         </tr>
+
+                     <?php
+                        }
+
+                        ?>
+
+                 </tbody>
+             </table>
+             <br>
+         </section>
 
      </main>
 

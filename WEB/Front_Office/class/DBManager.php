@@ -187,6 +187,22 @@ class DBManager
     }
   }
 
+  public function remainingHours($id, $hours)
+  {
+
+    $subscription = $this->checkSubscription($id);
+    if ($subscription == NULL || $subscription->getRemainingHours() - $hours < 0) return NULL;
+
+    $q = "UPDATE Subscription SET remainingHours = :remainingHours WHERE customerId = :customerId";
+    $req = $this->db->prepare($q);
+    $req->execute(array(
+      'remainingHours' => ($subscription->getRemainingHours() - $hours),
+      'customerId' => $id
+    ));
+
+    return 1;
+  }
+
   public function setNewPasswdCustomer($password, $id)
   {
 
@@ -441,6 +457,23 @@ class DBManager
       'status' => $reservation->getStatus()
     ));
   }
+
+  public function getReservationsByCustomerId($id)
+  {
+
+    $q = "SELECT Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+
+    while ($results = $req->fetch())
+      $services[] = $results;
+
+    if (empty($services)) return NULL;
+
+    return $services;
+  }
+
+
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *

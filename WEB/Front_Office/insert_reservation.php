@@ -47,7 +47,7 @@ if (
         exit;
     }
 
-    if(!is_numeric($_POST['hours']) || $_POST['hours'] <= 0 || $_POST['hours'] > 24){
+    if(!is_numeric($_POST['hours']) || $_POST['hours'] <= $service->getTimeMin() || $_POST['hours'] > 24){
 
         header('Location: book_service.php?i=' . $_GET['i'] . '&error=hours');
         exit; 
@@ -72,6 +72,9 @@ if (
     $reservation->setReservationId($user->getId(), $serviceProvided->getServiceProvidedId());
 
     $hm_database->addReservation($user, $reservation, $serviceProvided);
+    $hm_database->remainingHours($user->getId(), $_POST['hours']);
+    //si != NULL insertion de la facture directement car prestation déjà réglée
+
     system('python3 mail/mail.py ' . 6 . ' ' . $user->getMail() . ' ' . $service->getServiceTitle());
 
     header('Location: shop.php?info=success');

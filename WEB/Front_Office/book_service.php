@@ -20,8 +20,6 @@
         exit;
     }
 
-    sscanf($service->getTimeMin(), "%d:%d:%d.%s", $trash1, $trash2, $time, $trash3);
-
     ?>
 
     <!DOCTYPE html>
@@ -78,7 +76,7 @@
 
                 <ul style="margin:auto;width:50%;padding:0px;">
                     <li class="list-group-item list-group-item-info"><?= $service->getDescription() ?></li>
-                    <li class="list-group-item">Minimum de <?= $time ?>h</li>
+                    <li class="list-group-item">Minimum de <?= $service->getTimeMin() ?>h</li>
                     <li class="list-group-item">Prix : <?= $service->getServicePrice() ?>€ TTC</li>
                     <br>
                     <form class="container-fluid" action="insert_reservation.php?i=<?= $service->getServiceId() ?>" style="padding: 0px;" method="POST">
@@ -92,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label>Nombre d'heures</label>
-                            <input type="number" name="hours" min="0" max="24" class="form-control" required>
+                            <input type="number" name="hours" min="<?= $service->getTimeMin() ?>" max="24" class="form-control" required>
                         </div>
 
                         <div class="row">
