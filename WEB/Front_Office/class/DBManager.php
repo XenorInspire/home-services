@@ -293,9 +293,9 @@ class DBManager
 
     $data = $q->fetch();
 
-    // if ($data == NULL) {
-    //   header('Location: reservations.php');
-    // }
+    if ($data == NULL) {
+      return NULL;
+    }
     return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
   }
 
@@ -309,9 +309,9 @@ class DBManager
 
     $data = $q->fetch();
 
-    // if ($data == NULL) {
-    //   header('Location: reservations.php');
-    // }
+    if ($data == NULL) {
+      return NULL;
+    }
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
@@ -322,9 +322,9 @@ class DBManager
 
     $data = $q->fetch();
 
-    // if ($data == NULL) {
-    //   header('Location: reservations.php');
-    // }
+    if ($data == NULL) {
+      return NULL;
+    }
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
@@ -420,7 +420,6 @@ class DBManager
     $results = $res->fetch();
 
     if (empty($results)) return NULL;
-    if ($results['paidStatus'] == 0) return NULL;
     return $results;
   }
 
@@ -496,8 +495,6 @@ class DBManager
 
     return $services;
   }
-
-
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *

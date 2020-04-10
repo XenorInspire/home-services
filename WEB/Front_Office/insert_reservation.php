@@ -47,7 +47,7 @@ if (
         exit;
     }
 
-    if(!is_numeric($_POST['hours']) || $_POST['hours'] <= $service->getTimeMin() || $_POST['hours'] > 24){
+    if(!is_numeric($_POST['hours']) || $_POST['hours'] < $service->getTimeMin() || $_POST['hours'] > 24){
 
         header('Location: book_service.php?i=' . $_GET['i'] . '&error=hours');
         exit; 

@@ -1,8 +1,5 @@
 <?php
 
-// Connexion à la base de données
-require_once('class/DBManager.php');
-
 if (!isset($_GET['sid']) || empty(trim($_GET['sid']))) {
 
     http_response_code(400);
@@ -16,6 +13,9 @@ if (!isset($_GET['cid']) || empty(trim($_GET['cid']))) {
     echo http_response_code();
     return;
 }
+
+// Connexion à la base de données
+require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
 $customer = $hm_database->getUserById($_GET['cid']);

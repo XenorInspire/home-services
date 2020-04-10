@@ -30,10 +30,13 @@ elif(sys.argv[1] == '5'):  # Password forgotten
     msg['Subject'] = "Home Services - Password forgotten"
     message = 'Hi there !\nThanks for using Home-Services !\nYou can now connect to Homes-Services with this password : ' + \
         sys.argv[3]
-elif(sys.argv[1] == '6'):  # Password forgotten
+elif(sys.argv[1] == '6'):  # Booked service
     msg['Subject'] = "Home Services - Booked service"
     message = 'Hi there !\nThanks for using Home-Services !\nYour order was taken into account for the service : ' + \
         sys.argv[3] + '\nIf you want more information about your orders, don\'t hesitate to check it in our platform !'
+elif(sys.argv[1] == '7'):  # Service provided paid
+    msg['Subject'] = "Home Services - Service provided paid"
+    message = 'Hi there !\nThanks for using Home-Services !\nThe service was paid, don\'t hesite to download your invoice in your orders page'
 
 # setup the parameters of the message
 msg['From'] = logins.MY_ADDRESS

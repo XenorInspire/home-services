@@ -67,7 +67,7 @@
 
                     if ($_GET['error'] == 'hours') {
 
-                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">La prestation ne peut durer que maximum 24 heures</div>';
+                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">La prestation ne peut durer que minimum ' . $service->getTimeMin() . ' heure(s) et 24 heures maximum</div>';
                         echo '<br>';
                     }
                 }

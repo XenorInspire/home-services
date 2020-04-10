@@ -99,115 +99,134 @@
 
          <?php
             }
-
             ?>
 
-         <section class="container text-center">
-             <br>
-             <br>
-             <h1>Mes réservations</h1>
-             <br>
-             <table class="table">
-                 <thead class="thead-dark">
-                     <tr>
-                         <th scope="col">Service</th>
-                         <th scope="col">Date</th>
-                         <th scope="col">Heure</th>
-                         <th scope="col">Prix</th>
-                         <th scope="col">Action</th>
-                     </tr>
-                 </thead>
-                 <tbody>
+         <?php
+            if (($services = $hm_database->getReservationsByCustomerId($customer->getId())) != NULL) {
+            ?>
+             <section class="container text-center">
+                 <br>
+                 <br>
+                 <h1>Mes réservations</h1>
+                 <br>
+                 <?php
+                    if (isset($_GET['error'])) {
 
-                     <?php
+                        if ($_GET['error'] == 'nr') {
 
-                        $services = $hm_database->getReservationsByCustomerId($customer->getId());
-                        for ($i = 0; $i < count($services); $i++) {
+                            echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">La prestation n\'a pas encore été réalisée.</div>';
+                            echo '<br>';
+                        }
 
-                            $parts = explode(".", $services[$i]['beginHour']);
+                        if ($_GET['error'] == 'inp') {
 
-                        ?>
-
+                            echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez remplir correctement les différents champs de saisie</div>';
+                            echo '<br>';
+                        }
+                    }
+                    ?>
+                 <table class="table">
+                     <thead class="thead-dark">
                          <tr>
-                             <td><?= $services[$i]['serviceTitle'] ?></td>
-                             <td><?= $services[$i]['date'] ?></td>
-                             <td><?= $parts[0] ?></td>
-                             <td><?= $services[$i]['servicePrice'] ?>€/h TTC</td>
-
-                             <?php
-
-                                if ($result != NULL && $services[$i]['status'] == 1 && $hm_database->checkBill($services[$i]['serviceProvidedId']) != NULL) {
-
-                                ?>
-
-                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
-
-                             <?php
-
-                                } elseif ($services[$i]['status'] == 1 && $hm_database->checkBill($services[$i]['serviceProvidedId']) == NULL) {
-
-                                ?>
-
-                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'pay_service.php?sp=<?= $services[$i]['serviceProvidedId'] ?>';">Payer</button></td>
-
-                             <?php
-
-                                } elseif ($services[$i]['status'] == 1 && $hm_database->checkBill($services[$i]['serviceProvidedId']) != NULL) {
-
-                                ?>
-
-                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
-
-                             <?php
-
-                                } else {
-
-                                ?>
-
-                                 <td><button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalSave">Annuler</button></td>
-
-                             <?php
-
-                                }
-
-                                ?>
-
+                             <th scope="col">Service</th>
+                             <th scope="col">Date</th>
+                             <th scope="col">Heure</th>
+                             <th scope="col">Prix</th>
+                             <th scope="col">Action</th>
                          </tr>
-                         <!-- Modal for saving -->
-                         <div class="modal fade" id="modalSave">
-                             <div class="modal-dialog modal-dialog-centered">
-                                 <div class="modal-content">
-                                     <!-- Modal Header -->
-                                     <div class="modal-header">
-                                         <h4 class="modal-title">Réservation</h4>
-                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                     </div>
-                                     <!-- Modal body -->
-                                     <div class="modal-body">
-                                         Voulez-vous vraiment annuler cette réservation ?
-                                     </div>
-                                     <!-- Modal footer -->
-                                     <div class="modal-footer">
-                                         <button class="btn btn-outline-success" onclick="window.location.href = 'cancel_reservation.php?&rid=<?= $services[$i]['reservationId'] ?>';"  type="submit">Annuler</button>
-                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Retour</button>
+                     </thead>
+                     <tbody>
+
+                         <?php
+
+                            for ($i = 0; $i < count($services); $i++) {
+
+                                $parts = explode(".", $services[$i]['beginHour']);
+
+                            ?>
+
+                             <tr>
+                                 <td><?= $services[$i]['serviceTitle'] ?></td>
+                                 <td><?= $services[$i]['date'] ?></td>
+                                 <td><?= $parts[0] ?></td>
+                                 <td><?= $services[$i]['servicePrice'] ?>€/h TTC</td>
+
+                                 <?php
+                                    $bill = $hm_database->checkBill($services[$i]['serviceProvidedId']);
+                                    if ($result != NULL && $services[$i]['status'] == 1 && $bill != NULL && $bill['paidStatus'] == 1) {
+
+                                    ?>
+
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+
+                                 <?php
+
+                                    } elseif ($services[$i]['status'] == 1 && $bill['paidStatus'] == 0) {
+
+                                    ?>
+
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'pay_service.php?sp=<?= $services[$i]['serviceProvidedId'] ?>';">Payer</button></td>
+
+                                 <?php
+
+                                    } elseif ($services[$i]['status'] == 1 && $bill != NULL && $bill['paidStatus'] == 1) {
+
+                                    ?>
+
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+
+                                 <?php
+
+                                    } else {
+
+                                    ?>
+
+                                     <td><button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalSave">Annuler</button></td>
+
+                                 <?php
+
+                                    }
+
+                                    ?>
+
+                             </tr>
+                             <!-- Modal for saving -->
+                             <div class="modal fade" id="modalSave">
+                                 <div class="modal-dialog modal-dialog-centered">
+                                     <div class="modal-content">
+                                         <!-- Modal Header -->
+                                         <div class="modal-header">
+                                             <h4 class="modal-title">Réservation</h4>
+                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                         </div>
+                                         <!-- Modal body -->
+                                         <div class="modal-body">
+                                             Voulez-vous vraiment annuler cette réservation ?
+                                         </div>
+                                         <!-- Modal footer -->
+                                         <div class="modal-footer">
+                                             <button class="btn btn-outline-success" onclick="window.location.href = 'cancel_reservation.php?&rid=<?= $services[$i]['reservationId'] ?>';" type="submit">Annuler</button>
+                                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Retour</button>
+                                         </div>
                                      </div>
                                  </div>
                              </div>
-                         </div>
 
-                     <?php
-                        }
+                         <?php
+                            }
 
-                        ?>
+                            ?>
 
-                 </tbody>
-             </table>
-             <br>
+                     </tbody>
+                 </table>
+                 <br>
 
-         </section>
+             </section>
 
+         <?php
+            }
+            ?>
      </main>
-
      <?php require_once("include/footer.php"); ?>
  </body>
 

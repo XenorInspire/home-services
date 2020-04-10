@@ -1,7 +1,8 @@
 var sid;
 var cid;
+var sp;
 
-function subscribe() {
+function load_stripe(mode) {
 
     var style = {
         base: {
@@ -45,8 +46,16 @@ function subscribe() {
 
             } else {
 
-                insert();
-                replace();
+                if (mode == 1) {
+
+                    insert();
+                    replace();
+
+                } else {
+
+                    update();
+                    serviceBooked();
+                }
 
             }
         });
@@ -133,5 +142,61 @@ function tryAgain() {
 
     div.remove();
     msg.style.display = "block";
+
+}
+
+function serviceBooked() {
+
+    let section = document.getElementById("subscription_block");
+
+    while (section.firstChild)
+        section.removeChild(section.firstChild);
+
+    const img = document.createElement('img');
+    img.src = "img/valid_icon.png";
+    img.style.width = "300px";
+    section.appendChild(img);
+
+    const title = document.createElement('h1');
+    title.innerHTML = "Paiement accepté";
+    section.appendChild(title);
+
+    const text = document.createElement('h2');
+    text.innerHTML = "La prestation a bien été payée.";
+    section.appendChild(text);
+
+    const a = document.createElement('a');
+    a.className = "btn btn-dark";
+    a.href = "orders.php";
+    a.innerHTML = "Revenir sur mes commandes";
+    a.style.marginTop = "30px";
+    section.appendChild(a);
+
+}
+
+function update() {
+
+    let request = new XMLHttpRequest;
+
+    request.open('GET', 'update_service.php?cid=' + cid + '&sp=' + sp);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            if (request.responseText != "200") {
+
+                // self.location.href = "orders.php?error=inp";
+                console.log(request.responseText);
+
+            }
+        }
+    }
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send();
+
+}
+
+function sp(htmlCid, htmlSp) {
+
+    sp = htmlSp;
+    cid = htmlCid;
 
 }
