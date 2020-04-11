@@ -611,6 +611,22 @@ class DBManager
     ));
   }
 
+  public function getAssociateProposal($associateId){
+    $q = "SELECT * FROM Proposal WHERE associateId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$associateId]);
+
+    $proposals = [];
+    while ($data = $res->fetch()) {
+      $proposals[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
+    }
+
+    if($proposals == NULL)
+      return NULL;
+      
+    return $proposals;
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * ASSOCIATE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

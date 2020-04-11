@@ -19,6 +19,11 @@ if (
 
 	$reservation = $hm_database->getReservationByServiceProvidedId($serviceProvidedId);
 
+	if($reservation->getStatus() == 1){
+		header('Location: index.php');
+		exit;
+	}
+
 	$serviceId = $servPro->getServiceId();
 	$serv = $hm_database->getService($serviceId);
 

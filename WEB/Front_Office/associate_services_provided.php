@@ -8,6 +8,7 @@ if (!($status == 'associate' && $connected == 1)) {
 }
 
 $servicesProvided = $hm_database->getAssociateServicesProvidedOnlyAcceptedAndUndone($id);
+$associateProposals = $hm_database->getAssociateProposal($_SESSION['associate']);
 
 ?>
 
@@ -39,6 +40,29 @@ $servicesProvided = $hm_database->getAssociateServicesProvidedOnlyAcceptedAndUnd
                     }
                 }
                 ?>
+
+                <?php
+                $counter = 1;
+                if ($associateProposals != NULL) { ?>
+                    <div class="display-4">Demande de préstations</div>
+                    <hr>
+                    <div class="row">
+                        <?php
+                        foreach ($associateProposals as $proposal) {
+                            if ($proposal->getStatus() == 0) { ?>
+                                <div class="col-md bm-3">
+                                    <a href="associate_proposal_accept.php?associateId=<?= $_SESSION['associate '] ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> Répondre</a>
+                                </div>
+                        <?php
+                            }
+                            $counter++;
+                        } ?>
+                    </div><?php
+                        }
+                        echo '<br>';
+                        echo '<br>';
+                            ?>
+
                 <div class="display-4">Préstations actuelles</div>
                 <hr>
                 <div class="card-columns">
