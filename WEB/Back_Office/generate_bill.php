@@ -164,7 +164,7 @@ $pdf->Line(5, $y + 14, 205, $y + 14);
 
 $y += 6;
 
-//ADDITIONAL PRICES 
+//ADDITIONAL PRICES
 $totalAddPrice = 0;
 foreach ($totalAdditionalPrices as $totalAdditionalPrice) {
     //Service
@@ -255,5 +255,5 @@ $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell($pdf->GetPageWidth(), 5, "REF BANCAIRE : FR76 xxx - BIC : xxxx", 0, 0, 'C');
 
 //Generate PDF output
-$fileName = "Facture-" . $billId;
+$fileName = "Facture-" . $billId . ".pdf";
 $pdf->Output("I", $fileName);
