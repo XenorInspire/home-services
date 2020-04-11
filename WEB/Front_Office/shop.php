@@ -28,7 +28,6 @@
 				<?php
 				if (isset($_GET['err'])) {
 
-
 					if ($_GET['err'] == 'alr') {
 
 						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous possédez déjà un abonnement, si vous voulez changer d\'abonnement vous devez tout d\'abord le résilier.</div>';
@@ -150,7 +149,7 @@
 					</tbody>
 				</table>
 				<br>
-				<button type="button" onclick="window.location.href = 'search_services.php';" class="btn btn-lg btn-primary">Tous les services</button>
+				<button type="button" onclick="window.location.href = 'all_services.php';" class="btn btn-lg btn-primary">Tous les services</button>
 				<br>
 				<br>
 				<br>

@@ -429,10 +429,11 @@ class DBManager
 
   public function getService($serviceId)
   {
-    $serviceId = (int) $serviceId;
-    $q = $this->db->query('SELECT * FROM Service WHERE serviceId = ' . $serviceId . '');
+    $q = "SELECT * FROM Service WHERE serviceId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$serviceId]);
 
-    $data = $q->fetch();
+    $data = $res->fetch();
 
     if ($data == NULL) {
       return NULL;
@@ -502,14 +503,58 @@ class DBManager
 
   public function getServiceType($typeId)
   {
-    $q = $this->db->query('SELECT serviceTypeId,typeName FROM ServiceType WHERE serviceTypeId = "' . $typeId . '"');
-    $data = $q->fetch();
+    $q = "SELECT serviceTypeId,typeName FROM ServiceType WHERE serviceTypeId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$typeId]);
+
+    $data = $res->fetch();
 
     if ($data == NULL) {
       return NULL;
     }
 
     return new ServiceType($data['serviceTypeId'], $data['typeName']);
+  }
+
+  public function getServiceTypeByName($typeName)
+  {
+
+    $q = "SELECT serviceTypeId,typeName FROM ServiceType WHERE typeName = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$typeName]);
+
+    $data = $res->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+
+    return new ServiceType($data['serviceTypeId'], $data['typeName']);
+  }
+
+  public function getServiceTypeList()
+  {
+    $serviceTypes = [];
+    $q = $this->db->query('SELECT * FROM ServiceType ORDER BY typeName');
+
+    while ($data = $q->fetch()) {
+      $serviceTypes[] = new ServiceType($data["serviceTypeId"], $data["typeName"]);
+    }
+
+    return $serviceTypes;
+  }
+
+  public function getServiceListByType($serviceTypeId)
+  {
+    $q = "SELECT * FROM Service WHERE serviceTypeId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$serviceTypeId]);
+
+    while ($data = $res->fetch()) {
+      $services[] = new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
+    }
+
+    return $services;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

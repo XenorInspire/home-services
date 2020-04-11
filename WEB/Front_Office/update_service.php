@@ -2,14 +2,14 @@
 
 if (!isset($_GET['sp']) || empty(trim($_GET['sp']))) {
 
-    http_response_code(401);
+    http_response_code(400);
     echo http_response_code();
     return;
 }
 
 if (!isset($_GET['cid']) || empty(trim($_GET['cid']))) {
 
-    http_response_code(402);
+    http_response_code(400);
     echo http_response_code();
     return;
 }
@@ -20,7 +20,7 @@ $hm_database = new DBManager($bdd);
 $customer = $hm_database->getUserById($_GET['cid']);
 if ($customer == NULL) {
 
-    http_response_code(403);
+    http_response_code(400);
     echo http_response_code();
     return;
 }
@@ -28,7 +28,7 @@ if ($customer == NULL) {
 $serviceProvided = $hm_database->getServiceProvided($_GET['sp']);
 if ($serviceProvided == NULL) {
 
-    http_response_code(404);
+    http_response_code(400);
     echo http_response_code();
     return;
 }

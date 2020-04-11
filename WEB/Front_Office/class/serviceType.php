@@ -1,6 +1,7 @@
 <?php
 
-class ServiceType{
+class ServiceType
+{
     private $serviceTypeId;
     private $typeName;
 
@@ -12,7 +13,7 @@ class ServiceType{
 
     /**
      * Get the value of serviceTypeId
-     */ 
+     */
     public function getServiceTypeId()
     {
         return $this->serviceTypeId;
@@ -22,17 +23,16 @@ class ServiceType{
      * Set the value of serviceTypeId
      *
      * @return  self
-     */ 
+     */
     public function setServiceTypeId($serviceTypeId)
     {
         $this->serviceTypeId = $serviceTypeId;
-
         return $this;
     }
 
     /**
      * Get the value of typeName
-     */ 
+     */
     public function getTypeName()
     {
         return $this->typeName;
@@ -42,11 +42,10 @@ class ServiceType{
      * Set the value of typeName
      *
      * @return  self
-     */ 
+     */
     public function setTypeName($typeName)
     {
         $this->typeName = $typeName;
-
         return $this;
     }
 
@@ -55,6 +54,4 @@ class ServiceType{
         $vars = get_object_vars($this);
         return json_encode($vars);
     }
-
-
 }

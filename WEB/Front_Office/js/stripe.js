@@ -183,8 +183,7 @@ function update() {
         if (request.readyState === 4) {
             if (request.responseText != "200") {
 
-                // self.location.href = "orders.php?error=inp";
-                console.log(request.responseText);
+                self.location.href = "orders.php?error=inp";
 
             }
         }
