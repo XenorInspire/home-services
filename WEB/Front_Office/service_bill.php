@@ -1,5 +1,5 @@
 <?php
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+if (!isset($_GET['i']) || empty($_GET['i'])) {
 
     header('Location: orders.php');
     exit;
@@ -12,13 +12,10 @@ if ($connected != 1 || $status != "customer") {
     exit;
 }
 $hm_database = new DBManager($bdd);
-$result = $hm_database->getLastSubscriptionBill($id);
+$bill = $hm_database->getBill($_GET['i']);
 
-if ($result['billId'] != $_GET['id']) {
-
-    header('Location: orders.php');
-    exit;
-}
+$serviceProvided = $hm_database->getServiceProvided($bill->getServiceProvidedId());
+$totalAdditionalPrices = $hm_database->getAdditionalPrice($serviceProvided->getServiceProvidedId());
 
 require_once('pdf/fpdf.php');
 $lastname = utf8_decode($user->getLastname());
@@ -33,7 +30,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$num_fact = "Bill Number : "  . $_GET['id'];
+$num_fact = "Bill Number : "  . $_GET['i'];
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");
@@ -77,23 +74,25 @@ $pdf->SetXY(65, 75);
 $pdf->Cell($pdf->GetStringWidth("Nom du client"), 0, "Nom du client", 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(65, 78);
-$pdf->MultiCell(190, 4, utf8_decode($result['customerLastName']) . " " . utf8_decode($result['customerFirstName']), 0, "L");
+$pdf->MultiCell(190, 4, utf8_decode($bill->getCustomerLastName()) . " " . utf8_decode($bill->getCustomerFirstName()), 0, "L");
 
-//Customer's subscription address
+//Service provided address
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(5, 90);
 $pdf->Cell($pdf->GetStringWidth("Adresse de la prestation"), 0, "Adresse de la prestation", 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(5, 93);
-$pdf->MultiCell(190, 4, utf8_decode($result['customerAddress']) . " " . utf8_decode($result['customerTown']), 0, "L");
+$pdf->MultiCell(190, 4, utf8_decode($bill->getCustomerAddress()) . " " . utf8_decode($bill->getCustomerTown()), 0, "L");
 
-//Customer's subscription date
+$parts = explode(".", $serviceProvided->getBeginHour());
+
+//Customer's service provided date
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(65, 90);
 $pdf->Cell($pdf->GetStringWidth("Date de la prestation"), 0, "Date de la prestation", 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(65, 93);
-$pdf->MultiCell(190, 4, $result['billDate'], 0, "L");
+$pdf->MultiCell(190, 4, $serviceProvided->getDate() . utf8_decode(" à ") . $parts[0], 0, "L");
 
 $data = 1;
 
@@ -114,12 +113,16 @@ $pdf->Line(187, 105, 187, 223);
 // titre colonne
 $pdf->SetXY(1, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(140, 8, "Abonnement", 0, 0, 'C');
-
+$pdf->Cell(140, 8, "Service", 0, 0, 'C');
+$pdf->SetXY(125, 105);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(1, 8, utf8_decode("Heures demandées"), 0, 0, 'C');
+$pdf->SetXY(156, 105);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(1, 8, utf8_decode("Heures effectuées"), 0, 0, 'C');
 $pdf->SetXY(177, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(10, 8, "Prix", 0, 0, 'C');
-
+$pdf->Cell(10, 8, "Prix/h", 0, 0, 'C');
 $pdf->SetXY(185, 105);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(22, 8, "TOTAL", 0, 0, 'C');
@@ -128,24 +131,66 @@ $pdf->Cell(22, 8, "TOTAL", 0, 0, 'C');
 $pdf->SetFont('Arial', '', 8);
 $y = 105;
 
-// Abonnement
+//SERVICE
+$totalAddPrice = 0;
+foreach ($totalAdditionalPrices as $totalAdditionalPrice)
+    $totalAddPrice += $totalAdditionalPrice->getPrice();
+
+
+$servicePrice = $bill->getTotalPrice() - $totalAddPrice;
+$servicePricePerHour = $servicePrice / $serviceProvided->getHoursAssociate();
+//Service
 $pdf->SetXY(7, $y + 9);
-$pdf->Cell(140, 5, $result['typeName'], 0, 0, 'L');
-
-// Prix
+$pdf->Cell(140, 5, $bill->getServiceTitle(), 0, 0, 'L');
+//Heures demandees
+$pdf->SetXY(127, $y + 9);
+$pdf->Cell(13, 5, strrev(wordwrap(strrev($serviceProvided->getHours()), 3, ' ', true)), 0, 0, 'R');
+//Heures effectuees
+$pdf->SetXY(158, $y + 9);
+$pdf->Cell(18, 5, $serviceProvided->getHoursAssociate(), 0, 0, 'R');
+//Prix/h
+$nombre_format_francais = number_format($servicePricePerHour, 2, ',', ' ');
 $pdf->SetXY(177, $y + 9);
-$pdf->Cell(10, 5, $result['price'], 0, 0, 'R');
-
-// Total
+$pdf->Cell(10, 5, $nombre_format_francais, 0, 0, 'R');
+//Total
+$nombre_format_francais = number_format($servicePrice, 2, ',', ' ');
 $pdf->SetXY(187, $y + 9);
-$pdf->Cell(18, 5, $result['price'], 0, 0, 'R');
+$pdf->Cell(18, 5, $nombre_format_francais, 0, 0, 'R');
 
 $pdf->Line(5, $y + 14, 205, $y + 14);
 
+$y += 6;
+
+//ADDITIONAL PRICES
+$totalAddPrice = 0;
+foreach ($totalAdditionalPrices as $totalAdditionalPrice) {
+    //Service
+    $pdf->SetXY(7, $y + 9);
+    $pdf->Cell(140, 5, $totalAdditionalPrice->getDescription(), 0, 0, 'L');
+    //Heures demandees
+    $pdf->SetXY(127, $y + 9);
+    $pdf->Cell(13, 5, 'X', 0, 0, 'R');
+    //Heures effectuees
+    $pdf->SetXY(158, $y + 9);
+    $pdf->Cell(18, 5, 'X', 0, 0, 'R');
+    //Prix/h
+    $pdf->SetXY(177, $y + 9);
+    $pdf->Cell(10, 5, 'X', 0, 0, 'R');
+    //Total
+    $nombre_format_francais = number_format($totalAdditionalPrice->getPrice(), 2, ',', ' ');
+    $pdf->SetXY(187, $y + 9);
+    $pdf->Cell(18, 5, $nombre_format_francais, 0, 0, 'R');
+
+    $pdf->Line(5, $y + 14, 205, $y + 14);
+
+    $y += 6;
+}
+
 $tot_ttc = 12;
 $tot_tva = 123;
+
 //Total Price
-$nombre_format_francais = utf8_decode("Net à payer TTC : ") . $result['price'] . iconv('UTF-8', 'windows-1252', " €");
+$nombre_format_francais = utf8_decode("Net à payer TTC : ") . number_format($bill->getTotalPrice(), 2, ',', ' ') . iconv('UTF-8', 'windows-1252', " €");
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetFillColor(192);
 $pdf->Rect(5, 213, 105, 10, "DF");
@@ -168,5 +213,5 @@ $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell($pdf->GetPageWidth(), 5, "REF BANCAIRE : FR76 xxx - BIC : xxxx", 0, 0, 'C');
 
 //Generate PDF output
-$fileName = "Facture-" . $result['billId'] . ".pdf";
+$fileName = "Facture-" . $bill->getBillId() . ".pdf";
 $pdf->Output("I", $fileName);

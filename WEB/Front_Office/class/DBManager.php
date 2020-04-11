@@ -317,10 +317,12 @@ class DBManager
 
   public function getReservationByServiceProvidedId($serviceProvidedId)
   {
-    $serviceProvidedId = (int) $serviceProvidedId;
-    $q = $this->db->query('SELECT * FROM Reservation WHERE serviceProvidedId = ' . $serviceProvidedId . '');
 
-    $data = $q->fetch();
+    $q = "SELECT * FROM Reservation WHERE serviceProvidedId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$serviceProvidedId]);
+
+    $data = $req->fetch();
 
     if ($data == NULL) {
       return NULL;
@@ -421,6 +423,36 @@ class DBManager
 
     if (empty($results)) return NULL;
     return $results;
+  }
+
+  public function getBill($billId)
+  {
+
+    $q = "SELECT * FROM Bill WHERE billId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$billId]);
+
+    $data = $res->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+
+    return new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+  }
+
+  public function getAdditionalPrice($serviceProvidedId)
+  {
+    $additionalPrices = [];
+    $q = "SELECT * FROM AdditionalPrice WHERE serviceProvidedId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$serviceProvidedId]);
+
+    while ($data = $res->fetch()) {
+      $additionalPrices[] = new AdditionalPrice($data['additionalPriceId'], $data['serviceProvidedId'], $data['description'], $data['price']);
+    }
+
+    return $additionalPrices;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

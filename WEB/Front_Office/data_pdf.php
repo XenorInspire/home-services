@@ -57,4 +57,36 @@ if ($_GET['mode'] == 1) {
 
     header('Location: ' . $url);
     exit;
+} elseif ($_GET['mode'] == 2) {
+
+    if (!isset($_GET['sp']) || empty($_GET['sp'])) {
+
+        header('Location: orders.php');
+        exit;
+    }
+
+    if (($bill = $hm_database->checkBill($_GET['sp'])) == NULL) {
+
+        header('Location: orders.php');
+        exit;
+    }
+
+    if (($reservation = $hm_database->getReservationByServiceProvidedId($_GET['sp'])) == NULL) {
+
+        header('Location: orders.php');
+        exit;
+    }
+
+    if ($reservation->getCustomerId() != $user->getId()) {
+
+        header('Location: orders.php');
+        exit;
+    }
+
+    header('Location: service_bill.php?i=' . $bill['billId']);
+    exit;
+} else {
+
+    header('Location: orders.php');
+    exit;
 }
