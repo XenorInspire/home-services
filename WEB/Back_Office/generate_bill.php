@@ -87,13 +87,15 @@ $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(5, 93);
 $pdf->MultiCell(190, 4, $serviceProvided->getAddress() . " " . $serviceProvided->getTown(), 0, "L");
 
+$parts = explode(".", $serviceProvided->getBeginHour());
+
 //Customer's service provided date
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(65, 90);
 $pdf->Cell($pdf->GetStringWidth("Date de la prestation"), 0, "Date de la prestation", 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(65, 93);
-$pdf->MultiCell(190, 4, $serviceProvided->getDate() . utf8_decode(" à ") . $serviceProvided->getBeginHour(), 0, "L");
+$pdf->MultiCell(190, 4, $serviceProvided->getDate() . utf8_decode(" à ") . $parts[0], 0, "L");
 
 $data = 1;
 
