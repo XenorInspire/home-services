@@ -178,6 +178,20 @@ class DBManager
     return $this->db;
   }
 
+  public function getCustomer($customerId)
+  {
+    $customerId = (int) $customerId;
+    $q = $this->db->query('SELECT * FROM Customer WHERE customerId = ' . $customerId . '');
+
+    $data = $q->fetch();
+
+    if ($data == NULL) {
+      header('Location: customers.php');
+      exit;
+    }
+    return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+  }
+
   public function checkSubscription($id)
   {
 
@@ -275,20 +289,13 @@ class DBManager
     ));
   }
 
-  public function getCustomer($customerId)
+  public function deleteSubscription($id)
   {
-    $customerId = (int) $customerId;
-    $q = $this->db->query('SELECT * FROM Customer WHERE customerId = ' . $customerId . '');
 
-    $data = $q->fetch();
-
-    if ($data == NULL) {
-      header('Location: customers.php');
-      exit;
-    }
-    return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+    $q = "DELETE FROM Subscription WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
   }
-
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * SERVICE PROVIDED PART * * * * * * * * * * * * * * * *

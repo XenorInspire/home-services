@@ -48,6 +48,19 @@
      <?php require_once("include/header.php"); ?>
 
      <main>
+         <?php
+
+            if (isset($_GET['info'])) {
+
+                if ($_GET['info'] == 'sub_del') {
+
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre abonnement est bien résilié.</div>';
+                }
+            }
+
+            ?>
 
          <?php
 
@@ -97,6 +110,30 @@
                  </ul>
                  <br>
                  <button type="button" onclick="window.location.href = 'data_pdf.php?mode=1';" class="btn btn-dark">Télécharger ma facture</button>
+                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Résilier mon abonnement</button>
+
+                 <!-- Modal for saving -->
+                 <div class="modal fade" id="modalSave">
+                     <div class="modal-dialog modal-dialog-centered">
+                         <div class="modal-content">
+                             <!-- Modal Header -->
+                             <div class="modal-header">
+                                 <h4 class="modal-title">Résiliation de mon abonnement</h4>
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             </div>
+                             <!-- Modal body -->
+                             <div class="modal-body">
+                                 Voulez-vous vraiment résilier votre abonnement ?
+                             </div>
+                             <!-- Modal footer -->
+                             <div class="modal-footer">
+                                 <button class="btn btn-outline-success" onclick="window.location.href = 'delete_subscription.php';" type="submit">Résilier</button>
+                                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Retour</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
              </section>
 
          <?php
