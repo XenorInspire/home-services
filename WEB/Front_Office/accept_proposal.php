@@ -10,4 +10,4 @@ $serviceProvidedId = $_GET['serviceProvidedId'];
 
 $hm_database->acceptProposal($serviceProvidedId,$associateId);
 
-header('Location: index.php?accept=successful');
+header('Location: associate_services_provided.php?accept=successful');

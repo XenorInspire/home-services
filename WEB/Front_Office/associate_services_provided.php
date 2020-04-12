@@ -39,6 +39,16 @@ $associateProposals = $hm_database->getAssociateProposal($_SESSION['associate'])
                         echo '<div class="alert alert-danger alert-dismissible" class="close" data-dismiss="alert" role="alert">Il y \'a eu une erreur</div>';
                     }
                 }
+                if (isset($_GET['accept'])) {
+                    if ($_GET['accept'] == "successful") {
+                        echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">La prestation a bien été acceptée</div>';
+                    }
+                }
+                if (isset($_GET['deny'])) {
+                    if ($_GET['deny'] == "successful") {
+                        echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">La prestation a bien été refusée</div>';
+                    }
+                }
                 ?>
 
                 <?php
@@ -51,7 +61,7 @@ $associateProposals = $hm_database->getAssociateProposal($_SESSION['associate'])
                         foreach ($associateProposals as $proposal) {
                             if ($proposal->getStatus() == 0) { ?>
                                 <div class="col-md bm-3">
-                                    <a href="associate_proposal_accept.php?associateId=<?= $_SESSION['associate '] ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> Répondre</a>
+                                    <a href="associate_proposal_accept.php?associateId=<?= $_SESSION['associate'] ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> Répondre</a>
                                 </div>
                         <?php
                             }
