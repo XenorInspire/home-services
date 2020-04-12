@@ -72,7 +72,7 @@ $user = $hm_database->getCustomer($customerId);
                         <input type="time" name="beginHour" class="form-control" placeholder="" required>
                     </div>
                     <div class="form-group">
-                        <label>Nombre d'heures</label>
+                        <label>Nombre d'heures souhaitées</label>
                         <input type="number" name="hours" class="form-control" placeholder="" required>
                     </div>
 

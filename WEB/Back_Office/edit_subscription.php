@@ -63,7 +63,7 @@ if ($sub->getEnable() == 1) {
                         <small class="form-text text-muted">Exemple : 5j/7</small>
                     </div>
                     <div class="form-group">
-                        <label>Horaire de debut des services</label>
+                        <label>Horaire de début des services</label>
                         <?php
                         $input = $sub->getOpenTime();
                         $output = explode(":", $input);
@@ -83,7 +83,7 @@ if ($sub->getEnable() == 1) {
                         <input type="number" class="form-control" value="<?= $sub->getServiceTimeAmount() ?>" min="0" name="serviceTimeAmount" required>
                     </div>
                     <div class="form-group">
-                        <label>Montant de l'abonnement en <strong>euros / an</strong></label>
+                        <label>Montant de l'abonnement en <strong>€ / an</strong></label>
                         <input type="number" class="form-control" value="<?= $sub->getPrice() ?>" min="0" name="price" step="0.01" required>
                     </div>
 

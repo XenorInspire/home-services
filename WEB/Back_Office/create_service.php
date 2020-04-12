@@ -57,16 +57,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Temps minminum du service</label>
+                        <label>Temps miniminum du service en <strong>heure</strong></label>
                         <input type="number" class="form-control" min="0" name="timeMin" required>
                     </div>
                     <div class="form-group">
-                        <label>Montant du service par heure</label>
+                        <label>Montant du service en <strong>€ / heure</strong></label>
                         <input type="number" class="form-control" value="" min="0" name="servicePrice" step="0.01" required>
                     </div>
                     <div class="form-group">
                         <label>Pourcentage de la commission</label>
                         <input type="number" class="form-control" value="" min="0" max="100.00" name="commission" step="0.01" required>
+                        <small class="form-text text-muted">Exemple : 10 pour 10%</small>
                     </div>
 
                     <input type="hidden" name="serviceTypeId" value="<?= $serviceTypeId ?>">
