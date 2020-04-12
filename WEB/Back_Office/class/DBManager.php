@@ -131,6 +131,25 @@ class DBManager
         ));
     }
 
+    public function restoreRemainingHours()
+    {
+        $subscriptionTypes = $this->getSubscriptionTypeList();
+
+        foreach ($subscriptionTypes as $subscriptionType) {
+            $serviceTimeAmount = $subscriptionType->getServiceTimeAmount();
+            $typeId = $subscriptionType->getTypeId();
+
+            $q = "UPDATE Subscription SET remainingHours = :remainingHours WHERE typeId = :typeId";
+            $req = $this->db->prepare($q);
+            $req->execute(array(
+                'remainingHours' => $serviceTimeAmount,
+                'typeId' => $typeId
+            ));
+        }
+
+        return 1;
+    }
+
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -249,12 +268,13 @@ class DBManager
         ));
     }
 
-    function getReservationsFromDate($date) {
-      $q = $this->db->query("SELECT customerId,serviceProvidedId FROM Reservation WHERE reservationDate = '" . $date . "'");
+    function getReservationsFromDate($date)
+    {
+        $q = $this->db->query("SELECT customerId,serviceProvidedId FROM Reservation WHERE reservationDate = '" . $date . "'");
 
-      $data = $q->fetch();
+        $data = $q->fetch();
 
-      return $data;
+        return $data;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
