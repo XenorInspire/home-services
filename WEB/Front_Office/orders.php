@@ -141,6 +141,51 @@
             ?>
 
          <?php
+
+            if (($oldSubscriptions = $hm_database->getInactiveSubscriptionsByCustomerId($id)) != NULL) {
+            ?>
+             <section class="container text-center">
+                 <br>
+                 <h1>Mes anciens abonnements</h1>
+                 <br>
+                 <table class="table">
+                     <thead class="thead-dark">
+                         <tr>
+                             <th scope="col">Abonnement</th>
+                             <th scope="col">Date de souscription</th>
+                             <th scope="col">Prix</th>
+                             <th scope="col">Action</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+
+                         <?php
+
+
+                            for ($i = 0; $i < count($oldSubscriptions); $i++) {
+
+                            ?>
+
+                             <tr>
+                                 <td><?= $oldSubscriptions[$i]['typeName'] ?></td>
+                                 <td><?= $oldSubscriptions[$i]['billDate'] ?></td>
+                                 <td><?= $oldSubscriptions[$i]['price'] ?>€ TTC</td>
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=3&i=<?= $oldSubscriptions[$i]['billId'] ?>';">Obtenir ma facture</button></td>
+                             </tr>
+                         <?php
+
+                            }
+                            ?>
+                     </tbody>
+                 </table>
+                 <br>
+
+             </section>
+         <?php
+            }
+            ?>
+
+         <?php
             if (($services = $hm_database->getReservationsByCustomerId($customer->getId())) != NULL) {
             ?>
              <section class="container text-center">

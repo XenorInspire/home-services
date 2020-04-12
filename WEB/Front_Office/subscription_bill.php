@@ -12,13 +12,7 @@ if ($connected != 1 || $status != "customer") {
     exit;
 }
 $hm_database = new DBManager($bdd);
-$result = $hm_database->getLastSubscriptionBill($id);
-
-if ($result['billId'] != $_GET['id']) {
-
-    header('Location: orders.php');
-    exit;
-}
+$result = $hm_database->getSubscriptionBill($_GET['id']);
 
 require_once('pdf/fpdf.php');
 $lastname = utf8_decode($user->getLastname());

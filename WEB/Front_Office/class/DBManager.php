@@ -240,7 +240,7 @@ class DBManager
   public function getLastSubscriptionBill($id)
   {
 
-    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? ORDER BY billDate DESC LIMIT 1";
+    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? AND active = 1";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
 
@@ -270,10 +270,26 @@ class DBManager
     return $newId;
   }
 
+  public function getSubscriptionBill($billId)
+  {
+
+    $q = "SELECT * FROM Bill WHERE billId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$billId]);
+
+    $data = $res->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+
+    return $data;
+  }
+
   public function addSubscriptionBill($user, $subscriptionType, $beginDate)
   {
 
-    $q = "INSERT INTO SubscriptionBill(billId, customerId, customerLastName, customerFirstName, customerAddress, customerTown, email, billDate, typeName, price) VALUES (:billId, :customerId, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :billDate, :typeName, :price)";
+    $q = "INSERT INTO SubscriptionBill(billId, customerId, customerLastName, customerFirstName, customerAddress, customerTown, email, billDate, typeName, price, active) VALUES (:billId, :customerId, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :billDate, :typeName, :price, :active)";
     $res = $this->db->prepare($q);
     $res->execute(array(
       'billId' => $this->getLastIdSubscriptionBill(),
@@ -285,7 +301,8 @@ class DBManager
       'email' => $user->getMail(),
       'billDate' => $beginDate,
       'typeName' => $subscriptionType->getTypeName(),
-      'price' => $subscriptionType->getPrice()
+      'price' => $subscriptionType->getPrice(),
+      'active' => 1
     ));
   }
 
@@ -295,6 +312,24 @@ class DBManager
     $q = "DELETE FROM Subscription WHERE customerId = ?";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
+
+    $q = "UPDATE SubscriptionBill SET active = 0 WHERE billId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$this->getLastSubscriptionBill($id)['billId']]);
+  }
+
+  public function getInactiveSubscriptionsByCustomerId($id)
+  {
+
+    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? AND active = 0";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+
+    while ($data = $req->fetch())
+      $oldSubscriptions[] = $data;
+
+    if (empty($oldSubscriptions)) return NULL;
+    return $oldSubscriptions;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

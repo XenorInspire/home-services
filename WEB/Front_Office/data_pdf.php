@@ -1,25 +1,5 @@
 <?php
 
-function dateSubtraction($date1, $date2)
-{
-    $sub = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
-    $result = array();
-
-    $tmp = $sub;
-    $result['second'] = $tmp % 60;
-
-    $tmp = floor(($tmp - $result['second']) / 60);
-    $result['minute'] = $tmp % 60;
-
-    $tmp = floor(($tmp - $result['minute']) / 60);
-    $result['hour'] = $tmp % 24;
-
-    $tmp = floor(($tmp - $result['hour'])  / 24);
-    $result['day'] = $tmp;
-
-    return $result;
-}
-
 if (!isset($_GET['mode']) || empty($_GET['mode'])) {
 
     header('Location: orders.php');
@@ -42,15 +22,7 @@ if ($_GET['mode'] == 1) {
         exit;
     }
 
-    $customer = $hm_database->getUserById($id);
-    $resultBill = $hm_database->getLastSubscriptionBill($customer->getId());
-
-    if ($resultBill == NULL || dateSubtraction(time(), strtotime($resultBill['billDate']))['day'] > 365) {
-
-        $subscriptionType = $hm_database->getSubscriptionTypeById($subscription->getTypeId());
-        $hm_database->addSubscriptionBill($customer, $subscriptionType, $subscription->getBeginDate());
-        $resultBill = $hm_database->getLastSubscriptionBill($customer->getId());
-    }
+    $resultBill = $hm_database->getLastSubscriptionBill($id);
 
     header('Location: subscription_bill.php?id=' . $resultBill['billId']);
     exit;
@@ -81,6 +53,38 @@ if ($_GET['mode'] == 1) {
     }
 
     header('Location: service_bill.php?i=' . $bill['billId']);
+    exit;
+} elseif ($_GET['mode'] == 3) {
+
+    if (!isset($_GET['i']) || empty($_GET['i'])) {
+
+        header('Location: orders.php?test=3');
+        exit;
+    }
+
+    if (($oldSubscriptions = $hm_database->getInactiveSubscriptionsByCustomerId($id)) == NULL) {
+
+        header('Location: orders.php?test=2');
+        exit;
+    }
+
+    $set = 0;
+
+    for ($i = 0; $i < count($oldSubscriptions); $i++) {
+
+        if (in_array($_GET['i'], $oldSubscriptions[$i])) {
+            $set = 1;
+            break;
+        }
+    }
+
+    if ($set == 0) {
+
+        header('Location: orders.php?test=3');
+        exit;
+    }
+
+    header('Location: subscription_bill.php?id=' . $_GET['i']);
     exit;
 } else {
 

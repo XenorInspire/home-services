@@ -34,14 +34,18 @@ if ($subscriptionType == NULL) {
     return;
 }
 
+$date = date('Y-m-d');
+
 $q = "INSERT INTO Subscription (beginDate,customerId,typeId,remainingHours) VALUES (:beginDate, :customerId, :typeId, :remainingHours)";
 $res = $hm_database->getDb()->prepare($q);
 $res->execute(array(
-    'beginDate' => date('Y-m-d'),
+    'beginDate' => $date,
     'customerId' => $_GET['cid'],
     'typeId' => $_GET['sid'],
     'remainingHours' => $subscriptionType->getServiceTime()
 ));
+
+$hm_database->addSubscriptionBill($customer, $subscriptionType, $date);
 
 system('python3 mail/mail.py ' . 2 . ' ' . $customer->getMail());
 http_response_code(200);
