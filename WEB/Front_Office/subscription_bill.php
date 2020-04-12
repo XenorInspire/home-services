@@ -82,7 +82,7 @@ $pdf->MultiCell(190, 4, utf8_decode($result['customerLastName']) . " " . utf8_de
 //Customer's subscription address
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(5, 90);
-$pdf->Cell($pdf->GetStringWidth("Adresse de la prestation"), 0, "Adresse de la prestation", 0, "L");
+$pdf->Cell($pdf->GetStringWidth("Adresse des prestations"), 0, "Adresse des prestations", 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(5, 93);
 $pdf->MultiCell(190, 4, utf8_decode($result['customerAddress']) . " " . utf8_decode($result['customerTown']), 0, "L");
@@ -90,7 +90,7 @@ $pdf->MultiCell(190, 4, utf8_decode($result['customerAddress']) . " " . utf8_dec
 //Customer's subscription date
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(65, 90);
-$pdf->Cell($pdf->GetStringWidth("Date de la prestation"), 0, "Date de la prestation", 0, "L");
+$pdf->Cell($pdf->GetStringWidth("Date de souscription"), 0, "Date de souscription", 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(65, 93);
 $pdf->MultiCell(190, 4, $result['billDate'], 0, "L");

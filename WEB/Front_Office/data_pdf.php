@@ -49,13 +49,10 @@ if ($_GET['mode'] == 1) {
 
         $subscriptionType = $hm_database->getSubscriptionTypeById($subscription->getTypeId());
         $hm_database->addSubscriptionBill($customer, $subscriptionType, $subscription->getBeginDate());
-        $url = "subscription_bill.php?id=" . ($resultBill['billId'] + 1);
-    } else {
-
-        $url = "subscription_bill.php?id=" . $resultBill['billId'];
+        $resultBill = $hm_database->getLastSubscriptionBill($customer->getId());
     }
 
-    header('Location: ' . $url);
+    header('Location: subscription_bill.php?id=' . $resultBill['billId']);
     exit;
 } elseif ($_GET['mode'] == 2) {
 
