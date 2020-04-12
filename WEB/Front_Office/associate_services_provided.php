@@ -64,8 +64,8 @@ $associateProposals = $hm_database->getAssociateProposal($_SESSION['associate'])
                                     <a href="associate_proposal_accept.php?associateId=<?= $_SESSION['associate'] ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> Répondre</a>
                                 </div>
                         <?php
+                                $counter++;
                             }
-                            $counter++;
                         } ?>
                     </div><?php
                         }

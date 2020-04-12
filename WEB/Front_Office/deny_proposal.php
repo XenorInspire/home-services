@@ -10,4 +10,4 @@ $serviceProvidedId = $_GET['serviceProvidedId'];
 
 $hm_database->denyProposal($serviceProvidedId, $associateId);
 
-header('Location: associate_services_proposal.php?deny=successful');
+header('Location: associate_services_provided.php?deny=successful');
