@@ -65,7 +65,7 @@ $user = $hm_database->getCustomer($customerId);
 
                     <div class="form-group">
                         <label>Date de la prestation</label>
-                        <input type="date" name="date" class="form-control" placeholder="" required>
+                        <input type="date" name="date" class="form-control" placeholder="" min="<?= date('Y-m-d') ?>" required>
                     </div>
                     <div class="form-group">
                         <label>Heure de la prestation</label>
@@ -73,7 +73,7 @@ $user = $hm_database->getCustomer($customerId);
                     </div>
                     <div class="form-group">
                         <label>Nombre d'heures souhaitées</label>
-                        <input type="number" name="hours" class="form-control" placeholder="" required>
+                        <input type="number" name="hours" class="form-control" placeholder="" min="0" required>
                     </div>
 
                     <div class="row">
