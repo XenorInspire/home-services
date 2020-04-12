@@ -73,6 +73,14 @@ class DBManager
     $req->execute([$id]);
   }
 
+  public function disableCustomerAccount($id)
+  {
+
+    $q = "UPDATE Customer SET enable = 0 WHERE Customer.customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$id]);
+  }
+
   public function getAllSubscriptionTypes()
   {
     $q = "SELECT typeId, typeName, openDays, openTime, closeTime, serviceTimeAmount, price FROM SubscriptionType WHERE enable = 1";
@@ -611,7 +619,8 @@ class DBManager
     ));
   }
 
-  public function getAssociateProposal($associateId){
+  public function getAssociateProposal($associateId)
+  {
     $q = "SELECT * FROM Proposal WHERE associateId = ?";
     $res = $this->db->prepare($q);
     $res->execute([$associateId]);
@@ -621,9 +630,9 @@ class DBManager
       $proposals[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
     }
 
-    if($proposals == NULL)
+    if ($proposals == NULL)
       return NULL;
-      
+
     return $proposals;
   }
 

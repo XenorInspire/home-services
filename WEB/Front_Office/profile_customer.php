@@ -118,8 +118,31 @@
          <br>
          <br>
          <br>
-
-
+        <button type="button" id="delete_button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Désactiver mon compte</button>
+        <br>
+        <br>
+        <!-- Modal for saving -->
+         <div class="modal fade" id="modalSave">
+             <div class="modal-dialog modal-dialog-centered">
+                 <div class="modal-content">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                         <h4 class="modal-title">Désactivation du compte</h4>
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                          Voulez-vous vraiment désactiver votre compte ?
+                        </div>
+                     <!-- Modal footer -->
+                     <div class="modal-footer">
+                         <button class="btn btn-outline-success" onclick="window.location.href = 'disable_account.php';" type="submit">Désactiver</button>
+                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                        </div>
+                 </div>
+              </div>
+         </div>
+        <br>
      </main>
 
      <?php require_once("include/footer.php"); ?>
