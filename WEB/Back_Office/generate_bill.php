@@ -17,7 +17,7 @@ $serviceProvided = $hm_database->getServiceProvided($bill->getServiceProvidedId(
 $totalAdditionalPrices = $hm_database->getAdditionalPrice($serviceProvided->getServiceProvidedId());
 
 $lastname = utf8_decode($customer->getLastname());
-$fisrtname = utf8_decode($customer->getFirstname());
+$firstname = utf8_decode($customer->getFirstname());
 $address = utf8_decode($customer->getAddress());
 $town = utf8_decode($customer->getTown());
 $email = $customer->getEmail();
@@ -45,11 +45,11 @@ $pdf->SetFont('Arial', 'B', 11);
 $x = 110;
 $y = 50;
 $pdf->SetXY($x, $y);
-// $pdf->Cell(100, 8, $lastname . $fisrtname . $address . $town, 0, 0, '');
+// $pdf->Cell(100, 8, $lastname . $firstname . $address . $town, 0, 0, '');
 // $y += 4;
-if ($lastname && $fisrtname) {
+if ($lastname && $firstname) {
     $pdf->SetXY($x, $y);
-    $pdf->Cell(100, 8, $lastname . " " . $fisrtname, 0, 0, '');
+    $pdf->Cell(100, 8, $lastname . " " . $firstname, 0, 0, '');
     $y += 4;
 }
 if ($address) {

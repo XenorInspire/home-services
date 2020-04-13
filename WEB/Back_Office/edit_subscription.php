@@ -52,7 +52,7 @@ if ($sub->getEnable() == 1) {
             ?>
             <hr>
             <div class="jumbotron">
-                <form action="valid_edit_service.php" method="POST">
+                <form action="valid_edit_subscription.php" method="POST">
                     <div class="form-group">
                         <label>Nom de l'abonnement</label>
                         <input type="text" name="typeName" class="form-control" maxlength="255" value="<?= $sub->getTypeName() ?>" required>
