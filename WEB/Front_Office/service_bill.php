@@ -11,8 +11,21 @@ if ($connected != 1 || $status != "customer") {
     header('Location: orders.php');
     exit;
 }
+
+if (($reservation = $hm_database->getReservationByServiceProvidedId($_GET['i'])) == NULL) {
+
+    header('Location: orders.php');
+    exit;
+}
+
+if ($reservation->getCustomerId() != $user->getId()) {
+
+    header('Location: orders.php');
+    exit;
+}
+
 $hm_database = new DBManager($bdd);
-$bill = $hm_database->getBill($_GET['i']);
+$bill = $hm_database->getBillByServiceProvided($_GET['i']);
 
 $serviceProvided = $hm_database->getServiceProvided($bill->getServiceProvidedId());
 $totalAdditionalPrices = $hm_database->getAdditionalPrice($serviceProvided->getServiceProvidedId());
@@ -30,7 +43,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$num_fact = "Bill Number : "  . $_GET['i'];
+$num_fact = "Bill Number : "  . $bill->getBillId();
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");

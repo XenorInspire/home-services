@@ -273,7 +273,7 @@ class DBManager
   public function getSubscriptionBill($billId)
   {
 
-    $q = "SELECT * FROM Bill WHERE billId = ?";
+    $q = "SELECT * FROM SubscriptionBill WHERE billId = ?";
     $res = $this->db->prepare($q);
     $res->execute([$billId]);
 
@@ -475,12 +475,12 @@ class DBManager
     return $results;
   }
 
-  public function getBill($billId)
+  public function getBillByServiceProvided($id)
   {
 
-    $q = "SELECT * FROM Bill WHERE billId = ?";
+    $q = "SELECT * FROM Bill WHERE ServiceProvidedId = ?";
     $res = $this->db->prepare($q);
-    $res->execute([$billId]);
+    $res->execute([$id]);
 
     $data = $res->fetch();
 

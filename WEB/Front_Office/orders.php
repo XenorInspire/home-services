@@ -70,6 +70,7 @@
                 sscanf($subscriptionType->getBeginTime(), "%d:%s", $time1, $trash);
                 sscanf($subscriptionType->getEndTime(), "%d:%s", $time2, $trash);
                 $sub = dateSubtraction(strtotime($result->getBeginDate()) + (365 * 24 * 60 * 60), time());
+                $subscriptionBill = $hm_database->getLastSubscriptionBill($id);
 
             ?>
 
@@ -109,7 +110,7 @@
 
                  </ul>
                  <br>
-                 <button type="button" onclick="window.location.href = 'data_pdf.php?mode=1';" class="btn btn-dark">Télécharger ma facture</button>
+                 <button type="button" onclick="window.location.href = 'subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>';" class="btn btn-dark">Télécharger ma facture</button>
                  <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Résilier mon abonnement</button>
 
                  <!-- Modal for saving -->
@@ -170,7 +171,7 @@
                                  <td><?= $oldSubscriptions[$i]['typeName'] ?></td>
                                  <td><?= $oldSubscriptions[$i]['billDate'] ?></td>
                                  <td><?= $oldSubscriptions[$i]['price'] ?>€ TTC</td>
-                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=3&i=<?= $oldSubscriptions[$i]['billId'] ?>';">Obtenir ma facture</button></td>
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'subscription_bill.php?i=<?= $oldSubscriptions[$i]['billId'] ?>';">Obtenir ma facture</button></td>
                              </tr>
                          <?php
 
@@ -241,7 +242,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
 
                                  <?php
 
@@ -257,7 +258,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'data_pdf.php?mode=2&sp=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
 
                                  <?php
 

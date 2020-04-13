@@ -1,5 +1,5 @@
 <?php
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+if (!isset($_GET['i']) || empty($_GET['i'])) {
 
     header('Location: orders.php');
     exit;
@@ -12,9 +12,32 @@ if ($connected != 1 || $status != "customer") {
     exit;
 }
 $hm_database = new DBManager($bdd);
-$result = $hm_database->getSubscriptionBill($_GET['id']);
 
+$oldSubscriptions = $hm_database->getInactiveSubscriptionsByCustomerId($id);
+
+$set = 0;
+if (!empty($oldSubscriptions)) {
+    for ($i = 0; $i < count($oldSubscriptions); $i++) {
+
+        if (in_array($_GET['i'], $oldSubscriptions[$i])) {
+            $set = 1;
+            break;
+        }
+    }
+}
+$resultBill = $hm_database->getLastSubscriptionBill($id);
+if ($resultBill['billId'] == $_GET['i'])
+    $set = 1;
+
+if ($set == 0) {
+
+    header('Location: orders.php');
+    exit;
+}
+
+$result = $hm_database->getSubscriptionBill($_GET['i']);
 require_once('pdf/fpdf.php');
+
 $lastname = utf8_decode($user->getLastname());
 $firstname = utf8_decode($user->getFirstname());
 $address = utf8_decode($user->getAddress());
@@ -27,7 +50,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$num_fact = "Bill Number : "  . $_GET['id'];
+$num_fact = "Bill Number : "  . $_GET['i'];
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");
