@@ -46,51 +46,53 @@ $hm_database = new DBManager($bdd);
                     $reservations = [];
                     $reservations = $hm_database->getReservationList();
                     $counter = 1;
-                    foreach ($reservations as $res) {
-                        $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
-                        $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
-                        $customer = $hm_database->getCustomer($res->getCustomerId());
-                        if ($res->getStatus() == 0) { ?>
-                            <div class="card text-center border-secondary">
-                                <div class="card-header border-secondary">
-                                    Réservation # <?= $counter ?>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
-                                    <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-<?php
-                                                                                                                                                                                            if ($proposal == NULL) {
-                                                                                                                                                                                                echo 'secondary';
-                                                                                                                                                                                            } else {
-                                                                                                                                                                                                if ($proposal->getStatus() == 0) {
-                                                                                                                                                                                                    echo 'primary';
-                                                                                                                                                                                                } else if ($proposal->getStatus() == 1) {
-                                                                                                                                                                                                    echo 'success';
+                    if ($reservations != NULL) {
+                        foreach ($reservations as $res) {
+                            $servPro = $hm_database->getServiceProvided($res->getServiceProvidedId());
+                            $proposal = $hm_database->getProposal($servPro->getServiceProvidedId());
+                            $customer = $hm_database->getCustomer($res->getCustomerId());
+                            if ($res->getStatus() == 0) { ?>
+                                <div class="card text-center border-secondary">
+                                    <div class="card-header border-secondary">
+                                        Réservation # <?= $counter ?>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></h5>
+                                        <a href="reservation.php?serviceProvidedId=<?= $res->getServiceProvidedId() ?>&reservationId=<?= $res->getReservationId() ?>" class="btn btn-outline-<?php
+                                                                                                                                                                                                if ($proposal == NULL) {
+                                                                                                                                                                                                    echo 'secondary';
                                                                                                                                                                                                 } else {
-                                                                                                                                                                                                    echo 'danger';
-                                                                                                                                                                                                }
-                                                                                                                                                                                            } ?>">
-                                        <?php
-                                        if ($proposal == NULL) {
-                                            echo 'Choisir un prestataire';
-                                        } else {
-                                            if ($proposal->getStatus() == 0)
-                                                echo 'En attente de réponse';
-                                            else if ($proposal->getStatus() == 1)
-                                                echo 'Prestation acceptée';
-                                            else
-                                                echo 'Prestation refusée';
-                                        }
-                                        ?>
-                                    </a>
+                                                                                                                                                                                                    if ($proposal->getStatus() == 0) {
+                                                                                                                                                                                                        echo 'primary';
+                                                                                                                                                                                                    } else if ($proposal->getStatus() == 1) {
+                                                                                                                                                                                                        echo 'success';
+                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                        echo 'danger';
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                } ?>">
+                                            <?php
+                                            if ($proposal == NULL) {
+                                                echo 'Choisir un prestataire';
+                                            } else {
+                                                if ($proposal->getStatus() == 0)
+                                                    echo 'En attente de réponse';
+                                                else if ($proposal->getStatus() == 1)
+                                                    echo 'Prestation acceptée';
+                                                else
+                                                    echo 'Prestation refusée';
+                                            }
+                                            ?>
+                                        </a>
+                                    </div>
+                                    <div class="card-footer text-muted border-secondary">
+                                        <?= $res->getReservationDate() ?>
+                                    </div>
                                 </div>
-                                <div class="card-footer text-muted border-secondary">
-                                    <?= $res->getReservationDate() ?>
-                                </div>
-                            </div>
-                        <?php
-                            $counter++;
-                        } ?>
-                    <?php } ?>
+                            <?php
+                                $counter++;
+                            } ?>
+                    <?php }
+                    } ?>
                 </div>
                 <br>
             </div>

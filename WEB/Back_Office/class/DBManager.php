@@ -68,7 +68,7 @@ class DBManager
 
         if ($subscriptions == NULL)
             return NULL;
-            
+
         return $subscriptions;
     }
 
@@ -168,6 +168,7 @@ class DBManager
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+    //Get the customer
     public function getCustomer($customerId)
     {
         $q = "SELECT * FROM Customer WHERE customerId = ?";
@@ -181,6 +182,7 @@ class DBManager
         return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
     }
 
+    //Get all the customers
     public function getCustomerList()
     {
         $users = [];
@@ -205,26 +207,31 @@ class DBManager
     {
         $reservations = [];
 
-        $q = $this->db->query('SELECT * FROM Reservation ORDER BY reservationDate DESC');
+        $q = "SELECT * FROM Reservation ORDER BY reservationDate DESC";
+        $req = $this->db->prepare($q);
+        $req->execute();
 
-        while ($data = $q->fetch()) {
+        while ($data = $req->fetch())
             $reservations[] = new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
-        }
+
+        if ($reservations == NULL)
+            return NULL;
 
         return $reservations;
     }
 
+    //Get the reservation
     public function getReservation($reservationId)
     {
-        $reservationId = (int) $reservationId;
-        $q = $this->db->query('SELECT * FROM Reservation WHERE reservationId = ' . $reservationId . '');
+        $q = "SELECT * FROM Reservation WHERE reservationId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$reservationId]);
 
-        $data = $q->fetch();
+        $data = $req->fetch();
 
-        if ($data == NULL) {
-            header('Location: reservations.php');
-            exit;
-        }
+        if ($data == NULL)
+            return NULL;
+
         return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
     }
 
@@ -235,24 +242,32 @@ class DBManager
 
         $serviceProvided = $this->getServiceProvided($reservation->getServiceProvidedId());
 
-        $this->db->exec("DELETE FROM Reservation WHERE reservationId = '" . $reservationId . "'");
-        $this->db->exec("DELETE FROM ServiceProvided WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
-        $this->db->exec("DELETE FROM Proposal WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
+        $q = "DELETE FROM Reservation WHERE reservationId =  ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$reservationId]);
+
+        $q = "DELETE FROM ServiceProvided WHERE serviceProvidedId =  ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvided->getServiceProvidedId()]);
+
+        $q = "DELETE FROM Proposal WHERE serviceProvidedId =  ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvided->getServiceProvidedId()]);
+
+        return 1;
     }
 
-
-    //Service provided
+    //Get the service provided
     public function getServiceProvided($serviceProvidedId)
     {
-        $serviceProvidedId = (int) $serviceProvidedId;
-        $q = $this->db->query('SELECT * FROM ServiceProvided WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+        $q = "SELECT * FROM ServiceProvided WHERE serviceProvidedId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
+        $data = $req->fetch();
 
-        $data = $q->fetch();
+        if ($data == NULL)
+            return NULL;
 
-        if ($data == NULL) {
-            header('Location: reservations.php');
-            exit;
-        }
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
 
