@@ -532,7 +532,7 @@ class DBManager
 
         while ($data = $req->fetch())
             $additionalPrices[] = new AdditionalPrice($data['additionalPriceId'], $data['serviceProvidedId'], $data['description'], $data['price']);
-        
+
         return $additionalPrices;
     }
 
@@ -541,34 +541,34 @@ class DBManager
 * * * * * * * * * * * * * * * * *ASSOCIATE PART* * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-    //Associate
+    //Get the associate
     public function getAssociate($associateId)
     {
-        $associateId = (int) $associateId;
-        $q = $this->db->query('SELECT * FROM Associate WHERE associateId = ' . $associateId . '');
+        $q = "SELECT * FROM Associate WHERE associateId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$associateId]);
+        $data = $req->fetch();
 
-        $data = $q->fetch();
+        if ($data == NULL)
+            return NULL;
 
-        if ($data == NULL) {
-            header('Location: reservations.php');
-            exit;
-        }
         return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['enable'], $data['password']);
     }
 
+    //Get all the associates
     public function getAssociateList()
     {
         $associates = [];
 
-        $q = $this->db->query('SELECT * FROM Associate ORDER BY lastName');
+        $q = "SELECT * FROM Associate ORDER BY lastName";
+        $req = $this->db->prepare($q);
+        $req->execute();
 
-        while ($data = $q->fetch()) {
+        while ($data = $req->fetch())
             $associates[] = new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['enable'], $data['password']);
-        }
 
         return $associates;
     }
-
 
     //Give the propose to the associate
     public function proposalToAssociate(Proposal $proposal)
@@ -596,11 +596,12 @@ class DBManager
     {
         $servicesId = [];
 
-        $q = $this->db->query('SELECT * FROM AssociateServices WHERE associateId = ' . $associateId . '');
+        $q = "SELECT * FROM AssociateServices WHERE associateId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$associateId]);
 
-        while ($data = $q->fetch()) {
+        while ($data = $req->fetch())
             $servicesId[] = new AssociateServices($data['serviceId'], $data['associateId']);
-        }
 
         $services = [];
         foreach ($servicesId as $serviceId) {
@@ -610,14 +611,23 @@ class DBManager
         return $services;
     }
 
+    //Delete the service of the associate
     public function deleteAssociateService($serviceId, $associateId)
     {
         $this->db->exec("DELETE FROM AssociateServices WHERE associateId = '" . $associateId . "'" . "AND serviceId = '" . $serviceId . "'");
+        $q = "DELETE FROM AssociateServices WHERE associateId = :associateId AND serviceId = :serviceId ";
+        $req = $this->db->prepare($q);
+        $req->execute(
+            [
+                'associateId' => $associateId,
+                'serviceId' => $serviceId
+            ]
+        );
     }
 
+    //Set new password to the associate
     public function setNewPasswdAssociate($password, $id)
     {
-
         $q = "UPDATE Associate SET password = :password WHERE associateId = :id";
         $req = $this->db->prepare($q);
         $req->execute(array(
