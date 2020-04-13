@@ -180,15 +180,14 @@ class DBManager
 
   public function getCustomer($customerId)
   {
-    $customerId = (int) $customerId;
-    $q = $this->db->query('SELECT * FROM Customer WHERE customerId = ' . $customerId . '');
+    $q = "SELECT * FROM Customer WHERE customerId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$customerId]);
+    $data = $req->fetch();
 
-    $data = $q->fetch();
+    if ($data == NULL)
+      return NULL;
 
-    if ($data == NULL) {
-      header('Location: customers.php');
-      exit;
-    }
     return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
   }
 
@@ -338,14 +337,14 @@ class DBManager
   //Service provided
   public function getServiceProvided($serviceProvidedId)
   {
-    $serviceProvidedId = (int) $serviceProvidedId;
-    $q = $this->db->query('SELECT * FROM ServiceProvided WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+    $q = "SELECT * FROM ServiceProvided WHERE serviceProvidedId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$serviceProvidedId]);
+    $data = $req->fetch();
 
-    $data = $q->fetch();
-
-    if ($data == NULL) {
+    if ($data == NULL)
       return NULL;
-    }
+
     return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
   }
 
@@ -354,14 +353,15 @@ class DBManager
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
   public function getReservation($reservationId)
   {
-    $reservationId = (int) $reservationId;
-    $q = $this->db->query('SELECT * FROM Reservation WHERE reservationId = ' . $reservationId . '');
+    $q = "SELECT * FROM Reservation WHERE reservationId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$reservationId]);
 
-    $data = $q->fetch();
+    $data = $req->fetch();
 
-    if ($data == NULL) {
+    if ($data == NULL)
       return NULL;
-    }
+
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
@@ -617,11 +617,15 @@ class DBManager
   public function getServiceTypeList()
   {
     $serviceTypes = [];
-    $q = $this->db->query('SELECT * FROM ServiceType ORDER BY typeName');
 
-    while ($data = $q->fetch()) {
+    $q = "SELECT * FROM ServiceType ORDER BY typeName";
+    $req = $this->db->prepare($q);
+    $req->execute();
+    while ($data = $req->fetch())
       $serviceTypes[] = new ServiceType($data["serviceTypeId"], $data["typeName"]);
-    }
+
+    if ($serviceTypes == NULL)
+      return NULL;
 
     return $serviceTypes;
   }
@@ -743,11 +747,12 @@ class DBManager
   {
     $servicesProvidedId = [];
 
-    $q = $this->db->query('SELECT * FROM Proposal WHERE associateId = ' . $associateId . '');
+    $q = "SELECT * FROM Proposal WHERE associateId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$associateId]);
 
-    while ($data = $q->fetch()) {
+    while ($data = $req->fetch())
       $servicesProvidedId[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
-    }
 
     $servicesProvided = [];
     foreach ($servicesProvidedId as $serviceProvidedId) {
@@ -762,11 +767,12 @@ class DBManager
     // $associateId = (int) $associateId;
     $servicesProvidedId = [];
 
-    $q = $this->db->query("SELECT * FROM Proposal WHERE associateId = '" . $associateId . "'AND status = 1");
+    $q = "SELECT * FROM Proposal WHERE associateId = ? AND status = 1";
+    $req = $this->db->prepare($q);
+    $req->execute([$associateId]);
 
-    while ($data = $q->fetch()) {
+    while ($data = $req->fetch())
       $servicesProvidedId[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
-    }
 
     $servicesProvided = [];
     foreach ($servicesProvidedId as $serviceProvidedId) {
