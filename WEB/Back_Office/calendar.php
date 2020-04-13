@@ -16,10 +16,25 @@
 
     <main>
       <div id="calendar" class="calendar"></div>
+
+      <table class="table table-bordered table-responsive-lg table-hover">
+          <thead class="thead-dark">
+              <tr>
+                  <th>Client</th>
+                  <th>Adresse</th>
+                  <th>Heure</th>
+                  <th>Service</th>
+                  <th>Prestataire</th>
+              </tr>
+          </thead>
+          <tbody id="myTable">
+
+          </tbody>
+      </table>
+
     </main>
 
     <?php require_once("include/footer.php"); ?>
-
 </body>
 
 

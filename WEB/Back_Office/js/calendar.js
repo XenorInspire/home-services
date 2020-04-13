@@ -124,11 +124,11 @@ function getServices(d) {
   let request = new XMLHttpRequest;
   let json;
   let monthIndex = ['JANVIER', 'FÉVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AÔUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DÉCEMBRE'];
-  let body = document.getElementsByTagName('body')[0];
+  let tbody = document.getElementById('myTable');
   let newDiv = document.createElement('div');
   let rep;
 
-  body.appendChild(newDiv);
+  tbody.appendChild(newDiv);
 
   space = space.indexOf(' ');
   month = month.substring(0, space);
@@ -136,20 +136,15 @@ function getServices(d) {
   year = year.substring(space + 1);
   year = parseInt(year);
 
-  console.log(month);
-  console.log(year);
-
   for (let i = 0; i < par.length; i++) {
     if (par[i] === d) day = i + 1;
   }
-
-  console.log(day);
 
   request.open('POST', "get_reservations.php");
   request.onreadystatechange = function() {
       if (request.readyState === 4) {
           rep = request.responseText;
-          body.innerHTML += '<div>' + rep + '</div>';
+          tbody.innerHTML = rep;
       }
   }
 

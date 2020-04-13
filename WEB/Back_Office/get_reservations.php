@@ -13,21 +13,20 @@ $q = $hm_database->getReservationsFromDate($date);
 
 
 while ($data = $q->fetch()) {
-  if ($data['status'] == 1) {
-    $customer = $hm_database->getCustomer($data['customerId']);
-    echo 'Customer : ' . $customer->getFirstname() . ' ' . $customer->getLastName() . '<br>';
-    $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
-    echo 'Service Provided : ' . $serviceProvided->getBeginHour() . '<br>';
-    $service = $hm_database->getService($serviceProvided->getServiceId());
-    echo 'Service Title : ' . $service->getServiceTitle() . '<br>';
-    $associate = $hm_database->getAssociateFromServiceProvided($serviceProvided->getServiceProvidedId());
-    echo 'Associate : ' . $associate->getFirstName() . ' ';
-    echo $associate->getLastName() . '<br>';
 
-  } else {
+  $customer = $hm_database->getCustomer($data['customerId']);
+  $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
+  $associate = $hm_database->getAssociateFromServiceProvided($serviceProvided->getServiceProvidedId());
+  $service = $hm_database->getService($serviceProvided->getServiceId());
+  $beginHour = explode('.', $serviceProvided->getBeginHour());
 
-  }
-
+  echo '<tr class="table-light">';
+  echo '<td>' . $customer->getFirstname() . ' ' . $customer->getLastName() . '</td>';
+  echo '<td>' . $serviceProvided->getAddress() . ', ' . $serviceProvided->getTown() . '</td>';
+  echo '<td>' . $beginHour[0] . '</td>';
+  echo '<td>' . $service->getServiceTitle() . '</td>';
+  echo '<td>' . $associate->getFirstName() . ' ' . $associate->getLastName() . '</td>';
+  echo '</tr>';
 }
 
 // while ($data = $q->fetch()) {
