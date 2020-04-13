@@ -66,6 +66,9 @@ class DBManager
         while ($data = $req->fetch())
             $subscriptions[] = new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price'], $data['enable']);
 
+        if ($subscriptions == NULL)
+            return NULL;
+            
         return $subscriptions;
     }
 
@@ -78,9 +81,9 @@ class DBManager
 
         $data = $req->fetch();
 
-        if ($data == NULL) {
+        if ($data == NULL)
             return NULL;
-        }
+
         return new SubscriptionType($data['typeId'], $data['typeName'], $data['openDays'], $data['openTime'], $data['closeTime'], $data['serviceTimeAmount'], $data['price'], $data['enable']);
     }
 
@@ -167,27 +170,28 @@ class DBManager
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     public function getCustomer($customerId)
     {
-        $customerId = (int) $customerId;
-        $q = $this->db->query('SELECT * FROM Customer WHERE customerId = ' . $customerId . '');
+        $q = "SELECT * FROM Customer WHERE customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$customerId]);
+        $data = $req->fetch();
 
-        $data = $q->fetch();
+        if ($data == NULL)
+            return NULL;
 
-        if ($data == NULL) {
-            header('Location: customers.php');
-            exit;
-        }
         return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
     }
 
     public function getCustomerList()
     {
         $users = [];
-
-        $q = $this->db->query('SELECT * FROM Customer ORDER BY enable DESC, lastName');
-
-        while ($data = $q->fetch()) {
+        $q = "SELECT * FROM Customer ORDER BY enable DESC, lastName";
+        $req = $this->db->prepare($q);
+        $req->execute();
+        while ($data = $req->fetch())
             $users[] = new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
-        }
+
+        if ($users == NULL)
+            return NULL;
 
         return $users;
     }
