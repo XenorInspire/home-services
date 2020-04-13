@@ -299,13 +299,14 @@ class DBManager
         ));
     }
 
-    function getReservationsFromDate($date)
-    {
-        $q = $this->db->query("SELECT customerId,serviceProvidedId FROM Reservation WHERE reservationDate = '" . $date . "'");
+    function getReservationsFromDate($date) {
+      $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ?";
+      $req = $this->db->prepare($q);
+      $req->execute([$date]);
 
-        $data = $q->fetch();
+      //$data = $q->fetch();
 
-        return $data;
+      return $req;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -633,6 +634,15 @@ class DBManager
             'password' => $password,
             'id' => $id
         ));
+    }
+
+    public function getAssociateFromServiceProvided($serviceProvidedId) {
+      $q = "SELECT associateId FROM Proposal where serviceProvidedId=?";
+      $req = $this->db->prepare($q);
+      $req->execute([$serviceProvidedId]);
+      $res = $req->fetch();
+      $associate = $this->getAssociate($res['associateId']);
+      return $associate;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

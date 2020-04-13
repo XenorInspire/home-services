@@ -122,9 +122,13 @@ function getServices(d) {
   let day;
   let year = document.getElementsByClassName('month')[0].innerHTML;
   let request = new XMLHttpRequest;
-  let rep;
   let json;
   let monthIndex = ['JANVIER', 'FÉVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AÔUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DÉCEMBRE'];
+  let body = document.getElementsByTagName('body')[0];
+  let newDiv = document.createElement('div');
+  let rep;
+
+  body.appendChild(newDiv);
 
   space = space.indexOf(' ');
   month = month.substring(0, space);
@@ -135,7 +139,7 @@ function getServices(d) {
   console.log(month);
   console.log(year);
 
-  for(let i = 0; i < par.length; i++) {
+  for (let i = 0; i < par.length; i++) {
     if (par[i] === d) day = i + 1;
   }
 
@@ -144,16 +148,12 @@ function getServices(d) {
   request.open('POST', "get_reservations.php");
   request.onreadystatechange = function() {
       if (request.readyState === 4) {
-          rep = JSON.parse(request.responseText);
+          rep = request.responseText;
+          body.innerHTML += '<div>' + rep + '</div>';
       }
   }
 
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send("date=" + year + "-" + month + "-" + day);
-
-  console.log("date=" + year + "-" + month + "-" + day);
-
-
-  console.log(rep.customerId);
 
 }
