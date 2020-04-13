@@ -312,16 +312,19 @@ class DBManager
 * * * * * * * * * * * * * * * * * SERVICE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-    //Service
+    //Add the service
     public function addService(Service $service)
     {
         $servTitle = $service->getServiceTitle();
-        $q = $this->db->query("SELECT serviceTitle FROM Service WHERE serviceTitle = '" . $servTitle . "'");
 
-        $data = $q->fetch();
+        $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$servTitle]);
+        $data = $req->fetch();
 
         if ($data != NULL) {
-            header('Location: create_service.php?serviceTypeId=' . base64_encode($service->getServiceTypeId()) . '&error=name_taken');
+            $url = "create_service.php?serviceTypeId=" . $service->getServiceTypeId() . "&error=name_taken";
+            header('Location: ' . $url);
             exit;
         } else {
             $q = "INSERT INTO Service(serviceId,serviceTypeId,serviceTitle,description,recurrence,timeMin,servicePrice,commission) VALUES (:serviceId,:serviceTypeId,:serviceTitle,:description,:recurrence,:timeMin,:servicePrice,:commission)";
@@ -340,19 +343,22 @@ class DBManager
         }
     }
 
+    //Update the service
     public function updateService(Service $service)
     {
         $serviceTitle = $service->getServiceTitle();
-        $q = $this->db->query("SELECT serviceTitle FROM Service WHERE serviceTitle = '" . $serviceTitle . "'");
 
-        $data = $q->fetch();
+        $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceTitle]);
+        $data = $req->fetch();
 
-        if ($data != NULL && $data['serviceTitle'] != $service->getServiceTitle()) {
+        if ($data != NULL && $data['serviceId'] != $service->getServiceId()) {
             header('Location: edit_service.php?error=name_taken&id=' . $service->getServiceId());
             exit;
         } else {
             $id = $service->getServiceId();
-            $q = "UPDATE Service SET serviceTitle=:serviceTitle,description=:description,recurrence=:recurrence,timeMin=:timeMin,servicePrice=:servicePrice,commission=:commission WHERE serviceId='" . $id . "'";
+            $q = "UPDATE Service SET serviceTitle=:serviceTitle,description=:description,recurrence=:recurrence,timeMin=:timeMin,servicePrice=:servicePrice,commission=:commission WHERE serviceId=:id";
             $req = $this->db->prepare($q);
             $req->execute(array(
                 'serviceTitle' => $service->getServiceTitle(),
@@ -360,54 +366,66 @@ class DBManager
                 'recurrence' => $service->getRecurrence(),
                 'timeMin' => $service->getTimeMin(),
                 'servicePrice' => $service->getServicePrice(),
-                'commission' => $service->getCommission()
+                'commission' => $service->getCommission(),
+                'id' => $id
             ));
         }
     }
 
-
+    //Get the service
     public function getService($serviceId)
     {
-        $serviceId = (int) $serviceId;
-        $q = $this->db->query('SELECT * FROM Service WHERE serviceId = ' . $serviceId . '');
+        $q = "SELECT * FROM Service WHERE serviceId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceId]);
+        $data = $req->fetch();
 
-        $data = $q->fetch();
-
-        if ($data == NULL) {
-            header('Location: reservations.php');
-            exit;
-        }
+        if ($data == NULL)
+            return NULL;
         return new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
     }
 
+    //Delete the service
     public function deleteService($serviceId)
     {
-        $this->db->exec("DELETE FROM Service WHERE serviceId = '" . $serviceId . "'");
+        $q = "DELETE FROM Service WHERE serviceId =  ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceId]);
+
+        $q = "DELETE FROM AssociateServices WHERE serviceId =  ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceId]);
+
+        return 1;
     }
 
+    //Get all the service by service type
     public function getServiceListByType($serviceTypeId)
     {
         $services = [];
-        $serviceTypeId = (int) $serviceTypeId;
-        $q = $this->db->query('SELECT * FROM Service WHERE serviceTypeId = ' . $serviceTypeId . '');
 
-        while ($data = $q->fetch()) {
+        $q = "SELECT * FROM Service WHERE serviceTypeId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceTypeId]);
+
+        while ($data = $req->fetch())
             $services[] = new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
-        }
 
         return $services;
     }
 
+    //Add the service type
     public function addServiceType(ServiceType $service)
     {
+        $typeName = $service->getTypeName();
 
-        $subName = $service->getTypeName();
-        $q = $this->db->query("SELECT typeName FROM ServiceType WHERE typeName = '" . $subName . "'");
-
-        $data = $q->fetch();
+        $q = "SELECT typeName FROM ServiceType WHERE typeName = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$typeName]);
+        $data = $req->fetch();
 
         if ($data != NULL) {
-            header('Location: add_service_type.php?error=name_taken');
+            header('Location: create_service_type.php?error=name_taken');
             exit;
         } else {
             $q = "INSERT INTO ServiceType(serviceTypeId,typeName) VALUES (:serviceTypeId,:typeName)";
@@ -419,67 +437,81 @@ class DBManager
         }
     }
 
+    //Get the service type
     public function getServiceType($typeId)
     {
-        $q = $this->db->query('SELECT serviceTypeId,typeName FROM ServiceType WHERE serviceTypeId = "' . $typeId . '"');
-        $data = $q->fetch();
+        $q = "SELECT serviceTypeId,typeName FROM ServiceType WHERE serviceTypeId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$typeId]);
+        $data = $req->fetch();
 
-        if ($data == NULL) {
-            header('Location: service_type.php');
-            exit;
-        }
+        if ($data == NULL)
+            return NULL;
+
         return new ServiceType($data['serviceTypeId'], $data['typeName']);
     }
 
+    //Get all the service types
     public function getServiceTypeList()
     {
         $serviceTypes = [];
 
-        $q = $this->db->query('SELECT * FROM ServiceType ORDER BY typeName');
-
-        while ($data = $q->fetch()) {
+        $q = "SELECT * FROM ServiceType ORDER BY typeName";
+        $req = $this->db->prepare($q);
+        $req->execute();
+        while ($data = $req->fetch())
             $serviceTypes[] = new ServiceType($data["serviceTypeId"], $data["typeName"]);
-        }
+
+        if ($serviceTypes == NULL)
+            return NULL;
 
         return $serviceTypes;
     }
 
+    //Update the service type
     public function updateServiceType(ServiceType $service)
     {
-        $subName = $service->getTypeName();
-        $q = $this->db->query("SELECT typeName FROM ServiceType WHERE typeName = '" . $subName . "'");
+        $typeName = $service->getTypeName();
 
-        $data = $q->fetch();
+        $q = "SELECT typeName FROM ServiceType WHERE typeName = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$typeName]);
+        $data = $req->fetch();
 
-        if ($data != NULL && $data['typeName'] != $service->getTypeName()) {
+        if ($data != NULL && $data['serviceTypeId'] != $service->getServiceTypeId()) {
             header('Location: edit_service_type.php?error=name_taken&id=' . $service->getServiceTypeId());
             exit;
         } else {
             $id = $service->getServiceTypeId();
-            $q = "UPDATE ServiceType SET typeName=:typeName WHERE serviceTypeId='" . $id . "'";
+            $q = "UPDATE ServiceType SET typeName=:typeName WHERE serviceTypeId=:id";
             $req = $this->db->prepare($q);
             $req->execute(array(
-                'typeName' => $service->getTypeName()
+                'typeName' => $service->getTypeName(),
+                'id' => $id
             ));
         }
     }
 
+    //Delete service type
     public function deleteServiceType($typeId)
     {
-        $this->db->exec("DELETE FROM ServiceType WHERE serviceTypeId = '" . $typeId . "'");
+        $q = "DELETE FROM ServiceType WHERE serviceTypeId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$typeId]);
     }
 
     //AssociateServices get associate with the service id
     public function getAssociateServicesList($serviceId)
     {
-
         $associatesId = [];
 
-        $q = $this->db->query('SELECT * FROM AssociateServices WHERE serviceId = ' . $serviceId . '');
+        $q = "SELECT * FROM AssociateServices WHERE serviceId =";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceId]);
 
-        while ($data = $q->fetch()) {
+        while ($data = $req->fetch())
             $associatesId[] = new AssociateServices($data['serviceId'], $data['associateId']);
-        }
+
 
         $associates = [];
         foreach ($associatesId as $associateId) {
@@ -489,16 +521,18 @@ class DBManager
         return $associates;
     }
 
+    //Get additional price
     public function getAdditionalPrice($serviceProvidedId)
     {
-        $serviceProvidedId = (int) $serviceProvidedId;
         $additionalPrices = [];
-        $q = $this->db->query('SELECT * FROM AdditionalPrice WHERE serviceProvidedId = ' . $serviceProvidedId . '');
 
-        while ($data = $q->fetch()) {
+        $q = "SELECT * FROM AdditionalPrice WHERE serviceProvidedId =";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
+
+        while ($data = $req->fetch())
             $additionalPrices[] = new AdditionalPrice($data['additionalPriceId'], $data['serviceProvidedId'], $data['description'], $data['price']);
-        }
-
+        
         return $additionalPrices;
     }
 
