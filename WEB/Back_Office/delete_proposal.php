@@ -3,12 +3,12 @@ require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
 isset($_GET['associateId']);
-isset($_GET['serviceId']);
+isset($_GET['serviceProvidedId']);
 
 $associateId = $_GET['associateId'];
-$serviceId = $_GET['serviceId'];
+$serviceProvidedId = $_GET['serviceProvidedId'];
 
-$hm_database->deleteAssociateService($serviceId, $associateId);
+$hm_database->deleteProposal($associateId, $serviceProvidedId);
 $associate = $hm_database->getAssociate($associateId);
 
 system('python3 mail/mail.py cancel_proposal ' . $associate->getEmail() . ' ' . $associate->getAssociateId());

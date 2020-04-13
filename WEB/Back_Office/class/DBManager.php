@@ -505,7 +505,7 @@ class DBManager
     {
         $associatesId = [];
 
-        $q = "SELECT * FROM AssociateServices WHERE serviceId =";
+        $q = "SELECT * FROM AssociateServices WHERE serviceId =?";
         $req = $this->db->prepare($q);
         $req->execute([$serviceId]);
 
@@ -526,7 +526,7 @@ class DBManager
     {
         $additionalPrices = [];
 
-        $q = "SELECT * FROM AdditionalPrice WHERE serviceProvidedId =";
+        $q = "SELECT * FROM AdditionalPrice WHERE serviceProvidedId =?";
         $req = $this->db->prepare($q);
         $req->execute([$serviceProvidedId]);
 
@@ -614,7 +614,6 @@ class DBManager
     //Delete the service of the associate
     public function deleteAssociateService($serviceId, $associateId)
     {
-        $this->db->exec("DELETE FROM AssociateServices WHERE associateId = '" . $associateId . "'" . "AND serviceId = '" . $serviceId . "'");
         $q = "DELETE FROM AssociateServices WHERE associateId = :associateId AND serviceId = :serviceId ";
         $req = $this->db->prepare($q);
         $req->execute(
@@ -642,47 +641,53 @@ class DBManager
 
     public function getProposal($serviceProvidedId)
     {
-        $serviceProvidedId = (int) $serviceProvidedId;
-        $q = $this->db->query('SELECT * FROM Proposal WHERE serviceProvidedId = ' . $serviceProvidedId . '');
+        $q = "SELECT * FROM Proposal WHERE serviceProvidedId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
+        $data = $req->fetch();
 
-        $data = $q->fetch();
-
-        if ($data == NULL) {
+        if ($data == NULL)
             return NULL;
-        } else {
+        else
             return new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
-        }
     }
 
     public function deleteProposal($associateId, $serviceProvidedId)
     {
-        $this->db->exec("DELETE FROM Proposal WHERE associateId = '" . $associateId . "'" . "AND serviceProvidedId = '" . $serviceProvidedId . "'");
+        $q = "DELETE FROM Proposal WHERE associateId = :associateId AND serviceProvidedId = :serviceProvidedId";
+        $req = $this->db->prepare($q);
+        $req->execute([
+            'associateId' => $associateId,
+            'serviceProvidedId' => $serviceProvidedId
+        ]);
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * BILL PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+    //Get all the bills
     public function getBillList()
     {
-
         $bills = [];
+        $q = "SELECT * FROM Bill ORDER BY billId";
+        $req = $this->db->prepare($q);
+        $req->execute();
 
-        $q = $this->db->query('SELECT * FROM Bill ORDER BY billId');
-
-        while ($data = $q->fetch()) {
+        while ($data = $req->fetch())
             $bills[] = new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
-        }
 
         return $bills;
     }
 
     public function getBill($billId)
     {
-        $billId = (int) $billId;
-        $q = $this->db->query('SELECT * FROM Bill WHERE billId = ' . $billId . '');
+        $q = "SELECT * FROM Bill WHERE billId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$billId]);
+        $data = $req->fetch();
 
-        $data = $q->fetch();
+        if ($data == NULL)
+            return NULL;
 
         return new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
     }
