@@ -38,8 +38,13 @@ if (isset($id)) {
         }
     } else {
 
-        //check associate identity
+        if (($associate = $hm_database->getAssociateById($id)) != NULL && $hm_database->doesAssociateAccountIsActivated($id) == 1) {
 
+            $connected = 1;
+        } else {
+
+            $connected = 0;
+        }
     }
 } else {
 

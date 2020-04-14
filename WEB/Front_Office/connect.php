@@ -7,6 +7,24 @@ if ($connected == 1) {
 	exit;
 }
 
+if (!isset($_GET['status']) || empty(trim($_GET['status']))) {
+
+	header('Location: connect.php?status=customer');
+	exit;
+}
+
+if ($_GET['status'] == "customer") {
+
+	$connect_status = 1;
+} elseif ($_GET['status'] == "associate") {
+
+	$connect_status = 0;
+} else {
+
+	header('Location: connect.php?status=customer');
+	exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +33,8 @@ if ($connected == 1) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home Services - Connexion client</title>
+	<title>Home Services - Connexion <?php if ($connect_status == 1) echo "Client";
+										else echo "Prestataire"; ?></title>
 	<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -31,7 +50,8 @@ if ($connected == 1) {
 			<br>
 			<br>
 			<br>
-			<h1 style="text-align: center;">Connexion</h1>
+			<h1 style="text-align: center;">Connexion - Espace <?php if ($connect_status == 1) echo "client";
+																else echo "prestataire"; ?></h1>
 
 			<?php
 
@@ -58,7 +78,7 @@ if ($connected == 1) {
 				if ($_GET['error'] == 'acc_dis') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte client n\'est pas activé</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte n\'est pas encore activé</div>';
 				}
 
 				if ($_GET['error'] == 'forb') {
@@ -68,19 +88,36 @@ if ($connected == 1) {
 				}
 			}
 
+			if (isset($_GET['info'])) {
+
+				if ($_GET['info'] == 'first_connect') {
+
+					echo '<br>';
+					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer le mot de passe communiqué par mail ainsi que votre adresse mail</div>';
+				}
+
+				if ($_GET['info'] == 'dis') {
+
+					echo '<br>';
+					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre compte a bien été désactivé.</div>';
+				}
+			}
+
 			?>
 
 			<br>
-			<form action="valid_customer_connect.php" method="POST">
+			<form action="<?php if ($connect_status == 1) echo "valid_customer_connect.php";
+							else echo "valid_associate_connect.php"; ?>" method="POST">
 				<div class="form-group">
 					<label>Adresse mail</label>
-					<input onchange="check_mail_connection()" type="email" name="mail" class="form-control" placeholder="Enter email" autocomplete="email" maxlength="255" required>
+					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="Entez votre email" autocomplete="email" maxlength="255" required>
 					<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
 				</div>
 				<div class="form-group">
 					<label>Mot de passe</label>
 					<input type="password" id="password_length" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
-					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="">Cliquez ici</a></u></i></small>
+					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="passwd_forgotten.php?status=<?php if ($connect_status == 1) echo "customer";
+																																						else echo "associate"; ?>">Cliquez ici</a></u></i></small>
 				</div>
 				<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
 			</form>
@@ -89,7 +126,7 @@ if ($connected == 1) {
 	</main>
 
 	<?php require_once("include/footer.php"); ?>
-	<script src="js/ajax_customer.js"></script>
+	<script src="js/ajax_mail.js"></script>
 
 </body>
 

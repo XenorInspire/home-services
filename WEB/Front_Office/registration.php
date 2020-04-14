@@ -163,7 +163,7 @@
 
 		<?php require_once("include/footer.php"); ?>
 		<script src="js/password.js"></script>
-		<script src="js/ajax_customer.js"></script>
+		<script src="js/ajax_mail.js"></script>
 
 	</body>
 

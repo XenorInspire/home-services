@@ -1,13 +1,7 @@
  <?php
-    if (!isset($_GET['s']) || empty($_GET['s'])) {
+    if (!isset($_GET['sp']) || empty($_GET['sp'])) {
 
-        header('Location: shop.php');
-        exit;
-    }
-
-    if (!is_numeric($_GET['s'])) {
-
-        header('Location: shop.php');
+        header('Location: orders.php');
         exit;
     }
 
@@ -20,36 +14,31 @@
 
     $hm_database = new DBManager($bdd);
 
-    if ($hm_database->checkSubscription($id) != NULL) {
+    if (($serviceProvided = $hm_database->getServiceProvided($_GET['sp'])) == NULL) {
 
-        header('Location: shop.php?err=alr');
+        header('Location: orders.php');
         exit;
     }
 
-    $subscriptionType = $hm_database->getSubscriptionTypeById($_GET['s']);
-    if ($subscriptionType == NULL) {
+    if (($result = $hm_database->checkBill($_GET['sp'])) == NULL) {
 
-        header('Location: shop.php');
+        header('Location: orders.php?error=nr');
         exit;
     }
 
-    if ($hm_database->checkEnableSubscriptionType($subscriptionType->getTypeId()) == NULL) {
-
-        header('Location: shop.php?err=na');
-        exit;
-    }
+    $service = $hm_database->getService($serviceProvided->getServiceId());
 
     require_once('stripe-php-master/init.php');
     \Stripe\Stripe::setApiKey('sk_test_do0SvWS6wTl1fj8ZorABYc7f00nVz5JTWp');
     $customer = \Stripe\Customer::create();
 
     $intent = \Stripe\PaymentIntent::create([
-        'amount' => $subscriptionType->getPrice() * 100,
+        'amount' => $result['totalPrice'] * 100,
         'currency' => 'eur',
         'customer' => $customer->id,
     ]);
-    sscanf($subscriptionType->getBeginTime(), "%d:%s", $time1, $trash);
-    sscanf($subscriptionType->getEndTime(), "%d:%s", $time2, $trash);
+
+    $parts = explode(".", $serviceProvided->getBeginHour());
 
     ?>
 
@@ -59,13 +48,13 @@
  <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Home Services - Boutique</title>
+     <title>Home Services - Paiement du service</title>
      <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
      <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/bootstrap.min.css">
  </head>
 
- <body onload="load_stripe(1)">
+ <body onload="load_stripe(2)">
 
      <?php require_once("include/header.php"); ?>
 
@@ -75,34 +64,14 @@
 
          <section id="subscription_block" class="container text-center">
              <br>
-             <h2>Abonnement <?php echo $subscriptionType->getTypeName(); ?></h2>
+             <h2>Service : <?= $service->getServiceTitle() ?></h2>
              <br>
              <ul style="margin:auto;width:50%;padding:0px;">
-                 <li class="list-group-item list-group-item-info">Plus d'informations :</li>
-                 <li class="list-group-item"><?php echo $subscriptionType->getDays(); ?> jours par semaine</li>
-                 <?php
-
-                    if ($time1 == 24 && $time2 == 24) {
-
-                    ?>
-
-                     <li class="list-group-item">24h sur 24 !</li>
-
-                 <?php
-
-                    } else {
-
-                    ?>
-                     <li class="list-group-item">De <?php echo $time1; ?>h à <?php echo $time2; ?>h</li>
-
-                 <?php
-
-                    }
-
-                    ?>
-
-                 <li class="list-group-item">Avec un maximum de <?php echo $subscriptionType->getServiceTime(); ?>h par mois !</li>
-                 <li class="list-group-item">Prix : <?php echo $subscriptionType->getPrice(); ?>€ TTC/an</li>
+                 <li class="list-group-item list-group-item-info"><?= $service->getDescription() ?></li>
+                 <li class="list-group-item"><?= $serviceProvided->getHours() ?>h de prestation</li>
+                 <li class="list-group-item">Fais le <?= $serviceProvided->getDate() ?></li>
+                 <li class="list-group-item">A <?= $parts[0] ?></li>
+                 <li class="list-group-item">Prix : <?= $result['totalPrice'] ?>€ TTC</li>
              </ul>
              <br>
              <h3>Paiement</h3>
@@ -131,7 +100,7 @@
      <script src="js/stripe.js"></script>
      <script src="https://js.stripe.com/v3/"></script>
      <script>
-         allocate("<?php echo $id; ?>", "<?php echo $_GET['s']; ?>");
+         sp("<?php echo $id; ?>", "<?php echo $_GET['sp']; ?>");
      </script>
 
  </body>

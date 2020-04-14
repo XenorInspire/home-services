@@ -28,13 +28,34 @@
 				<?php
 				if (isset($_GET['err'])) {
 
-
 					if ($_GET['err'] == 'alr') {
 
 						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous possédez déjà un abonnement, si vous voulez changer d\'abonnement vous devez tout d\'abord le résilier.</div>';
 						echo '<br>';
 					}
+
+					if ($_GET['err'] == 'inp') {
+
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Une erreur s\'est produite durant le processus de paiement.</div>';
+						echo '<br>';
+					}
+
+					if ($_GET['err'] == 'na') {
+
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cet abonnement n\'est plus disponible.</div>';
+						echo '<br>';
+					}
 				}
+
+				if (isset($_GET['info'])) {
+
+					if ($_GET['info'] == 'success') {
+
+						echo '<div class="alert alert-success alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre réservation a bien été enregistrée !</div>';
+						echo '<br>';
+					}
+				}
+
 				?>
 				<?php
 
@@ -88,11 +109,50 @@
 
 				}
 
-
 				?>
 
+			</section>
 
+			<section class="container text-center">
+				<br>
+				<h1>Services Récurrents</h1>
+				<br>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Catégorie</th>
+							<th scope="col">Service</th>
+							<th scope="col">Prix</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
 
+						<?php
+
+						$services = $hm_database->getRecurringServices();
+
+						for ($i = 0; $i < count($services); $i++) { ?>
+
+							<tr>
+								<td><?= $hm_database->getServiceType($services[$i]->getServiceTypeId())->getTypeName() ?></td>
+								<td><?= $services[$i]->getServiceTitle() ?></td>
+								<td><?= $services[$i]->getServicePrice() ?>€/h</td>
+								<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'book_service.php?i=<?= $services[$i]->getServiceId() ?>';">Réserver</button></td>
+							</tr>
+
+						<?php
+						}
+
+						?>
+
+					</tbody>
+				</table>
+				<br>
+				<button type="button" onclick="window.location.href = 'all_services.php';" class="btn btn-lg btn-primary">Tous les services</button>
+				<br>
+				<br>
+				<br>
 			</section>
 
 		</main>
