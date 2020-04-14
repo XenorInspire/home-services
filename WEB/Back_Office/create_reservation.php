@@ -2,7 +2,13 @@
 require_once('class/DBManager.php');
 
 $hm_database = new DBManager($bdd);
-$customerId = isset($_GET['customerId']);
+
+if (!isset($_GET['customerId']) || empty($_GET['customerId'])) {
+    header('Location: customers.php');
+    exit;
+}
+
+$customerId = $_GET['customerId'];
 $servicesType = $hm_database->getServiceTypeList();
 $user = $hm_database->getCustomer($customerId);
 
@@ -29,8 +35,9 @@ $user = $hm_database->getCustomer($customerId);
             <div class="jumbotron">
                 <div class="display-4 text-center">Réservation d'un service</div>
                 <?php
-                // if (isset($_GET['error']) == "name_tasken") {
-                //     echo '<div class="alert alert-danger text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Ce nom a déjà été utilisé</div>';
+
+                // if (isset($_GET['delete']) == "successful") {
+                //     echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été retiré</div>';
                 // }
                 ?>
                 <br>
@@ -58,15 +65,15 @@ $user = $hm_database->getCustomer($customerId);
 
                     <div class="form-group">
                         <label>Date de la prestation</label>
-                        <input type="date" name="date" class="form-control" placeholder="" required>
+                        <input type="date" name="date" class="form-control" placeholder="" min="<?= date('Y-m-d') ?>" required>
                     </div>
                     <div class="form-group">
                         <label>Heure de la prestation</label>
                         <input type="time" name="beginHour" class="form-control" placeholder="" required>
                     </div>
                     <div class="form-group">
-                        <label>Nombre d'heures</label>
-                        <input type="number" name="hours" class="form-control" placeholder="" required>
+                        <label>Nombre d'heures souhaitées</label>
+                        <input type="number" name="hours" class="form-control" placeholder="" min="0" required>
                     </div>
 
                     <div class="row">

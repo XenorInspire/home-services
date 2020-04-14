@@ -5,6 +5,11 @@ $hm_database = new DBManager($bdd);
 isset($_GET['id']);
 $sub = $hm_database->getSubscriptionType($_GET['id']);
 
+if ($sub->getEnable() == 1) {
+    $url = 'desactivate';
+} else {
+    $url = 'delete';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -25,7 +30,21 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
     <main>
         <br>
         <div class="container-fluid">
-            <div class="display-4 text-center">Modification de l'abonnement : <?= $sub->getTypeName() ?></div>
+            <div class="display-4 text-center">
+                Etat :
+                <?php
+                if ($sub->getEnable() == 1) {
+                    echo 'Activé';
+                } elseif ($sub->getEnable() == 2) {
+                    echo 'Non-activé';
+                } else {
+                    echo 'Désactivé';
+                }
+                ?>
+            </div>
+
+            <div class="display-4 text-center">
+                Modification de l'abonnement : <?= $sub->getTypeName() ?></div>
             <?php
             if (isset($_GET['error']) == "name_tasken") {
                 echo '<div class="alert alert-danger text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Ce nom a déjà été utilisé</div>';
@@ -33,7 +52,7 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
             ?>
             <hr>
             <div class="jumbotron">
-                <form action="valid_edit_service.php" method="POST">
+                <form action="valid_edit_subscription.php" method="POST">
                     <div class="form-group">
                         <label>Nom de l'abonnement</label>
                         <input type="text" name="typeName" class="form-control" maxlength="255" value="<?= $sub->getTypeName() ?>" required>
@@ -44,7 +63,7 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                         <small class="form-text text-muted">Exemple : 5j/7</small>
                     </div>
                     <div class="form-group">
-                        <label>Horaire de debut des services</label>
+                        <label>Horaire de début des services</label>
                         <?php
                         $input = $sub->getOpenTime();
                         $output = explode(":", $input);
@@ -64,7 +83,7 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                         <input type="number" class="form-control" value="<?= $sub->getServiceTimeAmount() ?>" min="0" name="serviceTimeAmount" required>
                     </div>
                     <div class="form-group">
-                        <label>Montant de l'abonnement en <strong>euros / an</strong></label>
+                        <label>Montant de l'abonnement en <strong>€ / an</strong></label>
                         <input type="number" class="form-control" value="<?= $sub->getPrice() ?>" min="0" name="price" step="0.01" required>
                     </div>
 
@@ -75,12 +94,54 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                             <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Enregistrer les modifications</a></div>
                         </div>
                         <div class="col-md mb-3">
-                            <div class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">Supprimer l'abonnement</a></div>
+                            <div class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#modalDelete"><img src="https://img.icons8.com/color/24/000000/delete-sign.png">
+                                <?php
+                                if ($sub->getEnable() == 1) {
+                                    echo 'Désactiver l\'abonnement';
+                                } else {
+                                    echo 'Supprimer l\'abonnement';
+                                }
+                                ?>
+                                </a></div>
                         </div>
                         <div class="col-md mb-3">
                             <div class="text-center btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
                         </div>
                     </div>
+                    <?php
+
+                    if ($sub->getEnable() != 1) { ?>
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 mb-3">
+                                <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalActivate"><img src="https://img.icons8.com/color/24/000000/checkmark.png">Activer l'abonnement</a></div>
+                            </div>
+                        </div>
+
+                        <!-- Modal for saving -->
+                        <div class="modal fade" id="modalActivate">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Activation de l'abonnement : <?= $sub->getTypeName() ?></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        Voulez-vous activer cet abonnement ?
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <a class="btn btn-outline-success" href="activate_subscription.php?id=<?= $sub->getTypeId() ?>">Activer</a>
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php }
+                    ?>
 
                     <!-- Modal for saving -->
                     <div class="modal fade" id="modalSave">
@@ -110,17 +171,33 @@ $sub = $hm_database->getSubscriptionType($_GET['id']);
                             <div class="modal-content">
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Suppression de l'abonnement : <?= $sub->getTypeName() ?></h4>
+                                    <h4 class="modal-title"> <?php
+                                                                if ($sub->getEnable() == 1) {
+                                                                    echo 'Désactivation de l\'abonnement : ';
+                                                                } else {
+                                                                    echo 'Suppression de l\'abonnement : ';
+                                                                }
+                                                                ?> <?= $sub->getTypeName() ?></h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    Etes-vous certain de supprimer cet abonnement ?
+                                    <?php
+                                    if ($sub->getEnable() == 1)
+                                        echo 'Etes-vous certain de désactiver cet abonnement ?';
+                                    else
+                                        echo 'Etes-vous certain de supprimer cet abonnement ?';
+                                    ?>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <a class="" href="delete_subscription.php?id=<?= $_GET['id'] ?>">
-                                        <div class="btn btn-outline-danger">Supprimer l'abonnement</div>
+                                    <a class="" href="<?= $url ?>_subscription.php?id=<?= $_GET['id'] ?>">
+                                        <div class="btn btn-outline-danger"> <?php
+                                                                                if ($sub->getEnable() == 1) {
+                                                                                    echo 'Désactiver l\'abonnement';
+                                                                                } else {
+                                                                                    echo 'Supprimer l\'abonnement';
+                                                                                } ?></div>
                                     </a>
                                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
                                 </div>

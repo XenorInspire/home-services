@@ -14,7 +14,7 @@ if (
 
     $serviceTitle = $_POST['serviceTitle'];
     $description = $_POST['description'];
-    $recurrence = $_POST['recurrence']; 
+    $recurrence = $_POST['recurrence'];
     $timeMin = $_POST['timeMin'];
     $servicePrice = $_POST['servicePrice'];
     $commission = $_POST['commission'];
@@ -22,16 +22,16 @@ if (
 
     date_default_timezone_set('Europe/Paris');
     $serviceId = hash('sha256', $serviceTitle . $serviceTypeId . date('dMY-H:m:s'));
-    
+
     $service = new Service($serviceId, $serviceTypeId, $serviceTitle, $description, $recurrence, $timeMin, $servicePrice, $commission);
 
     $hm_database->addService($service);
 
-    echo $service;
-    header('Location: services.php?serviceTypeId=' . base64_encode($serviceTypeId) . '&create=successful');
+    $url = "services.php?serviceTypeId=" . $serviceTypeId . "&create=successful";
+    header('Location: ' . $url);
     exit;
 } else {
-
-    header('Location: services.php?serviceTypeId=' . base64_encode($serviceTypeId) . '&error=inputs_inv');
+    $url = "services.php?serviceTypeId=" . $serviceTypeId . "&error=inputs_inv";
+    header('Location: ' . $url);
     exit;
 }

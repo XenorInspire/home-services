@@ -15,7 +15,7 @@ if (
 
     $hm_database = new DBManager($bdd);
 
-    $subscription = new SubscriptionType($_POST['id'], $_POST['typeName'], $_POST['openDays'], $_POST['openTime'], $_POST['closeTime'], $_POST['serviceTimeAmount'], $_POST['price']);
+    $subscription = new SubscriptionType($_POST['id'], $_POST['typeName'], $_POST['openDays'], $_POST['openTime'], $_POST['closeTime'], $_POST['serviceTimeAmount'], $_POST['price'], NULL);
 
     $hm_database->updateSubscriptionType($subscription);
 

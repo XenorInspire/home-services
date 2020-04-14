@@ -27,12 +27,11 @@ if (
 
     $hm_database->updateService($service);
 
-    echo $service;
-    header('Location: services.php?serviceTypeId=' . base64_encode($service->getServiceTypeId()) . '&create=successful');
+    $url = "services.php?serviceTypeId=" . $service->getServiceTypeId() . "&edit=successful";
+    header('Location: ' . $url);
     exit;
 } else {
-
-    header('Location: services.php?serviceTypeId=' . base64_encode($service->getServiceTypeId()) . '&error=inputs_inv');
-
+    $url = "services.php?serviceTypeId=" . $service->getServiceTypeId() . "&error=inputs_inv";
+    header('Location: ' . $url);
     exit;
 }

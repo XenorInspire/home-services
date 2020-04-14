@@ -1,73 +1,49 @@
-<!-- <header>
-	<nav id="navhm" class="navbar navbar-expand-md navbar-dark">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <img id="hm-logo" src="img/favicon.png" alt="logo">
-    <ul id="hm-home" class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="shop.php">Boutique</a>
-      </li>
-			<li class="nav-item"> 
-        <a class="nav-link" href="about_us.php">A propos</a>
-      </li>
-      <li id="hm-connect" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Connexion
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Espace client</a>
-          <a class="dropdown-item" href="#">Espace prestataire</a>
-        </div>
-      </li>
-      <li id="hm-regis" class="nav-item">
-        <a class="nav-link" href="registration.php">S'inscrire</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-</header> -->
+<?php require_once('include/lang.php'); ?>
 <br>
-<header class="container-fluid">
+<header class="container-fluid sticky-top">
   <nav id="navhm" class="navbar navbar-expand-md navbar-dark rounded">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="index.php">Accueil</a>
+          <a class="nav-link" href="index.php"><?= $nav['homepage'] ?></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="publications.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Gestion
+            <?= $nav['manage'] ?>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="customers.php">Espace Client</a>
+            <a class="dropdown-item" href="customers.php"><?= $nav['customers'] ?></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="advanced_research.php">Espace Prestataire</a>
+            <a class="dropdown-item" href="associates.php"><?= $nav['associates'] ?></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="subscriptions.php">Espace Abonnement</a>
+            <a class="dropdown-item" href="subscriptions.php"><?= $nav['subscriptions'] ?></a>
           </div>
         </li>
       </ul>
     </div>
-    <div class="mx-auto order-0">
-      <a class="navbar-brand nav_line" href="index.php"><img class="rounded" src="img/favicon.png" alt="logo" width="60"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <!-- <div class="mx-auto order-0"> -->
+    <a class="navbar-brand nav_line" href="index.php"><img class="rounded" src="img/favicon.png" alt="logo" width="60"></a>
+    <div class="navbar-toggler nav-link">
+      <div class="justify-content-center">
+        Home-Services
+      </div>
     </div>
+    <!-- </div> -->
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="reservations.php">Réservations</a>
+          <a class="nav-link" href="reservations.php"><?= $nav['reservations'] ?></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="service_types.php">Services</a>
+          <a class="nav-link" href="services_provided_bills.php"><?= $nav['servicesProvided'] ?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="service_types.php"><?= $nav['services'] ?></a>
         </li>
       </ul>
     </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </nav>
 </header>
