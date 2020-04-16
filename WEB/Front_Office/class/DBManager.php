@@ -688,10 +688,11 @@ class DBManager
 
   public function getAssociateById($associateId)
   {
-    $associateId = (int) $associateId;
-    $q = $this->db->query('SELECT * FROM Associate WHERE associateId = ' . $associateId . '');
+    $q = "SELECT * FROM Associate WHERE associateId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$associateId]);
 
-    $data = $q->fetch();
+    $data = $res->fetch();
 
     if ($data == NULL) {
       return NULL;
