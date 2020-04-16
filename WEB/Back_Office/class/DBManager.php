@@ -299,14 +299,15 @@ class DBManager
         ));
     }
 
-    function getReservationsFromDate($date) {
-      $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ?";
-      $req = $this->db->prepare($q);
-      $req->execute([$date]);
+    function getReservationsFromDate($date)
+    {
+        $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$date]);
 
-      //$data = $q->fetch();
+        //$data = $q->fetch();
 
-      return $req;
+        return $req;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -636,13 +637,14 @@ class DBManager
         ));
     }
 
-    public function getAssociateFromServiceProvided($serviceProvidedId) {
-      $q = "SELECT associateId FROM Proposal where serviceProvidedId=?";
-      $req = $this->db->prepare($q);
-      $req->execute([$serviceProvidedId]);
-      $res = $req->fetch();
-      $associate = $this->getAssociate($res['associateId']);
-      return $associate;
+    public function getAssociateFromServiceProvided($serviceProvidedId)
+    {
+        $q = "SELECT associateId FROM Proposal where serviceProvidedId=?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
+        $res = $req->fetch();
+        $associate = $this->getAssociate($res['associateId']);
+        return $associate;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -679,7 +681,7 @@ class DBManager
     public function getBillList()
     {
         $bills = [];
-        $q = "SELECT * FROM Bill ORDER BY billId";
+        $q = "SELECT * FROM Bill ORDER BY date DESC";
         $req = $this->db->prepare($q);
         $req->execute();
 
