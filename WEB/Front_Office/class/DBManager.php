@@ -676,7 +676,7 @@ class DBManager
       $proposals[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
     }
 
-    if ($proposals == NULL)
+    if ($data == NULL)
       return NULL;
 
     return $proposals;

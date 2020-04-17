@@ -68,16 +68,24 @@ $associateProposals = $hm_database->getAssociateProposal($_SESSION['associate'])
                             }
                         } ?>
                     </div><?php
+                        echo '<br>';
+                        echo '<br>';
                         }
-                        echo '<br>';
-                        echo '<br>';
                             ?>
 
-                <div class="display-4">Préstations actuelles</div>
+                <div class="display-4">
+                    <?php
+                    if($servicesProvided != NULL)
+                    echo 'Préstations actuelles';
+                    else
+                    echo 'Aucune prestastion actuellement';
+                    ?>
+                </div>
                 <hr>
                 <div class="card-columns">
                     <?php
                     $counter = 1;
+                    if($servicesProvided != NULL){
                     foreach ($servicesProvided as $serviceProvided) {
 
                         $service = $hm_database->getService($serviceProvided->getServiceId());
@@ -97,6 +105,7 @@ $associateProposals = $hm_database->getAssociateProposal($_SESSION['associate'])
                     <?php
                         $counter++;
                     }
+                }
                     ?>
                 </div>
             </div>
