@@ -1,4 +1,4 @@
-var cid;
+var aid;
 
 function enable() {
 
@@ -57,7 +57,7 @@ function validate() {
 
     let request = new XMLHttpRequest;
 
-    request.open('POST', 'update_customer_infos.php?mode=' + 1);
+    request.open('POST', 'update_associate_infos.php?mode=' + 1);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
 
@@ -82,7 +82,7 @@ function validate() {
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send("mail=" + mail + "&firstname=" + firstname + "&lastname=" + lastname + "&phone_number=" + phone_number + "&address=" + address + "&city=" + city + "&cid=" + cid);
+    request.send("mail=" + mail + "&firstname=" + firstname + "&lastname=" + lastname + "&phone_number=" + phone_number + "&address=" + address + "&city=" + city + "&aid=" + aid);
 
 }
 
@@ -170,7 +170,7 @@ function validatePasswd() {
 
     let request = new XMLHttpRequest;
 
-    request.open('POST', 'update_customer_infos.php?mode=' + 2);
+    request.open('POST', 'update_associate_infos.php?mode=' + 2);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
 
@@ -195,7 +195,7 @@ function validatePasswd() {
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send("old_password=" + old_password + "&new_password=" + new_password + "&new_password2=" + new_password2 + "&cid=" + cid);
+    request.send("old_password=" + old_password + "&new_password=" + new_password + "&new_password2=" + new_password2 + "&aid=" + aid);
 
 
 }
@@ -230,8 +230,8 @@ function cancelPasswd() {
 
 }
 
-function allocate(htmlCid) {
+function allocate(htmlAid) {
 
-    cid = htmlCid;
+    aid = htmlAid;
 
 }
