@@ -31,7 +31,7 @@
          <br>
          <section class="container text-center">
              <div id="button" class="btn btn-dark" onclick="generateQrcode(); setTimeout(link, 1000);">Regénérer mon QRcode</div>
-             <input id="text" type="hidden" value="<?= $_SESSION['associate'] ?>">
+             <input id="text" type="hidden" value="<?= $id ?>">
              <br>
              <br>
              <div class="container text-center">
@@ -46,15 +46,13 @@
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Nom</span>
-                     </div>
-                     <!--
+                     </div><!--
                   --><input type="text" name="lastname" class="form-control inputs_account" value="<?php echo $associate->getLastname(); ?>" disabled>
                  </div>
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Prénom</span>
-                     </div>
-                     <!--
+                     </div><!--
                   --><input type="text" name="firstname" class="form-control inputs_account" value="<?php echo $associate->getFirstname(); ?>" disabled>
                  </div>
              </div>
@@ -63,15 +61,13 @@
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">@</span>
-                     </div>
-                     <!--
+                     </div><!--
                   --><input style="width: 79% !important;" name="mail" type="text" class="form-control inputs_account" value="<?php echo $associate->getEmail(); ?>" disabled>
                  </div>
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Téléphone</span>
-                     </div>
-                     <!--
+                     </div><!--
                     --><input style="width: 72% !important;" name="phone_number" type="text" class="form-control inputs_account" value="<?php echo $associate->getPhoneNumber(); ?>" disabled>
                  </div>
              </div>
@@ -101,23 +97,20 @@
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Mot de passe actuel</span>
-                     </div>
-                     <!--
+                     </div><!--
                   --><input style="width: 50% !important;" name="old_password" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Nouveau mot de passe</span>
-                     </div>
-                     <!--
+                     </div><!--
                   --><input style="width: 48.1% !important;" id="password_length" onkeyup="checkPassword()" name="new_password" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <small id="password_size" class="form-text">6 caractères minimum</small>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Confirmation</span>
-                     </div>
-                     <!--
+                     </div><!--
                   --><input id="same" onkeyup="samePassword()" style="width: 54.3% !important;" name="new_password2" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <small id="password_same" class="form-text">Ce mot de passe est différent du champs précédent !</small>
