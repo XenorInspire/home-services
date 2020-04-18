@@ -38,7 +38,9 @@ $associate = $hm_database->getAssociate($associateId);
                 </a>
                 <hr>
                 <div id="button" class="btn btn-secondary" onclick="generateQrcode(); setTimeout(link, 1000);">Regénérer son QRcode</div>
-                <input id="text" type="hidden" value="cc">
+                <input id="text" type="hidden" value="<?= $associateId ?>">
+                <br>
+                <br>
                 <div class="container text-center">
                     <a id="qrcode" class="text-center"></a>
                 </div>

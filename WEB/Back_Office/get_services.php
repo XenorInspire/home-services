@@ -5,7 +5,6 @@ $hm_database = new DBManager($bdd);
 
 if (isset($_POST['serviceTypeId'])) {
     $id = $_POST['serviceTypeId'];
-    $hm_database->getServiceListByType($id);
 
     $services = $hm_database->getServiceListByType($id);
     foreach ($services as $serv) { ?>
