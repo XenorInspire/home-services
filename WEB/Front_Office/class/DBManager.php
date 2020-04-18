@@ -13,6 +13,8 @@ require_once('class/additionalPrice.php');
 // require_once('class/invoicing.php');
 require_once('class/bill.php');
 require_once('class/serviceType.php');
+require_once('class/associateServices.php');
+
 
 class DBManager
 {
@@ -579,6 +581,25 @@ class DBManager
     return $services;
   }
 
+  public function getServiceListAssociate($associateId)
+  {
+    $servicesId = [];
+
+    $q = "SELECT * FROM AssociateServices WHERE associateId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$associateId]);
+
+    while ($data = $req->fetch())
+      $servicesId[] = new AssociateServices($data['serviceId'], $data['associateId']);
+
+    $services = [];
+    foreach ($servicesId as $serviceId) {
+      array_push($services, $this->getService($serviceId->getServiceId()));
+    }
+
+    return $services;
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -636,10 +657,11 @@ class DBManager
     $res = $this->db->prepare($q);
     $res->execute([$serviceTypeId]);
 
+    $services = [];
     while ($data = $res->fetch()) {
       $services[] = new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
     }
-
+      
     return $services;
   }
 
@@ -783,5 +805,29 @@ class DBManager
     }
 
     return $servicesProvided;
+  }
+
+  //Delete the service of the associate
+  public function deleteAssociateService($serviceId, $associateId)
+  {
+    $q = "DELETE FROM AssociateServices WHERE associateId = :associateId AND serviceId = :serviceId ";
+    $req = $this->db->prepare($q);
+    $req->execute(
+      [
+        'associateId' => $associateId,
+        'serviceId' => $serviceId
+      ]
+    );
+  }
+
+  //Add a service to the associate
+  public function addServiceToAssociate($serviceId, $associateId)
+  {
+    $q = "INSERT INTO AssociateServices(serviceId,associateId) VALUES (:serviceId,:associateId)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'serviceId' => $serviceId,
+      'associateId' => $associateId
+    ));
   }
 }

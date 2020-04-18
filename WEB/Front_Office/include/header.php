@@ -14,10 +14,28 @@ require_once('include/check_identity.php');
           <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="shop.php">Boutique</a>
+          <?php
+          if ($connected == 0) {
+          ?>
+            <a class="nav-link" href="shop.php">Boutique</a>
+          <?php
+          } else if ($status == 'associate') { ?>
+            <a class="nav-link" href="associate_services.php">Mes Services</a>
+          <?php
+          }
+          ?>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about_us.php">A propos</a>
+          <?php
+          if ($connected == 0) {
+          ?>
+            <a class="nav-link" href="about_us.php">A propos</a>
+          <?php
+          } else if ($status == 'associate') { ?>
+            <a class="nav-link" href="associate_services_provided.php">Mes Préstations</a>
+          <?php
+          }
+          ?>
         </li>
         <?php
 
@@ -101,20 +119,14 @@ require_once('include/check_identity.php');
           <?php
 
           } else {
-
           ?>
-
             <li id="hm-regis" class="nav-item">
-              <a class="nav-link" href="associate_services_provided.php">Préstations</a>
+              <a class="nav-link" href="about_us.php">A propos</a>
             </li>
-
         <?php
-
           }
         }
-
         ?>
-
       </ul>
     </div>
   </nav>
