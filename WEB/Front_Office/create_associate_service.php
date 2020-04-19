@@ -8,7 +8,7 @@ if (!($status == 'associate' && $connected == 1)) {
 
 $hm_database = new DBManager($bdd);
 
-$associateId = $_SESSION['associate'];
+$associateId = $id;
 $servicesType = $hm_database->getServiceTypeList();
 $associate = $hm_database->getAssociateById($associateId);
 ?>

@@ -8,7 +8,7 @@ if (!($status == 'associate' && $connected == 1)) {
 }
 
 $servicesProvided = $hm_database->getAssociateServicesProvidedOnlyAcceptedAndUndone($id);
-$associateProposals = $hm_database->getAssociateProposal($_SESSION['associate']);
+$associateProposals = $hm_database->getAssociateProposal($id);
 
 ?>
 
@@ -61,7 +61,7 @@ $associateProposals = $hm_database->getAssociateProposal($_SESSION['associate'])
                         foreach ($associateProposals as $proposal) {
                             if ($proposal->getStatus() == 0) { ?>
                                 <div class="col-md bm-3">
-                                    <a href="associate_proposal_accept.php?associateId=<?= $_SESSION['associate'] ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> Répondre</a>
+                                    <a href="associate_proposal_accept.php?associateId=<?= $id ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> Répondre</a>
                                 </div>
                         <?php
                                 $counter++;
