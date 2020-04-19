@@ -83,3 +83,4 @@ WEB/Back_Office/include/database.env
 WEB/Back_Office/mail/logins.py
 
 WEB/Back_Office/test.php
+WEB/Back_Office/mail/__pycache__/

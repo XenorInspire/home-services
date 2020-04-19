@@ -145,6 +145,11 @@ class DBManager
         ));
     }
 
+    public function getDb()
+    {
+        return $this->db;
+    }
+
     //Restore remainingHours to clients for theire subscription
     public function restoreRemainingHours()
     {
@@ -163,6 +168,36 @@ class DBManager
         }
 
         return 1;
+    }
+
+    public function deleteSubscription($id)
+    {
+
+        $q = "DELETE FROM Subscription WHERE customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        $q = "UPDATE SubscriptionBill SET active = 0 WHERE billId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$this->getLastSubscriptionBill($id)['billId']]);
+    }
+
+    public function getLastSubscriptionBill($id)
+    {
+
+        $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? AND active = 1";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        $results = $req->fetch();
+
+        if (!empty($results)) {
+
+            return $results;
+        } else {
+
+            return NULL;
+        }
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

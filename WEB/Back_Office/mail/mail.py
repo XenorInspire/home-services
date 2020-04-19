@@ -26,6 +26,12 @@ elif(sys.argv[1] == 'first_connect'):
     message = 'Hi there !\nThanks for using Home-Services !\nYou can now connect to Homes-Services with this password : ' + \
         sys.argv[3] + '\nTo activate your account, please use this link : http://localhost/first_connect.php?i=' + \
         sys.argv[4] + '&p=' + sys.argv[5]
+elif(sys.argv[1] == 'delete_subscription'):
+    msg['Subject'] = "Home Services - Subscription finished"
+    message = 'Hi there !\nYour subscription is now finished, don\'t hesitate to subscribe again in our shop :D'
+elif(sys.argv[1] == 'subscription_30_days'):
+    msg['Subject'] = "Home Services - Subscription : less than 30 days remaining"
+    message = 'Hi there !\nBe careful your subscription will end in less 30 days !\nDon\'t hesitate to visit our shop again !'
 
 # setup the parameters of the message
 msg['From'] = logins.MY_ADDRESS
