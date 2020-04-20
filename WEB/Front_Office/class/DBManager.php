@@ -426,6 +426,17 @@ class DBManager
     $this->db->exec("DELETE FROM Proposal WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
   }
 
+  function getReservationsFromDate($date)
+  {
+      $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ?";
+      $req = $this->db->prepare($q);
+      $req->execute([$date]);
+
+      //$data = $q->fetch();
+
+      return $req;
+  }
+
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * BILL PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -661,7 +672,7 @@ class DBManager
     while ($data = $res->fetch()) {
       $services[] = new Service($data['serviceId'], $data['serviceTypeId'], $data['serviceTitle'], $data['description'], $data['recurrence'], $data['timeMin'], $data['servicePrice'], $data['commission']);
     }
-      
+
     return $services;
   }
 
@@ -829,5 +840,15 @@ class DBManager
       'serviceId' => $serviceId,
       'associateId' => $associateId
     ));
+  }
+
+  public function getAssociateFromServiceProvided($serviceProvidedId)
+  {
+      $q = "SELECT associateId FROM Proposal where serviceProvidedId=?";
+      $req = $this->db->prepare($q);
+      $req->execute([$serviceProvidedId]);
+      $res = $req->fetch();
+      $associate = $this->getAssociateById($res['associateId']);
+      return $associate;
   }
 }
