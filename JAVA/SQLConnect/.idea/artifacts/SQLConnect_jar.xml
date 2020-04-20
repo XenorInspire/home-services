@@ -1,8 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="SQLConnect:jar">
+  <artifact type="jar" build-on-make="true" name="SQLConnect:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/SQLConnect_jar</output-path>
     <root id="archive" name="SQLConnect.jar">
       <element id="module-output" name="SQLConnect" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../mysql-connector-java-5.1.48/mysql-connector-java-5.1.48-bin.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
