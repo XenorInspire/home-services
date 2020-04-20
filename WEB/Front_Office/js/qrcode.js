@@ -363,7 +363,7 @@ var QRCode;
 			this._bIsPainted = false;
 			this._elImage = document.createElement("img");
 			this._elImage.alt = "Scan me!";
-			this._elImage.style.display = "block";
+			this._elImage.style.margin = "auto";
 			this._elImage.id = "QRcode";
 			this._el.appendChild(this._elImage);
 			this._bSupportDataURI = null;
