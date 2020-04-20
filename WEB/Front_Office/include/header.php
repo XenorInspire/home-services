@@ -16,7 +16,7 @@ require_once('include/check_identity.php');
         <li class="nav-item">
           <a class="nav-link" href="shop.php">Boutique</a>
           <?php
-          if ($status == 'associate') { ?>
+          if ($connected != 0 && $status == 'associate') { ?>
             <a class="nav-link" href="associate_services.php">Mes Services</a>
           <?php
           }
@@ -25,7 +25,7 @@ require_once('include/check_identity.php');
         <li class="nav-item">
           <a class="nav-link" href="about_us.php">A propos</a>
           <?php
-          if ($status == 'associate') { ?>
+          if ($connected != 0 && $status == 'associate') { ?>
             <a class="nav-link" href="associate_services_provided.php">Mes Préstations</a>
           <?php
           }
