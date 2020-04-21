@@ -150,13 +150,6 @@ if ($_GET['mode'] == 1) {
     
 } else if ($_GET['mode'] == 2) {
 
-    if (!isset($_POST['old_password']) || empty(trim($_POST['old_password']))) {
-
-        http_response_code(400);
-        echo http_response_code();
-        return;
-    }
-
     if (!isset($_POST['new_password']) || empty(trim($_POST['new_password']))) {
 
         http_response_code(400);
@@ -179,15 +172,6 @@ if ($_GET['mode'] == 1) {
     }
 
     if (strlen($_POST['new_password']) < 6) {
-
-        http_response_code(400);
-        echo http_response_code();
-        return;
-    }
-
-    $old_password = hash('sha512', $_POST['old_password'] . 'ChrysaleadProject');
-
-    if ($customer->getPassword() != $old_password) {
 
         http_response_code(400);
         echo http_response_code();

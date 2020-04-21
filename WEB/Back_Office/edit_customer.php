@@ -85,12 +85,6 @@ $customer = $hm_database->getCustomer($customerId);
              <div class="form-row">
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Mot de passe actuel</span>
-                     </div><!--
-                  --><input style="width: 50% !important;" name="old_password" type="password" class="form-control inputs_account" disabled>
-                     <br>
-                     <br>
-                     <div class="input-group-prepend" style="display:inline-block !important;">
                          <span class="input-group-text labels_account">Nouveau mot de passe</span>
                      </div><!--
                   --><input style="width: 48.1% !important;" id="password_length" onkeyup="checkPassword()" name="new_password" type="password" class="form-control inputs_account" disabled>
@@ -119,7 +113,7 @@ $customer = $hm_database->getCustomer($customerId);
         <?php
         if($customer->getEnable() == 0){
             ?>
-        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Activer son compte</button>
+        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-danger">Activer son compte</button>
         <br>
         <br>
         <!-- Modal for saving -->
@@ -148,7 +142,7 @@ $customer = $hm_database->getCustomer($customerId);
 
             ?>
 
-            <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Désactiver son compte</button>
+            <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-danger">Désactiver son compte</button>
         <br>
         <br>
         <!-- Modal for saving -->

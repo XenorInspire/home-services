@@ -146,7 +146,6 @@ function enablePasswd() {
 
 function validatePasswd() {
 
-    let old_password = document.getElementsByName('old_password')[0].value;
     let new_password = document.getElementsByName('new_password')[0].value;
     let new_password2 = document.getElementsByName('new_password2')[0].value;
     let section = document.getElementsByClassName('container')[1];
@@ -195,7 +194,7 @@ function validatePasswd() {
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send("old_password=" + old_password + "&new_password=" + new_password + "&new_password2=" + new_password2 + "&cid=" + cid);
+    request.send("new_password=" + new_password + "&new_password2=" + new_password2 + "&cid=" + cid);
 
 
 }
