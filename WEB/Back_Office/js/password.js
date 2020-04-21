@@ -1,13 +1,13 @@
-function checkPassword(){
+function checkPassword() {
 
-let passwd = document.getElementById('password_length').value;
-let title = document.getElementById('password_size');
+  let passwd = document.getElementById('password_length').value;
+  let title = document.getElementById('password_size');
 
-  if(passwd.length < 6){
+  if (passwd.length < 6) {
 
     title.style.display = "block";
 
-  }else{
+  } else {
 
     title.style.display = "none";
 
@@ -15,20 +15,20 @@ let title = document.getElementById('password_size');
 
 }
 
-function samePassword(){
+function samePassword() {
 
   let passwd = document.getElementById('same').value;
   let passwd2 = document.getElementById('password_length').value;
   let title = document.getElementById('password_same');
 
-    if(passwd != passwd2){
+  if (passwd != passwd2) {
 
-      title.style.display = "block";
+    title.style.display = "block";
 
-    }else{
+  } else {
 
-      title.style.display = "none";
+    title.style.display = "none";
 
-    }
+  }
 
 }

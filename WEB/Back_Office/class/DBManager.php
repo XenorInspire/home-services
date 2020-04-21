@@ -214,7 +214,7 @@ class DBManager
         if ($data == NULL)
             return NULL;
 
-        return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+        return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['password'], $data['enable']);
     }
 
     //Get all the customers
@@ -225,12 +225,31 @@ class DBManager
         $req = $this->db->prepare($q);
         $req->execute();
         while ($data = $req->fetch())
-            $users[] = new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+            $users[] = new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['password'], $data['enable']);
 
         if ($users == NULL)
             return NULL;
 
         return $users;
+    }
+
+    public function getUserByMail($mail)
+    {
+
+        $q = "SELECT * FROM Customer WHERE email = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$mail]);
+
+        $results = $req->fetch();
+
+        if (!empty($results)) {
+
+            $user = new Customer($results[0], $results[2], $results[1], $results[3], $results[4], $results[5], $results[6], $results[7], $results[8]);
+            return $user;
+        } else {
+
+            return NULL;
+        }
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -343,6 +362,37 @@ class DBManager
         //$data = $q->fetch();
 
         return $req;
+    }
+
+    public function getReservationsByCustomerId($id)
+    {
+
+        $q = "SELECT Reservation.reservationId,Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        while ($results = $req->fetch())
+            $services[] = $results;
+
+        if (empty($services)) return NULL;
+
+        return $services;
+    }
+
+    public function disableCustomerAccount($id)
+    {
+
+        $q = "UPDATE Customer SET enable = 0 WHERE Customer.customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+    }
+
+    public function enableCustomerAccount($id)
+    {
+
+        $q = "UPDATE Customer SET enable = 1 WHERE Customer.customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
