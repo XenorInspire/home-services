@@ -10,6 +10,11 @@ if (
 
     $bill = $hm_database->getBill($billId);
 
+    if($bill == NULL){
+        header('Location: services_provided_bills.php');
+        exit;
+    }
+
     $serviceProvided = $hm_database->getServiceProvided($bill->getServiceProvidedId());
 } else {
     header('Location: services_provided_bills.php');

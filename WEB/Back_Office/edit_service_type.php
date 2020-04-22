@@ -8,6 +8,11 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 }
 $sub = $hm_database->getServiceType($_GET['id']);
 
+if($sub == NULL){
+    header('Location: service_types.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

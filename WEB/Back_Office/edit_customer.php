@@ -1,9 +1,20 @@
 <?php
 require_once('class/DBManager.php');
-isset($_GET['customerId']);
+
+if (!isset($_GET['customerId']) || empty($_GET['customerId'])) {
+    header('Location: customers.php');
+    exit;
+}
+
 $customerId = $_GET['customerId'];
 $hm_database = new DBManager($bdd);
 $customer = $hm_database->getCustomer($customerId);
+
+if($customer == NULL){
+    header('Location: customers.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

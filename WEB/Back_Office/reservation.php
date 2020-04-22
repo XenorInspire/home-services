@@ -9,6 +9,11 @@ $serviceProvidedId = $_GET['serviceProvidedId'];
 
 $hm_database = new DBManager($bdd);
 $servPro = $hm_database->getServiceProvided($serviceProvidedId);
+if($servPro == NULL){
+    header('Location: reservations.php');
+    exit;
+}
+
 $serv = $hm_database->getService($servPro->getServiceId());
 $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
 $reservation = $hm_database->getReservation($reservationId);

@@ -11,6 +11,11 @@ $associateId = $_GET['associateId'];
 $hm_database = new DBManager($bdd);
 $associate = $hm_database->getAssociate($associateId);
 
+if($associate == NULL){
+    header('Location: associates.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

@@ -1,9 +1,18 @@
 <?php
 require_once('class/DBManager.php');
 
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header('Location: subscriptions.php');
+    exit;
+}
+
 $hm_database = new DBManager($bdd);
-isset($_GET['id']);
 $sub = $hm_database->getSubscriptionType($_GET['id']);
+
+if($sub == NULL){
+    header('Location: subscriptions.php');
+    exit;
+}
 
 if ($sub->getEnable() == 1) {
     $url = 'desactivate';

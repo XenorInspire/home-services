@@ -12,6 +12,11 @@ $customerId = $_GET['customerId'];
 $servicesType = $hm_database->getServiceTypeList();
 $user = $hm_database->getCustomer($customerId);
 
+if($user == NULL){
+    header('Location: reservations.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

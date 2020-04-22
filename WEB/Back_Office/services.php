@@ -7,6 +7,13 @@ if (!isset($_GET['serviceTypeId']) || empty($_GET['serviceTypeId'])) {
 }
 $serviceTypeId = $_GET['serviceTypeId'];
 $hm_database = new DBManager($bdd);
+$serviceType = $hm_database->getServiceType($serviceTypeId);
+
+if ($serviceType == NULL) {
+    header('Location: service_types.php');
+    exit;
+}
+
 $services = $hm_database->getServiceListByType($serviceTypeId);
 ?>
 <!DOCTYPE html>
