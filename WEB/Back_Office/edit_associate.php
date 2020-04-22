@@ -140,7 +140,7 @@ $associate = $hm_database->getAssociate($associateId);
             ?>
             <br>
             <br>
-        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-danger">Activer son compte</button>
+        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-success">Activer son compte</button>
         <br>
         <br>
         <!-- Modal for saving -->
@@ -188,7 +188,7 @@ $associate = $hm_database->getAssociate($associateId);
                         </div>
                      <!-- Modal footer -->
                      <div class="modal-footer">
-                         <button class="btn btn-outline-success" onclick="window.location.href = 'account_status.php?mode=4&id=<?= $associate->getAssociateId() ?>';" type="submit">Désactiver</button>
+                         <button class="btn btn-outline-danger" onclick="window.location.href = 'account_status.php?mode=4&id=<?= $associate->getAssociateId() ?>';" type="submit">Désactiver</button>
                          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
                         </div>
                  </div>

@@ -113,7 +113,7 @@ $customer = $hm_database->getCustomer($customerId);
         <?php
         if($customer->getEnable() == 0){
             ?>
-        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-danger">Activer son compte</button>
+        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-success">Activer son compte</button>
         <br>
         <br>
         <!-- Modal for saving -->
@@ -160,7 +160,7 @@ $customer = $hm_database->getCustomer($customerId);
                         </div>
                      <!-- Modal footer -->
                      <div class="modal-footer">
-                         <button class="btn btn-outline-success" onclick="window.location.href = 'account_status.php?mode=2&id=<?= $customer->getCustomerId() ?>';" type="submit">Désactiver</button>
+                         <button class="btn btn-outline-danger" onclick="window.location.href = 'account_status.php?mode=2&id=<?= $customer->getCustomerId() ?>';" type="submit">Désactiver</button>
                          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
                         </div>
                  </div>

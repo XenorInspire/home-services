@@ -647,7 +647,7 @@ class DBManager
     {
         $associates = [];
 
-        $q = "SELECT * FROM Associate ORDER BY lastName";
+        $q = "SELECT * FROM Associate ORDER BY enable DESC, lastName";
         $req = $this->db->prepare($q);
         $req->execute();
 
