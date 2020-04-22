@@ -15,19 +15,25 @@ require_once('include/lang.php');
           <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="shop.php">Boutique</a>
           <?php
           if ($connected != 0 && $status == 'associate') { ?>
             <a class="nav-link" href="associate_services.php">Mes Services</a>
+          <?php
+          } else {
+          ?>
+            <a class="nav-link" href="shop.php">Boutique</a>
           <?php
           }
           ?>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about_us.php">A propos</a>
           <?php
           if ($connected != 0 && $status == 'associate') { ?>
             <a class="nav-link" href="associate_services_provided.php">Mes Préstations</a>
+          <?php
+          } else {
+          ?>
+            <a class="nav-link" href="about_us.php">A propos</a>
           <?php
           }
           ?>
