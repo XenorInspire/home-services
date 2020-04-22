@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
-<?php require_once('include/check_identity.php'); ?>
+<?php require_once('include/check_identity.php');
+      require_once('include/lang.php');
+?>
+
 <html lang="en" dir="ltr">
 
 <head>
@@ -25,7 +28,6 @@
                   <th>Adresse</th>
                   <th>Heure</th>
                   <th>Service</th>
-                  <th>Prestataire</th>
               </tr>
           </thead>
           <tbody id="myTable">

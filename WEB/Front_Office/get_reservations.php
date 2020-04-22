@@ -1,6 +1,7 @@
 <?php
 require_once('class/DBManager.php');
 require_once('include/check_identity.php');
+require_once('include/lang.php');
 $hm_database = new DBManager($bdd);
 
 if (isset($_POST['date'])) {
@@ -9,14 +10,13 @@ if (isset($_POST['date'])) {
 
 $q = $hm_database->getReservationsFromDate($date, $id);
 
-// $data = $q->fetchAll();
-// echo json_encode($data);
-
+$counter = 0;
 
 while ($data = $q->fetch()) {
 
+  $counter++;
+
   $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
-  $associate = $hm_database->getAssociateFromServiceProvided($serviceProvided->getServiceProvidedId());
   $service = $hm_database->getService($serviceProvided->getServiceId());
   $beginHour = explode('.', $serviceProvided->getBeginHour());
 
@@ -24,16 +24,11 @@ while ($data = $q->fetch()) {
   echo '<td>' . $serviceProvided->getAddress() . ', ' . $serviceProvided->getTown() . '</td>';
   echo '<td>' . $beginHour[0] . '</td>';
   echo '<td>' . $service->getServiceTitle() . '</td>';
-  echo '<td>' . $associate->getFirstName() . ' ' . $associate->getLastName() . '</td>';
   echo '</tr>';
 }
 
-// while ($data = $q->fetch()) {
-//   if (empty($data)) {
-//     echo "Pas de services.";
-//   } else {
-//     echo json_encode($data);
-//   }
-// }
+if ($counter == 0) {
+  echo $get_reservations['noService'];
+}
 
  ?>
