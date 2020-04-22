@@ -19,7 +19,7 @@ $services = $hm_database->getServiceListAssociate($associateId);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Accueil</title>
+    <title>Home Services - <?= $associate_services['homepage'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -34,18 +34,18 @@ $services = $hm_database->getServiceListAssociate($associateId);
             <div class="jumbotron text-center">
                 <?php
                 if (isset($_GET['delete']) == "successful") {
-                    echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été retiré</div>';
+                    echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">' . $associate_services['removeServiceConfirmation'] . '</div>';
                 }
                 if (isset($_GET['create']) == "successful") {
-                    echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été ajouté</div>';
+                    echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">' . $associate_services['addServiceConfirmation'] . '</div>';
                 }
 
                 ?>
-                <div class="display-4">Mes services</div>
+                <div class="display-4"><?= $associate_services['myServices'] ?></div>
                 <br>
-                <a href="create_associate_service.php"><button type="button" class="btn btn-dark">M'ajouter à un service</button></a>
+                <a href="create_associate_service.php"><button type="button" class="btn btn-dark"><?= $associate_services['addToService'] ?></button></a>
                 <hr>
-                <div class="display-4">Liste des services</div>
+                <div class="display-4"><?= $associate_services['serviceList'] ?></div>
                 <hr>
                 <div class="container">
                     <?php
@@ -55,7 +55,7 @@ $services = $hm_database->getServiceListAssociate($associateId);
                         <div class="row mb-2">
                             <div class="col-md-10 mb-2 btn btn-outline-secondary"><?= $service->getServiceTitle() ?></div>
                             <div class="col-md-2 mb-2">
-                                <div class="btn btn-outline-danger" data-toggle="modal" data-target="#modalAdd<?= $counter ?>">Retirer</div>
+                                <div class="btn btn-outline-danger" data-toggle="modal" data-target="#modalAdd<?= $counter ?>"><?= $associate_services['remove'] ?></div>
                             </div>
                         </div>
 
@@ -65,19 +65,19 @@ $services = $hm_database->getServiceListAssociate($associateId);
                                 <div class="modal-content">
                                     <!-- Modal Header -->
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Retirement du service</h4>
+                                        <h4 class="modal-title"><?= $associate_services['removeService'] ?></h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        Etes-vous certain de vouloir retirer ce service de ce prestataire ?
+                                        <?= $associate_services['removeConfirmation'] ?>
                                     </div>
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
                                         <a href="delete_associate_service.php?associateId=<?= $associateId ?>&serviceId=<?= $service->getServiceId() ?>">
-                                            <div class="btn btn-outline-danger">Retirer</div>
+                                            <div class="btn btn-outline-danger"><?= $associate_services['remove'] ?></div>
                                         </a>
-                                        <button type=" button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                                        <button type=" button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $associate_services['cancel'] ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@ $services = $hm_database->getServiceListAssociate($associateId);
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Retour</div>
+                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()"><?= $associate_services['back'] ?></div>
                     </div>
                 </div>
             </div>
