@@ -6,24 +6,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-
+        DatabaseConfig dbc = DatabaseConfig.readConfig();
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
         try {
             conn =
-                    DriverManager.getConnection("jdbc:mysql://localhost/home-services?" +
-                            "user=root&password=root");
+                    DriverManager.getConnection("jdbc:" + dbc.getDriver() + "://"
+                            + dbc.getHost() + "/" + dbc.getDbName() + "?" +
+                            "user=" + dbc.getUser() + "&password=" + dbc.getPassword());
 
-            // Do something with the Connection
 
             try {
                 stmt = conn.createStatement();
-                //rs = stmt.executeQuery("SELECT foo FROM bar");
-
-                // or alternatively, if you don't know ahead of time that
-                // the query will be a SELECT...
 
                 if (stmt.execute("SELECT * FROM Customer")) {
                     rs = stmt.getResultSet();
@@ -33,17 +29,12 @@ public class Main {
 
                 }
 
-                // Now do something with the ResultSet ....
             } catch (SQLException ex) {
                 // handle any errors
                 System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
             } finally {
-                // it is a good idea to release
-                // resources in a finally{} block
-                // in reverse-order of their creation
-                // if they are no-longer needed
 
                 if (rs != null) {
                     try {
@@ -71,6 +62,7 @@ public class Main {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
+
     }
 }
 
