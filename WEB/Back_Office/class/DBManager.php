@@ -732,6 +732,36 @@ class DBManager
         return $associate;
     }
 
+    public function getAssociateByMail($associateMail)
+    {
+        $q = "SELECT * FROM Associate WHERE email = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$associateMail]);
+
+        $data = $req->fetch();
+
+        if ($data == NULL) {
+            return NULL;
+        }
+        return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['enable'], $data['password']);
+    }
+
+    public function disableAssociateAccount($id)
+    {
+
+        $q = "UPDATE Associate SET enable = 0 WHERE Associate.associateId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+    }
+
+    public function enableAssociateAccount($id)
+    {
+
+        $q = "UPDATE Associate SET enable = 1 WHERE Associate.associateId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+    }
+
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * PROPOSAL PART* * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

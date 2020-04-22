@@ -1,8 +1,8 @@
-var cid;
+var aid;
 
 function enable() {
 
-    let section = document.getElementsByClassName('container')[0];
+    let section = document.getElementsByClassName('container')[1];
     let button = section.getElementsByClassName('btn')[0];
     let newButton = document.createElement('button');
     let inputs = section.getElementsByTagName('input');
@@ -30,7 +30,7 @@ function enable() {
 
 function validate() {
 
-    let section = document.getElementsByClassName('container')[0];
+    let section = document.getElementsByClassName('container')[1];
     let div = document.createElement('div');
     let span = document.createElement('span');
     let firstname = document.getElementsByName('firstname')[0].value;
@@ -57,7 +57,7 @@ function validate() {
 
     let request = new XMLHttpRequest;
 
-    request.open('POST', 'update_customer_infos.php?mode=' + 1);
+    request.open('POST', 'update_associate_infos.php?mode=' + 1);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
 
@@ -82,13 +82,13 @@ function validate() {
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send("mail=" + mail + "&firstname=" + firstname + "&lastname=" + lastname + "&phone_number=" + phone_number + "&address=" + address + "&city=" + city + "&cid=" + cid);
+    request.send("mail=" + mail + "&firstname=" + firstname + "&lastname=" + lastname + "&phone_number=" + phone_number + "&address=" + address + "&city=" + city + "&aid=" + aid);
 
 }
 
 function cancel() {
 
-    let section = document.getElementsByClassName('container')[0];
+    let section = document.getElementsByClassName('container')[1];
     let inputs = section.getElementsByTagName('input');
     let button = section.getElementsByClassName('btn')[0];
     let oldButton = section.getElementsByClassName('btn')[1];
@@ -118,7 +118,7 @@ function cancel() {
 
 function enablePasswd() {
 
-    let section = document.getElementsByClassName('container')[1];
+    let section = document.getElementsByClassName('container')[2];
     let button = section.getElementsByClassName('btn')[0];
     let newButton = document.createElement('button');
     let inputs = section.getElementsByTagName('input');
@@ -148,7 +148,7 @@ function validatePasswd() {
 
     let new_password = document.getElementsByName('new_password')[0].value;
     let new_password2 = document.getElementsByName('new_password2')[0].value;
-    let section = document.getElementsByClassName('container')[1];
+    let section = document.getElementsByClassName('container')[2];
     let div = document.createElement('div');
     let span = document.createElement('span');
 
@@ -169,7 +169,7 @@ function validatePasswd() {
 
     let request = new XMLHttpRequest;
 
-    request.open('POST', 'update_customer_infos.php?mode=' + 2);
+    request.open('POST', 'update_associate_infos.php?mode=' + 2);
     request.onreadystatechange = function () {
         if (request.readyState === 4) {
 
@@ -194,14 +194,14 @@ function validatePasswd() {
         }
     }
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    request.send("new_password=" + new_password + "&new_password2=" + new_password2 + "&cid=" + cid);
+    request.send("new_password=" + new_password + "&new_password2=" + new_password2 + "&aid=" + aid);
 
 
 }
 
 function cancelPasswd() {
 
-    let section = document.getElementsByClassName('container')[1];
+    let section = document.getElementsByClassName('container')[2];
     let inputs = section.getElementsByTagName('input');
     let button = section.getElementsByClassName('btn')[0];
     let oldButton = section.getElementsByClassName('btn')[1];
@@ -229,8 +229,8 @@ function cancelPasswd() {
 
 }
 
-function allocate(htmlCid) {
+function allocate(htmlAid) {
 
-    cid = htmlCid;
+    aid = htmlAid;
 
 }
