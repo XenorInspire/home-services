@@ -215,7 +215,7 @@ function cancelPasswd() {
     if (div != null)
         div.remove();
 
-    button.innerHTML = "Modifier mes informations";
+    button.innerHTML = "Changer mon mot de passe";
     button.onclick = enablePasswd;
 
     for (let i = 0; i < inputs.length; i++) {
