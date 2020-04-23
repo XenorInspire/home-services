@@ -76,30 +76,30 @@
 
                 <ul style="margin:auto;width:50%;padding:0px;">
                     <li class="list-group-item list-group-item-info"><?= $service->getDescription() ?></li>
-                    <li class="list-group-item"> <?= $associate_services['minimum'] ?> <?= $service->getTimeMin() ?>h</li>
-                    <li class="list-group-item"><?= $associate_services['price'] ?> <?= $service->getServicePrice() ?>€ <?= $associate_services['tax'] ?></li>
+                    <li class="list-group-item"> <?= $book_service['minimum'] ?> <?= $service->getTimeMin() ?>h</li>
+                    <li class="list-group-item"><?= $book_service['price'] ?> <?= $service->getServicePrice() ?>€ <?= $book_service['tax'] ?></li>
                     <br>
                     <form class="container-fluid" action="insert_reservation.php?i=<?= $service->getServiceId() ?>" style="padding: 0px;" method="POST">
                         <div class="form-group">
-                            <label><?= $associate_services['serviceDate'] ?></label>
+                            <label><?= $book_service['serviceDate'] ?></label>
                             <input type="date" name="date" min="<?= date('Y-m-d') ?>" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label><?= $associate_services['serviceHour'] ?></label>
+                            <label><?= $book_service['serviceHour'] ?></label>
                             <input type="time" name="beginHour" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label><?= $associate_services['hourAmount'] ?></label>
+                            <label><?= $book_service['hourAmount'] ?></label>
                             <input type="number" name="hours" min="<?= $service->getTimeMin() ?>" max="24" class="form-control" required>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label><?= $associate_services['address'] ?></label>
+                                <label><?= $book_service['address'] ?></label>
                                 <input type="text" name="address" class="form-control" value="<?= $user->getAddress() ?>" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label><?= $associate_services['town'] ?></label>
+                                <label><?= $book_service['town'] ?></label>
                                 <input type="text" name="town" class="form-control" value="<?= $user->getCity() ?>" required>
                             </div>
                         </div>
@@ -107,10 +107,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md mb-3">
-                                    <div class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalSave"><?= $associate_services['book'] ?></a></div>
+                                    <div class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalSave"><?= $book_service['book'] ?></a></div>
                                 </div>
                                 <div class="col-md mb-3">
-                                    <div class="btn btn-primary btn-block text center" onclick="history.back()"><?= $associate_services['cancel'] ?></div>
+                                    <div class="btn btn-primary btn-block text center" onclick="history.back()"><?= $book_service['cancel'] ?></div>
                                 </div>
                             </div>
                         </div>
@@ -122,17 +122,17 @@
                                 <div class="modal-content">
                                     <!-- Modal Header -->
                                     <div class="modal-header">
-                                        <h4 class="modal-title"><?= $associate_services['booking'] ?></h4>
+                                        <h4 class="modal-title"><?= $book_service['booking'] ?></h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <?= $associate_services['bookService'] ?>
+                                        <?= $book_service['bookService'] ?>
                                     </div>
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button class="btn btn-outline-success" type="submit"><?= $associate_services['book'] ?></button>
-                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $associate_services['cancel'] ?></button>
+                                        <button class="btn btn-outline-success" type="submit"><?= $book_service['book'] ?></button>
+                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $book_service['cancel'] ?></button>
                                     </div>
                                 </div>
                             </div>
