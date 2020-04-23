@@ -1,4 +1,5 @@
 let par = document.getElementsByTagName("p");
+let cid;
 
 class Calendar {
 
@@ -151,4 +152,8 @@ function getServices(d) {
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send("date=" + year + "-" + month + "-" + day);
 
+}
+
+function allocate(id) {
+  cid = id;
 }

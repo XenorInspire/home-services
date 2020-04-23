@@ -49,5 +49,8 @@
 
 
 <script type="text/javascript" src="js/calendar.js"> </script>
+<script>
+  allocate(<?php echo $id ?>);
+</script>
 
 </html>
