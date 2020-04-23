@@ -2,9 +2,7 @@
 require_once('class/DBManager.php');
 $hm_database = new DBManager($bdd);
 
-if (isset($_POST['date'])) {
-  $date = $_POST['date'];
-} else $date = '2020-04-09';
+$date = $_POST['date'];
 
 $q = $hm_database->getReservationsFromDate($date);
 
