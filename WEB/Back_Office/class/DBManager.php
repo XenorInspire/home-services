@@ -796,7 +796,7 @@ class DBManager
     public function getBillList()
     {
         $bills = [];
-        $q = "SELECT * FROM Bill ORDER BY date DESC";
+        $q = "SELECT * FROM Bill ORDER BY billId, DATE DESC";
         $req = $this->db->prepare($q);
         $req->execute();
 
