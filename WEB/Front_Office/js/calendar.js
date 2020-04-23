@@ -1,5 +1,7 @@
 let par = document.getElementsByTagName("p");
 let cid;
+let today;
+let coloredCell;
 
 class Calendar {
 
@@ -110,6 +112,7 @@ class Calendar {
         if(timestamp === this.today.getTime())
         {
             cell.classList.add('today');
+            today = cell;
         }
     }
   }
@@ -137,6 +140,11 @@ function getServices(d) {
   year = year.substring(space + 1);
   year = parseInt(year);
 
+  coloredCell.classList.remove('today');
+  d.classList.add('today');
+  coloredCell = d;
+
+
   for (let i = 0; i < par.length; i++) {
     if (par[i] === d) day = i + 1;
   }
@@ -157,3 +165,8 @@ function getServices(d) {
 function allocate(id) {
   cid = id;
 }
+
+window.onload = function() {
+  coloredCell = today;
+  today.click();
+};

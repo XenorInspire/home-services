@@ -37,6 +37,8 @@
                   <th><?= $calendar['service'] ?></th>
               </tr>
           </thead>
+          <br>
+          <br>
           <tbody id="myTable">
 
           </tbody>
