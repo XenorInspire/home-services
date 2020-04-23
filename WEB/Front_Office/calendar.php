@@ -1,3 +1,10 @@
+<?php require_once('include/check_identity.php');
+    if (!($status == 'customer' && $connected == 1)) {
+
+        header('Location: connect.php?status=customer&error=forb');
+        exit;
+    }
+?>
 <!DOCTYPE html>
 
 <?php require_once('include/check_identity.php');
@@ -25,7 +32,7 @@
       <table class="table table-bordered table-responsive-lg table-hover">
           <thead class="thead-dark">
               <tr>
-                  <th><?= $calendar['adress'] ?></th>
+                  <th><?= $calendar['address'] ?></th>
                   <th><?= $calendar['hour'] ?></th>
                   <th><?= $calendar['service'] ?></th>
               </tr>
