@@ -86,6 +86,12 @@ if ($_GET['status'] == "customer") {
 					echo '<br>';
 					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez vous connecter avant de poursuivre</div>';
 				}
+
+				if ($_GET['error'] == 'qrcode_inv') {
+
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce QRcode n\'est pas valide</div>';
+				}
 			}
 
 			if (isset($_GET['info'])) {

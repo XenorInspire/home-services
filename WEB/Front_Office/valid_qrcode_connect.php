@@ -13,7 +13,7 @@ $hm_database = new DBManager($bdd);
 $associate = $hm_database->getAssociateById($associateId);
 
 if($associate == NULL){
-    header("Location : connect.php?status=associate");
+    header("Location: connect.php?status=associate&error=qrcode_inv");
     exit;
 }
 
