@@ -119,7 +119,24 @@ if ($_GET['status'] == "customer") {
 					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="passwd_forgotten.php?status=<?php if ($connect_status == 1) echo "customer";
 																																						else echo "associate"; ?>">Cliquez ici</a></u></i></small>
 				</div>
-				<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
+				<div class="row justify-content-center">
+					<div class="col-auto mb-3">
+						<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
+					</div>
+
+					<?php
+					if ($connect_status == 0) {
+						echo '<div class="col-auto mb-3">';
+						echo '<a class="btn btn-dark" href="qrcode_connect.php">Se connecter avec mon QRcode</a>';
+						echo '</div>';
+					}
+					?>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-auto mb-3">
+						<div class="text-center btn btn-outline-secondary" onclick="history.back()">Annuler</div>
+					</div>
+				</div>
 			</form>
 		</section>
 
