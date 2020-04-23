@@ -1,10 +1,10 @@
 <?php
 require_once('class/DBManager.php');
-require_once('include/check_identity.php');
 require_once('include/lang.php');
 $hm_database = new DBManager($bdd);
 
 $date = $_POST['date'];
+$id = $_POST['cid'];
 
 $q = $hm_database->getReservationsFromDate($date, $id);
 

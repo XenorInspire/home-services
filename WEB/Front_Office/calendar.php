@@ -1,15 +1,16 @@
-<?php require_once('include/check_identity.php');
-    if (!($status == 'customer' && $connected == 1)) {
+<?php
 
-        header('Location: connect.php?status=customer&error=forb');
-        exit;
-    }
+require_once('include/check_identity.php');
+if (!($status == 'customer' && $connected == 1)) {
+
+    header('Location: connect.php?status=customer&error=forb');
+    exit;
+}
+
+require_once('include/lang.php');
+
 ?>
 <!DOCTYPE html>
-
-<?php require_once('include/check_identity.php');
-      require_once('include/lang.php');
-?>
 
 <html lang="en" dir="ltr">
 
@@ -27,22 +28,22 @@
     <?php require_once("include/header.php"); ?>
 
     <main>
-      <div id="calendar" class="calendar"></div>
+        <div id="calendar" class="calendar"></div>
 
-      <table class="table table-bordered table-responsive-lg table-hover">
-          <thead class="thead-dark">
-              <tr>
-                  <th><?= $calendar['address'] ?></th>
-                  <th><?= $calendar['hour'] ?></th>
-                  <th><?= $calendar['service'] ?></th>
-              </tr>
-          </thead>
-          <br>
-          <br>
-          <tbody id="myTable">
+        <table class="table table-bordered table-responsive-lg table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th><?= $calendar['address'] ?></th>
+                    <th><?= $calendar['hour'] ?></th>
+                    <th><?= $calendar['service'] ?></th>
+                </tr>
+            </thead>
+            <br>
+            <br>
+            <tbody id="myTable">
 
-          </tbody>
-      </table>
+            </tbody>
+        </table>
 
     </main>
 
@@ -50,9 +51,9 @@
 </body>
 
 
-<script type="text/javascript" src="js/calendar.js"> </script>
+<script type="text/javascript" src="js/calendar.js"></script>
 <script>
-  allocate(<?php echo $id ?>);
+    allocate("<?php echo $id; ?>");
 </script>
 
 </html>

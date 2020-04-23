@@ -66,8 +66,9 @@ require_once('include/lang.php');
                 Mon compte
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="profile_customer.php">Mes informations personnelles</a>
+                <a class="dropdown-item" href="calendar.php">Mon agenda</a>
                 <a class="dropdown-item" href="orders.php">Mes commandes</a>
+                <a class="dropdown-item" href="profile_customer.php">Mes informations personnelles</a>
               </div>
             </li>
 

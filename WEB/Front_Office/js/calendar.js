@@ -1,5 +1,5 @@
 let par = document.getElementsByTagName("p");
-let cid;
+var cid;
 let today;
 let coloredCell;
 
@@ -11,7 +11,7 @@ class Calendar {
     this.domElement = document.querySelector(domTarget);
 
     // Renvoit une erreur si l'élément n'éxiste pas
-    if(!this.domElement) throw "Calendar - L'élément spécifié est introuvable";
+    if (!this.domElement) throw "Calendar - L'élément spécifié est introuvable";
 
     // Liste des mois
     this.monthList = new Array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aôut', 'septembre', 'octobre', 'novembre', 'décembre');
@@ -21,7 +21,7 @@ class Calendar {
 
     // Date actuelle
     this.today = new Date();
-    this.today.setHours(0,0,0,0);
+    this.today.setHours(0, 0, 0, 0);
 
     // Mois actuel
     this.currentMonth = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
@@ -53,14 +53,12 @@ class Calendar {
     header.appendChild(nextButton);
 
     // Action des boutons "précédent" et "suivant"
-    this.domElement.querySelectorAll('button').forEach(element =>
-    {
-       element.addEventListener('click', () =>
-       {
-           // On multiplie par 1 les valeurs pour forcer leur convertion en "int"
-           this.currentMonth.setMonth(this.currentMonth.getMonth() * 1 + element.getAttribute('data-action') * 1);
-           this.loadMonth(this.currentMonth);
-       });
+    this.domElement.querySelectorAll('button').forEach(element => {
+      element.addEventListener('click', () => {
+        // On multiplie par 1 les valeurs pour forcer leur convertion en "int"
+        this.currentMonth.setMonth(this.currentMonth.getMonth() * 1 + element.getAttribute('data-action') * 1);
+        this.loadMonth(this.currentMonth);
+      });
     });
 
     // On charge le mois actuel
@@ -75,45 +73,41 @@ class Calendar {
     this.monthDiv.textContent = this.monthList[date.getMonth()].toUpperCase() + ' ' + date.getFullYear();
 
     // Création des cellules contenant le jour de la semaine
-    for(let i=0; i<this.dayList.length; i++)
-    {
-        let cell = document.createElement('span');
-        cell.classList.add('cell');
-        cell.classList.add('day');
-        cell.textContent = this.dayList[i].substring(0, 3).toUpperCase();
-        this.content.appendChild(cell);
+    for (let i = 0; i < this.dayList.length; i++) {
+      let cell = document.createElement('span');
+      cell.classList.add('cell');
+      cell.classList.add('day');
+      cell.textContent = this.dayList[i].substring(0, 3).toUpperCase();
+      this.content.appendChild(cell);
     }
 
     // Création des cellules vides si nécessaire
-    for(let i=0; i<date.getDay(); i++)
-    {
-        let cell = document.createElement('span');
-        cell.classList.add('cell');
-        cell.classList.add('empty');
-        this.content.appendChild(cell);
+    for (let i = 0; i < date.getDay(); i++) {
+      let cell = document.createElement('span');
+      cell.classList.add('cell');
+      cell.classList.add('empty');
+      this.content.appendChild(cell);
     }
 
     // Nombre de jour dans le mois affiché
-    let monthLength = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
+    let monthLength = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
     // Création des cellules contenant les jours du mois affiché
-    for(let i = 1; i <= monthLength; i++)
-    {
-        let cell = document.createElement('p');
-        cell.classList.add('cell');
-        cell.textContent = i;
-        cell.onclick = function() {getServices(this)};
-        this.content.appendChild(cell);
+    for (let i = 1; i <= monthLength; i++) {
+      let cell = document.createElement('p');
+      cell.classList.add('cell');
+      cell.textContent = i;
+      cell.onclick = function () { getServices(this) };
+      this.content.appendChild(cell);
 
-        // Timestamp de la cellule
-        let timestamp = new Date(date.getFullYear(), date.getMonth(), i).getTime();
+      // Timestamp de la cellule
+      let timestamp = new Date(date.getFullYear(), date.getMonth(), i).getTime();
 
-        // Ajoute une classe spéciale pour aujourd'hui
-        if(timestamp === this.today.getTime())
-        {
-            cell.classList.add('today');
-            today = cell;
-        }
+      // Ajoute une classe spéciale pour aujourd'hui
+      if (timestamp === this.today.getTime()) {
+        cell.classList.add('today');
+        today = cell;
+      }
     }
   }
 }
@@ -150,15 +144,15 @@ function getServices(d) {
   }
 
   request.open('POST', "get_reservations.php");
-  request.onreadystatechange = function() {
-      if (request.readyState === 4) {
-          rep = request.responseText;
-          tbody.innerHTML = rep;
-      }
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      rep = request.responseText;
+      tbody.innerHTML = rep;
+    }
   }
 
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send("date=" + year + "-" + month + "-" + day);
+  request.send("date=" + year + "-" + month + "-" + day + "&cid=" + cid);
 
 }
 
@@ -166,7 +160,7 @@ function allocate(id) {
   cid = id;
 }
 
-window.onload = function() {
+window.onload = function () {
   coloredCell = today;
   today.click();
 };
