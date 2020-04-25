@@ -426,13 +426,40 @@ class DBManager
     $this->db->exec("DELETE FROM Proposal WHERE serviceProvidedId = '" . $serviceProvided->getServiceProvidedId() . "'");
   }
 
-  function getReservationsFromDate($date, $id)
+  public function getReservationsFromDate($date, $id)
   {
-      $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ? AND customerId = ?";
+      $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
       $req = $this->db->prepare($q);
-      $req->execute([$date,$id]);
+      $req->execute([$date]);
 
-      return $req;
+      $counter = 0;
+      $sp_id = [];
+
+      while($data = $req->fetch()) {
+        $counter++;
+
+        $q1 = "SELECT serviceProvidedId FROM Reservation WHERE serviceProvidedId = ? AND customerId = ?";
+        $req1 = $this->db->prepare($q1);
+        $req1->execute([$data['serviceProvidedId'], $id]);
+
+        $counter1 = 0;
+
+        while($data1 = $req1->fetch()) {
+          $counter1++;
+
+          array_push($sp_id, $data1['serviceProvidedId']);
+        }
+      }
+
+      if ($counter == 0 || $counter1 == 0) {
+        return null;
+      }
+
+      return $sp_id;
+
+
+
+
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

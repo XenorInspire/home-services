@@ -152,7 +152,7 @@ function getServices(d) {
   }
 
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send("date=" + year + "-" + month + "-" + day + "&cid=" + cid);
+  request.send("date=" + year + "-" + month + "-" + day + "&id=" + cid);
 
 }
 

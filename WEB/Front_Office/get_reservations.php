@@ -4,29 +4,32 @@ require_once('include/lang.php');
 $hm_database = new DBManager($bdd);
 
 $date = $_POST['date'];
-$id = $_POST['cid'];
+$id = $_POST['id'];
 
-$q = $hm_database->getReservationsFromDate($date, $id);
+$serviceProvided_ids = $hm_database->getReservationsFromDate($date, $id);
 
-$counter = 0;
+// $counter = 0;
+//
+// while ($data = $q->fetch()) {
+//
+//   $counter++;
+//
+//   $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
+if ($serviceProvided_ids != null) {
+  foreach($serviceProvided_ids as $sp_id) {
+     $serviceProvided = $hm_database->getServiceProvided($sp_id);
+    $service = $hm_database->getService($serviceProvided->getServiceId());
+    $beginHour = explode('.', $serviceProvided->getBeginHour());
 
-while ($data = $q->fetch()) {
-
-  $counter++;
-
-  $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
-  $service = $hm_database->getService($serviceProvided->getServiceId());
-  $beginHour = explode('.', $serviceProvided->getBeginHour());
-
-  echo '<tr class="table-light">';
-  echo '<td>' . $serviceProvided->getAddress() . ', ' . $serviceProvided->getTown() . '</td>';
-  echo '<td>' . $beginHour[0] . '</td>';
-  echo '<td>' . $service->getServiceTitle() . '</td>';
-  echo '</tr>';
-}
-
-if ($counter == 0) {
+    echo '<tr class="table-light">';
+    echo '<td>' . $serviceProvided->getAddress() . ', ' . $serviceProvided->getTown() . '</td>';
+    echo '<td>' . $beginHour[0] . '</td>';
+    echo '<td>' . $service->getServiceTitle() . '</td>';
+    echo '</tr>';
+  }
+} else {
   echo $get_reservations['noService'];
 }
+// }
 
  ?>
