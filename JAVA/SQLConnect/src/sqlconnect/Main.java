@@ -1,66 +1,25 @@
 package sqlconnect;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
-        DatabaseConfig dbc = DatabaseConfig.readConfig();
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+        Request rq = new Request();
+        ArrayList<String[]> table = rq.query("SELECT * FROM Customer");
 
-        try {
-            conn =
-                    DriverManager.getConnection("jdbc:" + dbc.getDriver() + "://"
-                            + dbc.getHost() + "/" + dbc.getDbName() + "?" +
-                            "user=" + dbc.getUser() + "&password=" + dbc.getPassword());
+        for (int i = 0; i < table.size(); i++) {
 
+            for (int j = 0; j < table.get(i).length; j++) {
 
-            try {
-                stmt = conn.createStatement();
+                System.out.print(table.get(i)[j] + " | ");
 
-                if (stmt.execute("SELECT * FROM Customer")) {
-                    rs = stmt.getResultSet();
-
-                    while (rs.next())
-                        System.out.println(rs.getString("email"));
-
-                }
-
-            } catch (SQLException ex) {
-                // handle any errors
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("VendorError: " + ex.getErrorCode());
-            } finally {
-
-                if (rs != null) {
-                    try {
-                        rs.close();
-                    } catch (SQLException sqlEx) {
-                    } // ignore
-
-                    rs = null;
-                }
-
-                if (stmt != null) {
-                    try {
-                        stmt.close();
-                    } catch (SQLException sqlEx) {
-                    } // ignore
-
-                    stmt = null;
-                }
             }
 
+            System.out.print("\n\n");
 
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
         }
 
     }

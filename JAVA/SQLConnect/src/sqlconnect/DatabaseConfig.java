@@ -34,11 +34,8 @@ public class DatabaseConfig {
 
                 br = new BufferedReader(new FileReader(config));
 
-                for (int i = 0; i < PARAMETERS; i++) {
-
+                for (int i = 0; i < PARAMETERS; i++)
                     buffer[i] = br.readLine();
-
-                }
 
                 br.close();
 
