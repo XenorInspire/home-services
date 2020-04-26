@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Request {
 
-    private static DatabaseConfig dbc = DatabaseConfig.readConfig();
+    private static final DatabaseConfig dbc = DatabaseConfig.readConfig();
 
     public ArrayList<String[]> query(String sql) {
 
@@ -20,7 +20,6 @@ public class Request {
                             + dbc.getHost() + "/" + dbc.getDbName() + "?" +
                             "user=" + dbc.getUser() + "&password=" + dbc.getPassword());
 
-
             try {
                 stmt = conn.createStatement();
 
@@ -32,14 +31,12 @@ public class Request {
 
                         String[] temp = new String[i];
 
-                        for (int j = 0; j < i; j++) {
-                            temp[j] = rs.getString(j+1);
-                        }
+                        for (int j = 0; j < i; j++)
+                            temp[j] = rs.getString(j + 1);
 
                         fields.add(temp);
 
                     }
-
 
                 }
 
@@ -69,7 +66,6 @@ public class Request {
                 }
             }
 
-
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -80,5 +76,55 @@ public class Request {
         return fields;
 
     }
+
+    public ArrayList<String[]> getCustomers() {
+
+        String sql = new String("SELECT * FROM Customer");
+        return query(sql);
+
+    }
+
+    public ArrayList<String[]> getAssociates() {
+
+        String sql = new String("SELECT * FROM Associate");
+        return query(sql);
+
+    }
+
+    public ArrayList<String[]> getServices() {
+
+        String sql = new String("SELECT * FROM Service");
+        return query(sql);
+
+    }
+
+    public ArrayList<String[]> getReservations() {
+
+        String sql = new String("SELECT * FROM Reservation");
+        return query(sql);
+
+    }
+
+    public ArrayList<String[]> getServicesTypes() {
+
+        String sql = new String("SELECT * FROM ServiceType");
+        return query(sql);
+
+    }
+
+    public ArrayList<String[]> getSubscriptionTypes() {
+
+        String sql = new String("SELECT * FROM SubscriptionType");
+        return query(sql);
+
+    }
+
+    public ArrayList<String[]> getServiceProvided() {
+
+        String sql = new String("SELECT * FROM ServiceProvided");
+        return query(sql);
+
+    }
+
 
 }
