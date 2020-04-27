@@ -40,6 +40,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Nom", "Prénom", "Email", "Tél", "Adresse", "Ville", "MDP", "Activé"};
                 JTable results = new JTable(rq.getCustomers(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -53,6 +54,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Nom", "Prénom", "Email", "Tél", "Adresse", "Ville", "SIREN", "Entreprise", "Activé", "MDP"};
                 JTable results = new JTable(rq.getAssociates(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -66,6 +68,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Titre", "Description", "Récurrent", "Min H", "Prix", "Commission", "Type de service"};
                 JTable results = new JTable(rq.getServices(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -79,6 +82,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Date", "Client", "Prestation", "status"};
                 JTable results = new JTable(rq.getReservations(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -92,6 +96,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Titre"};
                 JTable results = new JTable(rq.getServicesTypes(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -105,6 +110,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Nom", "NB Jours", "De", "A", "NB Heures", "Prix", "Activé"};
                 JTable results = new JTable(rq.getSubscriptionTypes(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -118,6 +124,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                reset();
                 String[] head = {"ID", "Date", "Heure", "NB Heures C", "Service", "NB Heures P", "Adresse", "Ville"};
                 JTable results = new JTable(rq.getServiceProvided(), head);
                 pan.add(results.getTableHeader(), BorderLayout.NORTH);
@@ -136,6 +143,17 @@ public class Window extends JFrame {
 
         this.setContentPane(pan);
 
+    }
+
+    private void reset() {
+        pan.removeAll();
+        pan.add(b1);
+        pan.add(b2);
+        pan.add(b3);
+        pan.add(b4);
+        pan.add(b5);
+        pan.add(b6);
+        pan.add(b7);
     }
 
 }
