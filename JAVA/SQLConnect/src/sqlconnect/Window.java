@@ -146,6 +146,7 @@ public class Window extends JFrame {
     }
 
     private void reset() {
+
         pan.removeAll();
         pan.add(b1);
         pan.add(b2);
@@ -154,6 +155,7 @@ public class Window extends JFrame {
         pan.add(b5);
         pan.add(b6);
         pan.add(b7);
+
     }
 
 }

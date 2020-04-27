@@ -1,93 +1,51 @@
 package sqlconnect;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
+
+        DatabaseConfig dbc = DatabaseConfig.readConfig();
+
+        if(dbc == null)
+            finish(1);
+
+        try {
+
+            Connection conn = null;
+            conn =
+                    DriverManager.getConnection("jdbc:" + dbc.getDriver() + "://"
+                            + dbc.getHost() + "/" + dbc.getDbName() + "?" +
+                            "user=" + dbc.getUser() + "&password=" + dbc.getPassword());
+
+
+        } catch (SQLException ex) {
+
+            finish(2);
+
+        }
 
         Request rq = new Request();
         Window window = new Window(rq);
 
-        //menu sans affichage graphique
-        /*Scanner sc = new Scanner(System.in);
-        String[] proposals = {"Liste des clients", "Liste des prestataires", "Liste des services", "Liste des réservations", "Liste des types de services", "Liste des types d'abonnements", "Liste des prestations", "Quitter"};
-        String[][] table = null;
-        int proposal = -1;
+    }
 
-        while (proposal < 0 || proposal > proposals.length - 1) {
+    public static void finish(int mode) {
 
-            System.out.println("Veuillez sélectionner les informations voulues :");
-
-            for (int k = 0; k < proposals.length; k++)
-                System.out.println(k + " : " + proposals[k]);
-
-            String str = sc.nextLine();
-
-            try {
-
-                proposal = Integer.parseInt(str);
-
-            } catch (NumberFormatException e) {
-
-                continue;
-
-            }
-
-        }
-
-        switch (proposal) {
-
-            case 0:
-                table = rq.getCustomers();
-                break;
+        switch (mode) {
 
             case 1:
-                table = rq.getAssociates();
+                System.out.println("Fichier introuvable");
                 break;
 
             case 2:
-                table = rq.getServices();
-                break;
-
-            case 3:
-                table = rq.getReservations();
-                break;
-
-            case 4:
-                table = rq.getServicesTypes();
-                break;
-
-            case 5:
-                table = rq.getSubscriptionTypes();
-                break;
-
-            case 6:
-                table = rq.getServiceProvided();
-                break;
-
-            case 7:
-                finish();
+                System.out.println("Base de données injoignable");
                 break;
 
         }
-
-
-        for (int i = 0; i < table.length; i++) {
-
-            for (int j = 0; j < table[i].length; j++) {
-
-                System.out.print(table[i][j] + " | ");
-
-            }
-
-            System.out.print("\n\n");
-
-        }*/
-
-    }
-
-    public static void finish() {
 
         System.exit(1);
 
