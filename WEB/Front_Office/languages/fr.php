@@ -86,6 +86,30 @@ $calendar = array(
   "service" => "Service"
 );
 
+$connect = array(
+  "customerConnection" => "Connexion Client",
+  "associateConnection" => "Connexion Prestataire",
+  "customerSpace" => "Connexion - Espace client",
+  "associateSpace" => "Espace prestataire",
+  "incorrectPasswd" => "Mot de passe incorrecte.",
+  "incorrectMail" => "Veuillez saisir une adresse mail valide.",
+  "invalidMail" => "Cette adresse mail n'existe pas !",
+  "disabledAccount" => "Ce compte n'est pas encore activé.",
+  "goConnect" => "Veuillez vous connecter avant de poursuivre.",
+  "invalidQRcode" => "Ce QRcode n'est pas valide.",
+  "pwdAndMail" => "Veuillez entrer le mot de passe communiqué par mail ainsi que votre adresse mail.",
+  "desactivatedAcc" => "Votre compte a bien été désactivé."
+  "mail" => "Adresse mail",
+  "enterMail" => "Entrez votre adresse mail",
+  "password" => "Mot de passe",
+  "enterPwd" => "Entrez votre mot de passe",
+  "forgottenPwd" => "Vous avez oublié votre mot de passe ?",
+  "clickThere" => "Cliquez ici",
+  "connect" => "Se connecter",
+  "QRcodeConnect" => "Me connecter avec mon QRcode",
+  "cancel" => "Annuler"
+);
+
 $get_reservations = array(
   "noService" => "Pas de service à cette date."
 );
