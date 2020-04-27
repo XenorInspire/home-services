@@ -5,12 +5,12 @@ import java.io.*;
 public class DatabaseConfig {
 
     public static final int PARAMETERS = 6;
-    private String driver;
-    private String host;
-    private String dbName;
-    private int port;
-    private String user;
-    private String password;
+    private final String driver;
+    private final String host;
+    private final String dbName;
+    private final int port;
+    private final String user;
+    private final String password;
 
     public DatabaseConfig(String driver, String host, String dbName, int port, String user, String password) {
 

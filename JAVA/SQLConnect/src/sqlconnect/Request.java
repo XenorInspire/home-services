@@ -1,22 +1,28 @@
 package sqlconnect;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Request {
 
-    private static final DatabaseConfig dbc = DatabaseConfig.readConfig();
+    private DatabaseConfig dbc = null;
 
-    public ArrayList<String[]> query(String sql) {
+    public Request() {
+
+        dbc = DatabaseConfig.readConfig();
+
+    }
+
+    public String[][] query(String sql) {
 
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<String[]> fields = new ArrayList<String[]>();
+        String[][] fields = null;
 
         try {
+
             conn =
-                    DriverManager.getConnection("jdbc:" + dbc.getDriver() + "://"
+                    DriverManager.getConnection("jdbc:" + "mysql" + "://"
                             + dbc.getHost() + "/" + dbc.getDbName() + "?" +
                             "user=" + dbc.getUser() + "&password=" + dbc.getPassword());
 
@@ -26,15 +32,21 @@ public class Request {
                 if (stmt.execute(sql)) {
                     rs = stmt.getResultSet();
                     int i = rs.getMetaData().getColumnCount();
+                    rs.last();
+                    int c = rs.getRow();
+                    rs.first();
 
-                    while (rs.next()) {
+                    fields = new String[c][i];
+
+                    for (int l = 0; l < c; l++) {
 
                         String[] temp = new String[i];
 
                         for (int j = 0; j < i; j++)
                             temp[j] = rs.getString(j + 1);
 
-                        fields.add(temp);
+                        fields[l] = temp;
+                        rs.next();
 
                     }
 
@@ -77,51 +89,51 @@ public class Request {
 
     }
 
-    public ArrayList<String[]> getCustomers() {
+    public String[][] getCustomers() {
 
-        String sql = new String("SELECT * FROM Customer");
+        String sql = "SELECT * FROM Customer";
         return query(sql);
 
     }
 
-    public ArrayList<String[]> getAssociates() {
+    public String[][] getAssociates() {
 
-        String sql = new String("SELECT * FROM Associate");
+        String sql = "SELECT * FROM Associate";
         return query(sql);
 
     }
 
-    public ArrayList<String[]> getServices() {
+    public String[][] getServices() {
 
-        String sql = new String("SELECT * FROM Service");
+        String sql = "SELECT * FROM Service";
         return query(sql);
 
     }
 
-    public ArrayList<String[]> getReservations() {
+    public String[][] getReservations() {
 
-        String sql = new String("SELECT * FROM Reservation");
+        String sql = "SELECT * FROM Reservation";
         return query(sql);
 
     }
 
-    public ArrayList<String[]> getServicesTypes() {
+    public String[][] getServicesTypes() {
 
-        String sql = new String("SELECT * FROM ServiceType");
+        String sql = "SELECT * FROM ServiceType";
         return query(sql);
 
     }
 
-    public ArrayList<String[]> getSubscriptionTypes() {
+    public String[][] getSubscriptionTypes() {
 
-        String sql = new String("SELECT * FROM SubscriptionType");
+        String sql = "SELECT * FROM SubscriptionType";
         return query(sql);
 
     }
 
-    public ArrayList<String[]> getServiceProvided() {
+    public String[][] getServiceProvided() {
 
-        String sql = new String("SELECT * FROM ServiceProvided");
+        String sql = "SELECT * FROM ServiceProvided";
         return query(sql);
 
     }

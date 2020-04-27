@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="SQLConnect:jar">
+  <artifact type="jar" name="SQLConnect:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/SQLConnect_jar</output-path>
     <root id="archive" name="SQLConnect.jar">
       <element id="module-output" name="SQLConnect" />
