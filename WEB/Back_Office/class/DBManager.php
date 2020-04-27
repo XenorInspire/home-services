@@ -92,12 +92,12 @@ class DBManager
     {
         $subName = $subscription->getTypeName();
 
-        $q = "SELECT typeName FROM SubscriptionType WHERE typeName = ?";
+        $q = "SELECT typeName FROM SubscriptionType WHERE typeName = ? AND typeId != ?";
         $req = $this->db->prepare($q);
-        $req->execute([$subName]);
+        $req->execute([$subName,$subscription->getTypeId()]);
         $data = $req->fetch();
 
-        if ($data != NULL && $data['typeId'] != $subscription->getTypeId()) {
+        if ($data != NULL) {
             header('Location: edit_subscription.php?error=name_taken&id=' . $subscription->getTypeId());
             exit;
         } else {
@@ -435,12 +435,12 @@ class DBManager
     {
         $serviceTitle = $service->getServiceTitle();
 
-        $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ?";
+        $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ? AND serviceId != ?";
         $req = $this->db->prepare($q);
-        $req->execute([$serviceTitle]);
+        $req->execute([$serviceTitle,$service->getServiceId()]);
         $data = $req->fetch();
 
-        if ($data != NULL && $data['serviceId'] != $service->getServiceId()) {
+        if ($data != NULL) {
             header('Location: edit_service.php?error=name_taken&id=' . $service->getServiceId());
             exit;
         } else {
