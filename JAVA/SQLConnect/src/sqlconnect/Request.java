@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Request {
 
-    private DatabaseConfig dbc = null;
+    private final DatabaseConfig dbc;
 
     public Request() {
 
@@ -22,7 +22,7 @@ public class Request {
         try {
 
             conn =
-                    DriverManager.getConnection("jdbc:" + "mysql" + "://"
+                    DriverManager.getConnection("jdbc:" + dbc.getDriver() + "://"
                             + dbc.getHost() + "/" + dbc.getDbName() + "?" +
                             "user=" + dbc.getUser() + "&password=" + dbc.getPassword());
 
@@ -112,7 +112,7 @@ public class Request {
 
     public String[][] getReservations() {
 
-        String sql = "SELECT * FROM Reservation";
+        String sql = "SELECT reservationId,reservationDate,customer.email,service.serviceTitle,status FROM customer,reservation,serviceprovided,service WHERE serviceprovided.serviceProvidedId = reservation.serviceProvidedId AND serviceprovided.serviceId = service.serviceId;";
         return query(sql);
 
     }
@@ -133,7 +133,7 @@ public class Request {
 
     public String[][] getServiceProvided() {
 
-        String sql = "SELECT * FROM ServiceProvided";
+        String sql = "SELECT serviceProvidedId,date,beginHour,hours,service.serviceTitle,hoursAssociate,address,town FROM serviceProvided,service WHERE service.serviceId = serviceprovided.serviceId;";
         return query(sql);
 
     }
