@@ -34,7 +34,7 @@ if ($_GET['status'] == "customer") {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Home Services - <?php if ($connect_status == 1) echo $connect['customerConnection'];
-										else echo $connect['associateConnection']; ?></title>
+							else echo $connect['associateConnection']; ?></title>
 	<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -51,7 +51,7 @@ if ($_GET['status'] == "customer") {
 			<br>
 			<br>
 			<h1 style="text-align: center;">Connexion - <?php if ($connect_status == 1) echo $connect['customerSpace'];
-																else echo $connect['associateSpace']; ?></h1>
+														else echo $connect['associateSpace']; ?></h1>
 
 			<?php
 
@@ -116,14 +116,14 @@ if ($_GET['status'] == "customer") {
 							else echo "valid_associate_connect.php"; ?>" method="POST">
 				<div class="form-group">
 					<label><?= $connect['mail'] ?></label>
-					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder=<?= $connect['enterMail'] ?> autocomplete="email" maxlength="255" required>
+					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="<?= $connect['enterMail'] ?>" autocomplete="email" maxlength="255" required>
 					<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted"><?= $connect['invalidMail'] ?></small>
 				</div>
 				<div class="form-group">
 					<label><?= $connect['password'] ?></label>
-					<input type="password" id="password_length" name="passwd" class="form-control" placeholder=<?= $connect['enterPwd'] ?> required>
+					<input type="password" id="password_length" name="passwd" class="form-control" placeholder="<?= $connect['enterPwd'] ?>" required>
 					<small id="emailHelp" class="form-text text-muted"><?= $connect['forgottenPwd'] ?> <i><u><a href="passwd_forgotten.php?status=<?php if ($connect_status == 1) echo "customer";
-																																						else echo "associate"; ?>"><?= $connect['clickThere'] ?></a></u></i></small>
+																																					else echo "associate"; ?>"><?= $connect['clickThere'] ?></a></u></i></small>
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-auto mb-3">

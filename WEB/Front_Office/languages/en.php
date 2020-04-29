@@ -1,8 +1,6 @@
 <?php
 
-$nav = array(
-
-);
+$nav = array();
 
 $about_us = array(
   "aboutUs" => "About us"
@@ -117,7 +115,7 @@ $connect = array(
   "goConnect" => "Please connect before continuing.",
   "invalidQRcode" => "This QRcode isn't valid.",
   "pwdAndMail" => "Please, enter the password sent by mail and your mail.",
-  "desactivatedAcc" => "Your account has been desactivated."
+  "desactivatedAcc" => "Your account has been desactivated.",
   "mail" => "Mail address",
   "enterMail" => "Enter your mail address",
   "password" => "Password",

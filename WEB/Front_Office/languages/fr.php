@@ -1,8 +1,6 @@
 <?php
 
-$nav = array(
-
-);
+$nav = array();
 
 $about_us = array(
   "aboutUs" => "A propos"
@@ -92,7 +90,7 @@ $calendar = array(
 $connect = array(
   "customerConnection" => "Connexion Client",
   "associateConnection" => "Connexion Prestataire",
-  "customerSpace" => "Connexion - Espace client",
+  "customerSpace" => "Espace client",
   "associateSpace" => "Espace prestataire",
   "incorrectPasswd" => "Mot de passe incorrecte.",
   "incorrectMail" => "Veuillez saisir une adresse mail valide.",
