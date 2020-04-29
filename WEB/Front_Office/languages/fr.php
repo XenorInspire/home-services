@@ -76,7 +76,10 @@ $book_service = array(
   "book" => "Réserver",
   "cancel" => "Annuler",
   "booking" => "Réservation",
-  "bookService" => "Voulez-vous réserver ce service ?"
+  "bookService" => "Voulez-vous réserver ce service ?",
+  "estimate" => "Créer un devis",
+  "estimating" => "Devis",
+  "estimateService" => "Voulez-vous créer un devis pour ce service ?"
 );
 
 $calendar = array(
@@ -98,7 +101,7 @@ $connect = array(
   "goConnect" => "Veuillez vous connecter avant de poursuivre.",
   "invalidQRcode" => "Ce QRcode n'est pas valide.",
   "pwdAndMail" => "Veuillez entrer le mot de passe communiqué par mail ainsi que votre adresse mail.",
-  "desactivatedAcc" => "Votre compte a bien été désactivé."
+  "desactivatedAcc" => "Votre compte a bien été désactivé.",
   "mail" => "Adresse mail",
   "enterMail" => "Entrez votre adresse mail",
   "password" => "Mot de passe",

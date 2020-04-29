@@ -19,8 +19,8 @@ require_once('include/lang.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Services - <?= $calendar['services'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
