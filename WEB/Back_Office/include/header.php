@@ -19,6 +19,9 @@
             <a class="dropdown-item" href="subscriptions.php"><?= $nav['subscriptions'] ?></a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="calendar.php"><?= $nav['calendar'] ?></a>
+        </li>
       </ul>
     </div>
     <!-- <div class="mx-auto order-0"> -->

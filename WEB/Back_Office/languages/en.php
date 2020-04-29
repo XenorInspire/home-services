@@ -6,6 +6,7 @@ $index = array(
 $nav = array(
     "homepage" => "Homepage",
     "manage" => "Manage",
+    "calendar" => "Calendar",
     "customers" => "Customer section",
     "associates" => "Associate section",
     "subscriptions" => "Subscription section",
