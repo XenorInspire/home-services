@@ -34,7 +34,7 @@
              <input id="text" type="hidden" value="<?= $id ?>">
              <br>
              <br>
-             <div class="container text-center">
+             <div class="text-center">
                  <a id="qrcode" class="text-center"></a>
              </div>
              <hr>

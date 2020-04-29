@@ -3,7 +3,7 @@ var aid;
 function enable() {
 
     let section = document.getElementsByClassName('container')[0];
-    let button = section.getElementsByClassName('btn')[0];
+    let button = section.getElementsByClassName('btn')[1];
     let newButton = document.createElement('button');
     let inputs = section.getElementsByTagName('input');
     let infos = document.getElementById('infos');
@@ -90,8 +90,8 @@ function cancel() {
 
     let section = document.getElementsByClassName('container')[0];
     let inputs = section.getElementsByTagName('input');
-    let button = section.getElementsByClassName('btn')[0];
-    let oldButton = section.getElementsByClassName('btn')[1];
+    let button = section.getElementsByClassName('btn')[1];
+    let oldButton = section.getElementsByClassName('btn')[2];
     let div = document.getElementById('spinner');
     let br = section.getElementsByClassName('br');
 
