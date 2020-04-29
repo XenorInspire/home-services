@@ -12,16 +12,16 @@ require_once('include/check_identity.php');
       <a href="index.php"><img id="hm-logo" src="img/favicon.png" alt="logo"></a>
       <ul id="hm-home" class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php"><?= $header['homepage'] ?> <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <?php
           if ($connected != 0 && $status == 'associate') { ?>
-            <a class="nav-link" href="associate_services.php">Mes Services</a>
+            <a class="nav-link" href="associate_services.php"><?= $header['myServices'] ?></a>
           <?php
           } else {
           ?>
-            <a class="nav-link" href="shop.php">Boutique</a>
+            <a class="nav-link" href="shop.php"><?= $header['shop'] ?></a>
           <?php
           }
           ?>
@@ -29,11 +29,11 @@ require_once('include/check_identity.php');
         <li class="nav-item">
           <?php
           if ($connected != 0 && $status == 'associate') { ?>
-            <a class="nav-link" href="associate_services_provided.php">Mes Préstations</a>
+            <a class="nav-link" href="associate_services_provided.php"><?= $header['myDiary'] ?></a>
           <?php
           } else {
           ?>
-            <a class="nav-link" href="about_us.php">A propos</a>
+            <a class="nav-link" href="about_us.php"><?= $header['aboutUs'] ?></a>
           <?php
           }
           ?>
@@ -45,11 +45,11 @@ require_once('include/check_identity.php');
         ?>
           <li id="hm-connect" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Connexion
+              <?= $header['logIn'] ?>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="connect.php?status=customer">Espace client</a>
-              <a class="dropdown-item" href="connect.php?status=associate">Espace prestataire</a>
+              <a class="dropdown-item" href="connect.php?status=customer"><?= $header['customerSpace'] ?></a>
+              <a class="dropdown-item" href="connect.php?status=associate"><?= $header['associateSpace'] ?></a>
             </div>
           </li>
 
@@ -63,12 +63,12 @@ require_once('include/check_identity.php');
 
             <li id="hm-connect" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Mon compte
+                <?= $header['myAccount'] ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="calendar.php">Mon agenda</a>
-                <a class="dropdown-item" href="orders.php">Mes commandes</a>
-                <a class="dropdown-item" href="profile_customer.php">Mes informations personnelles</a>
+                <a class="dropdown-item" href="calendar.php"><?= $header['mySchedule'] ?></a>
+                <a class="dropdown-item" href="orders.php"><?= $header['myOrders'] ?></a>
+                <a class="dropdown-item" href="profile_customer.php"><?= $header['myInformations'] ?></a>
               </div>
             </li>
 
@@ -80,11 +80,11 @@ require_once('include/check_identity.php');
 
             <li id="hm-connect" class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Mon compte
+                <?= $header['myAccount'] ?>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="profile_associate.php">Mes informations personnelles</a>
-                <a class="dropdown-item" href="deconnect.php">Déconnexion</a>
+                <a class="dropdown-item" href="profile_associate.php"><?= $header['myInformations'] ?></a>
+                <a class="dropdown-item" href="deconnect.php"><?= $header['logOut'] ?></a>
               </div>
             </li>
 
@@ -103,7 +103,7 @@ require_once('include/check_identity.php');
         ?>
 
           <li id="hm-regis" class="nav-item">
-            <a class="nav-link" href="registration.php">S'inscrire</a>
+            <a class="nav-link" href="registration.php"><?= $header['signIn'] ?></a>
           </li>
 
           <?php
@@ -115,7 +115,7 @@ require_once('include/check_identity.php');
           ?>
 
             <li id="hm-regis" class="nav-item">
-              <a class="nav-link" href="deconnect.php">Déconnexion</a>
+              <a class="nav-link" href="deconnect.php"><?= $header['logOut'] ?></a>
             </li>
 
           <?php
@@ -123,7 +123,7 @@ require_once('include/check_identity.php');
           } else {
           ?>
             <li id="hm-regis" class="nav-item">
-              <a class="nav-link" href="about_us.php">A propos</a>
+              <a class="nav-link" href="about_us.php"><?= $header['aboutUs'] ?></a>
             </li>
         <?php
           }

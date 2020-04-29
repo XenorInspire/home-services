@@ -2,6 +2,23 @@
 
 $nav = array();
 
+$header = array(
+  "homepage" => "Accueil",
+  "myServices" => "Mes Services",
+  "shop" => "Boutique",
+  "myDiary" => "Mon Planning",
+  "aboutUs" => "À Propos",
+  "logIn" => " Log In",
+  "customerSpace" => "Espace Client",
+  "associateSpace" => "Espace Prestataire",
+  "myAccount" => "Mon Account",
+  "mySchedule" => "Mon Planning",
+  "myOrders" => "Mes Commandes",
+  "myInformations" => "Mes Informations Personnelles",
+  "logOut" => "Déconnexion",
+  "signIn" => "Se Connecter"
+);
+
 $about_us = array(
   "aboutUs" => "A propos"
 );
