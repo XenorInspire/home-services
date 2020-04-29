@@ -322,7 +322,7 @@ class DBManager
   public function getInactiveSubscriptionsByCustomerId($id)
   {
 
-    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? AND active = 0";
+    $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? AND active = 0 ORDER BY billDate DESC";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
 
@@ -428,38 +428,34 @@ class DBManager
 
   public function getReservationsFromDate($date, $id)
   {
-      $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
-      $req = $this->db->prepare($q);
-      $req->execute([$date]);
+    $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$date]);
 
-      $counter = 0;
-      $sp_id = [];
+    $counter = 0;
+    $sp_id = [];
 
-      while($data = $req->fetch()) {
-        $counter++;
+    while ($data = $req->fetch()) {
+      $counter++;
 
-        $q1 = "SELECT serviceProvidedId FROM Reservation WHERE serviceProvidedId = ? AND customerId = ?";
-        $req1 = $this->db->prepare($q1);
-        $req1->execute([$data['serviceProvidedId'], $id]);
+      $q1 = "SELECT serviceProvidedId FROM Reservation WHERE serviceProvidedId = ? AND customerId = ?";
+      $req1 = $this->db->prepare($q1);
+      $req1->execute([$data['serviceProvidedId'], $id]);
 
-        $counter1 = 0;
+      $counter1 = 0;
 
-        while($data1 = $req1->fetch()) {
-          $counter1++;
+      while ($data1 = $req1->fetch()) {
+        $counter1++;
 
-          array_push($sp_id, $data1['serviceProvidedId']);
-        }
+        array_push($sp_id, $data1['serviceProvidedId']);
       }
+    }
 
-      if ($counter == 0 || $counter1 == 0) {
-        return null;
-      }
+    if ($counter == 0 || $counter1 == 0) {
+      return null;
+    }
 
-      return $sp_id;
-
-
-
-
+    return $sp_id;
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -869,11 +865,11 @@ class DBManager
 
   public function getAssociateFromServiceProvided($serviceProvidedId)
   {
-      $q = "SELECT associateId FROM Proposal where serviceProvidedId = ?";
-      $req = $this->db->prepare($q);
-      $req->execute([$serviceProvidedId]);
-      $res = $req->fetch();
-      $associate = $this->getAssociateById($res['associateId']);
-      return $associate;
+    $q = "SELECT associateId FROM Proposal where serviceProvidedId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$serviceProvidedId]);
+    $res = $req->fetch();
+    $associate = $this->getAssociateById($res['associateId']);
+    return $associate;
   }
 }
