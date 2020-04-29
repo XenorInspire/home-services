@@ -1,5 +1,5 @@
 <?php
-
+require_once('include/lang.php');
 session_start();
 
 require_once('class/DBManager.php');

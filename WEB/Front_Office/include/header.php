@@ -1,6 +1,6 @@
 <?php
 require_once('include/check_identity.php');
-require_once('include/lang.php');
+
 ?>
 
 <header>
