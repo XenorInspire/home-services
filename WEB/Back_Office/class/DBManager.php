@@ -94,7 +94,7 @@ class DBManager
 
         $q = "SELECT typeName FROM SubscriptionType WHERE typeName = ? AND typeId != ?";
         $req = $this->db->prepare($q);
-        $req->execute([$subName,$subscription->getTypeId()]);
+        $req->execute([$subName, $subscription->getTypeId()]);
         $data = $req->fetch();
 
         if ($data != NULL) {
@@ -198,6 +198,20 @@ class DBManager
 
             return NULL;
         }
+    }
+
+    public function getSubscriptionsByCustomerId($id)
+    {
+
+        $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? ORDER BY billDate DESC";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        while ($data = $req->fetch())
+            $subscriptions[] = $data;
+
+        if (empty($subscriptions)) return NULL;
+        return $subscriptions;
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -325,20 +339,20 @@ class DBManager
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
 
-  public function getReservationByServiceProvidedId($serviceProvidedId)
-  {
+    public function getReservationByServiceProvidedId($serviceProvidedId)
+    {
 
-    $q = "SELECT * FROM Reservation WHERE serviceProvidedId = ?";
-    $req = $this->db->prepare($q);
-    $req->execute([$serviceProvidedId]);
+        $q = "SELECT * FROM Reservation WHERE serviceProvidedId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
 
-    $data = $req->fetch();
+        $data = $req->fetch();
 
-    if ($data == NULL) {
-      return NULL;
+        if ($data == NULL) {
+            return NULL;
+        }
+        return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
     }
-    return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
-  }
 
     //Insert a reservation
     public function addReservation(Customer $customer, Reservation $reservation, ServiceProvided $serviceProvided)
@@ -369,27 +383,26 @@ class DBManager
     }
 
     public function getReservationsFromDate($date)
-{
-    $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
-    $req = $this->db->prepare($q);
-    $req->execute([$date]);
+    {
+        $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$date]);
 
-    $counter = 0;
-    $sp_id = [];
+        $counter = 0;
+        $sp_id = [];
 
-    while($data = $req->fetch()) {
-      $counter++;
+        while ($data = $req->fetch()) {
+            $counter++;
 
-      array_push($sp_id, $data['serviceProvidedId']);
+            array_push($sp_id, $data['serviceProvidedId']);
+        }
+
+        if ($counter == 0) {
+            return null;
+        }
+
+        return $sp_id;
     }
-
-    if ($counter == 0) {
-      return null;
-    }
-
-    return $sp_id;
-
-}
 
     public function getReservationsByCustomerId($id)
     {
@@ -464,7 +477,7 @@ class DBManager
 
         $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ? AND serviceId != ?";
         $req = $this->db->prepare($q);
-        $req->execute([$serviceTitle,$service->getServiceId()]);
+        $req->execute([$serviceTitle, $service->getServiceId()]);
         $data = $req->fetch();
 
         if ($data != NULL) {
@@ -844,5 +857,21 @@ class DBManager
             return NULL;
 
         return new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+    }
+
+    public function getSubscriptionBill($billId)
+    {
+
+        $q = "SELECT * FROM SubscriptionBill WHERE billId = ?";
+        $res = $this->db->prepare($q);
+        $res->execute([$billId]);
+
+        $data = $res->fetch();
+
+        if ($data == NULL) {
+            return NULL;
+        }
+
+        return $data;
     }
 }

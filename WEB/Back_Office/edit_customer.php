@@ -182,6 +182,62 @@ if($customer == NULL){
 
         }
         ?>
+
+        <?php
+
+            if(($subscriptions = $hm_database->getSubscriptionsByCustomerId($customerId)) != NULL){
+
+
+                ?>
+
+                    <section class="container text-center">
+
+                        <section class="container text-center">
+                 <br>
+                 <h1>Abonnements du client</h1>
+                 <br>
+                 <table class="table">
+                     <thead class="thead-dark">
+                         <tr>
+                             <th scope="col">Abonnement</th>
+                             <th scope="col">Date de souscription</th>
+                             <th scope="col">Prix</th>
+                             <th scope="col">Action</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+
+                         <?php
+
+
+                            for ($i = 0; $i < count($subscriptions); $i++) {
+
+                            ?>
+
+                             <tr>
+                                 <td><?= $subscriptions[$i]['typeName'] ?></td>
+                                 <td><?= $subscriptions[$i]['billDate'] ?></td>
+                                 <td><?= $subscriptions[$i]['price'] ?>€ TTC</td>
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'subscription_bill.php?bid=<?= $subscriptions[$i]['billId'] ?>&cid=<?= $customerId ?>';">Facture du client</button></td>
+                             </tr>
+                         <?php
+
+                            }
+                            ?>
+                     </tbody>
+                 </table>
+                 <br>
+
+             </section>
+
+                    </section>
+
+                <?php
+                
+            }
+
+        ?>
+
         <br>
 
                 <div class="display-4">Liste des réservations</div>
