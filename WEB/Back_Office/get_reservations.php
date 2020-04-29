@@ -4,33 +4,30 @@ $hm_database = new DBManager($bdd);
 
 $date = $_POST['date'];
 
-$q = $hm_database->getReservationsFromDate($date);
+$serviceProvided_ids = $hm_database->getReservationsFromDate($date);
 
-$counter = 0;
+if ($serviceProvided_ids != null) {
+  foreach($serviceProvided_ids as $sp_id) {
+    $serviceProvided = $hm_database->getServiceProvided($sp_id);
+    $service = $hm_database->getService($serviceProvided->getServiceId());
+    $beginHour = explode('.', $serviceProvided->getBeginHour());
+    $reservation = $hm_database->getReservationByServiceProvidedId($sp_id);
+    $customerId = $reservation->getCustomerId();
+    $customer = $hm_database->getCustomer($customerId);
+    $associate = $hm_database->getAssociateFromServiceProvided($serviceProvided->getServiceProvidedId());
 
-while ($data = $q->fetch()) {
+    echo '<tr class="table-light">';
+    echo '<td>' . $customer->getFirstname() . ' ' . $customer->getLastName() . '</td>';
+    echo '<td>' . $serviceProvided->getAddress() . ', ' . $serviceProvided->getTown() . '</td>';
+    echo '<td>' . $beginHour[0] . '</td>';
+    echo '<td>' . $service->getServiceTitle() . '</td>';
+    if ($associate != null) {
+      echo '<td>' . $associate->getFirstName() . ' ' . $associate->getLastName() . '</td>';
+    } else echo '<td>Aucun</td>';
 
-  $customer = $hm_database->getCustomer($data['customerId']);
-  $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
-  $associate = $hm_database->getAssociateFromServiceProvided($serviceProvided->getServiceProvidedId());
-  $service = $hm_database->getService($serviceProvided->getServiceId());
-  $beginHour = explode('.', $serviceProvided->getBeginHour());
-  $counter++;
+    echo '</tr>';
+  }
+} else echo 'Pas de service à cette date !';
 
-  echo '<tr class="table-light">';
-  echo '<td>' . $customer->getFirstname() . ' ' . $customer->getLastName() . '</td>';
-  echo '<td>' . $serviceProvided->getAddress() . ', ' . $serviceProvided->getTown() . '</td>';
-  echo '<td>' . $beginHour[0] . '</td>';
-  echo '<td>' . $service->getServiceTitle() . '</td>';
-  if ($associate != null) {
-    echo '<td>' . $associate->getFirstName() . ' ' . $associate->getLastName() . '</td>';
-  } else echo '<td>Aucun</td>';
-
-  echo '</tr>';
-}
-
-if ($counter == 0) {
-  echo 'Pas de service à cette date !';
-}
 
  ?>

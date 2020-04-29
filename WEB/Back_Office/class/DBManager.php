@@ -325,6 +325,21 @@ class DBManager
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
 
+  public function getReservationByServiceProvidedId($serviceProvidedId)
+  {
+
+    $q = "SELECT * FROM Reservation WHERE serviceProvidedId = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$serviceProvidedId]);
+
+    $data = $req->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+    return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
+  }
+
     //Insert a reservation
     public function addReservation(Customer $customer, Reservation $reservation, ServiceProvided $serviceProvided)
     {
@@ -353,16 +368,28 @@ class DBManager
         ));
     }
 
-    function getReservationsFromDate($date)
-    {
-        $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ?";
-        $req = $this->db->prepare($q);
-        $req->execute([$date]);
+    public function getReservationsFromDate($date)
+{
+    $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
+    $req = $this->db->prepare($q);
+    $req->execute([$date]);
 
-        //$data = $q->fetch();
+    $counter = 0;
+    $sp_id = [];
 
-        return $req;
+    while($data = $req->fetch()) {
+      $counter++;
+
+      array_push($sp_id, $data['serviceProvidedId']);
     }
+
+    if ($counter == 0) {
+      return null;
+    }
+
+    return $sp_id;
+
+}
 
     public function getReservationsByCustomerId($id)
     {
