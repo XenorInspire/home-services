@@ -45,16 +45,16 @@
 							audio.volume = 0.1;
 						</script>
 						<div>
-							<button id="startButton">Voir la présentation</button>
+							<button id="startButton"><?= $about_us['presentation'] ?></button>
 							<br>
 							<br>
-							<p>Une conciergerie comme vous en avez jamais vu...</p>
+							<p><?= $about_us['slogan'] ?></p>
 							<?php
 							if ($vrMode == 1) {
 
 							?>
 
-								<a href="about_us.php?vr=false" id="startVR">Mode classique</a>
+								<a href="about_us.php?vr=false" id="startVR"><?= $about_us['classicalMode'] ?></a>
 
 							<?php
 
@@ -62,7 +62,7 @@
 
 							?>
 
-								<a href="about_us.php?vr=true" id="startVR">Mode VR</a>
+								<a href="about_us.php?vr=true" id="startVR"><?= $about_us['VRMode'] ?></a>
 
 							<?php
 

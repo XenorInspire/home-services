@@ -20,7 +20,11 @@ $header = array(
 );
 
 $about_us = array(
-  "aboutUs" => "About us"
+  "aboutUs" => "About us",
+  "presentation" => "Watch the presentation",
+  "slogan" => "A concierge service like you have never seen before.",
+  "classicalMode" => "Classical mode",
+  "VRMode" => "VR mode"
 );
 
 $all_services = array(
