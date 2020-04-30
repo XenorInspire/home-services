@@ -19,7 +19,7 @@ $associate = $hm_database->getAssociateById($associateId);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Création Abonnement</title>
+    <title>Home Services - <?= $create_associate_service['createSubscription'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -33,21 +33,15 @@ $associate = $hm_database->getAssociateById($associateId);
         <br>
         <div class="container-fluid">
             <div class="jumbotron">
-                <div class="display-4 text-center">Ajout de service au prestataire :</div>
-                <div class="display-4 text-center"><?= $associate->getLastName() ?> <?= $associate->getFirstName() ?> </div>
-                <?php
-                // if (isset($_GET['error']) == "name_tasken") {
-                //     echo '<div class="alert alert-danger text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Ce nom a déjà été utilisé</div>';
-                // }
-                ?>
+                <div class="display-4 text-center"><?= $create_associate_service['addService'] ?></div>
                 <br>
                 <form class="container-fluid" action="valid_create_associate_service.php" method="POST">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Type de service</label>
+                            <label class="input-group-text" for="inputGroupSelect01"><?= $create_associate_service['serviceType'] ?></label>
                         </div>
                         <select class="custom-select" id="inputGroupSelect01" required>
-                            <option selected disabled>Choisir un type de service...</option>
+                            <option selected disabled><?= $create_associate_service['chooseServicetype'] ?></option>
                             <?php
                             foreach ($servicesType as $serviceType) { ?>
                                 <option value="<?= $serviceType->getServiceTypeId() ?>"><?= $serviceType->getTypeName() ?></option>
@@ -57,7 +51,7 @@ $associate = $hm_database->getAssociateById($associateId);
 
                     <div class="btn-group-toggle services" data-toggle="buttons">
                         <label class="btn btn-outline-secondary btn-block">
-                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Pas de service
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked> <?= $create_associate_service['noService'] ?>
                         </label>
                     </div>
                     <input type="hidden" name="associateId" value="<?= $associateId ?>">
@@ -67,10 +61,10 @@ $associate = $hm_database->getAssociateById($associateId);
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md mb-3">
-                                <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave">Ajouter ce service</a></div>
+                                <div class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#modalSave"><?= $create_associate_service['addThisService'] ?></a></div>
                             </div>
                             <div class="col-md mb-3">
-                                <div class="btn btn-outline-secondary btn-block text center" onclick="history.back()">Annuler</div>
+                                <div class="btn btn-outline-secondary btn-block text center" onclick="history.back()"><?= $create_associate_service['cancel'] ?></div>
                             </div>
                         </div>
                     </div>
@@ -81,17 +75,17 @@ $associate = $hm_database->getAssociateById($associateId);
                             <div class="modal-content">
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Ajout du service</h4>
+                                    <h4 class="modal-title"><?= $create_associate_service['addService'] ?></h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    Etes-vous certain d'ajouter ce service ?
+                                    <?= $create_associate_service['confirmAddService'] ?>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button class="btn btn-outline-success" type="submit">Ajouter</button>
-                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                                    <button class="btn btn-outline-success" type="submit"><?= $create_associate_service['add'] ?></button>
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $create_associate_service['cancel'] ?></button>
                                 </div>
                             </div>
                         </div>

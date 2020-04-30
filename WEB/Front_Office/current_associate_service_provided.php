@@ -32,7 +32,7 @@ if (
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Accueil</title>
+    <title>Home Services - <?= $current_associate_service_provided['homepage'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -46,29 +46,29 @@ if (
             <div class="jumbotron">
                 <div class="card border-secondary">
                     <div class="card-header text-center">
-                        Informations Service
+                        <?= $current_associate_service_provided['serviceInformations'] ?>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title text-center"><?= $service->getServiceTitle() ?></h5>
                         <p class="card-text">
                             <div class="form-group">
-                                <label>Description</label>
+                                <label><?= $current_associate_service_provided['description'] ?></label>
                                 <input type="text" class="form-control" value="<?= $service->getDescription() ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Date</label>
+                                <label><?= $current_associate_service_provided['date'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getDate() ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Heure de la prestation</label>
+                                <label><?= $current_associate_service_provided['serviceTime'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getBeginHour() ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Lieu</label>
+                                <label><?= $current_associate_service_provided['place'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getAddress() ?>, <?= $serviceProvided->getTown() ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Nombres d'heures demandées</label>
+                                <label><?= $current_associate_service_provided['nbTimeAsked'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getHours() ?>" readonly>
                             </div>
                         </p>
@@ -78,7 +78,7 @@ if (
 
                 <form action="valid_current_associate_service_provided.php" method="POST">
                     <div class="form-group">
-                        <label>Heures effectuées</label>
+                        <label><?= $current_associate_service_provided['doneHours'] ?></label>
                         <input type="text" name="hoursAssociate" class="form-control" maxlength="255" value="" required>
                     </div>
 
@@ -101,16 +101,16 @@ if (
 
                     <div class="row">
                         <div class="col-md mb-3">
-                            <div class="btn btn-secondary btn-block" onclick="addCharge()">Ajouter un frais suplémentaire</div>
+                            <div class="btn btn-secondary btn-block" onclick="addCharge()"><?= $current_associate_service_provided['addExtra'] ?></div>
                         </div>
                         <div class="col-md mb-3">
-                            <div class="btn btn-secondary btn-block" onclick="deleteCharge()">Enlever un frais suplémentaire</div>
+                            <div class="btn btn-secondary btn-block" onclick="deleteCharge()"><?= $current_associate_service_provided['removeExtra'] ?></div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
                         <div class="col-4">
-                            <button class="btn btn-outline-success btn-block">Terminer la prestation</button>
+                            <button class="btn btn-outline-success btn-block"><?= $current_associate_service_provided['endService'] ?></button>
                         </div>
                     </div>
                 </form>

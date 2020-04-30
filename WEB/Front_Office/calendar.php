@@ -50,7 +50,7 @@ require_once('include/lang.php');
     <?php require_once("include/footer.php"); ?>
 </body>
 
-
+<script type="text/javascript"> var lang= "<?php echo $_SESSION['lang']; ?>"</script>
 <script type="text/javascript" src="js/calendar.js"></script>
 <script>
     allocate("<?php echo $id; ?>");

@@ -35,25 +35,6 @@ $all_services = array(
 $associate_proposal_accept = array(
   "homepage" => "Homepage",
   "bookOf" => "Book of",
-  "serviceInformations" => "Service informations",
-  "description" => "Description",
-  "date" => "Date",
-  "hour" => "Hour",
-  "place" => "Place",
-  "serviceAccept" => "Accept the service",
-  "serviceDecline" => "Decline the service",
-  "serviceAcceptance" => "Service acceptance",
-  "serviceAcceptanceQuestion" => "Do you accept the service ?",
-  "accept" => "Accept",
-  "serviceRefusal" => "Service refusal",
-  "serviceRefusalQuestion" => "Do you decline the service ?",
-  "decline" => "Decline",
-  "cancel" => "Cancel"
-);
-
-$associate_proposal_accept = array(
-  "homepage" => "Homepage",
-  "bookOf" => "Book of",
   "serviceInformations" => "Service Informations",
   "description" => "Description",
   "date" => "Date",
@@ -110,7 +91,10 @@ $book_service = array(
   "book" => "Book",
   "cancel" => "Cancel",
   "booking" => "Booking",
-  "bookService" => "Do you want to book this service ?"
+  "bookService" => "Do you want to book this service ?",
+  "createCostEstimate" => "Create a cost estimate",
+  "costEstimate" => "Cost estimate",
+  "serviceCostEstimate" => "Do you want to create a cost estimate for this service ?"
 );
 
 $calendar = array(
@@ -144,6 +128,129 @@ $connect = array(
   "cancel" => "Cancel"
 );
 
+$create_associate_service = array(
+  "createSubscription" => "Subscription Creation",
+  "addService" => "Add a service",
+  "serviceType" => "Service type",
+  "chooseServiceType" => "Choose a service type...",
+  "noService" => "No services",
+  "addThisService" => "Add this service",
+  "cancel" => "Cancel",
+  "confirmAddService" => "Do you want to add this service ?",
+  "add" => "Add"
+);
+
+$current_associate_service_provided = array(
+  "homepage" => "Homepage",
+  "serviceInformations" => "Service Informations",
+  "description" => "Description",
+  "date" => "Date",
+  "serviceTime" => "Service time",
+  "place" => "Place",
+  "nbTimeAsked" => "Amount of time asked",
+  "doneHours" => "Performed hours",
+  "addExtra" => "Add an additional cost",
+  "removeExtra" => "Remove an additional cost",
+  "endService" => "End a service"
+);
+
 $get_reservations = array(
   "noService" => "There is no service at this date."
+);
+
+$get_services_list = array(
+  "category" => "Category",
+  "service" => "Service",
+  "price" => "Price",
+  "book" => "Book"
+);
+
+$index = array(
+  "homepage" => "Homepage"
+);
+
+$orders = array(
+  "myOrders" => "My orders",
+  "stopSubscription" => "You have been unsubscribed !",
+  "mySubscription" => "My subscription",
+  "subscriptionType" => "Subscription type : ",
+  "daysAWeek" => "days a week",
+  "allDay" => "24 hours a day !",
+  "from" => "From ",
+  "to" => " o'clock to ",
+  "clock" => " o'clock",
+  "withMax" => "With a maximum of ",
+  "hoursAMonth" => "hours a month",
+  "price" => "Price : ",
+  "priceYear" => "€ a year, including all tax",
+  "youHave" => "You have ",
+  "leftThisMonth" => "hours left this month",
+  "daysLeft" => "Your subscription is still valid for ",
+  "days" => " day(s)",
+  "dlBill" => "Download my bill",
+  "cancelSubscription" => "Cancel my subscription",
+  "subscriptionTermination" => "Subscription termination",
+  "confirmTermination" => "Are you sure you want to terminate your subscription ?",
+  "terminate" => "Terminate",
+  "cancel" => "Cancel",
+  "myHistory" => "My old subscriptions",
+  "subscription" => "Subscription",
+  "subscriptionDate" => "Subscription date",
+  "price1" => "Price",
+  "action" => "Action",
+  "includingAllTax" => "€ including all tax",
+  "getBill" => "Get my bill",
+  "myBookings" => "My bookings",
+  "notDoneYet" => "The service has not been performed yet.",
+  "formStillEmpty" => "Please, fill up every input fields.",
+  "service" => "Service",
+  "date" => "Date",
+  "time" => "Time",
+  "priceHourWithTax" => "€/h including all tax",
+  "pay" => "Pay",
+  "booking" => "Booking",
+  "confirmCancel" => "Are you sure you want to cancel the booking ?",
+  "cancelBooking" => "Cancel the booking",
+  "back" => "Back"
+);
+
+$passwd_forgotten = array(
+  "forgottenPasswd" => "Forgotten password",
+  "forgotPasswd" => "Forgot my password",
+  "error" => "An error has occurred.",
+  "enterCustomerMail" => "Please enter your account mail address (customer)",
+  "enterAssociateMail" => "Please enter your account mail address (associate)",
+  "mailNoExist" => "This address mail doesn't exist !",
+  "confirm" => "Confirm"
+);
+
+$pay_service = array(
+  "servicePayment" => "Service payment",
+  "service" => "Service : ",
+  "timeOfService" => "h of service",
+  "madeThisDay" => "Made this day ",
+  "at" => "At ",
+  "price" => "Price : ",
+  "allTax" => "€ including all tax",
+  "payment" => "Payment",
+  "cardHolder" => "Card holder",
+  "pay" => "Pay",
+  "invalidCreditCard" => "Invalid bank details"
+);
+
+$profile_associate = array(
+  "myProfile" => "My profile",
+  "regenQRcode" => "Generate my QRcode",
+  "name" => "Name",
+  "firstName" => "First name",
+  "phone" => "Phone number",
+  "address" => "Address",
+  "changeMyProfile" => "Update my personal informations",
+  "myPasswd" => "My password",
+  "passwd" => "Current password",
+  "newPasswd" => "New password",
+  "minChar" => "6 characters minimum",
+  "confirm" => "Confirm",
+  "passwdDifferent" => "Please, enter the same password as in the previous input !",
+  "changePasswd" => "Change my password"
 );

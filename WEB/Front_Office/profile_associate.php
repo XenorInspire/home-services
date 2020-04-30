@@ -16,7 +16,7 @@
  <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Home Services - Mes informations personnelles</title>
+     <title>Home Services - <?= $profile_associate['myProfile'] ?></title>
      <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
      <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -30,7 +30,7 @@
          <br>
          <br>
          <section class="container text-center">
-             <div id="button" class="btn btn-dark" onclick="generateQrcode(); setTimeout(link, 1000);">Regénérer mon QRcode</div>
+             <div id="button" class="btn btn-dark" onclick="generateQrcode(); setTimeout(link, 1000);"><?= $profile_associate['regenQRcode'] ?></div>
              <input id="text" type="hidden" value="<?= $id ?>">
              <br>
              <br>
@@ -39,19 +39,19 @@
              </div>
              <hr>
              <br>
-             <h1>Mes informations personnelles</h1>
+             <h1><?= $profile_associate['myProfile'] ?></h1>
              <br>
              <br>
              <div class="form-row">
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Nom</span>
+                         <span class="input-group-text labels_account"><?= $profile_associate['name'] ?></span>
                      </div><!--
                   --><input type="text" name="lastname" class="form-control inputs_account" value="<?php echo $associate->getLastname(); ?>" disabled>
                  </div>
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Prénom</span>
+                         <span class="input-group-text labels_account"><?= $profile_associate['firstName'] ?></span>
                      </div><!--
                   --><input type="text" name="firstname" class="form-control inputs_account" value="<?php echo $associate->getFirstname(); ?>" disabled>
                  </div>
@@ -66,7 +66,7 @@
                  </div>
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Téléphone</span>
+                         <span class="input-group-text labels_account"><?= $profile_associate['phone'] ?></span>
                      </div><!--
                     --><input style="width: 72% !important;" name="phone_number" type="text" class="form-control inputs_account" value="<?php echo $associate->getPhoneNumber(); ?>" disabled>
                  </div>
@@ -74,7 +74,7 @@
              <br>
              <div class="input-group" style="width: 94.2%;margin: auto;margin-left: 3.3%;">
                  <div class="input-group-prepend">
-                     <span class="input-group-text">Adresse</span>
+                     <span class="input-group-text"><?= $profile_associate['address'] ?></span>
                  </div>
                  <input type="text" name="address" class="form-control inputs2_account" value="<?php echo $associate->getAddress(); ?>" disabled>
                  <input type="text" name="city" class="form-control inputs2_account" value="<?php echo $associate->getTown(); ?>" disabled>
@@ -82,7 +82,7 @@
              <br>
              <small id="infos" class="form-text text-muted"></small>
              <br>
-             <button type="button" class="btn btn-dark" onclick="enable()">Modifier mes informations</button>
+             <button type="button" class="btn btn-dark" onclick="enable()"><?= $profile_associate['changeMyProfile'] ?>s</button>
          </section>
          <br>
          <br>
@@ -90,30 +90,30 @@
 
          <section class="container text-center">
 
-             <h2>Mon mot de passe</h2>
+             <h2><?= $profile_associate['myPasswd'] ?></h2>
              <br>
              <br>
              <div class="form-row">
                  <div class="col">
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Mot de passe actuel</span>
+                         <span class="input-group-text labels_account"><?= $profile_associate['passwd'] ?></span>
                      </div><!--
                   --><input style="width: 50% !important;" name="old_password" type="password" class="form-control inputs_account" disabled>
                      <br>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Nouveau mot de passe</span>
+                         <span class="input-group-text labels_account"><?= $profile_associate['newPasswd'] ?></span>
                      </div><!--
                   --><input style="width: 48.1% !important;" id="password_length" onkeyup="checkPassword()" name="new_password" type="password" class="form-control inputs_account" disabled>
                      <br>
-                     <small id="password_size" class="form-text">6 caractères minimum</small>
+                     <small id="password_size" class="form-text"><?= $profile_associate['minChar'] ?></small>
                      <br>
                      <div class="input-group-prepend" style="display:inline-block !important;">
-                         <span class="input-group-text labels_account">Confirmation</span>
+                         <span class="input-group-text labels_account"><?= $profile_associate['confirm'] ?></span>
                      </div><!--
                   --><input id="same" onkeyup="samePassword()" style="width: 54.3% !important;" name="new_password2" type="password" class="form-control inputs_account" disabled>
                      <br>
-                     <small id="password_same" class="form-text">Ce mot de passe est différent du champs précédent !</small>
+                     <small id="password_same" class="form-text"><?= $profile_associate['passwdDifferent'] ?></small>
                      <br>
                      <small id="infos_passwd" class="form-text text-muted"></small>
                      <br>
@@ -121,7 +121,7 @@
                  </div>
 
              </div>
-             <button type="button" onclick="enablePasswd()" class="btn btn-dark">Changer mon mot de passe</button>
+             <button type="button" onclick="enablePasswd()" class="btn btn-dark"><?= $profile_associate['changePasswd'] ?></button>
          </section>
          <br>
          <br>

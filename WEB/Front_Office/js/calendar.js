@@ -14,10 +14,21 @@ class Calendar {
     if (!this.domElement) throw "Calendar - L'élément spécifié est introuvable";
 
     // Liste des mois
-    this.monthList = new Array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aôut', 'septembre', 'octobre', 'novembre', 'décembre');
+    if (lang == "fr") {
+      this.monthList = new Array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aôut', 'septembre', 'octobre', 'novembre', 'décembre');
+    }
+    if (lang == "en") {
+      this.monthList = new Array('january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december');
+    }
+
 
     // Liste des jours de la semaine
-    this.dayList = new Array('dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi');
+    if (lang == "fr") {
+      this.dayList = new Array('dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi');
+    }
+    if (lang == "en") {
+      this.dayList = new Array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
+    }
 
     // Date actuelle
     this.today = new Date();
@@ -121,10 +132,17 @@ function getServices(d) {
   let year = document.getElementsByClassName('month')[0].innerHTML;
   let request = new XMLHttpRequest;
   let json;
-  let monthIndex = ['JANVIER', 'FÉVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AÔUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DÉCEMBRE'];
+  let monthIndex;
   let tbody = document.getElementById('myTable');
   let newDiv = document.createElement('div');
   let rep;
+
+  if (lang == "fr") {
+    monthIndex = ['JANVIER', 'FÉVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AÔUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DÉCEMBRE']
+  }
+  if (lang == "en") {
+    monthIndex = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+  }
 
   tbody.appendChild(newDiv);
 

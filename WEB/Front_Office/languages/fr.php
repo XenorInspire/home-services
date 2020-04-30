@@ -8,7 +8,7 @@ $header = array(
   "shop" => "Boutique",
   "myDiary" => "Mon Planning",
   "aboutUs" => "À Propos",
-  "logIn" => " Log In",
+  "logIn" => "Se connecter",
   "customerSpace" => "Espace Client",
   "associateSpace" => "Espace Prestataire",
   "myAccount" => "Mon Compte",
@@ -16,7 +16,7 @@ $header = array(
   "myOrders" => "Mes Commandes",
   "myInformations" => "Mes Informations Personnelles",
   "logOut" => "Déconnexion",
-  "signIn" => "Se Connecter"
+  "signIn" => "S'inscrire"
 );
 
 $about_us = array(
@@ -92,9 +92,9 @@ $book_service = array(
   "cancel" => "Annuler",
   "booking" => "Réservation",
   "bookService" => "Voulez-vous réserver ce service ?",
-  "estimate" => "Créer un devis",
-  "estimating" => "Devis",
-  "estimateService" => "Voulez-vous créer un devis pour ce service ?"
+  "createCostEstimate" => "Créer un devis",
+  "costEstimate" => "Devis",
+  "serviceCostEstimate" => "Voulez-vous créer un devis pour ce service ?"
 );
 
 $calendar = array(
@@ -128,6 +128,129 @@ $connect = array(
   "cancel" => "Annuler"
 );
 
+$create_associate_service = array(
+  "createSubscription" => "Création Abonnement",
+  "addService" => "Ajout de service",
+  "serviceType" => "Type de service",
+  "chooseServiceType" => "Choisir un type de service...",
+  "noService" => "Pas de services",
+  "addThisService" => "Ajouter ce service",
+  "cancel" => "Annuler",
+  "confirmAddService" => "Voulez-vous ajouter ce service ?",
+  "add" => "Ajouter"
+);
+
+$current_associate_service_provided = array(
+  "homepage" => "Accueil",
+  "serviceInformations" => "Informations Service",
+  "description" => "Description",
+  "date" => "Date",
+  "serviceTime" => "Heure de la prestation",
+  "place" => "Lieu",
+  "nbTimeAsked" => "Nombre d'heures demandées",
+  "doneHours" => "Heures effectuées",
+  "addExtra" => "Ajouter un frais supplémentaire",
+  "removeExtra" => "Enlever un frais supplémentaire",
+  "endService" => "Terminer la prestation"
+);
+
 $get_reservations = array(
   "noService" => "Pas de service à cette date."
+);
+
+$get_services_list = array(
+  "category" => "Catégorie",
+  "service" => "Service",
+  "price" => "Prix",
+  "book" => "Réserver"
+);
+
+$index = array(
+  "homepage" => "Accueil"
+);
+
+$orders = array(
+  "myOrders" => "Mes commandes",
+  "stopSubscription" => "Votre abonnement a bien été résilié !",
+  "mySubscription" => "Mon abonnement",
+  "subscriptionType" => "Type d'abonnement : ",
+  "daysAWeek" => "jours par semaine",
+  "allDay" => "24 heures sur 24 !",
+  "from" => "De ",
+  "to" => "h à ",
+  "clock" => "h",
+  "withMax" => "Avec un maximum de ",
+  "hoursAMonth" => "h par mois !",
+  "price" => "Prix : ",
+  "priceYear" => "€ TTC / an",
+  "youHave" => "Il vous reste ",
+  "leftThisMonth" => " heures ce mois-ci",
+  "daysLeft" => "Votre abonnement est encore valable",
+  "days" => " jour(s)",
+  "dlBill" => "Télécharger ma facture",
+  "cancelSubscription" => "Résilier mon abonnement",
+  "subscriptionTermination" => "Résiliation de mon abonnement",
+  "confirmTermination" => "Voulez-vous vraiment résilier votre abonnement ?",
+  "terminate" => "Résilier",
+  "cancel" => "Annuler",
+  "myHistory" => "Mes anciens abonnements",
+  "subscription" => "Abonnement",
+  "subscriptionDate" => "Date de souscription",
+  "price1" => "Prix",
+  "action" => "Action",
+  "includingAllTax" => "€ TTC",
+  "getBill" => "Obtenir ma facture",
+  "myBookings" => "Mes réservations",
+  "notDoneYet" => "La prestation n'a pas encore été réalisée.",
+  "formStillEmpty" => "Veuillez remplir correctement les différents champs.",
+  "service" => "Service",
+  "date" => "Date",
+  "time" => "Heure",
+  "priceHourWithTax" => "€/h TTC",
+  "pay" => "Payer",
+  "booking" => "Réservation",
+  "confirmCancel" => "Êtes-vous sûr de vouloir annuler cette réservation ?",
+  "cancelBooking" => "Annuler la réservation",
+  "back" => "Retour"
+);
+
+$passwd_forgotten = array(
+  "forgottenPasswd" => "Mot de passe oublié",
+  "forgotPasswd" => "Mot de passe oublié",
+  "error" => "Une erreur s'est produite.",
+  "enterCustomerMail" => "Veuillez saisir l'adresse mail de votre compte client",
+  "enterAssociateMail" => "Veuillez saisir l'adresse mail de votre compte prestataire",
+  "mailNoExist" => "Cette adresse mail n'existe pas !",
+  "confirm" => "Confirmer"
+);
+
+$pay_service = array(
+  "servicePayment" => "Paiement du service",
+  "service" => "Service : ",
+  "timeOfService" => "h de prestation",
+  "madeThisDay" => "Fait le ",
+  "at" => "À ",
+  "price" => "Prix : ",
+  "allTax" => "€ TTC",
+  "payment" => "Paiement",
+  "cardHolder" => "Titulaire de la carte",
+  "pay" => "Payer",
+  "invalidCreditCard" => "Vos coordonnées bancaires sont incorrectes"
+);
+
+$profile_associate = array(
+  "myProfile" => "Mes informations personnelles",
+  "regenQRcode" => "Géérer à nouveau mon QRcode",
+  "name" => "Nom",
+  "firstName" => "Prénom",
+  "phone" => "Téléphone",
+  "address" => "Adresse",
+  "changeMyProfile" => "Modifier mes informations",
+  "myPasswd" => "Mon mot de passe",
+  "passwd" => "Mot de passe actuel",
+  "newPasswd" => "Nouveau mot de passe",
+  "minChar" => "6 caractères minimum",
+  "confirm" => "Confirmer",
+  "passwdDifferent" => "Veuillez entrer le même mot de passe que dans le vhamps précédent !",
+  "changePasswd" => "Changer mon mot de passe"
 );

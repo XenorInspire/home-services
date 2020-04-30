@@ -8,13 +8,6 @@ $id = $_POST['id'];
 
 $serviceProvided_ids = $hm_database->getReservationsFromDate($date, $id);
 
-// $counter = 0;
-//
-// while ($data = $q->fetch()) {
-//
-//   $counter++;
-//
-//   $serviceProvided = $hm_database->getServiceProvided($data['serviceProvidedId']);
 if ($serviceProvided_ids != null) {
   foreach($serviceProvided_ids as $sp_id) {
      $serviceProvided = $hm_database->getServiceProvided($sp_id);
@@ -30,6 +23,5 @@ if ($serviceProvided_ids != null) {
 } else {
   echo $get_reservations['noService'];
 }
-// }
 
  ?>

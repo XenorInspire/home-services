@@ -37,7 +37,7 @@
  <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Home Services - Mes commandes</title>
+     <title>Home Services - <?= $orders['myOrders'] ?></title>
      <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
      <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -56,7 +56,7 @@
 
                     echo '<br>';
                     echo '<br>';
-                    echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre abonnement est bien résilié.</div>';
+                    echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $orders['stopSubscription'] . '</div>';
                 }
             }
 
@@ -77,25 +77,25 @@
              <section class="container text-center">
 
                  <br>
-                 <h1>Mon abonnement</h1>
+                 <h1><?= $orders['mySubscription'] ?></h1>
                  <br>
                  <ul style="margin:auto;width:50%;padding:0px;">
-                     <li class="list-group-item list-group-item-info">Type d'abonnement : <?php echo $subscriptionType->getTypeName(); ?></li>
-                     <li class="list-group-item"><?php echo $subscriptionType->getDays(); ?> jours par semaine</li>
+                     <li class="list-group-item list-group-item-info"><?= $orders['subscriptionType'] ?><?php echo $subscriptionType->getTypeName(); ?></li>
+                     <li class="list-group-item"><?php echo $subscriptionType->getDays(); ?> <?= $orders['daysAWeek'] ?></li>
                      <?php
 
                         if ($time1 == 24 && $time2 == 24) {
 
                         ?>
 
-                         <li class="list-group-item">24h sur 24 !</li>
+                         <li class="list-group-item"><?= $orders['allDay'] ?></li>
 
                      <?php
 
                         } else {
 
                         ?>
-                         <li class="list-group-item">De <?php echo $time1; ?>h à <?php echo $time2; ?>h</li>
+                         <li class="list-group-item"><?= $orders['from'] ?><?php echo $time1; ?><?= $orders['to'] ?><?php echo $time2; ?><?= $orders['clock'] ?></li>
 
                      <?php
 
@@ -103,15 +103,15 @@
 
                         ?>
 
-                     <li class="list-group-item">Avec un maximum de <?php echo $subscriptionType->getServiceTime(); ?>h par mois !</li>
-                     <li class="list-group-item">Prix : <?php echo $subscriptionType->getPrice(); ?>€ TTC/an</li>
-                     <li class="list-group-item">Il vous reste ce mois-ci : <?php echo $result->getRemainingHours(); ?> heures</li>
-                     <li class="list-group-item">Votre abonnement est encore valable <?php echo $sub['day'] + 1; ?> jour(s)</li>
+                     <li class="list-group-item"><?= $orders['withMax'] ?><?php echo $subscriptionType->getServiceTime(); ?><?= $orders['hoursAMonth'] ?></li>
+                     <li class="list-group-item"><?= $orders['price'] ?><?php echo $subscriptionType->getPrice(); ?><?= $orders['priceYear'] ?></li>
+                     <li class="list-group-item"><?= $orders['youHave'] ?><?php echo $result->getRemainingHours(); ?><?= $orders['leftThisMonth'] ?></li>
+                     <li class="list-group-item"><?= $orders['daysLeft'] ?><?php echo $sub['day'] + 1; ?><?= $orders['days'] ?></li>
 
                  </ul>
                  <br>
-                 <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark">Télécharger ma facture</button>
-                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Résilier mon abonnement</button>
+                 <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill'] ?></button>
+                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription'] ?></button>
 
                  <!-- Modal for saving -->
                  <div class="modal fade" id="modalSave">
@@ -119,17 +119,17 @@
                          <div class="modal-content">
                              <!-- Modal Header -->
                              <div class="modal-header">
-                                 <h4 class="modal-title">Résiliation de mon abonnement</h4>
+                                 <h4 class="modal-title"><?= $orders['subscriptionTermination'] ?></h4>
                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                              </div>
                              <!-- Modal body -->
                              <div class="modal-body">
-                                 Voulez-vous vraiment résilier votre abonnement ?
+                                 <?= $orders['confirmTermination'] ?>
                              </div>
                              <!-- Modal footer -->
                              <div class="modal-footer">
-                                 <button class="btn btn-outline-success" onclick="window.location.href = 'delete_subscription.php';" type="submit">Résilier</button>
-                                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Retour</button>
+                                 <button class="btn btn-outline-success" onclick="window.location.href = 'delete_subscription.php';" type="submit"><?= $orders['terminate'] ?></button>
+                                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $orders['cancel'] ?></button>
                              </div>
                          </div>
                      </div>
@@ -148,15 +148,15 @@
              <section class="container text-center">
                  <br>
                  <br>
-                 <h1>Mes anciens abonnements</h1>
+                 <h1><?= $orders['myHistory'] ?></h1>
                  <br>
                  <table class="table">
                      <thead class="thead-dark">
                          <tr>
-                             <th scope="col">Abonnement</th>
-                             <th scope="col">Date de souscription</th>
-                             <th scope="col">Prix</th>
-                             <th scope="col">Action</th>
+                             <th scope="col"><?= $orders['subscription'] ?></th>
+                             <th scope="col"><?= $orders['subscriptionDate'] ?></th>
+                             <th scope="col"><?= $orders['price1'] ?></th>
+                             <th scope="col"><?= $orders['action'] ?></th>
                          </tr>
                      </thead>
                      <tbody>
@@ -171,8 +171,8 @@
                              <tr>
                                  <td><?= $oldSubscriptions[$i]['typeName'] ?></td>
                                  <td><?= $oldSubscriptions[$i]['billDate'] ?></td>
-                                 <td><?= $oldSubscriptions[$i]['price'] ?>€ TTC</td>
-                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('subscription_bill.php?i=<?= $oldSubscriptions[$i]['billId'] ?>');">Obtenir ma facture</button></td>
+                                 <td><?= $oldSubscriptions[$i]['price'] ?><?= $orders['includingAllTax'] ?></td>
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('subscription_bill.php?i=<?= $oldSubscriptions[$i]['billId'] ?>');"><?= $orders['getBill'] ?></button></td>
                              </tr>
                          <?php
 
@@ -193,20 +193,20 @@
              <section class="container text-center">
                  <br>
                  <br>
-                 <h1>Mes réservations</h1>
+                 <h1><?= $orders['myBookings'] ?></h1>
                  <br>
                  <?php
                     if (isset($_GET['error'])) {
 
                         if ($_GET['error'] == 'nr') {
 
-                            echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">La prestation n\'a pas encore été réalisée.</div>';
+                            echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $orders['notDoneYet'] . '</div>';
                             echo '<br>';
                         }
 
                         if ($_GET['error'] == 'inp') {
 
-                            echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez remplir correctement les différents champs de saisie</div>';
+                            echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $orders['formStillEmpty'] . '</div>';
                             echo '<br>';
                         }
                     }
@@ -214,11 +214,11 @@
                  <table class="table">
                      <thead class="thead-dark">
                          <tr>
-                             <th scope="col">Service</th>
-                             <th scope="col">Date</th>
-                             <th scope="col">Heure</th>
-                             <th scope="col">Prix</th>
-                             <th scope="col">Action</th>
+                             <th scope="col"><?= $orders['service'] ?></th>
+                             <th scope="col"><?= $orders['date'] ?></th>
+                             <th scope="col"><?= $orders['time'] ?></th>
+                             <th scope="col"><?= $orders['price1'] ?></th>
+                             <th scope="col"><?= $orders['action'] ?></th>
                          </tr>
                      </thead>
                      <tbody>
@@ -235,7 +235,7 @@
                                  <td><?= $services[$i]['serviceTitle'] ?></td>
                                  <td><?= $services[$i]['date'] ?></td>
                                  <td><?= $parts[0] ?></td>
-                                 <td><?= $services[$i]['servicePrice'] ?>€/h TTC</td>
+                                 <td><?= $services[$i]['servicePrice'] ?><?= $orders['priceHourWithTax'] ?></td>
 
                                  <?php
                                     $bill = $hm_database->checkBill($services[$i]['serviceProvidedId']);
@@ -243,7 +243,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>');">Obtenir ma facture</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>');"><?= $orders['getBill'] ?></button></td>
 
                                  <?php
 
@@ -251,7 +251,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'pay_service.php?sp=<?= $services[$i]['serviceProvidedId'] ?>';">Payer</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'pay_service.php?sp=<?= $services[$i]['serviceProvidedId'] ?>';"><?= $orders['pay'] ?></button></td>
 
                                  <?php
 
@@ -259,7 +259,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>');">Obtenir ma facture</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>');"><?= $orders['getBill'] ?></button></td>
 
                                  <?php
 
@@ -267,7 +267,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalSave">Annuler</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalSave"><?= $orders['cancel'] ?></button></td>
 
                                  <?php
 
@@ -282,17 +282,17 @@
                                      <div class="modal-content">
                                          <!-- Modal Header -->
                                          <div class="modal-header">
-                                             <h4 class="modal-title">Réservation</h4>
+                                             <h4 class="modal-title"><?= $orders['booking'] ?></h4>
                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
                                          </div>
                                          <!-- Modal body -->
                                          <div class="modal-body">
-                                             Voulez-vous vraiment annuler cette réservation ?
+                                             <?= $orders['confirmCancel'] ?>
                                          </div>
                                          <!-- Modal footer -->
                                          <div class="modal-footer">
-                                             <button class="btn btn-outline-success" onclick="window.location.href = 'cancel_reservation.php?&rid=<?= $services[$i]['reservationId'] ?>';" type="submit">Annuler</button>
-                                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Retour</button>
+                                             <button class="btn btn-outline-success" onclick="window.location.href = 'cancel_reservation.php?&rid=<?= $services[$i]['reservationId'] ?>';" type="submit"><?= $orders['cancelBooking'] ?></button>
+                                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $orders['back'] ?></button>
                                          </div>
                                      </div>
                                  </div>
