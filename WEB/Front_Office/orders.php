@@ -110,7 +110,7 @@
 
                  </ul>
                  <br>
-                 <button type="button" onclick="window.location.href = 'subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>';" class="btn btn-dark">Télécharger ma facture</button>
+                 <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark">Télécharger ma facture</button>
                  <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Résilier mon abonnement</button>
 
                  <!-- Modal for saving -->
@@ -172,7 +172,7 @@
                                  <td><?= $oldSubscriptions[$i]['typeName'] ?></td>
                                  <td><?= $oldSubscriptions[$i]['billDate'] ?></td>
                                  <td><?= $oldSubscriptions[$i]['price'] ?>€ TTC</td>
-                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'subscription_bill.php?i=<?= $oldSubscriptions[$i]['billId'] ?>';">Obtenir ma facture</button></td>
+                                 <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('subscription_bill.php?i=<?= $oldSubscriptions[$i]['billId'] ?>');">Obtenir ma facture</button></td>
                              </tr>
                          <?php
 
@@ -243,7 +243,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>');">Obtenir ma facture</button></td>
 
                                  <?php
 
@@ -259,7 +259,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>';">Obtenir ma facture</button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" onclick="window.open('service_bill.php?i=<?= $services[$i]['serviceProvidedId'] ?>');">Obtenir ma facture</button></td>
 
                                  <?php
 

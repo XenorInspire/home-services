@@ -33,7 +33,7 @@ require_once('include/check_identity.php');
           <?php
           } else {
           ?>
-            <a class="nav-link" href="about_us.php"><?= $header['aboutUs'] ?></a>
+            <a class="nav-link" href="about_us.php" target="_blank"><?= $header['aboutUs'] ?></a>
           <?php
           }
           ?>
@@ -123,7 +123,7 @@ require_once('include/check_identity.php');
           } else {
           ?>
             <li id="hm-regis" class="nav-item">
-              <a class="nav-link" href="about_us.php"><?= $header['aboutUs'] ?></a>
+              <a class="nav-link" href="about_us.php" target="_blank"><?= $header['aboutUs'] ?></a>
             </li>
         <?php
           }
