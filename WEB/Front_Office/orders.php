@@ -224,7 +224,7 @@
                      <tbody>
 
                          <?php
-
+                            $counter = 1;
                             for ($i = 0; $i < count($services); $i++) {
 
                                 $parts = explode(".", $services[$i]['beginHour']);
@@ -267,7 +267,7 @@
 
                                     ?>
 
-                                     <td><button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalSave"><?= $orders['cancel'] ?></button></td>
+                                     <td><button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAdd<?= $counter ?>"><?= $orders['cancel'] ?></button></td>
 
                                  <?php
 
@@ -277,7 +277,7 @@
 
                              </tr>
                              <!-- Modal for saving -->
-                             <div class="modal fade" id="modalSave">
+                             <div class="modal fade" id="modalAdd<?= $counter ?>">
                                  <div class="modal-dialog modal-dialog-centered">
                                      <div class="modal-content">
                                          <!-- Modal Header -->
@@ -299,6 +299,7 @@
                              </div>
 
                          <?php
+                                $counter++;
                             }
 
                             ?>
