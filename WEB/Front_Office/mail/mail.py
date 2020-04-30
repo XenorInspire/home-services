@@ -15,7 +15,7 @@ message = ''
 
 if(sys.argv[1] == '1'):  # Mail confirmation
     msg['Subject'] = "Home Services - Confirm your mail address"
-    message = 'Hi there !\nThanks for using Home-Services !\nClick right here to purshase your registration : \nhttp://localhost/user_registered.php?a=' + \
+    message = 'Hi there !\nThanks for using Home-Services !\nClick right here to purshase your registration : \n' + logins.IP + 'user_registered.php?a=' + \
         sys.argv[3]
 elif(sys.argv[1] == '2'):  # Subscription
     msg['Subject'] = "Home Services - Subscription confirmation"
