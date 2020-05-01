@@ -59,9 +59,12 @@ if (
                                 <label><?= $current_associate_service_provided['date'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getDate() ?>" readonly>
                             </div>
+                            <?php
+                            $parts = explode(".", $serviceProvided->getBeginHour());
+                            ?>
                             <div class="form-group">
                                 <label><?= $current_associate_service_provided['serviceTime'] ?></label>
-                                <input type="text" class="form-control" value="<?= $serviceProvided->getBeginHour() ?>" readonly>
+                                <input type="text" class="form-control" value="<?= $parts[0] ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label><?= $current_associate_service_provided['place'] ?></label>
