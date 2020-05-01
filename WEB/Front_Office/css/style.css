@@ -438,3 +438,21 @@ body {
   position: absolute;
 
 }
+
+#slogan {
+
+  font-size: 2em !important;
+  font-style: italic;
+
+}
+
+#home-services {
+
+  font-size: 3em !important;
+  margin-bottom: 0.5em;
+
+}
+
+canvas {
+  display: block;
+}

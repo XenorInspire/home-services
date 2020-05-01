@@ -24,10 +24,7 @@
 	</head>
 
 	<body>
-
-		<?php require_once("include/header.php"); ?>
-
-		<main>
+		<main id="container">
 			<div id="blocker">
 				<div id="instructions">
 					<div id="overlay">
@@ -45,10 +42,10 @@
 							audio.volume = 0.1;
 						</script>
 						<div>
+							<p id="home-services">Home - Services,</p>
+							<p id="slogan"><?= $about_us['slogan'] ?></p>
+							<br>
 							<button id="startButton"><?= $about_us['presentation'] ?></button>
-							<br>
-							<br>
-							<p><?= $about_us['slogan'] ?></p>
 							<?php
 							if ($vrMode == 1) {
 
@@ -70,7 +67,6 @@
 
 							?>
 
-
 						</div>
 					</div>
 				</div>
@@ -80,13 +76,53 @@
 
 	</body>
 
+	<script type="x-shader/x-vertex" id="vertexshader">
+
+		attribute float size;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				vColor = customColor;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				gl_PointSize = size * ( 300.0 / -mvPosition.z );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+
+	<script type="x-shader/x-fragment" id="fragmentshader">
+
+		uniform vec3 color;
+			uniform sampler2D pointTexture;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				gl_FragColor = vec4( color * vColor, 1.0 );
+
+				gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+
+				if ( gl_FragColor.a < ALPHATEST ) discard;
+
+			}
+
+		</script>
+
 	<?php
 
 	if ($vrMode == 1) {
 
 	?>
 
-		<script src="js/webglVR.js"></script>
+		<script type="module" src="js/webglVR.js"></script>
 
 	<?php
 
@@ -94,7 +130,7 @@
 
 	?>
 
-		<script src="js/webgl.js"></script>
+		<script type="module" src="js/webgl.js"></script>
 
 	<?php
 

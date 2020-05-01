@@ -1,4 +1,5 @@
 import * as THREE from '/js/build/three.module.js';
+import { VRButton } from '/js/build/VRButton.js';
 
 var startButton = document.getElementById('startButton');
 startButton.addEventListener('click', init);
@@ -73,6 +74,9 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
+
+    document.body.appendChild( VRButton.createButton( renderer ) );
+	renderer.vr.enabled = true;
 
     //
 
