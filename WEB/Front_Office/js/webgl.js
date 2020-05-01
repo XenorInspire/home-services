@@ -1,14 +1,22 @@
-import * as THREE from '/js/build/three.module.js';
+import * as THREE from '/build/three.module.js';
+
+import { EffectComposer } from '/build/EffectComposer.js';
+import { RenderPass } from '/build/RenderPass.js';
+import { GlitchPass } from '/build/GlitchPass.js';
 
 var startButton = document.getElementById('startButton');
 startButton.addEventListener('click', init);
 
-var camera, scene, renderer;
+var camera, scene, renderer, composer;
 var particles;
 var PARTICLE_SIZE = 20;
 var raycaster, intersects;
 var mouse, INTERSECTED;
 var clock = new THREE.Clock();
+var glitchPass;
+
+var ENABLE_GLITH = true;
+var COUNTER_GLITCH = 0;
 
 function init() {
 
@@ -79,10 +87,19 @@ function init() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
+    // postprocessing
+
+    composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+
+    glitchPass = new GlitchPass();
+    composer.addPass(glitchPass);
+
     //
 
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onDocumentMouseMove, false);
+
     animate();
 
 }
@@ -102,13 +119,21 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
 
     renderer.setSize(window.innerWidth, window.innerHeight);
+    composer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
 function animate() {
 
+    COUNTER_GLITCH++;
     requestAnimationFrame(animate);
     render();
+
+    if (ENABLE_GLITH == true)
+        composer.render();
+
+    if (COUNTER_GLITCH > 80)
+        disable();
 
 }
 
@@ -147,5 +172,11 @@ function render() {
     }
 
     renderer.render(scene, camera);
+
+}
+
+function disable() {
+
+    ENABLE_GLITH = false;
 
 }
