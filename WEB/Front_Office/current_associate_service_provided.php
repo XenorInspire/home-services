@@ -84,17 +84,6 @@ if (
                         <label><?= $current_associate_service_provided['doneHours'] ?></label>
                         <input type="text" name="hoursAssociate" class="form-control" maxlength="255" value="" required>
                     </div>
-
-
-                    <!-- <div class="container text-center"><small class="form-text text-muted">Frais supplémentaire</small></div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Montant</label>
-                        <input type="number" class="form-control" value="" min="0" step="0.01" name="" required>
-                    </div> -->
                     <div id="form">
 
                     </div>

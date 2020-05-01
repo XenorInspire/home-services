@@ -197,6 +197,7 @@ $orders = array(
   "days" => " day(s)",
   "dlBill" => "Download my bill",
   "cancelSubscription" => "Cancel my subscription",
+  "myEstimates" => "My estimates",
   "subscriptionTermination" => "Subscription termination",
   "confirmTermination" => "Are you sure you want to terminate your subscription ?",
   "terminate" => "Terminate",
@@ -407,4 +408,44 @@ $waiting_register = array(
   "confMail" => "A confirmation mail has been sent to you.",
   "noConfMail" => "You didn't receive the confirmation mail ?",
   "sendAgain" => "Send again"
+);
+
+$estimatesPage = array(
+  "title" => "My estimates",
+  "date" => "Date",
+  "service" => "Service",
+  "price" => "Price",
+  "action" => "See"
+);
+
+$estimatePage = array(
+  "title" => "Estimate",
+  "service" => "Service",
+  "description" => "Description",
+  "date" => "Date of estimate",
+  "serviceDate" => "Date of service",
+  "serviceHour" => "Hour of service",
+  "hours" => "Number of hours",
+  "address" => "Address",
+  "town" => "Town",
+  "price" => "Total price",
+  "generate" => "Generate the estimate",
+  "book" => "Book the service",
+);
+
+$generate_estimate = array(
+  "estimateNumber" => "Estimate Number : ",
+  "mail" => "E-mail address",
+  "lastName" => "Name",
+  "serviceAddress" => "Service address",
+  "serviceDate" => "Service date",
+  "at" => " at ",
+  "service" => "Service",
+  "hoursRequested" => "Hours requested",
+  "hoursPerformed" => "Hours performed",
+  "pricePerHour" => "Price/h",
+  "total" => "TOTAL",
+  "price" => "Price ATI : ",
+  "bankRef" => "BANK REFERENCE :",
+  "estimate" => "Estimate-"
 );

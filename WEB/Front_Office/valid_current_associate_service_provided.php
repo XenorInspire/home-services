@@ -60,7 +60,47 @@ if (
         $paidSatus = 1;
     }
 
-    $totalPrice = ($service->getServicePrice() * $hoursAssociate) + $totalAdd;
+    function dateSubtraction($date1, $date2)
+    {
+        $sub = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
+        $result = array();
+
+        $tmp = $sub;
+        $result['second'] = $tmp % 60;
+
+        $tmp = floor(($tmp - $result['second']) / 60);
+        $result['minute'] = $tmp % 60;
+
+        $tmp = floor(($tmp - $result['minute']) / 60);
+        $result['hour'] = $tmp % 24;
+
+        $tmp = floor(($tmp - $result['hour'])  / 24);
+        $result['day'] = $tmp;
+
+        return $result;
+    }
+
+    $estimates = $hm_database->getEstimateListByCustomerId($customerId);
+    if (!empty($estimates)) {
+        foreach ($estimates as $estimate) {
+            // echo $estimate;
+            $estimateServiceProvidedDate = $estimate->getServiceProvidedDate();
+            $estimateServiceProvidedHour = $estimate->getServiceProvidedHour();
+
+            $diffDate = dateSubtraction(strtotime($estimateServiceProvidedDate), strtotime($serviceProvided->getDate()));
+            $diffHour = dateSubtraction(strtotime($estimateServiceProvidedHour), strtotime($serviceProvided->getBeginHour()));
+
+            if (
+                $estimate->getServiceId() == $service->getServiceId()
+                && $diffDate['day'] == 0
+                && $diffHour['hour'] == 0
+            ) {
+                $totalPrice = $estimate->getTotalPrice() + $totalAdd;
+            }
+        }
+    } else {
+        $totalPrice = ($service->getServicePrice() * $hoursAssociate) + $totalAdd;
+    }
 
     $bill = new Bill($billId, $paidSatus, $customerId, $customer->getLastname(), $customer->getFirstname(), $customer->getAddress(), $customer->getCity(), $customer->getMail(), $serviceProvided->getDate(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
 

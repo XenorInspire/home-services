@@ -197,6 +197,7 @@ $orders = array(
   "days" => " jour(s)",
   "dlBill" => "Télécharger ma facture",
   "cancelSubscription" => "Résilier mon abonnement",
+  "myEstimates" => "Mes devis",
   "subscriptionTermination" => "Résiliation de mon abonnement",
   "confirmTermination" => "Voulez-vous vraiment résilier votre abonnement ?",
   "terminate" => "Résilier",
@@ -407,4 +408,44 @@ $waiting_register = array(
   "confMail" => "Un mail de vonfirmation vous a été envoyé.",
   "noConfMail" => "Voous n'avez pas reçu le mail de confirmation ?",
   "sendAgain" => "Renvoyer"
+);
+
+$estimatesPage = array(
+  "title" => "Mes devis",
+  "date" => "Date",
+  "service" => "Service",
+  "price" => "Prix",
+  "action" => "Voir"
+);
+
+$estimatePage = array(
+  "title" => "Devis",
+  "service" => "Service",
+  "description" => "Description",
+  "date" => "Date du devis",
+  "serviceDate" => "Date de la prestion",
+  "serviceHour" => "Heure de la prestation",
+  "hours" => "Nombre d'heures",
+  "address" => "Adresse",
+  "town" => "Ville",
+  "price" => "Prix total éstimé",
+  "generate" => "Générer le devis",
+  "book" => "Passer à la réservation",
+);
+
+$generate_estimate = array(
+  "estimateNumber" => "Devis Numéro : ",
+  "mail" => "Adresse mail",
+  "lastName" => "Nom",
+  "serviceAddress" => "Adresse de la prestation",
+  "serviceDate" => "Date de la prestation",
+  "at" => " à ",
+  "service" => "Service",
+  "hoursRequested" => "Heures demandées",
+  "hoursPerformed" => "Heures effectuées",
+  "pricePerHour" => "Prix/h",
+  "total" => "TOTAL",
+  "price" => "Net à payer TTC : ",
+  "bankRef" => "REF BANCAIRE :",
+  "estimate" => "Devis-"
 );

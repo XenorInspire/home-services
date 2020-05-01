@@ -20,6 +20,21 @@
         exit;
     }
 
+    $isEstimate = FALSE;
+    if (
+        isset($_POST['date']) && !empty(trim($_POST['date'])) && isset($_POST['beginHour']) && !empty(trim($_POST['beginHour'])) && isset($_POST['hours'])
+        && !empty(trim($_POST['hours'])) && isset($_POST['address']) && !empty(trim($_POST['address'])) && isset($_POST['town']) && !empty(trim($_POST['town'])
+            && is_numeric($_POST['totalPrice']))
+    ) {
+        $isEstimate = TRUE;
+        $date = $_POST['date'];
+        $beginHour = $_POST['beginHour'];
+        $hours = $_POST['hours'];
+        $address = $_POST['address'];
+        $town = $_POST['town'];
+        $totalPrice = $_POST['totalPrice'];
+    }
+
     $canBeBooked = 1;
 
     ?>
@@ -100,9 +115,13 @@
                 <ul style="margin:auto;width:50%;padding:0px;">
                     <li class="list-group-item list-group-item-info"><?= $service->getDescription() ?></li>
                     <li class="list-group-item"> <?= $book_service['minimum'] ?> <?= $service->getTimeMin() ?>h</li>
-                    <li class="list-group-item"><?= $book_service['price'] ?> <?= $service->getServicePrice() ?>€ <?= $book_service['tax'] ?></li>
+                    <li class="list-group-item"><?= $book_service['price'] ?><?php
+                                                                                if ($isEstimate)
+                                                                                    echo $totalPrice;
+                                                                                else
+                                                                                    echo $service->getServicePrice();
+                                                                                ?>€ <?= $book_service['tax'] ?></li>
                     <br>
-
                     <?php
 
                     if ($canBeBooked == 1) {
@@ -112,11 +131,13 @@
                         <form class="container-fluid" action="insert_reservation.php?i=<?= $service->getServiceId() ?>" style="padding: 0px;" method="POST">
                             <div class="form-group">
                                 <label><?= $book_service['serviceDate'] ?></label>
-                                <input type="date" name="date" min="<?= date('Y-m-d') ?>" class="form-control" required>
+                                <input type="date" name="date" min="<?= date('Y-m-d') ?>" class="form-control" value="<?php if ($isEstimate) echo $date; ?>" <?php if ($isEstimate) echo "readonly";
+                                                                                                                                                                else echo "required"; ?>>
                             </div>
                             <div class="form-group">
                                 <label><?= $book_service['serviceHour'] ?></label>
-                                <input type="time" name="beginHour" class="form-control" required>
+                                <input type="time" name="beginHour" class="form-control" value="<?php if ($isEstimate) echo $beginHour; ?>" <?php if ($isEstimate) echo "readonly";
+                                                                                                                                            else echo "required"; ?>>
                             </div>
                             <div class="form-group">
                                 <label><?= $book_service['hourAmount'] ?></label>
@@ -124,30 +145,50 @@
                                                                                                                 echo $subscription->getRemainingHours();
                                                                                                             } else {
                                                                                                                 echo "24";
-                                                                                                            }  ?>" class="form-control" required>
+                                                                                                            }  ?>" class="form-control" value="<?php if ($isEstimate) echo $hours; ?>" <?php if ($isEstimate) echo "readonly";
+                                                                                                                                                                                        else echo "required"; ?>>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label><?= $book_service['address'] ?></label>
-                                    <input type="text" name="address" class="form-control" value="<?= $user->getAddress() ?>" required>
+                                    <div class="form-group">
+                                        <label><?= $book_service['address'] ?></label>
+                                        <input type="text" name="address" class="form-control" value="<?= $user->getAddress() ?>" required>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label><?= $book_service['town'] ?></label>
-                                    <input type="text" name="town" class="form-control" value="<?= $user->getCity() ?>" required>
+                                    <div class="form-group">
+                                        <label><?= $book_service['town'] ?></label>
+                                        <input type="text" name="town" class="form-control" value="<?= $user->getCity() ?>" required>
+
+                                    </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md mb-3">
                                         <div class="btn btn-primary btn-block" data-toggle="modal" data-target="#modalSave"><?= $book_service['book'] ?></a></div>
                                     </div>
+                                    <?php
+                                    if ($isEstimate == FALSE) {
+                                    ?>
+                                        <div class="col-md mb-3">
+                                            <div class="btn btn-primary btn-block text center" data-toggle="modal" data-target="#modalEstimate"><?= $book_service['createCostEstimate'] ?></div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="row">
                                     <div class="col-md mb-3">
-                                        <div class="btn btn-primary btn-block text center" onclick="history.back()"><?= $book_service['cancel'] ?></div>
+                                        <div class="btn btn-secondary btn-block text center" onclick="history.back()"><?= $book_service['cancel'] ?></div>
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            if ($isEstimate) { ?>
+                                <input type="hidden" name="totalPrice" value="<?= $totalPrice ?>">
+                            <?php
+                            } ?>
                             <br>
 
                             <!-- Modal for saving -->
@@ -166,6 +207,28 @@
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
                                             <button class="btn btn-outline-success" type="submit"><?= $book_service['book'] ?></button>
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $book_service['cancel'] ?></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal for estimate -->
+                            <div class="modal fade" id="modalEstimate">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title"><?= $book_service['costEstimate'] ?></h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <?= $book_service['serviceCostEstimate'] ?>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button class="btn btn-outline-success" type="submit" formaction="insert_estimate.php?i=<?= $service->getServiceId() ?>"><?= $book_service['createCostEstimate'] ?></button>
                                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $book_service['cancel'] ?></button>
                                         </div>
                                     </div>

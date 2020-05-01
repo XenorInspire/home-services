@@ -14,6 +14,8 @@ require_once('class/additionalPrice.php');
 require_once('class/bill.php');
 require_once('class/serviceType.php');
 require_once('class/associateServices.php');
+require_once('class/estimate.php');
+
 
 
 class DBManager
@@ -632,6 +634,75 @@ class DBManager
   }
 
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * ESTIMATE PART * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+  public function addEstimate(Estimate $estimate)
+  {
+    $q = "INSERT INTO Estimate(estimateId, customerId, customerLastName, customerFirstName, customerAddress, customerTown, email, estimateDate, serviceProvidedDate, serviceProvidedHour, hours, serviceId, totalPrice) VALUES (:estimateId, :customerId, :customerLastName, :customerFirstName, :customerAddress, :customerTown, :email, :estimateDate, :serviceProvidedDate, :serviceProvidedHour, :hours, :serviceId, :totalPrice)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'estimateId' => $estimate->getEstimateId(),
+      'customerId' => $estimate->getCustomerId(),
+      'customerLastName' => $estimate->getCustomerLastName(), 
+      'customerFirstName' => $estimate->getCustomerFirstName(),
+      'customerAddress' => $estimate->getCustomerAddress(),
+      'customerTown' => $estimate->getCustomerTown(),
+      'email' => $estimate->getEmail(),
+      'estimateDate' => $estimate->getEstimateDate(),
+      'serviceProvidedDate' => $estimate->getServiceProvidedDate(),
+      'serviceProvidedHour' => $estimate->getServiceProvidedHour(),
+      'hours' => $estimate->getHours(),
+      'serviceId' => $estimate->getServiceId(),
+      'totalPrice' => $estimate->getTotalPrice()
+    ));
+  }
+
+  public function getLastIdEstimate()
+  {
+    $req = $this->db->query('SELECT estimateId FROM Estimate ORDER BY estimateId ASC');
+    $newId = 1;
+    while ($id = $req->fetch()) {
+      if ($newId != $id['estimateId']) {
+        break;
+      }
+      $newId++;
+    }
+    return $newId;
+  }
+
+  public function getEstimateListByCustomerId($customerId){
+    $q = "SELECT * FROM Estimate WHERE customerId = ? ORDER BY estimateDate DESC";
+    $res = $this->db->prepare($q);
+    $res->execute([$customerId]);
+
+    $estimates = [];
+    while ($data = $res->fetch()) {
+      $estimates[] = new Estimate($data['estimateId'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['estimateDate'], $data['serviceProvidedDate'], $data['serviceProvidedHour'], $data['hours'], $data['serviceId'], $data['totalPrice']);
+    }
+
+    if(empty($estimates))
+      return NULL;
+
+    return $estimates;
+  }
+
+  public function getEstimate($estimateId){
+    $q = "SELECT * FROM Estimate WHERE estimateId = ?";
+    $res = $this->db->prepare($q);
+    $res->execute([$estimateId]);
+
+    $data = $res->fetch();
+
+    if ($data == NULL) {
+      return NULL;
+    }
+
+    return new Estimate($data['estimateId'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['estimateDate'], $data['serviceProvidedDate'], $data['serviceProvidedHour'], $data['hours'], $data['serviceId'], $data['totalPrice']);
+  }
+
+
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -720,7 +791,7 @@ class DBManager
 
   public function getAssociateProposal($associateId)
   {
-    $q = "SELECT * FROM Proposal WHERE associateId = ?";
+    $q = "SELECT * FROM Proposal WHERE associateId = ? AND status = 0";
     $res = $this->db->prepare($q);
     $res->execute([$associateId]);
 
@@ -729,7 +800,7 @@ class DBManager
       $proposals[] = new Proposal($data['serviceProvidedId'], $data['status'], $data['associateId']);
     }
 
-    if ($data == NULL)
+    if (empty($proposals))
       return NULL;
 
     return $proposals;

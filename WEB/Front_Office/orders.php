@@ -9,6 +9,9 @@
     $hm_database = new DBManager($bdd);
     $customer = $hm_database->getUserById($id);
 
+    date_default_timezone_set('Europe/Paris');
+    $today = date("Y-m-d");
+
     function dateSubtraction($date1, $date2)
     {
         $sub = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
@@ -28,6 +31,27 @@
 
         return $result;
     }
+    function dateSubtractionNotAbs($date1, $date2)
+    {
+        $sub = $date1 - $date2; // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
+        $result = array();
+
+        $tmp = $sub;
+        $result['second'] = $tmp % 60;
+
+        $tmp = floor(($tmp - $result['second']) / 60);
+        $result['minute'] = $tmp % 60;
+
+        $tmp = floor(($tmp - $result['minute']) / 60);
+        $result['hour'] = $tmp % 24;
+
+        $tmp = floor(($tmp - $result['hour'])  / 24);
+        $result['day'] = $tmp;
+
+        return $result;
+    }
+
+    $estimates = $hm_database->getEstimateListByCustomerId($id);
 
     ?>
 
@@ -110,8 +134,47 @@
 
                  </ul>
                  <br>
-                 <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill'] ?></button>
-                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription'] ?></button>
+
+                 <!-- <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill'] ?></button>
+                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription'] ?></button> -->
+
+                 <!-- <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark">Télécharger ma facture</button>
+                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Résilier mon abonnement</button> -->
+
+
+                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                     <label class="btn btn-dark">
+                         <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill']?></button>
+                     </label>
+                     <label class="btn btn-dark">
+                         <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription']?></button>
+                     </label>
+                     <?php
+                        $isEstimate = FALSE;
+                        if (!empty($estimates)) {
+                            foreach ($estimates as $estimate) {
+                                $service = $hm_database->getService($estimate->getServiceId());
+                                $estimateDate = $estimate->getEstimateDate();
+                                $serviceProvidedDate = $estimate->getServiceProvidedDate();
+
+                                $diffEstimateToday = dateSubtractionNotAbs(strtotime($estimateDate), strtotime($today));
+                                $diffServiceToday = dateSubtractionNotAbs(strtotime($serviceProvidedDate), strtotime($today));
+
+                                if ($diffEstimateToday['day'] >= 0 && $diffServiceToday['day'] >= 0 && $service != NULL) {
+                                    $isEstimate = TRUE;
+                                }
+                            }
+                        }
+
+                        if (!empty($estimates) && $isEstimate == TRUE) {
+                        ?>
+                         <label class="btn btn-dark">
+                             <button type="button" onclick="window.location.href = 'estimates.php';" class="btn btn-dark"><?= $orders['myEstimates']?></button>
+                         </label>
+                     <?php
+                        }
+                        ?>
+                 </div>
 
                  <!-- Modal for saving -->
                  <div class="modal fade" id="modalSave">
@@ -128,7 +191,7 @@
                              </div>
                              <!-- Modal footer -->
                              <div class="modal-footer">
-                                 <button class="btn btn-outline-success" onclick="window.location.href = 'delete_subscription.php';" type="submit"><?= $orders['terminate'] ?></button>
+                                 <button class="btn btn-outline-danger" onclick="window.location.href = 'delete_subscription.php';" type="submit"><?= $orders['terminate'] ?></button>
                                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><?= $orders['cancel'] ?></button>
                              </div>
                          </div>
