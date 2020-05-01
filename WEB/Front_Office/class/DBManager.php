@@ -215,7 +215,6 @@ class DBManager
 
     $subscription = $this->checkSubscription($id);
     if ($subscription == NULL) return NULL;
-    if (($nb =$subscription->getRemainingHours() - $hours) < 0) return $nb;
 
     $q = "UPDATE Subscription SET remainingHours = :remainingHours WHERE customerId = :customerId";
     $req = $this->db->prepare($q);
@@ -224,7 +223,7 @@ class DBManager
       'customerId' => $id
     ));
 
-    return 0;
+    return 1;
   }
 
   public function setNewPasswdCustomer($password, $id)

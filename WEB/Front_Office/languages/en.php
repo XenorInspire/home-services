@@ -145,7 +145,7 @@ $create_associate_service = array(
 );
 
 $current_associate_service_provided = array(
-  "homepage" => "Homepage",
+  "homepage" => "My Schedule",
   "serviceInformations" => "Service Informations",
   "description" => "Description",
   "date" => "Date",

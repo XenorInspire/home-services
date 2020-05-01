@@ -106,7 +106,7 @@
                      <li class="list-group-item"><?= $orders['withMax'] ?><?php echo $subscriptionType->getServiceTime(); ?><?= $orders['hoursAMonth'] ?></li>
                      <li class="list-group-item"><?= $orders['price'] ?><?php echo $subscriptionType->getPrice(); ?><?= $orders['priceYear'] ?></li>
                      <li class="list-group-item"><?= $orders['youHave'] ?><?php echo $result->getRemainingHours(); ?><?= $orders['leftThisMonth'] ?></li>
-                     <li class="list-group-item"><?= $orders['daysLeft'] ?><?php echo $sub['day'] + 1; ?><?= $orders['days'] ?></li>
+                     <li class="list-group-item"><?= $orders['daysLeft'] ?> <?php echo $sub['day'] + 1; ?><?= $orders['days'] ?></li>
 
                  </ul>
                  <br>

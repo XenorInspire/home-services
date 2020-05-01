@@ -40,7 +40,6 @@ if (
     $customer = $hm_database->getCustomer($customerId);
     $email = $customer->getId();
     $billId = $hm_database->getLastIdBill();
-    $paidSatus = 0;
     $serviceProvided = $hm_database->getServiceProvided($serviceProvidedId);
     $service = $hm_database->getService($serviceProvided->getServiceId());
 
@@ -51,6 +50,15 @@ if (
         }
     }
 
+    $result = $hm_database->remainingHours($customer->getId(), $hoursAssociate);
+
+    if ($result == NULL) {
+
+        $paidSatus = 0;
+    } else {
+
+        $paidSatus = 1;
+    }
 
     $totalPrice = ($service->getServicePrice() * $hoursAssociate) + $totalAdd;
 
