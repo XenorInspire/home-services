@@ -77,7 +77,10 @@ function replace() {
     section.appendChild(img);
 
     const title = document.createElement('h1');
-    title.innerHTML = "Paiement accepté";
+
+    if (lang == "fr") title.innerHTML = "Paiement accepté";
+    if (lang == "en") title.innerHTML = "Payment accepted";
+
     section.appendChild(title);
 
     const text = document.createElement('h2');
