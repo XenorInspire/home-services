@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Home Services - Boutique</title>
+		<title>Home Services - <?= $shop['shop'] ?></title>
 		<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -23,26 +23,26 @@
 				<br>
 				<br>
 				<br>
-				<h1>Abonnements</h1>
+				<h1><?= $shop['subscriptions'] ?></h1>
 				<br>
 				<?php
 				if (isset($_GET['err'])) {
 
 					if ($_GET['err'] == 'alr') {
 
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous possédez déjà un abonnement, si vous voulez changer d\'abonnement vous devez tout d\'abord le résilier.</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $shop['alreadyHave'] . '</div>';
 						echo '<br>';
 					}
 
 					if ($_GET['err'] == 'inp') {
 
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Une erreur s\'est produite durant le processus de paiement.</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $shop['paymentError'] . '</div>';
 						echo '<br>';
 					}
 
 					if ($_GET['err'] == 'na') {
 
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cet abonnement n\'est plus disponible.</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $shop['unavailableSub'] . '</div>';
 						echo '<br>';
 					}
 				}
@@ -51,7 +51,7 @@
 
 					if ($_GET['info'] == 'success') {
 
-						echo '<div class="alert alert-success alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre réservation a bien été enregistrée !</div>';
+						echo '<div class="alert alert-success alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $shop['registeredBook'] . '</div>';
 						echo '<br>';
 					}
 				}
@@ -74,9 +74,9 @@
 							<h4 class="my-0 font-weight-normal"><?php echo $subs[$i]->getTypeName(); ?></h4>
 						</div>
 						<div class="card-body">
-							<h1 class="card-title pricing-card-title"><?php echo $subs[$i]->getPrice(); ?>€ TTC<small class="text-muted">/an</small></h1>
+							<h1 class="card-title pricing-card-title"><?php echo $subs[$i]->getPrice(); ?><?= $shop['allTax'] ?><small class="text-muted"><?= $shop['perYear'] ?></small></h1>
 							<ul class="list-unstyled mt-3 mb-4">
-								<li><?php echo $subs[$i]->getDays(); ?> jours par semaine</li>
+								<li><?php echo $subs[$i]->getDays(); ?><?= $shop['daysAWeek'] ?></li>
 
 								<?php
 
@@ -84,14 +84,14 @@
 
 								?>
 
-									<li>24h sur 24 !</li>
+									<li><?= $shop['allDay'] ?></li>
 
 								<?php
 
 								} else {
 
 								?>
-									<li>De <?php echo $time1; ?>h à <?php echo $time2; ?>h</li>
+									<li><?= $shop['from'] ?><?php echo $time1; ?><?= $shop['to'] ?><?php echo $time2; ?><?= $shop['clock'] ?></li>
 
 								<?php
 
@@ -99,9 +99,9 @@
 
 								?>
 
-								<li>Avec un maximum de <?php echo $subs[$i]->getServiceTime(); ?>h par mois !</li>
+								<li><?= $shop['withMax'] ?><?php echo $subs[$i]->getServiceTime(); ?><?= $shop['hoursAMonth'] ?></li>
 							</ul>
-							<button type="button" onclick="window.location.href = 'subscription.php?s=<?php echo $subs[$i]->getTypeId(); ?>';" class="btn btn-lg btn-block btn-primary">S'abonner</button>
+							<button type="button" onclick="window.location.href = 'subscription.php?s=<?php echo $subs[$i]->getTypeId(); ?>';" class="btn btn-lg btn-block btn-primary"><?= $shop['subscribeMe'] ?></button>
 						</div>
 					</div>
 
@@ -115,14 +115,14 @@
 
 			<section class="container text-center">
 				<br>
-				<h1>Services Récurrents</h1>
+				<h1><?= $shop['recurrentServices'] ?></h1>
 				<br>
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Catégorie</th>
-							<th scope="col">Service</th>
-							<th scope="col">Prix</th>
+							<th scope="col"><?= $shop['category'] ?></th>
+							<th scope="col"><?= $shop['service'] ?></th>
+							<th scope="col"><?= $shop['price'] ?></th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -137,8 +137,8 @@
 							<tr>
 								<td><?= $hm_database->getServiceType($services[$i]->getServiceTypeId())->getTypeName() ?></td>
 								<td><?= $services[$i]->getServiceTitle() ?></td>
-								<td><?= $services[$i]->getServicePrice() ?>€/h</td>
-								<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'book_service.php?i=<?= $services[$i]->getServiceId() ?>';">Réserver</button></td>
+								<td><?= $services[$i]->getServicePrice() ?><?= $shop['euroPerHour'] ?></td>
+								<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'book_service.php?i=<?= $services[$i]->getServiceId() ?>';"><?= $shop['book'] ?></button></td>
 							</tr>
 
 						<?php
@@ -149,7 +149,7 @@
 					</tbody>
 				</table>
 				<br>
-				<button type="button" onclick="window.location.href = 'all_services.php';" class="btn btn-lg btn-primary">Tous les services</button>
+				<button type="button" onclick="window.location.href = 'all_services.php';" class="btn btn-lg btn-primary"><?= $shop['allServices'] ?></button>
 				<br>
 				<br>
 				<br>

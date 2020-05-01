@@ -129,6 +129,7 @@
      </main>
 
      <?php require_once("include/footer.php"); ?>
+     <script type="text/javascript"> var lang= "<?php echo $_SESSION['lang']; ?>"</script>
      <script src="js/profile_associate.js"></script>
      <script src="js/password.js"></script>
      <script>

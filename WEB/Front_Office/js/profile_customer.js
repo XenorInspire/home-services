@@ -67,14 +67,16 @@ function validate() {
 
                 console.log('succeed');
                 infos.style.display = "block";
-                infos.innerHTML = "Vos modifications ont été enregistrées !";
+                if (lang == "fr") infos.innerHTML = "Vos modifications ont été enregistrées !";
+                if (lang == "en") infos.innerHTML = "Your changes have been saved !";
                 infos.style.color = "green";
                 cancel();
 
             } else {
 
                 infos.style.display = "block";
-                infos.innerHTML = "Une ou plusieurs modifications sont invalides.";
+                if (lang == "fr") infos.innerHTML = "Une ou plusieurs modifications sont invalides.";
+                if (lang == "en") infos.innerHTML = "One or more changes are invalid.";
                 infos.style.color = "red";
                 cancel();
 
@@ -101,7 +103,8 @@ function cancel() {
     if (div != null)
         div.remove();
 
-    button.innerHTML = "Modifier mes informations";
+    if (lang == "fr") button.innerHTML = "Modifier mes informations";
+    if (lang == "en") button.innerHTML = "Change my informations";
     button.onclick = enable;
 
     for (let i = 0; i < inputs.length; i++) {
@@ -180,14 +183,16 @@ function validatePasswd() {
 
                 console.log('succeed');
                 infos.style.display = "block";
-                infos.innerHTML = "Votre mot de passe a bien été changé !";
+                if (lang == "fr") infos.innerHTML = "Votre mot de passe a bien été changé !";
+                if (lang == "en") infos.innerHTML = "Your password has been changed !";
                 infos.style.color = "green";
                 cancelPasswd();
 
             } else {
 
                 infos.style.display = "block";
-                infos.innerHTML = "Mot de passe invalide";
+                if (lang == "fr") infos.innerHTML = "Mot de passe invalide";
+                if (lang == "en") infos.innerHTML = "Invalid password";
                 infos.style.color = "red";
                 cancelPasswd();
 
@@ -215,7 +220,8 @@ function cancelPasswd() {
     if (div != null)
         div.remove();
 
-    button.innerHTML = "Changer mon mot de passe";
+    if (lang == "fr") button.innerHTML = "Changer mon mot de passe";
+    if (lang == "en") button.innerHTML = "Change my password";
     button.onclick = enablePasswd;
 
     for (let i = 0; i < inputs.length; i++) {

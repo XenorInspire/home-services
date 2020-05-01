@@ -84,9 +84,13 @@ $associate_services = array(
 );
 
 $book_service = array(
+  "invalidInput" => "Please fill up correctly every inputs.",
+  "invalidDate" => "Please select a valid date.",
+  "serviceTimeMin" => "The service has to last at least ",
+  "serviceTimeMax" => " hour(s), for a maximum of 24 hours",
   "minimum" => "Minimum of ",
   "price" => "Price :",
-  "tax" => "including taxes",
+  "tax" => "ATI",
   "serviceDate" => "Date of service",
   "serviceHour" => "Hour of service",
   "hourAmount" => "Number of hours",
@@ -184,11 +188,11 @@ $orders = array(
   "to" => " o'clock to ",
   "clock" => " o'clock",
   "withMax" => "With a maximum of ",
-  "hoursAMonth" => "hours a month",
+  "hoursAMonth" => " hours a month",
   "price" => "Price : ",
-  "priceYear" => "€ a year, including all tax",
+  "priceYear" => "€ a year ATI",
   "youHave" => "You have ",
-  "leftThisMonth" => "hours left this month",
+  "leftThisMonth" => " hours left this month",
   "daysLeft" => "Your subscription is still valid for ",
   "days" => " day(s)",
   "dlBill" => "Download my bill",
@@ -202,7 +206,7 @@ $orders = array(
   "subscriptionDate" => "Subscription date",
   "price1" => "Price",
   "action" => "Action",
-  "includingAllTax" => "€ including all tax",
+  "includingAllTax" => "€ ATI",
   "getBill" => "Get my bill",
   "myBookings" => "My bookings",
   "notDoneYet" => "The service has not been performed yet.",
@@ -210,7 +214,7 @@ $orders = array(
   "service" => "Service",
   "date" => "Date",
   "time" => "Time",
-  "priceHourWithTax" => "€/h including all tax",
+  "priceHourWithTax" => "€/h ATI",
   "pay" => "Pay",
   "booking" => "Booking",
   "confirmCancel" => "Are you sure you want to cancel the booking ?",
@@ -235,7 +239,7 @@ $pay_service = array(
   "madeThisDay" => "Made this day ",
   "at" => "At ",
   "price" => "Price : ",
-  "allTax" => "€ including all tax",
+  "allTax" => "€ ATI",
   "payment" => "Payment",
   "cardHolder" => "Card holder",
   "pay" => "Pay",
@@ -257,4 +261,150 @@ $profile_associate = array(
   "confirm" => "Confirm",
   "passwdDifferent" => "Please, enter the same password as in the previous input !",
   "changePasswd" => "Change my password"
+);
+
+$profile_customer = array(
+  "myProfile" => "My profile",
+  "name" => "Name",
+  "firstName" => "First name",
+  "phone" => "Phone number",
+  "address" => "Address",
+  "changeMyProfile" => "Update my personal informations",
+  "myPasswd" => "My password",
+  "passwd" => "Current password",
+  "newPasswd" => "New password",
+  "minChar" => "6 characters minimum",
+  "confirm" => "Confirm",
+  "passwdDifferent" => "Please, enter the same password as in the previous input !",
+  "changePasswd" => "Change my password",
+  "disableAcc" => "Disable my account",
+  "accDisabling" => "Account disabling",
+  "confirmDisable" => "Are you sure you want to disable your account ?",
+  "disable" => "Disable",
+  "cancel" => "Cancel"
+);
+
+$qrcode_connect = array(
+  "QRcodeConnect" => "QRcode connection",
+  "scanQRcode" => "Please scan your QRcode",
+  "camDetected" => "Camera detected"
+);
+
+$registration = array(
+  "signIn" => "Sign in",
+  "captchaError" => "Please enter the number disaplyed in the image",
+  "emptyError" => "Please fill up all the inputs correctly",
+  "passwdError" => "Please enter the same password as in the previous input",
+  "lengthError" => "Your password has to count at least 6 characters",
+  "mailError" => "Please enter a valid e-mail address",
+  "mailAlreadyUsed" => "This e-mail address is already associated to an account",
+  "nameError" => "You have exceeded the maximum number of characters possible for the 'Name' field",
+  "firstNameError" => "You have exceeded the maximum number of characters possible for the 'First name' field",
+  "cityError" => "You have exceeded the maximum number of characters for the 'City' field",
+  "pseudoError" => "You have exceeded the maximum number of characters for the 'Pseudo' field",
+  "mailerror" => "You have exceeded the maximum number of characters for the 'E-mail address' field",
+  "name" => "Name",
+  "firstName" => "First name",
+  "mail" => "E-mail address",
+  "mailNotShared" => "Your e-mail address won't be shared.",
+  "phone" => "Phone number",
+  "address" => "Address",
+  "city" => "City",
+  "passwd" => "Password",
+  "charMin" => "6 characters minimum",
+  "confirm" => "Confirm your password",
+  "captcha" => "Please enter the code displayed below",
+  "signMeIn" => "Sign in"
+);
+
+$service_bill = array(
+  "billNumber" => "Bill Number : ",
+  "mail" => "E-mail address",
+  "lastName" => "Name",
+  "serviceAddress" => "Service address",
+  "serviceDate" => "Service date",
+  "at" => " at ",
+  "service" => "Service",
+  "hoursRequested" => "Hours requested",
+  "hoursPerformed" => "Hours performed",
+  "pricePerHour" => "Price per hour",
+  "total" => "TOTAL",
+  "price" => "Price ATI : ",
+  "bankRef" => "BANK REFERENCE :",
+  "bill" => "Bill-"
+);
+
+$shop = array(
+  "shop" => "Shop",
+  "subscriptions" => "Subscriptions",
+  "alreadyHave" => "You already are subscribed, if you want to change for a new one, unsubscribe first.",
+  "paymentError" => "An error occurred during the payment process.",
+  "unavailableSub" => "This subscription isn't available anymore.",
+  "registeredBook" => "Your booking has been registered successfully !",
+  "allTax" => "€ ATI ",
+  "perYear" => "/ year",
+  "daysAWeek" => " days a week",
+  "allDay" => "24 hours a day !",
+  "from" => "From ",
+  "to" => " o'clock to ",
+  "clock" => " o'clock",
+  "withMax" => "With a maximum of ",
+  "hoursAMonth" => " hours a month",
+  "subscribeMe" => "Subscribe",
+  "recurrentServices" => "Recurrent Services",
+  "category" => "Category",
+  "service" => "Service",
+  "price" => "Price",
+  "euroPerHour" => "€ / h",
+  "book" => "Book",
+  "allServices" => "All services"
+);
+
+$subscription_bill = array(
+  "billNumber" => "Bill Number : ",
+  "mail" => "E-mail address",
+  "lastName" => "Name",
+  "serviceAddress" => "Services address",
+  "subDate" => "Subscription date",
+  "subscription" => "Subscription",
+  "price" => "Price",
+  "total" => "TOTAL",
+  "priceAllTax" => "Price ATI : ",
+  "bankRef" => "BANK REFERENCE :",
+  "bill" => "Bill-"
+);
+
+$subscription = array(
+  "shop" => "Shop",
+  "subscription" => "Subscription",
+  "moreInformations" => "More informations :",
+  "daysAWeek" => " days a week",
+  "allDay" => "24 hours a day !",
+  "from" => "From ",
+  "to" => " o'clock to ",
+  "clock" => " o'clock",
+  "withMax" => "With a maximum of ",
+  "hoursAMonth" => " hours a month",
+  "price" => "Price : ",
+  "yearPrice" => "€ / year ATI",
+  "payment" => "Payment",
+  "cardOwner" => "Card owner",
+  "pay" => "Pay",
+  "invalidCard" => "Invalid bank details"
+);
+
+$user_registered = array(
+  "registered" => "Successfully registered !",
+  "activated" => "Your account is activated !",
+  "redirect" => "You will be automatically redirected to homepage",
+  "loading" => "Loading...",
+  "notRedirected" => "If you are not redirected, please click on button",
+  "homepage" => "Homepage"
+);
+
+$waiting_register = array(
+  "waiting" => "Waiting",
+  "confMail" => "A confirmation mail has been sent to you.",
+  "noConfMail" => "You didn't receive the confirmation mail ?",
+  "sendAgain" => "Send again"
 );

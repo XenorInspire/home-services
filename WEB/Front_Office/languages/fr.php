@@ -84,6 +84,10 @@ $associate_services = array(
 );
 
 $book_service = array(
+  "invalidInput" => "Veuillez remplir correctement les différents champs de saisie.",
+  "invalidDate" => "Veuillez sélectionner une date valide.",
+  "serviceTimeMin" => "La prestation doit durer au minimum ",
+  "serviceTimeMax" => " heure(s), pour un maximum de 24 heures",
   "minimum" => "Minimum de ",
   "price" => "Prix :",
   "tax" => "TTC",
@@ -189,7 +193,7 @@ $orders = array(
   "priceYear" => "€ TTC / an",
   "youHave" => "Il vous reste ",
   "leftThisMonth" => " heures ce mois-ci",
-  "daysLeft" => "Votre abonnement est encore valable",
+  "daysLeft" => "Votre abonnement est encore valable ",
   "days" => " jour(s)",
   "dlBill" => "Télécharger ma facture",
   "cancelSubscription" => "Résilier mon abonnement",
@@ -244,7 +248,7 @@ $pay_service = array(
 
 $profile_associate = array(
   "myProfile" => "Mes informations personnelles",
-  "regenQRcode" => "Géérer à nouveau mon QRcode",
+  "regenQRcode" => "Générer à nouveau mon QRcode",
   "name" => "Nom",
   "firstName" => "Prénom",
   "phone" => "Téléphone",
@@ -257,4 +261,150 @@ $profile_associate = array(
   "confirm" => "Confirmer",
   "passwdDifferent" => "Veuillez entrer le même mot de passe que dans le vhamps précédent !",
   "changePasswd" => "Changer mon mot de passe"
+);
+
+$profile_customer = array(
+  "myProfile" => "Mes informations personnelles",
+  "name" => "Nom",
+  "firstName" => "Prénom",
+  "phone" => "Téléphone",
+  "address" => "Adresse",
+  "changeMyProfile" => "Modifier mes informations",
+  "myPasswd" => "Mon mot de passe",
+  "passwd" => "Mot de passe actuel",
+  "newPasswd" => "Nouveau mot de passe",
+  "minChar" => "6 caractères minimum",
+  "confirm" => "Confirmer",
+  "passwdDifferent" => "Veuillez entrer le même mot de passe que dans le vhamps précédent !",
+  "changePasswd" => "Changer mon mot de passe",
+  "disableAcc" => "Désactiver mon compte",
+  "accDisabling" => "Désactivation du compte",
+  "confirmDisable" => "Voulez-vous vraiment désactiver votre compte ?",
+  "disable" => "Désactiver",
+  "cancel" => "Annuler"
+);
+
+$qrcode_connect = array(
+  "QRcodeConnect" => "Connexion au QRcode",
+  "scanQRcode" => "veuillez scanner votre QRcode",
+  "camDetected" => "Caméra détectée"
+);
+
+$registration = array(
+  "signIn" => "Inscription",
+  "captchaError" => "Veuillez entrer le bon numéro correspondant",
+  "emptyError" => "Un ou plusieurs champs n'ont pas été complétés ou ne sont pas valides",
+  "passwdError" => "Veuillez entrer le même mot de passe lors de la confirmation de celui-ci",
+  "lengthError" => "Veuillez entrer un mot de passe de 6 caractères minimum",
+  "mailError" => "Veuillez saisir une adresse mail valide",
+  "mailAlreadyUsed" => "Cette adresse mail est déjà attribué à un autre compte",
+  "nameError" => "Vous avez dépassé le mawimum de caractères possibles pour le champs 'Nom'",
+  "firstNameError" => "Vous avez dépassé le maximum de caractères pour le champs 'Prénom'",
+  "cityError" => "Vous avez dépassé le maximum de caractères pour le champs 'Ville'",
+  "pseudoError" => "Vous avez dépassé le maximum de caractères pour le champs 'Pseudo'",
+  "mailerror" => "Vous avez dépassé le maximum de caractères pour le champs 'Adresse mail'",
+  "name" => "Nom",
+  "firstName" => "Prénom",
+  "mail" => "Adresse mail",
+  "mailNotShared" => "Votre adresse mail ne sera pas partagée.",
+  "phone" => "Numéro de téléphone",
+  "address" => "Adresse",
+  "city" => "Ville",
+  "passwd" => "Mot de passe",
+  "charMin" => "6 caractères minimum",
+  "confirm" => "Confirmation du mot de passe",
+  "captcha" => "Veuillez entrer le code affiché ci-dessous",
+  "signMeIn" => "S'inscrire"
+);
+
+$service_bill = array(
+  "billNumber" => "Facture Numéro : ",
+  "mail" => "Adresse mail",
+  "lastName" => "Nom",
+  "serviceAddress" => "Adresse de la prestation",
+  "serviceDate" => "Date de la prestation",
+  "at" => " à ",
+  "service" => "Service",
+  "hoursRequested" => "Heures demandées",
+  "hoursPerformed" => "Heures effectuées",
+  "pricePerHour" => "Prix par heure",
+  "total" => "TOTAL",
+  "price" => "Net à payer TTC : ",
+  "bankRef" => "REF BANCAIRE :",
+  "bill" => "Facture-"
+);
+
+$shop = array(
+  "shop" => "Boutique",
+  "subscriptions" => "Abonnements",
+  "alreadyHave" => "Vous possédez déjà un abonnement, si vous voulez en changer, veuillez d'abord résilier.",
+  "paymentError" => "Une erreur s'est produite durant le processus de paiement.",
+  "unavailableSub" => "Cet abonnement n'est plus disponible.",
+  "registeredBook" => "votre réservation a bien été enregistrée !",
+  "allTax" => "€ TTC ",
+  "perYear" => "/ an",
+  "daysAWeek" => " jours par semaine",
+  "allDay" => "24h / 24 !",
+  "from" => "De ",
+  "to" => "h à ",
+  "clock" => "h",
+  "withMax" => "Avec un maximum de ",
+  "hoursAMonth" => "h par mois",
+  "subscribeMe" => "S'abonner",
+  "recurrentServices" => "Services Récurrents",
+  "category" => "Categorie",
+  "service" => "Service",
+  "price" => "Prix",
+  "euroPerHour" => "€ / h",
+  "book" => "Réserver",
+  "allServices" => "Tous les services"
+);
+
+$subscription_bill = array(
+  "billNumber" => "Facture Numéro : ",
+  "mail" => "Adresse mail",
+  "lastName" => "Nom",
+  "serviceAddress" => "Adresse des prestations",
+  "subDate" => "Date de souscription",
+  "subscription" => "Abonnement",
+  "price" => "Prix",
+  "total" => "TOTAL",
+  "priceAllTax" => "Net à payer TTC : ",
+  "bankRef" => "REF BANCAIRE :",
+  "bill" => "Facture-"
+);
+
+$subscription = array(
+  "shop" => "Boutique",
+  "subscription" => "Abonnement",
+  "moreInformations" => "Plus d'informations :",
+  "daysAWeek" => " jours par semaine",
+  "allDay" => "24h / 24 !",
+  "from" => "De ",
+  "to" => "h à ",
+  "clock" => "h",
+  "withMax" => "Avec un maximum de ",
+  "hoursAMonth" => "h par mois",
+  "price" => "Prix : ",
+  "yearPrice" => "€ TTC / an",
+  "payment" => "Paiement",
+  "cardOwner" => "Titulaire de la carte",
+  "pay" => "Payer",
+  "invalidCard" => "Vos coordonnées bancaires sont incorrectes"
+);
+
+$user_registered = array(
+  "registered" => "Inscription validée !",
+  "activated" => "Votre compte client est maintenant activé !",
+  "redirect" => "Vous allez être automatiquement redirigé vers l'accueil",
+  "loading" => "Chargement...",
+  "notRedirected" => "Cliquez sur le bouton si vous n'êtes pas redirigé automatiquement",
+  "homepage" => "Accueil"
+);
+
+$waiting_register = array(
+  "waiting" => "En attente",
+  "confMail" => "Un mail de vonfirmation vous a été envoyé.",
+  "noConfMail" => "Voous n'avez pas reçu le mail de confirmation ?",
+  "sendAgain" => "Renvoyer"
 );

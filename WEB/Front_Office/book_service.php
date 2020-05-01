@@ -72,19 +72,19 @@
 
                     if ($_GET['error'] == 'inp') {
 
-                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez remplir correctement les différents champs de saisie.</div>';
+                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $book_service['invalidInput'] . '</div>';
                         echo '<br>';
                     }
 
                     if ($_GET['error'] == 'date') {
 
-                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez sélectionner une date valide.</div>';
+                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $book_service['invalidDate'] . '</div>';
                         echo '<br>';
                     }
 
                     if ($_GET['error'] == 'hours') {
 
-                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">La prestation ne peut durer que minimum ' . $service->getTimeMin() . ' heure(s) et 24 heures maximum</div>';
+                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $book_service['serviceTimeMin'] . $service->getTimeMin() . $book_service['serviceTimeMax'] . '</div>';
                         echo '<br>';
                     }
 

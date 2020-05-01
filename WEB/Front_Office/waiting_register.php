@@ -13,7 +13,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Home Services - En attente</title>
+		<title>Home Services - <?= $waiting_register['waiting'] ?></title>
 		<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -30,11 +30,11 @@
 			<br>
 			<br>
 			<section class="container text-center">
-				<h1><i>Un mail de confirmation vous a été envoyé.</i></h1>
+				<h1><i><?= $waiting_register['confMail'] ?></i></h1>
 				<br>
-				<li>Vous n'avez pas reçu de confirmation ?</li>
+				<li><?= $waiting_register['noConfMail'] ?></li>
 				<br>
-				<button type="button" onclick="window.location.href = 'mail_again.php';" class="btn btn-dark">Renvoyer</button>
+				<button type="button" onclick="window.location.href = 'mail_again.php';" class="btn btn-dark"><?= $waiting_register['sendAgain'] ?></button>
 			</section>
 		</main>
 

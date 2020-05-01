@@ -1,6 +1,7 @@
 var sid;
 var cid;
 var sp;
+var lang;
 
 function load_stripe(mode) {
 
@@ -80,13 +81,15 @@ function replace() {
     section.appendChild(title);
 
     const text = document.createElement('h2');
-    text.innerHTML = "Vous êtes désormais abonné !";
+    if (lang == "fr") text.innerHTML = "Vous êtes désormais abonné !";
+    if (lang == "en") text.innerHTML = "You are now subscribed !";
     section.appendChild(text);
 
     const a = document.createElement('a');
     a.className = "btn btn-dark";
     a.href = "shop.php";
-    a.innerHTML = "Revenir à la boutique";
+    if (lang == "fr") a.innerHTML = "Revenir à la boutique";
+    if (lang == "en") a.innerHTML = "Go back to shop";
     a.style.marginTop = "30px";
     section.appendChild(a);
 
@@ -109,11 +112,12 @@ function loading() {
 
 }
 
-function allocate(htmlCid, htmlSid) {
+function allocate(htmlCid, htmlSid, lp) {
 
     sid = htmlSid;
     cid = htmlCid;
-
+    lang = lp;
+    console.log(lang);
 }
 
 function insert() {
@@ -158,17 +162,20 @@ function serviceBooked() {
     section.appendChild(img);
 
     const title = document.createElement('h1');
-    title.innerHTML = "Paiement accepté";
+    if (lang == "fr") title.innerHTML = "Paiement validé";
+    if (lang == "en") title.innerHTML = "Payment validated";
     section.appendChild(title);
 
     const text = document.createElement('h2');
-    text.innerHTML = "La prestation a bien été payée.";
+    if (lang == "fr") text.innerHTML = "La prestation a bien été payée.";
+    if (lang == "en") text.innerHTML = "Service has been paid.";
     section.appendChild(text);
 
     const a = document.createElement('a');
     a.className = "btn btn-dark";
     a.href = "orders.php";
-    a.innerHTML = "Revenir sur mes commandes";
+    if (lang == "fr") a.innerHTML = "Revenir sur mes commandes";
+    if (lang == "en") a.innerHTML = "Go back to my orders";
     a.style.marginTop = "30px";
     section.appendChild(a);
 

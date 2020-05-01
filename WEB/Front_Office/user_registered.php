@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 
@@ -74,7 +74,7 @@ setcookie('enable', NULL, time(), null, null, false, true);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Inscription validée !</title>
+    <title>Home Services - <?= $user_registered['registered'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -90,19 +90,19 @@ setcookie('enable', NULL, time(), null, null, false, true);
         <br>
         <br>
         <br>
-        <section class="container text-center"">
-            <h1><i>Votre compte client est maintenant activé !</i></h1>
+        <section class="container text-center">
+            <h1><i><?= $user_registered['activated'] ?></i></h1>
             <br>
-            <li>Vous allez être redirigé automatiquement vers l'accueil</li>
+            <li><?= $user_registered['redirect'] ?></li>
             <br>
             <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only"><?= $user_registered['loading'] ?></span>
             </div>
             <br>
             <br>
-            <li>Cliquez sur le bouton si vous n'êtes pas redirigé automatiquement</li>
+            <li><?= $user_registered['notRedirected'] ?></li>
             <br>
-            <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark">Accueil</button>
+            <button type=" button" onclick="window.location.href = 'index.php';" class="btn btn-dark"><?= $user_registered['homepage'] ?></button>
         </section>
     </main>
     <script src="js/redirect.js"></script>

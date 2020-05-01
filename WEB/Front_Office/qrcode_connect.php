@@ -14,7 +14,7 @@ if ($connected == 1) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>QRCode connect</title>
+    <title><?= $qrcode_connect['QRcodeConnect'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -26,7 +26,7 @@ if ($connected == 1) {
         <br>
         <div class="container-fluid text-center">
             <div class="jumbotron">
-                <div class="display-4">Veuillez scanner votre QRcode</div>
+                <div class="display-4"><?= $qrcode_connect['scanQRcode'] ?></div>
 
                 <div>
                     <span id="cam-has-camera" class="text-muted"></span>
@@ -48,7 +48,7 @@ if ($connected == 1) {
     </main>
 
     <?php require_once("include/footer.php"); ?>
-    
+
 </body>
 <script type="module" type="text/javascript">
     import QrScanner from "./js/qr-scanner.min.js";
@@ -69,7 +69,7 @@ if ($connected == 1) {
 
     // ####### Web Cam Scanning #######
 
-    QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = "Caméra détectée");
+    QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = "<?= $qrcode_connect['camDetected'] ?>");
 
     const scanner = new QrScanner(video, result => window.location.replace("valid_qrcode_connect.php?id="+result));
     scanner.start();
