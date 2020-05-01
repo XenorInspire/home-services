@@ -53,59 +53,58 @@ $associateProposals = $hm_database->getAssociateProposal($id);
 
                 <?php
                 $counter = 1;
-                if ($associateProposals != NULL) { ?>
+                if (!empty($associateProposals)) { ?>
                     <div class="display-4"><?= $associate_services_provided['serviceRequest'] ?></div>
                     <hr>
                     <div class="row">
                         <?php
                         foreach ($associateProposals as $proposal) {
-                            if ($proposal->getStatus() == 0) { ?>
-                                <div class="col-md bm-3">
-                                    <a href="associate_proposal_accept.php?associateId=<?= $id ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> <?= $associate_services_provided['reply'] ?></a>
-                                </div>
+                        ?>
+                            <div class="col-md bm-3">
+                                <a href="associate_proposal_accept.php?associateId=<?= $id ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> <?= $associate_services_provided['reply'] ?></a>
+                            </div>
                         <?php
-                                $counter++;
-                            }
+                            $counter++;
                         } ?>
                     </div><?php
-                        echo '<br>';
-                        echo '<br>';
+                            echo '<br>';
+                            echo '<br>';
                         }
                             ?>
 
                 <div class="display-4">
                     <?php
-                    if($servicesProvided != NULL)
-                    echo $associate_services_provided['currentServices'];
+                    if ($servicesProvided != NULL)
+                        echo $associate_services_provided['currentServices'];
                     else
-                    echo $associate_services_provided['noCurrentServices'];
+                        echo $associate_services_provided['noCurrentServices'];
                     ?>
                 </div>
                 <hr>
                 <div class="card-columns">
                     <?php
                     $counter = 1;
-                    if($servicesProvided != NULL){
-                    foreach ($servicesProvided as $serviceProvided) {
+                    if ($servicesProvided != NULL) {
+                        foreach ($servicesProvided as $serviceProvided) {
 
-                        $service = $hm_database->getService($serviceProvided->getServiceId());
+                            $service = $hm_database->getService($serviceProvided->getServiceId());
                     ?>
-                        <div class="card text-center border-secondary">
-                            <div class="card-header border-secondary">
-                                <?= $associate_services_provided['booking'] ?> # <?= $counter ?> <?= $service->getServiceTitle() ?>
+                            <div class="card text-center border-secondary">
+                                <div class="card-header border-secondary">
+                                    <?= $associate_services_provided['booking'] ?> # <?= $counter ?> <?= $service->getServiceTitle() ?>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $service->getDescription() ?></h5>
+                                    <a href="current_associate_service_provided.php?serviceProvidedId=<?= $serviceProvided->getServiceProvidedId() ?>" class="btn btn-outline-secondary"><?= $associate_services_provided['endService'] ?></a>
+                                </div>
+                                <div class="card-footer text-muted border-secondary">
+                                    <?= $serviceProvided->getDate() ?> à <?= $serviceProvided->getBeginHour() ?>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $service->getDescription() ?></h5>
-                                <a href="current_associate_service_provided.php?serviceProvidedId=<?= $serviceProvided->getServiceProvidedId() ?>" class="btn btn-outline-secondary"><?= $associate_services_provided['endService'] ?></a>
-                            </div>
-                            <div class="card-footer text-muted border-secondary">
-                                <?= $serviceProvided->getDate() ?> à <?= $serviceProvided->getBeginHour() ?>
-                            </div>
-                        </div>
                     <?php
-                        $counter++;
+                            $counter++;
+                        }
                     }
-                }
                     ?>
                 </div>
             </div>
