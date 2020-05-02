@@ -123,7 +123,7 @@ if (
         var node = document.createElement("div");
         node.id = "field" + counter;
         if (lang == "fr") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Frais supplémentaire #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
-        if (lang == "en") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Additional cost #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Additional cost description" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
+        if (lang == "en") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Additional cost #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Additional cost description" name="description' + counter + '" required></div> <div class="form-group"><label>Amount</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
         form.appendChild(node);
 
         var total = document.getElementById("totalAdditionalPrice");
