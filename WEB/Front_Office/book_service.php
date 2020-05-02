@@ -79,6 +79,8 @@
 
                         echo '<div class="alert alert-success alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Il vous reste ' . $subscription->getRemainingHours() . ' heures dans votre abonnement</div>';
                         echo '<br>';
+
+                        $subscriptionType = $hm_database->getSubscriptionTypeById($subscription->getTypeId());
                     }
                 }
 
@@ -133,11 +135,20 @@
                                 <label><?= $book_service['serviceDate'] ?></label>
                                 <input type="date" name="date" min="<?= date('Y-m-d') ?>" class="form-control" value="<?php if ($isEstimate) echo $date; ?>" <?php if ($isEstimate) echo "readonly";
                                                                                                                                                                 else echo "required"; ?>>
+
+                                <?php
+
+                                if ($subscription != NULL)
+                                    $parts1 = explode(".", $subscriptionType->getBeginTime());
+                                    $parts2 = explode(".", $subscriptionType->getEndTime());
+
+                                ?>
+
                             </div>
                             <div class="form-group">
                                 <label><?= $book_service['serviceHour'] ?></label>
-                                <input type="time" name="beginHour" class="form-control" value="<?php if ($isEstimate) echo $beginHour; ?>" <?php if ($isEstimate) echo "readonly";
-                                                                                                                                            else echo "required"; ?>>
+                                <input type="time" name="beginHour" min="<?php if ($subscription != NULL && $parts1[0] != "24:00:00") echo $parts1[0]; ?>" max="<?php if ($subscription != NULL) echo $parts2[0]; ?>" class="form-control" value="<?php if ($isEstimate) echo $beginHour; ?>" <?php if ($isEstimate) echo "readonly";
+                                                                                                                                                                                                                                                                                                                        else echo "required"; ?>>
                             </div>
                             <div class="form-group">
                                 <label><?= $book_service['hourAmount'] ?></label>
