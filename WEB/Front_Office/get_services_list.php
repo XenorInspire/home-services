@@ -1,5 +1,7 @@
 <?php
 
+require_once('include/lang.php');
+
 if (!isset($_POST['select']) || empty(trim($_POST['select']))) {
 
     http_response_code(400);

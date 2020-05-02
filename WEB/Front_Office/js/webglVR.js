@@ -30,8 +30,6 @@ function init() {
     var blocker = document.getElementById('blocker');
     blocker.remove();
 
-
-
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
     camera.position.z = 250;
