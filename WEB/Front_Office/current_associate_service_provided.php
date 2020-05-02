@@ -114,6 +114,7 @@ if (
 </body>
 
 <script>
+    var lang = "<?= $_SESSION['lang'] ?>"
     var counter = 0;
 
     function addCharge() {
@@ -121,7 +122,8 @@ if (
         var form = document.getElementById("form");
         var node = document.createElement("div");
         node.id = "field" + counter;
-        node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Frais supplémentaire #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
+        if (lang == "fr") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Frais supplémentaire #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
+        if (lang == "en") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Additional cost #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Additional cost description" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
         form.appendChild(node);
 
         var total = document.getElementById("totalAdditionalPrice");
