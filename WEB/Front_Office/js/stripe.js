@@ -203,9 +203,10 @@ function update() {
 
 }
 
-function sp(htmlCid, htmlSp) {
+function sp(htmlCid, htmlSp, lp) {
 
     sp = htmlSp;
     cid = htmlCid;
+    lang = lp;
 
 }

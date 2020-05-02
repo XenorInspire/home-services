@@ -1,4 +1,24 @@
 <?php
+function dateSubtraction($date1, $date2)
+{
+    $sub = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
+    $result = array();
+
+    $tmp = $sub;
+    $result['second'] = $tmp % 60;
+
+    $tmp = floor(($tmp - $result['second']) / 60);
+    $result['minute'] = $tmp % 60;
+
+    $tmp = floor(($tmp - $result['minute']) / 60);
+    $result['hour'] = $tmp % 24;
+
+    $tmp = floor(($tmp - $result['hour'])  / 24);
+    $result['day'] = $tmp;
+
+    return $result;
+}
+
 if (
     isset($_POST['serviceProvidedId']) && !empty($_POST['serviceProvidedId'])
     && is_numeric($_POST['totalAdditionalPrice'])
@@ -60,25 +80,6 @@ if (
         $paidSatus = 1;
     }
 
-    function dateSubtraction($date1, $date2)
-    {
-        $sub = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
-        $result = array();
-
-        $tmp = $sub;
-        $result['second'] = $tmp % 60;
-
-        $tmp = floor(($tmp - $result['second']) / 60);
-        $result['minute'] = $tmp % 60;
-
-        $tmp = floor(($tmp - $result['minute']) / 60);
-        $result['hour'] = $tmp % 24;
-
-        $tmp = floor(($tmp - $result['hour'])  / 24);
-        $result['day'] = $tmp;
-
-        return $result;
-    }
 
     $estimates = $hm_database->getEstimateListByCustomerId($customerId);
     if (!empty($estimates)) {
@@ -96,6 +97,8 @@ if (
                 && $diffHour['hour'] == 0
             ) {
                 $totalPrice = $estimate->getTotalPrice() + $totalAdd;
+            } else {
+                $totalPrice = ($service->getServicePrice() * $hoursAssociate) + $totalAdd;
             }
         }
     } else {

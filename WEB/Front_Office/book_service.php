@@ -141,7 +141,7 @@
                             </div>
                             <div class="form-group">
                                 <label><?= $book_service['hourAmount'] ?></label>
-                                <input type="number" name="hours" min="<?= $service->getTimeMin() ?>" max="<?php if ($subscription->getRemainingHours() < 24) {
+                                <input type="number" name="hours" min="<?= $service->getTimeMin() ?>" max="<?php if ($subscription != NULL  && $subscription->getRemainingHours() < 24) {
                                                                                                                 echo $subscription->getRemainingHours();
                                                                                                             } else {
                                                                                                                 echo "24";

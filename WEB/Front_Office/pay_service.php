@@ -97,11 +97,10 @@
      </main>
 
      <?php require_once("include/footer.php"); ?>
-     <script type="text/javascript"> var lang= "<?php echo $_SESSION['lang']; ?>"</script>
      <script src="js/stripe.js"></script>
      <script src="https://js.stripe.com/v3/"></script>
      <script>
-         sp("<?php echo $id; ?>", "<?php echo $_GET['sp']; ?>");
+         sp("<?php echo $id; ?>", "<?php echo $_GET['sp']; ?>","<?php echo $_SESSION['lang']; ?>" );
      </script>
 
  </body>
