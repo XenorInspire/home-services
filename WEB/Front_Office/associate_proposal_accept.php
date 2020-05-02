@@ -9,10 +9,9 @@ if (!($status == 'associate' && $connected == 1)) {
 
 if (
 	isset($_GET['serviceProvidedId']) && !empty($_GET['serviceProvidedId'])
-	&& isset($_GET['associateId']) && !empty($_GET['associateId'])
 ) {
 	$serviceProvidedId = $_GET['serviceProvidedId'];
-	$associateId = $_GET['associateId'];
+	$associateId = $id;
 	$hm_database = new DBManager($bdd);
 
 	$servPro = $hm_database->getServiceProvided($serviceProvidedId);
