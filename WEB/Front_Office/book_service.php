@@ -138,9 +138,11 @@
 
                                 <?php
 
-                                if ($subscription != NULL)
+                                if ($subscription != NULL) {
+
                                     $parts1 = explode(".", $subscriptionType->getBeginTime());
                                     $parts2 = explode(".", $subscriptionType->getEndTime());
+                                }
 
                                 ?>
 
@@ -148,7 +150,7 @@
                             <div class="form-group">
                                 <label><?= $book_service['serviceHour'] ?></label>
                                 <input type="time" name="beginHour" min="<?php if ($subscription != NULL && $parts1[0] != "24:00:00") echo $parts1[0]; ?>" max="<?php if ($subscription != NULL) echo $parts2[0]; ?>" class="form-control" value="<?php if ($isEstimate) echo $beginHour; ?>" <?php if ($isEstimate) echo "readonly";
-                                                                                                                                                                                                                                                                                                                        else echo "required"; ?>>
+                                                                                                                                                                                                                                                                                                else echo "required"; ?>>
                             </div>
                             <div class="form-group">
                                 <label><?= $book_service['hourAmount'] ?></label>
