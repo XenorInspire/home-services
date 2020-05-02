@@ -41,7 +41,7 @@ $associate = $hm_database->getAssociateById($associateId);
                             <label class="input-group-text" for="inputGroupSelect01"><?= $create_associate_service['serviceType'] ?></label>
                         </div>
                         <select class="custom-select" id="inputGroupSelect01" required>
-                            <option selected disabled><?= $create_associate_service['chooseServicetype'] ?></option>
+                            <option selected disabled><?= $create_associate_service['chooseServiceType'] ?></option>
                             <?php
                             foreach ($servicesType as $serviceType) { ?>
                                 <option value="<?= $serviceType->getServiceTypeId() ?>"><?= $serviceType->getTypeName() ?></option>
