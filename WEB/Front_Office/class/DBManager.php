@@ -972,7 +972,7 @@ class DBManager
     $req = $this->db->query('SELECT associateBillId FROM AssociateBill ORDER BY associateBillId ASC');
     $newId = 1;
     while ($id = $req->fetch()) {
-      if ($newId != $id['billId']) {
+      if ($newId != $id['associateBillId']) {
         break;
       }
       $newId++;
