@@ -1,6 +1,7 @@
 package sqlconnect;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,8 +44,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Nom", "Prénom", "Email", "Tél", "Adresse", "Ville", "MDP", "Activé"};
                 JTable results = new JTable(rq.getCustomers(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getCustomers(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -57,8 +61,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Nom", "Prénom", "Email", "Tél", "Adresse", "Ville", "SIREN", "Entreprise", "Activé", "MDP"};
                 JTable results = new JTable(rq.getAssociates(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getAssociates(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -71,8 +78,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Titre", "Description", "Récurrent", "Min H", "Prix", "Commission", "Type de service"};
                 JTable results = new JTable(rq.getServices(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getServices(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -85,8 +95,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Date", "Client", "Prestation", "status"};
                 JTable results = new JTable(rq.getReservations(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getReservations(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -99,8 +112,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Titre"};
                 JTable results = new JTable(rq.getServicesTypes(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getServicesTypes(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -113,8 +129,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Nom", "NB Jours", "De", "A", "NB Heures", "Prix", "Activé"};
                 JTable results = new JTable(rq.getSubscriptionTypes(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getSubscriptionTypes(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -127,8 +146,11 @@ public class Window extends JFrame {
                 reset();
                 String[] head = {"ID", "Date", "Heure", "NB Heures C", "Service", "NB Heures P", "Adresse", "Ville"};
                 JTable results = new JTable(rq.getServiceProvided(), head);
-                pan.add(results.getTableHeader(), BorderLayout.NORTH);
-                pan.add(new JScrollPane(results), BorderLayout.CENTER);
+                results.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                results.setModel(model(rq.getServiceProvided(), head));
+                results.setBounds(200, 200, 500, 500);
+                pan.add(results.getTableHeader());
+                pan.add(new JScrollPane(results));
                 refresh();
 
             }
@@ -156,6 +178,17 @@ public class Window extends JFrame {
         pan.add(b6);
         pan.add(b7);
 
+    }
+
+    private DefaultTableModel model(Object[][] data, Object[] columnNames) {
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        return tableModel;
     }
 
 }
