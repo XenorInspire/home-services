@@ -10,27 +10,52 @@ startButton.addEventListener('click', init);
 
 var camera, scene, renderer, composer, video;
 var particles;
-var PARTICLE_SIZE = 20;
 var raycaster, intersects;
-var mouse, INTERSECTED;
+var mouse;
 var clock = new THREE.Clock();
 var glitchPass;
+var messages = [];
+var texts = [];
 
-var ENABLE_GLITH = true;
+var INTERSECTED;
+var PARTICLE_SIZE = 20;
+var ENABLE_GLICTH = true;
 var COUNTER_GLITCH = 0;
+var INITIAL_TEXT_POSITION = -175;
+var MAX_TEXT_POSITION = -80;
+var INDEX = 0;
 
 function init() {
 
     var blocker = document.getElementById('blocker');
     blocker.remove();
 
-    getVideo();
 
-    var container = document.getElementById('container');
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
     camera.position.z = 250;
+
+    // **********Musique globale**********
+
+    var listener = new THREE.AudioListener();
+    camera.add(listener);
+    var global_sound = new THREE.Audio(listener);
+
+    // load a sound and set it as the Audio object's buffer
+    var audioLoader = new THREE.AudioLoader();
+    audioLoader.load('sounds/presentation.mp3', function (buffer) {
+        global_sound.setBuffer(buffer);
+        global_sound.setLoop(true);
+        global_sound.setVolume(0.5);
+        global_sound.play();
+    });
+
+    //
+
+    getVideo();
+
+    var container = document.getElementById('container');
 
     var vertices = new THREE.BoxGeometry(200, 200, 200, 16, 16, 16).vertices;
 
@@ -116,8 +141,44 @@ function init() {
 
     //
 
+    messages = setTexts();
+    texts = [messages.length];
+
+    //
+
+    for (let i = 0; i < messages.length; i++) {
+        var loader = new THREE.FontLoader();
+        loader.load('fonts/optimer_regular.typeface.json', function (font) {
+
+            var xMid;
+            var color = 0x000000;
+
+            var matLite = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.7,
+                side: THREE.DoubleSide
+            });
+
+            var shapes = font.generateShapes(messages[i], 100);
+            var geometry = new THREE.ShapeBufferGeometry(shapes);
+
+            geometry.computeBoundingBox();
+            xMid = - 0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+            geometry.translate(xMid, 0, 0);
+
+            var text = new THREE.Mesh(geometry, matLite);
+            text.position.z = INITIAL_TEXT_POSITION;
+            text.scale.set(0.25, 0.25, 1);
+            texts[i] = text;
+
+        }); //end load function
+
+    }
+
     document.body.appendChild(VRButton.createButton(renderer));
     renderer.vr.enabled = true;
+
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onDocumentMouseMove, false);
 
@@ -150,16 +211,37 @@ function animate() {
     requestAnimationFrame(animate);
     render();
 
-    if (ENABLE_GLITH == true)
+    if (ENABLE_GLICTH == true)
         composer.render();
 
-    if (COUNTER_GLITCH > 80)
+    if (COUNTER_GLITCH > 80) {
+
         disable();
 
-    console.log("x : " + camera.position.x);
-    console.log("y : " + camera.position.y);
-    console.log("z : " + camera.position.z);
+    }
 
+    if (ENABLE_GLICTH == false) {
+
+        if (INDEX == 0 && texts[INDEX].position.z == INITIAL_TEXT_POSITION)
+            scene.add(texts[INDEX]);
+
+        texts[INDEX].position.z += 0.5;
+
+        if (texts[INDEX].position.z == MAX_TEXT_POSITION) {
+
+            scene.remove(texts[INDEX]);
+            INDEX++;
+
+            if (INDEX >= texts.length)
+                INDEX = 0;
+
+            console.log(INDEX);
+            scene.add(texts[INDEX]);
+            texts[INDEX].position.z = INITIAL_TEXT_POSITION;
+
+        }
+
+    }
 
 }
 
@@ -202,7 +284,7 @@ function render() {
 
 function disable() {
 
-    ENABLE_GLITH = false;
+    ENABLE_GLICTH = false;
 
 }
 
@@ -219,5 +301,23 @@ function getVideo() {
     video.crossOrigin = "anonymous";
 
     container.appendChild(video);
+
+}
+
+function setTexts() {
+
+    var messages = [];
+    messages[0] = "HOME SERVICES";
+    messages.push("La meilleure entreprise\n      de conciergerie");
+    messages.push("En France et en Europe");
+    messages.push("Nous comptons actuellement");
+    messages.push("Plus de 4000 prestataires");
+    messages.push("Prêt à intervenir chez vous");
+    messages.push("Et ce dans les plus bref délais !");
+    messages.push("Utiliser HOME SERVICES");
+    messages.push("C'est aussi être accompagné\n            au quotidien");
+    messages.push("Et profiter pleinement\n          de la vie");
+
+    return messages;
 
 }
