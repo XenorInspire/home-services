@@ -69,7 +69,7 @@ if ($sub->getEnable() == 1) {
                     <div class="form-group">
                         <label>Jours disponibles dans la semaine</label>
                         <input type="number" class="form-control" value="<?= $sub->getOpenDays() ?>" min="1" max="7" name="openDays" required>
-                        <small class="form-text text-muted">Exemple : 5j/7</small>
+                        <small class="form-text text-muted">Exemple : 5j/7 => du lundi au vendredi</small>
                     </div>
                     <div class="form-group">
                         <label>Horaire de début des services</label>
