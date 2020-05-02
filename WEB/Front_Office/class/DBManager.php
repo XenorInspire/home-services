@@ -601,7 +601,7 @@ class DBManager
   public function getReservationsByCustomerId($id)
   {
 
-    $q = "SELECT Reservation.reservationId,Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId";
+    $q = "SELECT Reservation.reservationId,Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId ORDER BY Reservation.reservationDate ASC";
     $req = $this->db->prepare($q);
     $req->execute([$id]);
 

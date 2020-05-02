@@ -43,7 +43,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$num_fact = $service_bill['billNumber'] . $bill->getBillId();
+$num_fact = utf8_decode($service_bill['billNumber'] . $bill->getBillId());
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");

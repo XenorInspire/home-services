@@ -135,19 +135,12 @@
                  </ul>
                  <br>
 
-                 <!-- <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill'] ?></button>
-                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription'] ?></button> -->
-
-                 <!-- <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark">Télécharger ma facture</button>
-                 <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark">Résilier mon abonnement</button> -->
-
-
                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
                      <label class="btn btn-dark">
-                         <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill']?></button>
+                         <button type="button" onclick="window.open('subscription_bill.php?i=<?= $subscriptionBill['billId'] ?>');" class="btn btn-dark"><?= $orders['dlBill'] ?></button>
                      </label>
                      <label class="btn btn-dark">
-                         <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription']?></button>
+                         <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-dark"><?= $orders['cancelSubscription'] ?></button>
                      </label>
                      <?php
                         $isEstimate = FALSE;
@@ -169,7 +162,7 @@
                         if (!empty($estimates) && $isEstimate == TRUE) {
                         ?>
                          <label class="btn btn-dark">
-                             <button type="button" onclick="window.location.href = 'estimates.php';" class="btn btn-dark"><?= $orders['myEstimates']?></button>
+                             <button type="button" onclick="window.location.href = 'estimates.php';" class="btn btn-dark"><?= $orders['myEstimates'] ?></button>
                          </label>
                      <?php
                         }
@@ -200,9 +193,35 @@
 
              </section>
 
+             <?php
+            } else {
+                $isEstimate = FALSE;
+                if (!empty($estimates)) {
+                    foreach ($estimates as $estimate) {
+                        $service = $hm_database->getService($estimate->getServiceId());
+                        $estimateDate = $estimate->getEstimateDate();
+                        $serviceProvidedDate = $estimate->getServiceProvidedDate();
+
+                        $diffEstimateToday = dateSubtractionNotAbs(strtotime($estimateDate), strtotime($today));
+                        $diffServiceToday = dateSubtractionNotAbs(strtotime($serviceProvidedDate), strtotime($today));
+
+                        if ($diffEstimateToday['day'] >= 0 && $diffServiceToday['day'] >= 0 && $service != NULL) {
+                            $isEstimate = TRUE;
+                        }
+                    }
+                }
+                if (!empty($estimates) && $isEstimate == TRUE) {
+                ?>
+                 <br>
+                 <div class="container text-center">
+                     <h1><?= $orders["myEstimates"] ?></h1>
+                     <br>
+                     <button type="button" onclick="window.location.href = 'estimates.php';" class="btn btn-dark"><?= $orders['access'] ?></button>
+
+                 </div>
          <?php
-            }
-            ?>
+                }
+            } ?>
 
          <?php
 

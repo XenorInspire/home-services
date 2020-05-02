@@ -220,7 +220,8 @@ $orders = array(
   "booking" => "Booking",
   "confirmCancel" => "Are you sure you want to cancel the booking ?",
   "cancelBooking" => "Cancel the booking",
-  "back" => "Back"
+  "back" => "Back",
+  "access" => "Access"
 );
 
 $passwd_forgotten = array(
@@ -328,7 +329,7 @@ $service_bill = array(
   "service" => "Service",
   "hoursRequested" => "Hours requested",
   "hoursPerformed" => "Hours performed",
-  "pricePerHour" => "Price per hour",
+  "pricePerHour" => "Price/h",
   "total" => "TOTAL",
   "price" => "Price ATI : ",
   "bankRef" => "BANK REFERENCE :",

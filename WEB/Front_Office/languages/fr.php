@@ -220,7 +220,8 @@ $orders = array(
   "booking" => "Réservation",
   "confirmCancel" => "Êtes-vous sûr de vouloir annuler cette réservation ?",
   "cancelBooking" => "Annuler la réservation",
-  "back" => "Retour"
+  "back" => "Retour",
+  "access" => "Accéder"
 );
 
 $passwd_forgotten = array(
@@ -328,7 +329,7 @@ $service_bill = array(
   "service" => "Service",
   "hoursRequested" => "Heures demandées",
   "hoursPerformed" => "Heures effectuées",
-  "pricePerHour" => "Prix par heure",
+  "pricePerHour" => "Prix/h",
   "total" => "TOTAL",
   "price" => "Net à payer TTC : ",
   "bankRef" => "REF BANCAIRE :",

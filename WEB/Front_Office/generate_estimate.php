@@ -80,7 +80,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$num_fact = $generate_estimate['estimateNumber']  . $estimate->getEstimateId();
+$num_fact = utf8_decode($generate_estimate['estimateNumber']  . $estimate->getEstimateId());
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");
