@@ -17,7 +17,7 @@ message = ''
 if(sys.argv[1] == 'create_proposal'):
     msg['Subject'] = "Home Services - You have recieved a reservation"
     message = 'Hi there !\nThanks for using Home-Services !\nYou have received a reservation from a customer\nClick right here to see the reservation : \n' + \
-        logins.IP+'associate_proposal_accept.php?serviceProvidedId=' + \
+        logins.IP + 'associate_proposal_accept.php?serviceProvidedId=' + \
         sys.argv[3]
 elif(sys.argv[1] == 'cancel_proposal'):
     msg['Subject'] = "Home Services - Reservation canceled"
@@ -25,7 +25,7 @@ elif(sys.argv[1] == 'cancel_proposal'):
 elif(sys.argv[1] == 'first_connect'):
     msg['Subject'] = "Home Services - First connection"
     message = 'Hi there !\nThanks for using Home-Services !\nYou can now connect to Homes-Services with this password : ' + \
-        sys.argv[3] + '\nTo activate your account, please use this link : https://localhost/first_connect.php?i=' + \
+        sys.argv[3] + '\nTo activate your account, please use this link : ' + logins.IP + 'first_connect.php?i=' + \
         sys.argv[4] + '&p=' + sys.argv[5]
 elif(sys.argv[1] == 'delete_subscription'):
     msg['Subject'] = "Home Services - Subscription finished"

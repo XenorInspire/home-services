@@ -17,7 +17,7 @@ if (
 
     $associate = $hm_database->getAssociate($_POST['associateId']);
 
-    system('python3 mail/mail.py create_proposal ' . $associate->getEmail() . $proposal->getServiceProvidedId());
+    system('python3 mail/mail.py create_proposal ' . $associate->getEmail() . ' ' . $proposal->getServiceProvidedId());
 
     header('Location: reservations.php?proposal=successful');
     exit;
