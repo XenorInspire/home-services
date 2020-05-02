@@ -1,4 +1,5 @@
 <?php
+
 function dateSubtraction($date1, $date2)
 {
     $sub = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
@@ -25,8 +26,12 @@ if (
     && is_numeric($_POST['hoursAssociate'])
 
 ) {
-    require_once('class/DBManager.php');
-    $hm_database = new DBManager($bdd);
+    require_once('include/check_identity.php');
+    if (!($status == 'associate' && $connected == 1)) {
+
+        header('Location: connect.php?status=associate&error=forb');
+        exit;
+    }
 
     date_default_timezone_set('Europe/Paris');
 
@@ -62,6 +67,14 @@ if (
     $billId = $hm_database->getLastIdBill();
     $serviceProvided = $hm_database->getServiceProvided($serviceProvidedId);
     $service = $hm_database->getService($serviceProvided->getServiceId());
+
+    //Associate
+    $associate = $hm_database->getAssociateById($id);
+
+    //AssociateBill
+    $associateBillId = $hm_database->getLastIdAssociateBill();
+    $billDate = $serviceProvided->getDate();
+    $paidSatus = 0;
 
     $totalAdd = 0;
     if ($additionalPrices != NULL) {
@@ -106,8 +119,10 @@ if (
     }
 
     $bill = new Bill($billId, $paidSatus, $customerId, $customer->getLastname(), $customer->getFirstname(), $customer->getAddress(), $customer->getCity(), $customer->getMail(), $serviceProvided->getDate(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
+    $associateBill = new AssociateBill($associateBillId, $billDate, $paidSatus, $id, $associate->getLastName(), $associate->getFirstName(), $associate->getAddress(), $associate->getTown(), $associate->getEmail(), $associate->getSirenNumber(), $associate->getCompanyName(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
 
-    $hm_database->endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill);
+    $hm_database->addAssociateBill($associateBill);
+    $hm_database->endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill, $associateBill);
 
     $url = "associate_services_provided.php?ending=successful";
     header('Location: ' . $url);

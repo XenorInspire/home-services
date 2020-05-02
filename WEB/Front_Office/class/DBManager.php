@@ -10,13 +10,11 @@ require_once('class/associate.php');
 require_once('class/proposal.php');
 require_once('class/subscription.php');
 require_once('class/additionalPrice.php');
-// require_once('class/invoicing.php');
 require_once('class/bill.php');
 require_once('class/serviceType.php');
 require_once('class/associateServices.php');
 require_once('class/estimate.php');
-
-
+require_once('class/associateBill.php');
 
 class DBManager
 {
@@ -383,7 +381,7 @@ class DBManager
     return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
   }
 
-  public function endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill)
+  public function endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill, $associateBill)
   {
     $q = "UPDATE ServiceProvided SET hoursAssociate = :hoursAssociate WHERE serviceProvidedId = :serviceProvidedId";
     $req = $this->db->prepare($q);
@@ -415,6 +413,7 @@ class DBManager
     }
 
     $this->addBill($bill);
+    $this->addAssociateBill($associateBill);
   }
 
   public function deleteReservation($reservationId)
@@ -644,7 +643,7 @@ class DBManager
     $res->execute(array(
       'estimateId' => $estimate->getEstimateId(),
       'customerId' => $estimate->getCustomerId(),
-      'customerLastName' => $estimate->getCustomerLastName(), 
+      'customerLastName' => $estimate->getCustomerLastName(),
       'customerFirstName' => $estimate->getCustomerFirstName(),
       'customerAddress' => $estimate->getCustomerAddress(),
       'customerTown' => $estimate->getCustomerTown(),
@@ -671,7 +670,8 @@ class DBManager
     return $newId;
   }
 
-  public function getEstimateListByCustomerId($customerId){
+  public function getEstimateListByCustomerId($customerId)
+  {
     $q = "SELECT * FROM Estimate WHERE customerId = ? ORDER BY estimateDate DESC";
     $res = $this->db->prepare($q);
     $res->execute([$customerId]);
@@ -681,13 +681,14 @@ class DBManager
       $estimates[] = new Estimate($data['estimateId'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['estimateDate'], $data['serviceProvidedDate'], $data['serviceProvidedHour'], $data['hours'], $data['serviceId'], $data['totalPrice']);
     }
 
-    if(empty($estimates))
+    if (empty($estimates))
       return NULL;
 
     return $estimates;
   }
 
-  public function getEstimate($estimateId){
+  public function getEstimate($estimateId)
+  {
     $q = "SELECT * FROM Estimate WHERE estimateId = ?";
     $res = $this->db->prepare($q);
     $res->execute([$estimateId]);
@@ -942,4 +943,41 @@ class DBManager
     $associate = $this->getAssociateById($res['associateId']);
     return $associate;
   }
+
+  public function addAssociateBill(AssociateBill $associateBill)
+  {
+    $q = "INSERT INTO AssociateBill(associateBillId, billDate, paidStatus, associateId, associateLastName, associateFirstName, associateAddress, associateTown, email, sirenNumber, companyName, serviceTitle, totalPrice, serviceProvidedId) VALUES (:associateBillId, :billDate, :paidStatus, :associateId, :associateLastName, :associateFirstName, :associateAddress, :associateTown, :email, :sirenNumber, :companyName, :serviceTitle, :totalPrice, :serviceProvidedId)";
+    $res = $this->db->prepare($q);
+    $res->execute(array(
+      'associateBillId' => $associateBill->getAssociateBillId(),
+      'billDate' => $associateBill->getBillDate(),
+      'paidStatus' => $associateBill->getPaidStatus(),
+      'associateId' => $associateBill->getAssociateId(),
+      'associateLastName' => $associateBill->getAssociateLastName(),
+      'associateFirstName' => $associateBill->getAssociateFirstName(),
+      'associateAddress' => $associateBill->getAssociateAddress(),
+      'associateTown' => $associateBill->getAssociateTown(),
+      'email' => $associateBill->getEmail(),
+      'sirenNumber' => $associateBill->getSirenNumber(),
+      'companyName' => $associateBill->getCompanyName(),
+      'serviceTitle' => $associateBill->getServiceTitle(),
+      'totalPrice' => $associateBill->getTotalPrice(),
+      'serviceProvidedId' => $associateBill->getServiceProvidedId()
+    ));
+  }
+  
+  public function getLastIdAssociateBill()
+  {
+    
+    $req = $this->db->query('SELECT associateBillId FROM AssociateBill ORDER BY associateBillId ASC');
+    $newId = 1;
+    while ($id = $req->fetch()) {
+      if ($newId != $id['billId']) {
+        break;
+      }
+      $newId++;
+    }
+    
+    return $newId;
+  } 
 }
