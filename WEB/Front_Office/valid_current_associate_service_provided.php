@@ -130,7 +130,7 @@ if (
 
     $bill = new Bill($billId, $paidSatus, $customerId, $customer->getLastname(), $customer->getFirstname(), $customer->getAddress(), $customer->getCity(), $customer->getMail(), $serviceProvided->getDate(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
     $totalPrice = $totalPrice - ($totalPrice * $service->getCommission());
-    $associateBill = new AssociateBill($associateBillId, $billDate, $paidSatus, $id, $associate->getLastName(), $associate->getFirstName(), $associate->getAddress(), $associate->getTown(), $associate->getEmail(), $associate->getSirenNumber(), $associate->getCompanyName(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
+    $associateBill = new AssociateBill($associateBillId, $billDate, 0, $id, $associate->getLastName(), $associate->getFirstName(), $associate->getAddress(), $associate->getTown(), $associate->getEmail(), $associate->getSirenNumber(), $associate->getCompanyName(), $service->getServiceTitle(), $totalPrice, $serviceProvidedId);
 
     $hm_database->addAssociateBill($associateBill);
     $hm_database->endServiceProvided($serviceProvidedId, $hoursAssociate, $additionalPrices, $bill, $associateBill);
