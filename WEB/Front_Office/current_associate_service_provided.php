@@ -48,6 +48,15 @@ if (
                     <div class="card-header text-center">
                         <?= $current_associate_service_provided['serviceInformations'] ?>
                     </div>
+                    <?php
+
+                    if (isset($_GET['error']) && $_GET['error'] == 'hours') {
+
+                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $current_associate_service_provided['error'] . '</div>';
+                        echo '<br>';
+                    }
+
+                    ?>
                     <div class="card-body">
                         <h5 class="card-title text-center"><?= $service->getServiceTitle() ?></h5>
                         <p class="card-text">

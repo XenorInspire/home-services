@@ -159,7 +159,8 @@ $current_associate_service_provided = array(
   "doneHours" => "Heures effectuées",
   "addExtra" => "Ajouter un frais supplémentaire",
   "removeExtra" => "Enlever un frais supplémentaire",
-  "endService" => "Terminer la prestation"
+  "endService" => "Terminer la prestation",
+  "error" => "Le nombre d'heures de la prestation doit être supérieur ou égal au nombre renseigné par le client"
 );
 
 $get_reservations = array(

@@ -159,7 +159,8 @@ $current_associate_service_provided = array(
   "doneHours" => "Performed hours",
   "addExtra" => "Add an additional cost",
   "removeExtra" => "Remove an additional cost",
-  "endService" => "End a service"
+  "endService" => "End a service",
+  "error" => "The number of hours must be higher than the customer asked or equal"
 );
 
 $get_reservations = array(

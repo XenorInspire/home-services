@@ -68,6 +68,12 @@ if (
     $serviceProvided = $hm_database->getServiceProvided($serviceProvidedId);
     $service = $hm_database->getService($serviceProvided->getServiceId());
 
+    if ($hoursAssociate < $serviceProvided->getHours()) {
+
+        header('Location: current_associate_service_provided.php?serviceProvidedId=' . $serviceProvided->getServiceProvidedId() . "&error=hours");
+        exit;
+    }
+
     //Associate
     $associate = $hm_database->getAssociateById($id);
 
