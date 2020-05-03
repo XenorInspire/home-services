@@ -219,6 +219,7 @@ $orders = array(
   "pay" => "Pay",
   "booking" => "Booking",
   "confirmCancel" => "Are you sure you want to cancel the booking ?",
+  "extraInfo" => "Be careful, your booked hours will not be refunded !",
   "cancelBooking" => "Cancel the booking",
   "back" => "Back",
   "access" => "Access"
@@ -359,7 +360,8 @@ $shop = array(
   "price" => "Price",
   "euroPerHour" => "€ / h",
   "book" => "Book",
-  "allServices" => "All services"
+  "allServices" => "All services",
+  "additionalFees" => "Subscriptions include any additional fees !"
 );
 
 $subscription_bill = array(

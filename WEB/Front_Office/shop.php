@@ -111,6 +111,9 @@
 
 				?>
 
+				<br>
+				<div class="alert alert-primary alert-dimissible text-center" class="close" data-dismiss="alert" role="alert"><?= $shop['additionalFees'] ?></div>
+
 			</section>
 
 			<section class="container text-center">
