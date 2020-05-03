@@ -23,6 +23,7 @@ public class DatabaseConfig {
 
     }
 
+    //Read the database infos in the config file
     public static DatabaseConfig readConfig() {
 
         File config = new File("./database.env");
@@ -59,6 +60,7 @@ public class DatabaseConfig {
 
     }
 
+    //Format the strings
     public static DatabaseConfig allocate(String[] buffer) {
 
         for (int i = 0; i < buffer.length; i++)

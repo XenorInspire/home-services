@@ -36,6 +36,7 @@ public class Window extends JFrame {
         pan.add(b6);
         pan.add(b7);
 
+        //Customer button
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,6 +54,7 @@ public class Window extends JFrame {
             }
         });
 
+        //Associate button
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,6 +72,7 @@ public class Window extends JFrame {
             }
         });
 
+        //Services button
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +90,7 @@ public class Window extends JFrame {
             }
         });
 
+        //Reservations button
         b4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,6 +108,7 @@ public class Window extends JFrame {
             }
         });
 
+        //Service Types button
         b5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,6 +126,7 @@ public class Window extends JFrame {
             }
         });
 
+        //Subscription Types button
         b6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,6 +144,7 @@ public class Window extends JFrame {
             }
         });
 
+        //Service Provided button
         b7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -179,6 +186,7 @@ public class Window extends JFrame {
 
     }
 
+    //Make the cells not changeable
     private DefaultTableModel model(Object[][] data, Object[] columnNames) {
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
 

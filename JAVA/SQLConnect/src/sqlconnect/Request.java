@@ -19,6 +19,7 @@ public class Request {
         ResultSet rs = null;
         String[][] fields = null;
 
+        //Try to join the database
         try {
 
             conn =
@@ -31,13 +32,15 @@ public class Request {
 
                 if (stmt.execute(sql)) {
                     rs = stmt.getResultSet();
-                    int i = rs.getMetaData().getColumnCount();
+                    int i = rs.getMetaData().getColumnCount(); //number of columns
                     rs.last();
-                    int c = rs.getRow();
+                    int c = rs.getRow(); //number of results
                     rs.first();
 
                     fields = new String[c][i];
 
+                    //All the table
+                    //Every String corresponds to a column from the table
                     for (int l = 0; l < c; l++) {
 
                         String[] temp = new String[i];
@@ -88,6 +91,8 @@ public class Request {
         return fields;
 
     }
+
+    //All the SELECT in the database (it depends of the button)
 
     public String[][] getCustomers() {
 

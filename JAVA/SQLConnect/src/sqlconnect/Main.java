@@ -10,9 +10,11 @@ public class Main {
 
         DatabaseConfig dbc = DatabaseConfig.readConfig();
 
+        //Check the config file (database infos)
         if(dbc == null)
             finish(1);
 
+        //Try to join the database
         try {
 
             Connection conn = null;
@@ -33,6 +35,7 @@ public class Main {
 
     }
 
+    //Errors displaying
     public static void finish(int mode) {
 
         switch (mode) {
