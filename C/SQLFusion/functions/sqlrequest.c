@@ -36,9 +36,9 @@ void SQLExec(char **backup, int32_t nbLines)
     exit(1);
   }
 
-  strcpy(login, "root");
-  strcpy(password, "root");
-  strcpy(server, "localhost");
+  strcpy(login, "nicolas");
+  strcpy(password, "Nicolas-home-services");
+  strcpy(server, "176.139.121.149");
   strcpy(database, "home-services");
   port = 3306;
 
@@ -141,8 +141,6 @@ void SQLExec(char **backup, int32_t nbLines)
           strcat(update, " WHERE associateId=\"");
           strcat(update, id);
           strcat(update, "\";");
-
-          printf("%s\n", update);
 
           if (mysql_query(con, update))
           {

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <windows.h>
 #include <stdint.h>
 #include <dirent.h>
 #include <string.h>
@@ -44,6 +45,9 @@ int main(int argc, char const *argv[]) {
   free(SQLDirectory.nbLinesSQL);
   freeStringArray(SQLDirectory.nameSQLFiles, SQLDirectory.nbSQLFiles);
   freeStringArray(backup, SQLDirectory.totalNbLinesSQL);
+
+  printf("Le programme s'est execut%c sans erreur !", 130);
+  Sleep(5000);
   return 0;
 
 }
