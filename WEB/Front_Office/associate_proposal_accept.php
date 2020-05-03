@@ -58,21 +58,6 @@ if (
 			<div class="jumbotron">
 				<div class="display-4 text-center"> <?= $associate_proposal_accept['bookOf'] ?></div>
 				<div class="display-4 text-center"><?= $customer->getLastname() ?> <?= $customer->getFirstname() ?></div>
-
-				<?php
-				// if (isset($_GET['delete']) == "successful") {
-				//     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
-				// }
-
-				// if (isset($_GET['create']) == "successful") {
-				//     echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été créé</div>';
-				// }
-
-				// if (isset($_GET['edit']) == "successful") {
-				//     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
-				// }
-
-				?>
 				<hr>
 				<div class="card border-secondary">
 					<div class="card-header text-center">

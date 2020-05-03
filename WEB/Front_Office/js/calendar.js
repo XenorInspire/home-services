@@ -66,7 +66,7 @@ class Calendar {
     // buttons back and next functions
     this.domElement.querySelectorAll('button').forEach(element => {
       element.addEventListener('click', () => {
-        // On multiplie par 1 les valeurs pour forcer leur convertion en "int"
+        // cast to int
         this.currentMonth.setMonth(this.currentMonth.getMonth() * 1 + element.getAttribute('data-action') * 1);
         this.loadMonth(this.currentMonth);
       });
@@ -80,7 +80,7 @@ class Calendar {
     // empty div
     this.content.textContent = '';
 
-    // On ajoute le mois/année affiché
+    // display month and year
     this.monthDiv.textContent = this.monthList[date.getMonth()].toUpperCase() + ' ' + date.getFullYear();
 
     // days of the week cells

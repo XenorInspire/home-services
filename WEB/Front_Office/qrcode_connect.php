@@ -33,16 +33,6 @@ if ($connected == 1) {
                     <br>
                     <video width="320" height="240" muted playsinline id="qr-video"></video>
                 </div>
-                <!-- <div>
-                    <select id="inversion-mode-select">
-                        <option value="original">Scan original (dark QR code on bright background)</option>
-                        <option value="invert">Scan with inverted colors (bright QR code on dark background)</option>
-                        <option value="both">Scan both</option>
-                    </select>
-                    <br>
-                </div>
-                <b>Detected QR code: </b>
-                <div id="cam-qr-result">None</div> -->
             </div>
         </div>
     </main>
