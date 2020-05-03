@@ -60,7 +60,7 @@ $associateProposals = $hm_database->getAssociateProposal($id);
                         <?php
                         foreach ($associateProposals as $proposal) {
                         ?>
-                            <div class="col-md bm-3">
+                            <div class="col-md mb-3">
                                 <a href="associate_proposal_accept.php?associateId=<?= $id ?>&serviceProvidedId=<?= $proposal->getServiceProvidedId() ?>" class="btn btn-dark btn-block">#<?= $counter ?> <?= $associate_services_provided['reply'] ?></a>
                             </div>
                         <?php
