@@ -21,21 +21,9 @@ require_once('class/DBManager.php');
         <br>
         <div class="container-fluid text-center">
             <div class="jumbotron">
-                <?php
-                // if (isset($_GET['delete']) == "successful") {
-                //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
-                // }
-
-                // if (isset($_GET['create']) == "successful") {
-                //     echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été créé</div>';
-                // }
-
-                // if (isset($_GET['edit']) == "successful") {
-                //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
-                // }
-
-                ?>
                 <div class="display-4">Liste des prestataires</div>
+                <br>
+                <a href="associates_bills.php"><button type="button" class="btn btn-dark">Factures des prestatires</button></a>
                 <hr>
                 <input class="form-control" id="myInput" type="text" placeholder="Recherche..">
                 <br>

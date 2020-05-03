@@ -12,6 +12,7 @@ require_once('class/proposal.php');
 require_once('class/serviceType.php');
 require_once('class/bill.php');
 require_once('class/additionalPrice.php');
+require_once('class/associateBill.php');
 
 class DBManager
 {
@@ -861,7 +862,6 @@ class DBManager
 
     public function getSubscriptionBill($billId)
     {
-
         $q = "SELECT * FROM SubscriptionBill WHERE billId = ?";
         $res = $this->db->prepare($q);
         $res->execute([$billId]);
@@ -874,4 +874,47 @@ class DBManager
 
         return $data;
     }
+
+    public function getAssociateBillList(){
+        $associateBills = [];
+        $q = "SELECT * FROM AssociateBill ORDER BY paidStatus ASC, associateBillId DESC";
+        $req = $this->db->prepare($q);
+        $req->execute();
+
+        while ($data = $req->fetch())
+            $associateBills[] = new AssociateBill($data['associateBillId'], $data['billDate'], $data['paidStatus'], $data['associateId'], $data['associateLastName'], $data['associateFirstName'], $data['associateAddress'], $data['associateTown'], $data['email'], $data['sirenNumber'], $data['companyName'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+
+        return $associateBills;
+    }
+
+    public function getAssociateBill($associateBillId){
+        $q = "SELECT * FROM AssociateBill WHERE associateBillId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$associateBillId]);
+        $data = $req->fetch();
+
+        if ($data == NULL)
+            return NULL;
+
+        return new AssociateBill($data['associateBillId'], $data['billDate'], $data['paidStatus'], $data['associateId'], $data['associateLastName'], $data['associateFirstName'], $data['associateAddress'], $data['associateTown'], $data['email'], $data['sirenNumber'], $data['companyName'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+    }
+    
+    public function validAssociateBill($associateBillId){
+        $q = "UPDATE AssociateBill SET paidStatus = :paidStatus WHERE associateBillId = :associateBillId";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'paidStatus' => 1,
+            'associateBillId' => $associateBillId
+        ));
+    }
+
+    public function unvalidAssociateBill($associateBillId){
+        $q = "UPDATE AssociateBill SET paidStatus = :paidStatus WHERE associateBillId = :associateBillId";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'paidStatus' => 0,
+            'associateBillId' => $associateBillId
+        ));
+    }
+
 }
