@@ -96,7 +96,7 @@ $associateProposals = $hm_database->getAssociateProposal($id);
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $service->getDescription() ?></h5>
-                                    <a href="current_associate_service_provided.php?serviceProvidedId=<?= $serviceProvided->getServiceProvidedId() ?>" class="btn btn-outline-secondary"><?= $associate_services_provided['endService'] ?></a>
+                                    <a href="current_associate_service_provided.php?serviceProvidedId=<?= $serviceProvided->getServiceProvidedId() ?>" class="btn btn-dark"><?= $associate_services_provided['endService'] ?></a>
                                 </div>
                                 <div class="card-footer text-muted border-secondary">
                                     <?= $serviceProvided->getDate() ?> à <?= $parts[0] ?>

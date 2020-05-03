@@ -110,7 +110,7 @@ if (
                     </div>
 
                     <div class="row justify-content-center">
-                        <div class="col-4">
+                        <div class="col-mb">
                             <button class="btn btn-outline-success btn-block"><?= $current_associate_service_provided['endService'] ?></button>
                         </div>
                     </div>

@@ -101,6 +101,8 @@ function dateSubtraction($date1, $date2)
 
                 </tbody>
             </table>
+            <br>
+            <p class="text-center text-muted"><?= $estimatesPage['alert'] ?></p>
         </div>
     </main>
     <?php require_once("include/footer.php"); ?>

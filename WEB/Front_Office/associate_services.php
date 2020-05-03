@@ -53,9 +53,9 @@ $services = $hm_database->getServiceListAssociate($associateId);
                     foreach ($services as $service) {
                     ?>
                         <div class="row mb-2">
-                            <div class="col-md-10 mb-2 btn btn-outline-secondary"><?= $service->getServiceTitle() ?></div>
+                            <div class="col-md-10 mb-2 btn btn-secondary"><?= $service->getServiceTitle() ?></div>
                             <div class="col-md-2 mb-2">
-                                <div class="btn btn-outline-danger" data-toggle="modal" data-target="#modalAdd<?= $counter ?>"><?= $associate_services['remove'] ?></div>
+                                <div class="btn btn-danger" data-toggle="modal" data-target="#modalAdd<?= $counter ?>"><?= $associate_services['remove'] ?></div>
                             </div>
                         </div>
 

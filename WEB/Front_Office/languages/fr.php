@@ -419,7 +419,8 @@ $estimatesPage = array(
   "date" => "Date",
   "service" => "Service",
   "price" => "Prix",
-  "action" => "Voir"
+  "action" => "Voir",
+  "alert" => "Les devis seront automatiquement supprimés lorsque ce dernier dépasse un mois ou lorsque la date de la prestation est dépassée."
 );
 
 $estimatePage = array(

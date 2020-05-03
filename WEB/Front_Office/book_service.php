@@ -193,7 +193,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md mb-3">
-                                        <div class="btn btn-secondary btn-block text center" onclick="history.back()"><?= $book_service['cancel'] ?></div>
+                                        <div class="btn btn-secondary btn-block text center" onclick="window.location.href = 'orders.php';"><?= $book_service['cancel'] ?></div>
                                     </div>
                                 </div>
                             </div>

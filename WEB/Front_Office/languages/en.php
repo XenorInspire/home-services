@@ -419,7 +419,8 @@ $estimatesPage = array(
   "date" => "Date",
   "service" => "Service",
   "price" => "Price",
-  "action" => "See"
+  "action" => "See",
+  "alert" => "Estimate will be automatically deleted when the latter exceeds one month or when the date of the service is exceeded."
 );
 
 $estimatePage = array(
