@@ -370,8 +370,15 @@
                                          <!-- Modal body -->
                                          <div class="modal-body">
                                              <?= $orders['confirmCancel'] ?>
-                                             <br>
-                                             <?= $orders['extraInfo'] ?>
+                                             <?php
+
+                                                if ($result != NULL) {
+
+                                                    echo '<br>';
+                                                    echo $orders['extraInfo'];
+                                                }
+
+                                                ?>
                                          </div>
                                          <!-- Modal footer -->
                                          <div class="modal-footer">
