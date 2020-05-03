@@ -37,7 +37,7 @@ void SQLExec(char **backup, int32_t nbLines)
   }
 
   strcpy(login, "root");
-  strcpy(password, "stevendatabase8");
+  strcpy(password, "root");
   strcpy(server, "localhost");
   strcpy(database, "home-services");
   port = 3306;
@@ -45,13 +45,14 @@ void SQLExec(char **backup, int32_t nbLines)
   // Try connection with database
   if (mysql_real_connect(con, server, login, password, database, port, NULL, 0) == NULL)
   {
+    printf("Fail connection\n");
     mysql_close(con);
     exit(1);
   }
 
   for (i = 0; i < nbLines; i++)
   {
-
+    mysql_query(con, backup[i]);
     strcpy(select, "SELECT * FROM Associate WHERE associateId='");
     strncpy(id, (backup[i] + 31), 10);
     id[11] = '\0';
@@ -149,6 +150,8 @@ void SQLExec(char **backup, int32_t nbLines)
           }
           else
             printf("OK !\n");
+        } else {
+
         }
       }
     }
