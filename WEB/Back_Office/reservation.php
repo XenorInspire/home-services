@@ -253,7 +253,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                 <hr>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
+                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Retour</div>
                     </div>
                 </div>
             </div>

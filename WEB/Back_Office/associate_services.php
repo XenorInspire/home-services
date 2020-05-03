@@ -53,7 +53,7 @@ $services = $hm_database->getServiceListAssociate($associateId);
                     foreach ($services as $service) {
                     ?>
                         <div class="row mb-2">
-                            <div class="col-md-10 mb-2 btn btn-outline-secondary"><?= $service->getServiceTitle() ?></div>
+                            <a class="col-md-10 mb-2 btn btn-outline-secondary" href="edit_service.php?id=<?= $service->getServiceId() ?>"><?= $service->getServiceTitle() ?></a>
                             <div class="col-md-2 mb-2">
                                 <div class="btn btn-outline-danger" data-toggle="modal" data-target="#modalAdd<?= $counter ?>">Retirer</div>
                             </div>
@@ -90,7 +90,7 @@ $services = $hm_database->getServiceListAssociate($associateId);
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
+                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Retour</div>
                     </div>
                 </div>
             </div>
