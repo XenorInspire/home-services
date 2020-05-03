@@ -18,7 +18,7 @@ if (
 
 	$reservation = $hm_database->getReservationByServiceProvidedId($serviceProvidedId);
 
-	if($reservation->getStatus() == 1){
+	if ($reservation->getStatus() == 1) {
 		header('Location: index.php');
 		exit;
 	}
@@ -61,7 +61,7 @@ if (
 				<hr>
 				<div class="card border-secondary">
 					<div class="card-header text-center">
-						 <?= $associate_proposal_accept['serviceInformations'] ?>
+						<?= $associate_proposal_accept['serviceInformations'] ?>
 					</div>
 					<div class="card-body">
 						<h5 class="card-title"><?= $serv->getServiceTitle() ?></h5>
@@ -74,9 +74,12 @@ if (
 								<label> <?= $associate_proposal_accept['date'] ?></label>
 								<input type="text" class="form-control" value="<?= $servPro->getDate() ?>" readonly>
 							</div>
+							<?php
+							$parts = explode(".", $servPro->getBeginHour());
+							?>
 							<div class="form-group">
 								<label> <?= $associate_proposal_accept['hour'] ?></label>
-								<input type="text" class="form-control" value="<?= $servPro->getBeginHour() ?>" readonly>
+								<input type="text" class="form-control" value="<?= $parts[0] ?>" readonly>
 							</div>
 							<div class="form-group">
 								<label> <?= $associate_proposal_accept['place'] ?></label>
@@ -108,7 +111,7 @@ if (
 							</div>
 							<!-- Modal body -->
 							<div class="modal-body">
-								 <?= $associate_proposal_accept['serviceAcceptanceQuestion'] ?>
+								<?= $associate_proposal_accept['serviceAcceptanceQuestion'] ?>
 							</div>
 							<!-- Modal footer -->
 							<div class="modal-footer">
@@ -132,7 +135,7 @@ if (
 							</div>
 							<!-- Modal body -->
 							<div class="modal-body">
-								 <?= $associate_proposal_accept['serviceRefusalQuestion'] ?>
+								<?= $associate_proposal_accept['serviceRefusalQuestion'] ?>
 							</div>
 							<!-- Modal footer -->
 							<div class="modal-footer">

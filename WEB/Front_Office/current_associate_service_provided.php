@@ -82,7 +82,7 @@ if (
                 <form action="valid_current_associate_service_provided.php" method="POST">
                     <div class="form-group">
                         <label><?= $current_associate_service_provided['doneHours'] ?></label>
-                        <input type="text" name="hoursAssociate" class="form-control" maxlength="255" value="" required>
+                        <input type="number" name="hoursAssociate" class="form-control" maxlength="255" min="<?= $serviceProvided->getHours() ?>" max="24" value="" required>
                     </div>
                     <div id="form">
 

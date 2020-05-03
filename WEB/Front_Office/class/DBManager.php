@@ -26,7 +26,7 @@ class DBManager
     $this->db = $bdd;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -215,11 +215,18 @@ class DBManager
 
     $subscription = $this->checkSubscription($id);
     if ($subscription == NULL) return NULL;
+    if ($subscription->getRemainingHours() < $hours) {
+
+      $hoursRemaining = 0;
+    } else {
+
+      $hoursRemaining = $subscription->getRemainingHours() - $hours;
+    }
 
     $q = "UPDATE Subscription SET remainingHours = :remainingHours WHERE customerId = :customerId";
     $req = $this->db->prepare($q);
     $req->execute(array(
-      'remainingHours' => ($subscription->getRemainingHours() - $hours),
+      'remainingHours' => $hoursRemaining,
       'customerId' => $id
     ));
 
@@ -332,7 +339,7 @@ class DBManager
     return $oldSubscriptions;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * SERVICE PROVIDED PART * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
   //Service provided
@@ -349,7 +356,7 @@ class DBManager
     return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * RESERVATION PART * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
   public function getReservation($reservationId)
@@ -458,7 +465,7 @@ class DBManager
     return $sp_id;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * BILL PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
   public function getLastIdBill()
@@ -539,7 +546,7 @@ class DBManager
     return $additionalPrices;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * SERVICE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -632,7 +639,7 @@ class DBManager
     return $services;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * ESTIMATE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -703,7 +710,7 @@ class DBManager
   }
 
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * Service Type * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -768,7 +775,7 @@ class DBManager
     return $services;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * PROPOSAL PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -807,7 +814,7 @@ class DBManager
     return $proposals;
   }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * ASSOCIATE PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -965,10 +972,10 @@ class DBManager
       'serviceProvidedId' => $associateBill->getServiceProvidedId()
     ));
   }
-  
+
   public function getLastIdAssociateBill()
   {
-    
+
     $req = $this->db->query('SELECT associateBillId FROM AssociateBill ORDER BY associateBillId ASC');
     $newId = 1;
     while ($id = $req->fetch()) {
@@ -977,7 +984,7 @@ class DBManager
       }
       $newId++;
     }
-    
+
     return $newId;
-  } 
+  }
 }

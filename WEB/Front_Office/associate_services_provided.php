@@ -87,6 +87,7 @@ $associateProposals = $hm_database->getAssociateProposal($id);
                     if ($servicesProvided != NULL) {
                         foreach ($servicesProvided as $serviceProvided) {
 
+                            $parts = explode(".", $serviceProvided->getBeginHour());
                             $service = $hm_database->getService($serviceProvided->getServiceId());
                     ?>
                             <div class="card text-center border-secondary">
@@ -98,7 +99,7 @@ $associateProposals = $hm_database->getAssociateProposal($id);
                                     <a href="current_associate_service_provided.php?serviceProvidedId=<?= $serviceProvided->getServiceProvidedId() ?>" class="btn btn-outline-secondary"><?= $associate_services_provided['endService'] ?></a>
                                 </div>
                                 <div class="card-footer text-muted border-secondary">
-                                    <?= $serviceProvided->getDate() ?> à <?= $serviceProvided->getBeginHour() ?>
+                                    <?= $serviceProvided->getDate() ?> à <?= $parts[0] ?>
                                 </div>
                             </div>
                     <?php

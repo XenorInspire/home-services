@@ -83,7 +83,7 @@ if (
         }
     }
 
-    $result = $hm_database->remainingHours($customer->getId(), $hoursAssociate);
+    $result = $hm_database->checkSubscription($customer->getId());
 
     if ($result == NULL) {
 
@@ -91,6 +91,10 @@ if (
     } else {
 
         $paidSatus = 1;
+        if ($hoursAssociate > $serviceProvided->getHours()) {
+
+            $hm_database->remainingHours($customer->getId(), $hoursAssociate - $serviceProvided->getHours());
+        }
     }
 
 
