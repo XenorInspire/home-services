@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Home Services - Liste des Services</title>
+		<title>Home Services - <?= $all_services['serviceList'] ?></title>
 		<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -23,7 +23,7 @@
 				<br>
 				<br>
 				<br>
-				<h3>Sélectionnez une catégorie :</h3>
+				<h3><?= $all_services['chooseCategory'] ?></h3>
 				<br>
 				<select class="form-control" id="sel" onchange="getList()">
 					<?php
@@ -44,9 +44,9 @@
 				<table class="table">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Catégorie</th>
-							<th scope="col">Service</th>
-							<th scope="col">Prix</th>
+							<th scope="col"><?= $all_services['category'] ?></th>
+							<th scope="col"><?= $all_services['service'] ?></th>
+							<th scope="col"><?= $all_services['price'] ?></th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
@@ -61,7 +61,7 @@
 								<td><?= $hm_database->getServiceType($services[$i]->getServiceTypeId())->getTypeName() ?></td>
 								<td><?= $services[$i]->getServiceTitle() ?></td>
 								<td><?= $services[$i]->getServicePrice() ?>€/h</td>
-								<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'book_service.php?i=<?= $services[$i]->getServiceId() ?>';">Réserver</button></td>
+								<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = 'book_service.php?i=<?= $services[$i]->getServiceId() ?>';"><?= $all_services['book'] ?></button></td>
 							</tr>
 
 						<?php

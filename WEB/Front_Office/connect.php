@@ -1,6 +1,7 @@
 <?php
 
 require_once('include/check_identity.php');
+
 if ($connected == 1) {
 
 	header('Location: index.php');
@@ -33,8 +34,8 @@ if ($_GET['status'] == "customer") {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home Services - Connexion <?php if ($connect_status == 1) echo "Client";
-										else echo "Prestataire"; ?></title>
+	<title>Home Services - <?php if ($connect_status == 1) echo $connect['customerConnection'];
+							else echo $connect['associateConnection']; ?></title>
 	<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -50,8 +51,8 @@ if ($_GET['status'] == "customer") {
 			<br>
 			<br>
 			<br>
-			<h1 style="text-align: center;">Connexion - Espace <?php if ($connect_status == 1) echo "client";
-																else echo "prestataire"; ?></h1>
+			<h1 style="text-align: center;">Connexion - <?php if ($connect_status == 1) echo $connect['customerSpace'];
+														else echo $connect['associateSpace']; ?></h1>
 
 			<?php
 
@@ -60,31 +61,37 @@ if ($_GET['status'] == "customer") {
 				if ($_GET['error'] == 'passwd_nv') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Mot de passe incorrect.</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['incorrectPasswd'] . '</div>';
 				}
 
 				if ($_GET['error'] == 'mail_nv') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['incorrectMail'] . '</div>';
 				}
 
 				if ($_GET['error'] == 'mail_nexit') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail n\'existe pas</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['invalidMail'] . '</div>';
 				}
 
 				if ($_GET['error'] == 'acc_dis') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Ce compte n\'est pas encore activé</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['disabledAccount'] . '</div>';
 				}
 
 				if ($_GET['error'] == 'forb') {
 
 					echo '<br>';
-					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez vous connecter avant de poursuivre</div>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['goConnect'] . '</div>';
+				}
+
+				if ($_GET['error'] == 'qrcode_inv') {
+
+					echo '<br>';
+					echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['invalidQRcode'] . '</div>';
 				}
 			}
 
@@ -93,13 +100,13 @@ if ($_GET['status'] == "customer") {
 				if ($_GET['info'] == 'first_connect') {
 
 					echo '<br>';
-					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer le mot de passe communiqué par mail ainsi que votre adresse mail</div>';
+					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['pwdAndMail'] . '</div>';
 				}
 
 				if ($_GET['info'] == 'dis') {
 
 					echo '<br>';
-					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Votre compte a bien été désactivé.</div>';
+					echo '<div class="alert alert-info alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $connect['desactivatedAcc'] . '</div>';
 				}
 			}
 
@@ -109,17 +116,34 @@ if ($_GET['status'] == "customer") {
 			<form action="<?php if ($connect_status == 1) echo "valid_customer_connect.php";
 							else echo "valid_associate_connect.php"; ?>" method="POST">
 				<div class="form-group">
-					<label>Adresse mail</label>
-					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="Entez votre email" autocomplete="email" maxlength="255" required>
-					<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted">Cette adresse mail n'existe pas !</small>
+					<label><?= $connect['mail'] ?></label>
+					<input onchange="check_mail_connection(<?php echo $connect_status; ?>)" type="email" name="mail" class="form-control" placeholder="<?= $connect['enterMail'] ?>" autocomplete="email" maxlength="255" required>
+					<small style="color:red;display:none;" id="emailHelp" class="form-text text-muted"><?= $connect['invalidMail'] ?></small>
 				</div>
 				<div class="form-group">
-					<label>Mot de passe</label>
-					<input type="password" id="password_length" name="passwd" class="form-control" placeholder="Entrez votre mot de passe" required>
-					<small id="emailHelp" class="form-text text-muted">Vous avez oublié votre mot de passe ? <i><u><a href="passwd_forgotten.php?status=<?php if ($connect_status == 1) echo "customer";
-																																						else echo "associate"; ?>">Cliquez ici</a></u></i></small>
+					<label><?= $connect['password'] ?></label>
+					<input type="password" id="password_length" name="passwd" class="form-control" placeholder="<?= $connect['enterPwd'] ?>" required>
+					<small id="emailHelp" class="form-text text-muted"><?= $connect['forgottenPwd'] ?> <i><u><a href="passwd_forgotten.php?status=<?php if ($connect_status == 1) echo "customer";
+																																					else echo "associate"; ?>"><?= $connect['clickThere'] ?></a></u></i></small>
 				</div>
-				<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary">Se connecter</button>
+				<div class="row justify-content-center">
+					<div class="col-auto mb-3">
+						<button style="margin:auto;display:block;" id="regis_button" type="submit" class="btn btn-primary"><?= $connect['connect'] ?></button>
+					</div>
+
+					<?php
+					if ($connect_status == 0) {
+						echo '<div class="col-auto mb-3">';
+						echo '<a class="btn btn-dark" href="qrcode_connect.php">' . $connect['QRcodeConnect'] . '</a>';
+						echo '</div>';
+					}
+					?>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-auto mb-3">
+						<div class="text-center btn btn-outline-secondary" onclick="history.back()"><?= $connect['cancel'] ?></div>
+					</div>
+				</div>
 			</form>
 		</section>
 

@@ -32,7 +32,7 @@ if (
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Accueil</title>
+    <title>Home Services - <?= $current_associate_service_provided['homepage'] ?></title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -46,29 +46,41 @@ if (
             <div class="jumbotron">
                 <div class="card border-secondary">
                     <div class="card-header text-center">
-                        Informations Service
+                        <?= $current_associate_service_provided['serviceInformations'] ?>
                     </div>
+                    <?php
+
+                    if (isset($_GET['error']) && $_GET['error'] == 'hours') {
+
+                        echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $current_associate_service_provided['error'] . '</div>';
+                        echo '<br>';
+                    }
+
+                    ?>
                     <div class="card-body">
                         <h5 class="card-title text-center"><?= $service->getServiceTitle() ?></h5>
                         <p class="card-text">
                             <div class="form-group">
-                                <label>Description</label>
+                                <label><?= $current_associate_service_provided['description'] ?></label>
                                 <input type="text" class="form-control" value="<?= $service->getDescription() ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Date</label>
+                                <label><?= $current_associate_service_provided['date'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getDate() ?>" readonly>
                             </div>
+                            <?php
+                            $parts = explode(".", $serviceProvided->getBeginHour());
+                            ?>
                             <div class="form-group">
-                                <label>Heure de la prestation</label>
-                                <input type="text" class="form-control" value="<?= $serviceProvided->getBeginHour() ?>" readonly>
+                                <label><?= $current_associate_service_provided['serviceTime'] ?></label>
+                                <input type="text" class="form-control" value="<?= $parts[0] ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Lieu</label>
+                                <label><?= $current_associate_service_provided['place'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getAddress() ?>, <?= $serviceProvided->getTown() ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Nombres d'heures demandées</label>
+                                <label><?= $current_associate_service_provided['nbTimeAsked'] ?></label>
                                 <input type="text" class="form-control" value="<?= $serviceProvided->getHours() ?>" readonly>
                             </div>
                         </p>
@@ -78,20 +90,9 @@ if (
 
                 <form action="valid_current_associate_service_provided.php" method="POST">
                     <div class="form-group">
-                        <label>Heures effectuées</label>
-                        <input type="text" name="hoursAssociate" class="form-control" maxlength="255" value="" required>
+                        <label><?= $current_associate_service_provided['doneHours'] ?></label>
+                        <input type="number" name="hoursAssociate" class="form-control" maxlength="255" min="<?= $serviceProvided->getHours() ?>" max="24" value="" required>
                     </div>
-
-
-                    <!-- <div class="container text-center"><small class="form-text text-muted">Frais supplémentaire</small></div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Montant</label>
-                        <input type="number" class="form-control" value="" min="0" step="0.01" name="" required>
-                    </div> -->
                     <div id="form">
 
                     </div>
@@ -101,16 +102,16 @@ if (
 
                     <div class="row">
                         <div class="col-md mb-3">
-                            <div class="btn btn-secondary btn-block" onclick="addCharge()">Ajouter un frais suplémentaire</div>
+                            <div class="btn btn-secondary btn-block" onclick="addCharge()"><?= $current_associate_service_provided['addExtra'] ?></div>
                         </div>
                         <div class="col-md mb-3">
-                            <div class="btn btn-secondary btn-block" onclick="deleteCharge()">Enlever un frais suplémentaire</div>
+                            <div class="btn btn-secondary btn-block" onclick="deleteCharge()"><?= $current_associate_service_provided['removeExtra'] ?></div>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
-                        <div class="col-4">
-                            <button class="btn btn-outline-success btn-block">Terminer la prestation</button>
+                        <div class="col-mb">
+                            <button class="btn btn-outline-success btn-block"><?= $current_associate_service_provided['endService'] ?></button>
                         </div>
                     </div>
                 </form>
@@ -122,6 +123,7 @@ if (
 </body>
 
 <script>
+    var lang = "<?= $_SESSION['lang'] ?>"
     var counter = 0;
 
     function addCharge() {
@@ -129,7 +131,8 @@ if (
         var form = document.getElementById("form");
         var node = document.createElement("div");
         node.id = "field" + counter;
-        node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Frais supplémentaire #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
+        if (lang == "fr") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Frais supplémentaire #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Descriptif du frais suplémentaire" name="description' + counter + '" required></div> <div class="form-group"><label>Montant</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
+        if (lang == "en") node.innerHTML = '<div class="container text-center"><small class="form-text text-muted">Additional cost #' + counter + '</small></div><div class="form-group"><label>Description</label><input type="text" class="form-control" placeholder="Additional cost description" name="description' + counter + '" required></div> <div class="form-group"><label>Amount</label><input type="number" class="form-control" value="" min="0" step="0.01" name="price' + counter + '" required></div>';
         form.appendChild(node);
 
         var total = document.getElementById("totalAdditionalPrice");

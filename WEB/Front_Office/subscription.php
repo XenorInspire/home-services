@@ -59,7 +59,7 @@
  <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Home Services - Boutique</title>
+     <title>Home Services - <?= $subscription['shop'] ?></title>
      <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
      <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -75,25 +75,25 @@
 
          <section id="subscription_block" class="container text-center">
              <br>
-             <h2>Abonnement <?php echo $subscriptionType->getTypeName(); ?></h2>
+             <h2><?= $subscription['subscription'] ?> <?php echo $subscriptionType->getTypeName(); ?></h2>
              <br>
              <ul style="margin:auto;width:50%;padding:0px;">
-                 <li class="list-group-item list-group-item-info">Plus d'informations :</li>
-                 <li class="list-group-item"><?php echo $subscriptionType->getDays(); ?> jours par semaine</li>
+                 <li class="list-group-item list-group-item-info"><?= $subscription['moreInformations'] ?></li>
+                 <li class="list-group-item"><?php echo $subscriptionType->getDays(); ?><?= $subscription['daysAWeek'] ?></li>
                  <?php
 
                     if ($time1 == 24 && $time2 == 24) {
 
                     ?>
 
-                     <li class="list-group-item">24h sur 24 !</li>
+                     <li class="list-group-item"><?= $subscription['allDay'] ?></li>
 
                  <?php
 
                     } else {
 
                     ?>
-                     <li class="list-group-item">De <?php echo $time1; ?>h à <?php echo $time2; ?>h</li>
+                     <li class="list-group-item"><?= $subscription['from'] ?><?php echo $time1; ?><?= $subscription['to'] ?><?php echo $time2; ?><?= $subscription['clock'] ?></li>
 
                  <?php
 
@@ -101,13 +101,13 @@
 
                     ?>
 
-                 <li class="list-group-item">Avec un maximum de <?php echo $subscriptionType->getServiceTime(); ?>h par mois !</li>
-                 <li class="list-group-item">Prix : <?php echo $subscriptionType->getPrice(); ?>€ TTC/an</li>
+                 <li class="list-group-item"><?= $subscription['withMax'] ?><?php echo $subscriptionType->getServiceTime(); ?><?= $subscription['hoursAMonth'] ?></li>
+                 <li class="list-group-item">Prix : <?php echo $subscriptionType->getPrice(); ?><?= $subscription['yearPrice'] ?></li>
              </ul>
              <br>
-             <h3>Paiement</h3>
+             <h3><?= $subscription['payment'] ?></h3>
              <br>
-             <input id="cardholder-name" type="text" placeholder="Titulaire de la carte">
+             <input id="cardholder-name" type="text" placeholder="<?= $subscription['cardOwner'] ?>">
              </input>
              <br>
              <br>
@@ -119,20 +119,20 @@
              <div id="card-errors" role="alert"></div>
              <br>
              <!-- <button id="card-button" data-secret="<?= $intent->client_secret; ?>" type="button" class="btn btn-elegant">Elegant</button> -->
-             <button onclick="loading()" class="btn btn-lg btn-block btn-primary" id="card-button" data-secret="<?= $intent->client_secret; ?>">Payer</button>
+             <button onclick="loading()" class="btn btn-lg btn-block btn-primary" id="card-button" data-secret="<?= $intent->client_secret; ?>"><?= $subscription['pay'] ?></button>
              <br>
-             <small style="color:red;display:none;" id="payInfos" class="form-text text-muted">Vos coordonnées bancaires sont incorrectes</small>
+             <small style="color:red;display:none;" id="payInfos" class="form-text text-muted"><?= $subscription['invalidCard'] ?></small>
              <br>
          </section>
 
      </main>
 
      <?php require_once("include/footer.php"); ?>
-     <script src="js/stripe.js"></script>
-     <script src="https://js.stripe.com/v3/"></script>
+     <script type="text/javascript" src="js/stripe.js"></script>
      <script>
-         allocate("<?php echo $id; ?>", "<?php echo $_GET['s']; ?>");
+         allocate("<?php echo $id; ?>", "<?php echo $_GET['s']; ?>", "<?php echo $_SESSION['lang']; ?>");
      </script>
+     <script src="https://js.stripe.com/v3/"></script>
 
  </body>
 

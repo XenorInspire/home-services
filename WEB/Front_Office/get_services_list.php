@@ -1,5 +1,7 @@
 <?php
 
+require_once('include/lang.php');
+
 if (!isset($_POST['select']) || empty(trim($_POST['select']))) {
 
     http_response_code(400);
@@ -23,9 +25,9 @@ $services = $hm_database->getServiceListByType($serviceType->getServiceTypeId())
 echo '<table class="table">';
 echo '<thead class="thead-dark">';
 echo    '<tr>';
-echo    '<th scope="col">Catégorie</th>';
-echo    '<th scope="col">Service</th>';
-echo    '<th scope="col">Prix</th>';
+echo    '<th scope="col">' . $get_services_list['category'] . '</th>';
+echo    '<th scope="col">' . $get_services_list['service'] . '</th>';
+echo    '<th scope="col">' . $get_services_list['price'] . '</th>';
 echo    '<th scope="col"></th>';
 echo    '</tr>';
 echo  '</thead>';
@@ -37,7 +39,7 @@ for ($i = 0; $i < count($services); $i++) {
     echo '<td>' . $serviceType->getTypeName() . '</td>';
     echo '<td>' . $services[$i]->getServiceTitle() . '</td>';
     echo '<td>' . $services[$i]->getServicePrice() . '€/h</td>';
-    echo '<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = \'book_service.php?i=' . $services[$i]->getServiceId() . '\';">Réserver</button></td>';
+    echo '<td><button type="button" class="btn btn-primary mb-2" onclick="window.location.href = \'book_service.php?i=' . $services[$i]->getServiceId() . '\';">' . $get_services_list['book'] . '</button></td>';
     echo '</tr>';
 }
 

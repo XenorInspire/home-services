@@ -1,6 +1,5 @@
 <?php
-
-session_start();
+require_once('include/lang.php');
 
 require_once('class/DBManager.php');
 $hm_database = new DBManager($bdd);

@@ -15,7 +15,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Home Services - Inscription</title>
+		<title>Home Services - <?= $registration['signIn'] ?></title>
 		<link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -31,7 +31,7 @@
 				<br>
 				<br>
 				<br>
-				<h1 style="text-align: center;">Inscription</h1>
+				<h1 style="text-align: center;"><?= $registration['signIn'] ?></h1>
 
 				<?php
 
@@ -41,67 +41,67 @@
 					if ($_GET['error'] == 'captcha_inv') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez entrer le bon numéro correspondant à l\'image</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['captchaError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'inputs_inv') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, un ou plusieurs champs n\'ont pas été complétés ou ne sont pas valides</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['emptyError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'password_inv') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer le même mot de passe lors de la confirmation de celui-ci</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['passwdError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'password_length') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Veuillez entrer un mot de passe de 6 caractères minimum</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['lengthError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'email_inv') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Erreur, veuillez saisir une adresse e-mail valide</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['mailError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'mail_taken') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Cette adresse e-mail est déjà attribuée à un autre compte</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['mailAlreadyUsed'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'lname_length') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Nom"</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['nameError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'fname_length') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Prénom"</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['firstNameError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'city_length') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Ville"</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['cityError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'ps_length') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "Pseudo"</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['pseudoError'] . '</div>';
 					}
 
 					if ($_GET['error'] == 'mail_length') {
 
 						echo '<br>';
-						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Vous avez dépassé le maximum de caractères possibles pour le champ "E-mail"</div>';
+						echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">' . $registration['mailError'] . '</div>';
 					}
 				}
 
@@ -110,46 +110,46 @@
 				<br>
 				<form action="valid_registration.php" method="POST">
 					<div class="form-group">
-						<label>Nom</label>
+						<label><?= $registration['name'] ?></label>
 						<input type="text" name="lastname" class="form-control" placeholder="Entrez votre nom" maxlength="255" required>
 					</div>
 					<div class="form-group">
-						<label>Prénom</label>
+						<label><?= $registration['firstName'] ?></label>
 						<input type="text" name="firstname" class="form-control" placeholder="Entrez votre prénom" maxlength="255" required>
 					</div>
 					<div class="form-group">
-						<label>Adresse mail</label>
+						<label><?= $registration['mail'] ?></label>
 						<input onchange="check_mail_registration()" type="email" name="mail" class="form-control" placeholder="Entrez votre adresse mail" autocomplete="email" maxlength="255" required>
-						<small id="emailHelp" class="form-text text-muted">Votre adresse mail ne sera pas partagée.</small>
+						<small id="emailHelp" class="form-text text-muted"><?= $registration['mailNotShared'] ?></small>
 					</div>
 					<div class="form-group">
-						<label>Numéro de téléphone</label>
+						<label><?= $registration['phone'] ?></label>
 						<input type="tel" name="phone_number" class="form-control" placeholder="Entrez votre numéro de téléphone" required>
 					</div>
 					<div class="form-group">
-						<label>Adresse</label>
+						<label><?= $registration['address'] ?></label>
 						<input type="text" name="address" class="form-control" placeholder="Entrez votre adresse" maxlength="255" required>
 					</div>
 					<div class="form-group">
-						<label>Ville</label>
+						<label><?= $registration['city'] ?></label>
 						<input type="text" name="city" class="form-control" placeholder="Entrez votre ville" maxlength="255" required>
 					</div>
 					<div class="form-group">
-						<label>Mot de passe</label>
+						<label><?= $registration['passwd'] ?></label>
 						<input type="password" id="password_length" name="passwd" onkeyup="checkPassword()" class="form-control" placeholder="Entrez votre mot de passe" required>
-						<small id="password_size" class="form-text">6 caractères minimum</small>
+						<small id="password_size" class="form-text"><?= $registration['charMin'] ?></small>
 					</div>
 					<div class="form-group">
-						<label>Confirmation</label>
+						<label><?= $registration['confirm'] ?></label>
 						<input type="password" id="same" onkeyup="samePassword()" name="passwd_confirmed" class="form-control" placeholder="Confirmez votre mot de passe" required>
-						<small id="password_same" class="form-text">Ce mot de passe est différent du champs précédent !</small>
+						<small id="password_same" class="form-text"><?= $registration['passwdError'] ?> !</small>
 					</div>
 					<div class="form-group">
-						<label>Entrez le code affiché ci-dessous</label>
+						<label><?= $registration['captcha'] ?></label>
 						<input type="text" name="captcha" class="form-control" required>
 						<img src="captcha/captcha.php" alt="captcha">
 					</div>
-					<button id="regis_button" type="submit" class="btn btn-primary">S'inscrire</button>
+					<button id="regis_button" type="submit" class="btn btn-primary"><?= $registration['signMeIn'] ?></button>
 				</form>
 				<br>
 				<br>

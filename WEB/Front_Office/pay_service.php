@@ -48,7 +48,7 @@
  <head>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Home Services - Paiement du service</title>
+     <title>Home Services - <?= $pay_service['servicePayment'] ?></title>
      <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
      <link rel="stylesheet" href="css/style.css">
      <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -64,19 +64,19 @@
 
          <section id="subscription_block" class="container text-center">
              <br>
-             <h2>Service : <?= $service->getServiceTitle() ?></h2>
+             <h2><?= $pay_service['service'] ?><?= $service->getServiceTitle() ?></h2>
              <br>
              <ul style="margin:auto;width:50%;padding:0px;">
                  <li class="list-group-item list-group-item-info"><?= $service->getDescription() ?></li>
-                 <li class="list-group-item"><?= $serviceProvided->getHours() ?>h de prestation</li>
-                 <li class="list-group-item">Fais le <?= $serviceProvided->getDate() ?></li>
-                 <li class="list-group-item">A <?= $parts[0] ?></li>
-                 <li class="list-group-item">Prix : <?= $result['totalPrice'] ?>€ TTC</li>
+                 <li class="list-group-item"><?= $serviceProvided->getHours() ?><?= $pay_service['timeOfService'] ?></li>
+                 <li class="list-group-item"><?= $pay_service['madeThisDay'] ?><?= $serviceProvided->getDate() ?></li>
+                 <li class="list-group-item"><?= $pay_service['at'] ?><?= $parts[0] ?></li>
+                 <li class="list-group-item"><?= $pay_service['price'] ?><?= $result['totalPrice'] ?><?= $pay_service['allTax'] ?></li>
              </ul>
              <br>
-             <h3>Paiement</h3>
+             <h3><?= $pay_service['payment'] ?></h3>
              <br>
-             <input id="cardholder-name" type="text" placeholder="Titulaire de la carte">
+             <input id="cardholder-name" type="text" placeholder=<?= $pay_service['cardHolder'] ?>>
              </input>
              <br>
              <br>
@@ -88,9 +88,9 @@
              <div id="card-errors" role="alert"></div>
              <br>
              <!-- <button id="card-button" data-secret="<?= $intent->client_secret; ?>" type="button" class="btn btn-elegant">Elegant</button> -->
-             <button onclick="loading()" class="btn btn-lg btn-block btn-primary" id="card-button" data-secret="<?= $intent->client_secret; ?>">Payer</button>
+             <button onclick="loading()" class="btn btn-lg btn-block btn-primary" id="card-button" data-secret="<?= $intent->client_secret; ?>"><?= $pay_service['pay'] ?></button>
              <br>
-             <small style="color:red;display:none;" id="payInfos" class="form-text text-muted">Vos coordonnées bancaires sont incorrectes</small>
+             <small style="color:red;display:none;" id="payInfos" class="form-text text-muted"><?= $pay_service['invalidCreditCard'] ?></small>
              <br>
          </section>
 
@@ -100,7 +100,7 @@
      <script src="js/stripe.js"></script>
      <script src="https://js.stripe.com/v3/"></script>
      <script>
-         sp("<?php echo $id; ?>", "<?php echo $_GET['sp']; ?>");
+         sp("<?php echo $id; ?>", "<?php echo $_GET['sp']; ?>","<?php echo $_SESSION['lang']; ?>" );
      </script>
 
  </body>

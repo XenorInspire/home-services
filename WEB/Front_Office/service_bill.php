@@ -43,7 +43,7 @@ $pdf->SetFont('Arial', 'B', 16);
 
 $pdf->Image('img/favicon.png', 10, 10, 30, 30);
 
-$num_fact = "Bill Number : "  . $bill->getBillId();
+$num_fact = utf8_decode($service_bill['billNumber'] . $bill->getBillId());
 $pdf->SetLineWidth(0.1);
 $pdf->SetFillColor(192);
 $pdf->Rect(110, 15, 85, 8, "DF");
@@ -76,7 +76,7 @@ if ($town) {
 //Customer's email
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(5, 75);
-$pdf->Cell($pdf->GetStringWidth("Adresse email de contact"), 0, "Adresse email de contact", 0, "L");
+$pdf->Cell($pdf->GetStringWidth($service_bill['mail']), 0, $service_bill['mail'], 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(5, 78);
 $pdf->MultiCell(190, 4, $email, 0, "L");
@@ -84,7 +84,7 @@ $pdf->MultiCell(190, 4, $email, 0, "L");
 //Customer's names
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(65, 75);
-$pdf->Cell($pdf->GetStringWidth("Nom du client"), 0, "Nom du client", 0, "L");
+$pdf->Cell($pdf->GetStringWidth($service_bill['lastName']), 0, $service_bill['lastName'], 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(65, 78);
 $pdf->MultiCell(190, 4, utf8_decode($bill->getCustomerLastName()) . " " . utf8_decode($bill->getCustomerFirstName()), 0, "L");
@@ -92,7 +92,7 @@ $pdf->MultiCell(190, 4, utf8_decode($bill->getCustomerLastName()) . " " . utf8_d
 //Service provided address
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(5, 90);
-$pdf->Cell($pdf->GetStringWidth("Adresse de la prestation"), 0, "Adresse de la prestation", 0, "L");
+$pdf->Cell($pdf->GetStringWidth($service_bill['serviceAddress']), 0, $service_bill['serviceAddress'], 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(5, 93);
 $pdf->MultiCell(190, 4, utf8_decode($bill->getCustomerAddress()) . " " . utf8_decode($bill->getCustomerTown()), 0, "L");
@@ -102,10 +102,10 @@ $parts = explode(".", $serviceProvided->getBeginHour());
 //Customer's service provided date
 $pdf->SetFont("Arial", "BU", 10);
 $pdf->SetXY(65, 90);
-$pdf->Cell($pdf->GetStringWidth("Date de la prestation"), 0, "Date de la prestation", 0, "L");
+$pdf->Cell($pdf->GetStringWidth($service_bill['serviceDate']), 0, $service_bill['serviceDate'], 0, "L");
 $pdf->SetFont("Arial", "", 10);
 $pdf->SetXY(65, 93);
-$pdf->MultiCell(190, 4, $serviceProvided->getDate() . utf8_decode(" à ") . $parts[0], 0, "L");
+$pdf->MultiCell(190, 4, $serviceProvided->getDate() . utf8_decode($service_bill['at']) . $parts[0], 0, "L");
 
 $data = 1;
 
@@ -126,19 +126,19 @@ $pdf->Line(187, 105, 187, 223);
 // titre colonne
 $pdf->SetXY(1, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(140, 8, "Service", 0, 0, 'C');
+$pdf->Cell(140, 8, $service_bill['service'], 0, 0, 'C');
 $pdf->SetXY(125, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(1, 8, utf8_decode("Heures demandées"), 0, 0, 'C');
+$pdf->Cell(1, 8, utf8_decode($service_bill['hoursRequested']), 0, 0, 'C');
 $pdf->SetXY(156, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(1, 8, utf8_decode("Heures effectuées"), 0, 0, 'C');
+$pdf->Cell(1, 8, utf8_decode($service_bill['hoursPerformed']), 0, 0, 'C');
 $pdf->SetXY(177, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(10, 8, "Prix/h", 0, 0, 'C');
+$pdf->Cell(10, 8, $service_bill['pricePerHour'], 0, 0, 'C');
 $pdf->SetXY(185, 105);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(22, 8, "TOTAL", 0, 0, 'C');
+$pdf->Cell(22, 8, $service_bill['total'], 0, 0, 'C');
 
 // les articles
 $pdf->SetFont('Arial', '', 8);
@@ -203,7 +203,7 @@ $tot_ttc = 12;
 $tot_tva = 123;
 
 //Total Price
-$nombre_format_francais = utf8_decode("Net à payer TTC : ") . number_format($bill->getTotalPrice(), 2, ',', ' ') . iconv('UTF-8', 'windows-1252', " €");
+$nombre_format_francais = utf8_decode($service_bill['price']) . number_format($bill->getTotalPrice(), 2, ',', ' ') . iconv('UTF-8', 'windows-1252', " €");
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetFillColor(192);
 $pdf->Rect(5, 213, 105, 10, "DF");
@@ -223,8 +223,8 @@ $y1 = 270;
 //Positionnement en bas et tout centrer
 $pdf->SetXY(1, $y1);
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell($pdf->GetPageWidth(), 5, "REF BANCAIRE : FR76 xxx - BIC : xxxx", 0, 0, 'C');
+$pdf->Cell($pdf->GetPageWidth(), 5, $service_bill['bankRef'] . " FR76 xxx - BIC : xxxx", 0, 0, 'C');
 
 //Generate PDF output
-$fileName = "Facture-" . $bill->getBillId() . ".pdf";
+$fileName = $service_bill['bill'] . $bill->getBillId() . ".pdf";
 $pdf->Output("I", $fileName);
