@@ -9,6 +9,11 @@ $serviceProvidedId = $_GET['serviceProvidedId'];
 
 $hm_database = new DBManager($bdd);
 $servPro = $hm_database->getServiceProvided($serviceProvidedId);
+if ($servPro == NULL) {
+    header('Location: reservations.php');
+    exit;
+}
+
 $serv = $hm_database->getService($servPro->getServiceId());
 $associates = $hm_database->getAssociateServicesList($serv->getServiceId());
 $reservation = $hm_database->getReservation($reservationId);
@@ -66,9 +71,12 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                                 <label>Date</label>
                                 <input type="text" class="form-control" value="<?= $servPro->getDate() ?>" readonly>
                             </div>
+                            <?php
+                            $parts = explode(".", $servPro->getBeginHour());
+                            ?>
                             <div class="form-group">
                                 <label>Heure</label>
-                                <input type="text" class="form-control" value="<?= $servPro->getBeginHour() ?>" readonly>
+                                <input type="text" class="form-control" value="<?= $parts[0] ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Lieu</label>
@@ -245,7 +253,7 @@ $customer = $hm_database->getCustomer($reservation->getCustomerId());
                 <hr>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Annuler</div>
+                        <div class="btn btn-outline-secondary btn-block" onclick="history.back()">Retour</div>
                     </div>
                 </div>
             </div>

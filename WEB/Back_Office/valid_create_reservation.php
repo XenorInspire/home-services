@@ -23,7 +23,7 @@ if (
     date_default_timezone_set('Europe/Paris');
 
     //Customer
-    $customer = new Customer($customerId, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    $customer = new Customer($customerId, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
     //ServiceProvided
     $serviceProvidedId = hash('sha256', $customerId . $serviceId . date('dMY-H:m:s'));

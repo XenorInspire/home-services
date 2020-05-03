@@ -172,3 +172,49 @@ body{
 }
 
 /* /////////////////////////// */
+
+/* Profile customer/associate Page */
+
+.inputs_account {
+
+  display: inline-block !important;
+  width: 75% !important;
+  max-width: 100%;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+
+}
+
+.inputs_account:disabled {
+
+  background-color: white !important;
+
+}
+
+.inputs2_account:disabled {
+
+  background-color: white !important;
+
+}
+
+.div_account {
+
+  display: inline-block !important;
+
+}
+
+.labels_account {
+
+  display: inline-block !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+
+}
+
+#delete_button {
+
+  margin-left: 80%;
+
+}
+
+/* /////////////////////////// */

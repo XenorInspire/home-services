@@ -12,6 +12,7 @@ require_once('class/proposal.php');
 require_once('class/serviceType.php');
 require_once('class/bill.php');
 require_once('class/additionalPrice.php');
+require_once('class/associateBill.php');
 
 class DBManager
 {
@@ -92,12 +93,12 @@ class DBManager
     {
         $subName = $subscription->getTypeName();
 
-        $q = "SELECT typeName FROM SubscriptionType WHERE typeName = ?";
+        $q = "SELECT typeName FROM SubscriptionType WHERE typeName = ? AND typeId != ?";
         $req = $this->db->prepare($q);
-        $req->execute([$subName]);
+        $req->execute([$subName, $subscription->getTypeId()]);
         $data = $req->fetch();
 
-        if ($data != NULL && $data['typeId'] != $subscription->getTypeId()) {
+        if ($data != NULL) {
             header('Location: edit_subscription.php?error=name_taken&id=' . $subscription->getTypeId());
             exit;
         } else {
@@ -145,6 +146,11 @@ class DBManager
         ));
     }
 
+    public function getDb()
+    {
+        return $this->db;
+    }
+
     //Restore remainingHours to clients for theire subscription
     public function restoreRemainingHours()
     {
@@ -165,6 +171,50 @@ class DBManager
         return 1;
     }
 
+    public function deleteSubscription($id)
+    {
+
+        $q = "DELETE FROM Subscription WHERE customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        $q = "UPDATE SubscriptionBill SET active = 0 WHERE billId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$this->getLastSubscriptionBill($id)['billId']]);
+    }
+
+    public function getLastSubscriptionBill($id)
+    {
+
+        $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? AND active = 1";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        $results = $req->fetch();
+
+        if (!empty($results)) {
+
+            return $results;
+        } else {
+
+            return NULL;
+        }
+    }
+
+    public function getSubscriptionsByCustomerId($id)
+    {
+
+        $q = "SELECT * FROM SubscriptionBill WHERE customerId = ? ORDER BY billDate DESC";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        while ($data = $req->fetch())
+            $subscriptions[] = $data;
+
+        if (empty($subscriptions)) return NULL;
+        return $subscriptions;
+    }
+
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * CUSTOMER PART * * * * * * * * * * * * * * * * *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -179,7 +229,7 @@ class DBManager
         if ($data == NULL)
             return NULL;
 
-        return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+        return new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['password'], $data['enable']);
     }
 
     //Get all the customers
@@ -190,12 +240,31 @@ class DBManager
         $req = $this->db->prepare($q);
         $req->execute();
         while ($data = $req->fetch())
-            $users[] = new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['enable']);
+            $users[] = new Customer($data['customerId'], $data['firstName'], $data['lastName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['password'], $data['enable']);
 
         if ($users == NULL)
             return NULL;
 
         return $users;
+    }
+
+    public function getUserByMail($mail)
+    {
+
+        $q = "SELECT * FROM Customer WHERE email = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$mail]);
+
+        $results = $req->fetch();
+
+        if (!empty($results)) {
+
+            $user = new Customer($results[0], $results[2], $results[1], $results[3], $results[4], $results[5], $results[6], $results[7], $results[8]);
+            return $user;
+        } else {
+
+            return NULL;
+        }
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -271,6 +340,21 @@ class DBManager
         return new ServiceProvided($data['serviceProvidedId'], $data['serviceId'], $data['date'], $data['beginHour'], $data['hours'], $data['hoursAssociate'], $data['address'], $data['town']);
     }
 
+    public function getReservationByServiceProvidedId($serviceProvidedId)
+    {
+
+        $q = "SELECT * FROM Reservation WHERE serviceProvidedId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
+
+        $data = $req->fetch();
+
+        if ($data == NULL) {
+            return NULL;
+        }
+        return new Reservation($data['reservationId'], $data['reservationDate'], $data['customerId'], $data['serviceProvidedId'], $data['status']);
+    }
+
     //Insert a reservation
     public function addReservation(Customer $customer, Reservation $reservation, ServiceProvided $serviceProvided)
     {
@@ -299,14 +383,57 @@ class DBManager
         ));
     }
 
-    function getReservationsFromDate($date) {
-      $q = "SELECT customerId,serviceProvidedId,status FROM Reservation WHERE reservationDate = ?";
-      $req = $this->db->prepare($q);
-      $req->execute([$date]);
+    public function getReservationsFromDate($date)
+    {
+        $q = "SELECT serviceProvidedId FROM ServiceProvided WHERE date = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$date]);
 
-      //$data = $q->fetch();
+        $counter = 0;
+        $sp_id = [];
 
-      return $req;
+        while ($data = $req->fetch()) {
+            $counter++;
+
+            array_push($sp_id, $data['serviceProvidedId']);
+        }
+
+        if ($counter == 0) {
+            return null;
+        }
+
+        return $sp_id;
+    }
+
+    public function getReservationsByCustomerId($id)
+    {
+
+        $q = "SELECT Reservation.reservationId,Reservation.status,Service.serviceTitle,Service.servicePrice,Service.serviceId,ServiceProvided.date,ServiceProvided.beginHour,ServiceProvided.serviceProvidedId FROM Reservation,Service,ServiceProvided WHERE Reservation.customerId = ? AND Reservation.serviceProvidedId = ServiceProvided.serviceProvidedId AND ServiceProvided.serviceId = Service.serviceId";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+
+        while ($results = $req->fetch())
+            $services[] = $results;
+
+        if (empty($services)) return NULL;
+
+        return $services;
+    }
+
+    public function disableCustomerAccount($id)
+    {
+
+        $q = "UPDATE Customer SET enable = 0 WHERE Customer.customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+    }
+
+    public function enableCustomerAccount($id)
+    {
+
+        $q = "UPDATE Customer SET enable = 1 WHERE Customer.customerId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -349,12 +476,12 @@ class DBManager
     {
         $serviceTitle = $service->getServiceTitle();
 
-        $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ?";
+        $q = "SELECT serviceTitle FROM Service WHERE serviceTitle = ? AND serviceId != ?";
         $req = $this->db->prepare($q);
-        $req->execute([$serviceTitle]);
+        $req->execute([$serviceTitle, $service->getServiceId()]);
         $data = $req->fetch();
 
-        if ($data != NULL && $data['serviceId'] != $service->getServiceId()) {
+        if ($data != NULL) {
             header('Location: edit_service.php?error=name_taken&id=' . $service->getServiceId());
             exit;
         } else {
@@ -561,7 +688,7 @@ class DBManager
     {
         $associates = [];
 
-        $q = "SELECT * FROM Associate ORDER BY lastName";
+        $q = "SELECT * FROM Associate ORDER BY enable DESC, lastName";
         $req = $this->db->prepare($q);
         $req->execute();
 
@@ -636,13 +763,44 @@ class DBManager
         ));
     }
 
-    public function getAssociateFromServiceProvided($serviceProvidedId) {
-      $q = "SELECT associateId FROM Proposal where serviceProvidedId=?";
-      $req = $this->db->prepare($q);
-      $req->execute([$serviceProvidedId]);
-      $res = $req->fetch();
-      $associate = $this->getAssociate($res['associateId']);
-      return $associate;
+    public function getAssociateFromServiceProvided($serviceProvidedId)
+    {
+        $q = "SELECT associateId FROM Proposal where serviceProvidedId=?";
+        $req = $this->db->prepare($q);
+        $req->execute([$serviceProvidedId]);
+        $res = $req->fetch();
+        $associate = $this->getAssociate($res['associateId']);
+        return $associate;
+    }
+
+    public function getAssociateByMail($associateMail)
+    {
+        $q = "SELECT * FROM Associate WHERE email = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$associateMail]);
+
+        $data = $req->fetch();
+
+        if ($data == NULL) {
+            return NULL;
+        }
+        return new Associate($data['associateId'], $data['lastName'], $data['firstName'], $data['email'], $data['phoneNumber'], $data['address'], $data['town'], $data['sirenNumber'], $data['companyName'], $data['enable'], $data['password']);
+    }
+
+    public function disableAssociateAccount($id)
+    {
+
+        $q = "UPDATE Associate SET enable = 0 WHERE Associate.associateId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
+    }
+
+    public function enableAssociateAccount($id)
+    {
+
+        $q = "UPDATE Associate SET enable = 1 WHERE Associate.associateId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$id]);
     }
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -679,7 +837,7 @@ class DBManager
     public function getBillList()
     {
         $bills = [];
-        $q = "SELECT * FROM Bill ORDER BY billId";
+        $q = "SELECT * FROM Bill ORDER BY billId, DATE DESC";
         $req = $this->db->prepare($q);
         $req->execute();
 
@@ -701,4 +859,62 @@ class DBManager
 
         return new Bill($data['billId'], $data['paidStatus'], $data['customerId'], $data['customerLastName'], $data['customerFirstName'], $data['customerAddress'], $data['customerTown'], $data['email'], $data['date'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
     }
+
+    public function getSubscriptionBill($billId)
+    {
+        $q = "SELECT * FROM SubscriptionBill WHERE billId = ?";
+        $res = $this->db->prepare($q);
+        $res->execute([$billId]);
+
+        $data = $res->fetch();
+
+        if ($data == NULL) {
+            return NULL;
+        }
+
+        return $data;
+    }
+
+    public function getAssociateBillList(){
+        $associateBills = [];
+        $q = "SELECT * FROM AssociateBill ORDER BY paidStatus ASC, associateBillId DESC";
+        $req = $this->db->prepare($q);
+        $req->execute();
+
+        while ($data = $req->fetch())
+            $associateBills[] = new AssociateBill($data['associateBillId'], $data['billDate'], $data['paidStatus'], $data['associateId'], $data['associateLastName'], $data['associateFirstName'], $data['associateAddress'], $data['associateTown'], $data['email'], $data['sirenNumber'], $data['companyName'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+
+        return $associateBills;
+    }
+
+    public function getAssociateBill($associateBillId){
+        $q = "SELECT * FROM AssociateBill WHERE associateBillId = ?";
+        $req = $this->db->prepare($q);
+        $req->execute([$associateBillId]);
+        $data = $req->fetch();
+
+        if ($data == NULL)
+            return NULL;
+
+        return new AssociateBill($data['associateBillId'], $data['billDate'], $data['paidStatus'], $data['associateId'], $data['associateLastName'], $data['associateFirstName'], $data['associateAddress'], $data['associateTown'], $data['email'], $data['sirenNumber'], $data['companyName'], $data['serviceTitle'], $data['totalPrice'], $data['serviceProvidedId']);
+    }
+    
+    public function validAssociateBill($associateBillId){
+        $q = "UPDATE AssociateBill SET paidStatus = :paidStatus WHERE associateBillId = :associateBillId";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'paidStatus' => 1,
+            'associateBillId' => $associateBillId
+        ));
+    }
+
+    public function unvalidAssociateBill($associateBillId){
+        $q = "UPDATE AssociateBill SET paidStatus = :paidStatus WHERE associateBillId = :associateBillId";
+        $req = $this->db->prepare($q);
+        $req->execute(array(
+            'paidStatus' => 0,
+            'associateBillId' => $associateBillId
+        ));
+    }
+
 }

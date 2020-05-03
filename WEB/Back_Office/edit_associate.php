@@ -11,6 +11,11 @@ $associateId = $_GET['associateId'];
 $hm_database = new DBManager($bdd);
 $associate = $hm_database->getAssociate($associateId);
 
+if($associate == NULL){
+    header('Location: associates.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -18,7 +23,7 @@ $associate = $hm_database->getAssociate($associateId);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Accueil</title>
+    <title>Home Services - Prestataire</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -38,18 +43,68 @@ $associate = $hm_database->getAssociate($associateId);
                 </a>
                 <hr>
                 <div id="button" class="btn btn-secondary" onclick="generateQrcode(); setTimeout(link, 1000);">Regénérer son QRcode</div>
-                <input id="text" type="hidden" value="cc">
+                <input id="text" type="hidden" value="<?= $associateId ?>">
+                <br>
+                <br>
                 <div class="container text-center">
                     <a id="qrcode" class="text-center"></a>
                 </div>
                 <hr>
-                <div class="display-4">Modifer les infos</div>
-                <hr>
+                <section class="container text-center">
+                <h1>Informations personnelles du prestataire</h1>
+             <br>
+             <br>
+             <div class="form-row">
+                 <div class="col">
+                     <div class="input-group-prepend" style="display:inline-block !important;">
+                         <span class="input-group-text labels_account">Nom</span>
+                     </div><!--
+                  --><input type="text" name="lastname" class="form-control inputs_account" value="<?php echo $associate->getLastname(); ?>" disabled>
+                 </div>
+                 <div class="col">
+                     <div class="input-group-prepend" style="display:inline-block !important;">
+                         <span class="input-group-text labels_account">Prénom</span>
+                     </div><!--
+                  --><input type="text" name="firstname" class="form-control inputs_account" value="<?php echo $associate->getFirstname(); ?>" disabled>
+                 </div>
+             </div>
+             <br>
+             <div class="form-row">
+                 <div class="col">
+                     <div class="input-group-prepend" style="display:inline-block !important;">
+                         <span class="input-group-text labels_account">@</span>
+                     </div><!--
+                  --><input style="width: 79% !important;" name="mail" type="text" class="form-control inputs_account" value="<?php echo $associate->getEmail(); ?>" disabled>
+                 </div>
+                 <div class="col">
+                     <div class="input-group-prepend" style="display:inline-block !important;">
+                         <span class="input-group-text labels_account">Téléphone</span>
+                     </div><!--
+                    --><input style="width: 72% !important;" name="phone_number" type="text" class="form-control inputs_account" value="<?php echo $associate->getPhoneNumber(); ?>" disabled>
+                 </div>
+             </div>
+             <br>
+             <div class="input-group" style="width: 94.2%;margin: auto;margin-left: 3.3%;">
+                 <div class="input-group-prepend">
+                     <span class="input-group-text">Adresse</span>
+                 </div>
+                 <input type="text" name="address" class="form-control inputs2_account" value="<?php echo $associate->getAddress(); ?>" disabled>
+                 <input type="text" name="city" class="form-control inputs2_account" value="<?php echo $associate->getTown(); ?>" disabled>
+             </div>
+             <br>
+             <small id="infos" class="form-text text-muted"></small>
+             <br>
+             <button type="button" class="btn btn-dark" onclick="enable()">Modifier ses informations</button>
+         </section>
+         <br>
+         <br>
+         <br>
 
-                <div>
-                    <?php
+         <section class="container text-center">
+            <?php
                     if ($associate->getEnable() == 0) {
                         echo '<div class="display-4">Mot de passe de première connexion</div>';
+                        echo '<br>';
                         echo '<br>';
                         $send = "sendPassword('" . $associateId . "')";
                         if ($associate->getPassword())
@@ -57,11 +112,98 @@ $associate = $hm_database->getAssociate($associateId);
                         else
                             echo '<button class="btn btn-secondary" id="sendButton" onclick="' . $send . '">Envoyer le mot de passe</button>';
                         echo '<hr>';
-                    }
+                    } else {
                     ?>
-                </div>
-            </div>
-        </div>
+                    <h2>Mot de passe</h2>
+                    <br>
+                    <br>
+             <div class="form-row">
+                 <div class="col">
+                     <div class="input-group-prepend" style="display:inline-block !important;">
+                         <span class="input-group-text labels_account">Nouveau mot de passe</span>
+                     </div><!--
+                  --><input style="width: 48.1% !important;" id="password_length" onkeyup="checkPassword()" name="new_password" type="password" class="form-control inputs_account" disabled>
+                     <br>
+                     <small id="password_size" class="form-text">6 caractères minimum</small>
+                     <br>
+                     <div class="input-group-prepend" style="display:inline-block !important;">
+                         <span class="input-group-text labels_account">Confirmation</span>
+                     </div><!--
+                  --><input id="same" onkeyup="samePassword()" style="width: 54.3% !important;" name="new_password2" type="password" class="form-control inputs_account" disabled>
+                     <br>
+                     <small id="password_same" class="form-text">Ce mot de passe est différent du champs précédent !</small>
+                     <br>
+                     <small id="infos_passwd" class="form-text text-muted"></small>
+                     <br>
+                 </div>
+             </div>
+             <button type="button" onclick="enablePasswd()" class="btn btn-dark">Changer son mot de passe</button>
+                    <?php }?>
+            </section>
+            <?php
+        if($associate->getEnable() == 0){
+            ?>
+            <br>
+            <br>
+        <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-success">Activer son compte</button>
+        <br>
+        <br>
+        <!-- Modal for saving -->
+         <div class="modal fade" id="modalSave">
+             <div class="modal-dialog modal-dialog-centered">
+                 <div class="modal-content">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                         <h4 class="modal-title">Activation du compte</h4>
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                          Voulez-vous vraiment activer le compte de ce prestataire ?
+                        </div>
+                     <!-- Modal footer -->
+                     <div class="modal-footer">
+                         <button class="btn btn-outline-success" onclick="window.location.href = 'account_status.php?mode=3&id=<?= $associate->getAssociateId() ?>';" type="submit">Activer</button>
+                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                        </div>
+                 </div>
+              </div>
+         </div>
+         <?php
+        } else {
+
+            ?>
+        <br>
+        <br>
+            <button type="button" data-toggle="modal" data-target="#modalSave" class="btn btn-danger">Désactiver son compte</button>
+        <br>
+        <br>
+        <!-- Modal for saving -->
+         <div class="modal fade" id="modalSave">
+             <div class="modal-dialog modal-dialog-centered">
+                 <div class="modal-content">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                         <h4 class="modal-title">Désactivation du compte</h4>
+                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                          Voulez-vous vraiment désactiver le compte de ce prestataire ?
+                        </div>
+                     <!-- Modal footer -->
+                     <div class="modal-footer">
+                         <button class="btn btn-outline-danger" onclick="window.location.href = 'account_status.php?mode=4&id=<?= $associate->getAssociateId() ?>';" type="submit">Désactiver</button>
+                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+                        </div>
+                 </div>
+              </div>
+         </div>
+
+            <?php
+
+        }
+        ?>
     </main>
     <?php require_once("include/footer.php"); ?>
 </body>
@@ -118,5 +260,9 @@ $associate = $hm_database->getAssociate($associateId);
         request.send("associateId=" + associateId);
     }
 </script>
-
+<script src="js/profile_associate.js"></script>
+<script src="js/password.js"></script>
+<script>
+    allocate("<?= $associate->getAssociateId() ?>");
+</script>
 </html>

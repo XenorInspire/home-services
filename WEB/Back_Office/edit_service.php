@@ -11,6 +11,11 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $serviceId = $_GET['id'];
 $service = $hm_database->getService($serviceId);
 
+if ($service == NULL) {
+    header('Location: service_types.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

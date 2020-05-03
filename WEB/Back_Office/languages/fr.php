@@ -6,6 +6,7 @@ $index = array(
 $nav = array(
     "homepage" => "Accueil",
     "manage" => "Gestion",
+    "calendar"=>"Calendrier",
     "customers" => "Espace Clients",
     "associates" => "Espaces Prestataires",
     "subscriptions" => "Espace Abonnements",
