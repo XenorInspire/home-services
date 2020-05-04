@@ -36,9 +36,9 @@ void SQLExec(char **backup, int32_t nbLines)
     exit(1);
   }
 
-  strcpy(login, "nicolas");
-  strcpy(password, "Nicolas-home-services");
-  strcpy(server, "176.139.121.149");
+  strcpy(login, "root");
+  strcpy(password, "root");
+  strcpy(server, "localhost");
   strcpy(database, "home-services");
   port = 3306;
 
