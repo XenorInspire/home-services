@@ -9,8 +9,8 @@ require_once('include/check_identity.php');
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <a href="index.php"><img id="hm-logo" src="img/favicon.png" alt="logo"></a>
-      <ul id="hm-home" class="navbar-nav">
+      <a href="index.php"><img class="rounded" id="hm-logo" src="img/favicon.png" alt="logo" width="70"></a>
+      <ul id="hm-home" class="navbar-nav"> 
         <li class="nav-item active">
           <a class="nav-link" href="index.php"><?= $header['homepage'] ?> <span class="sr-only">(current)</span></a>
         </li>

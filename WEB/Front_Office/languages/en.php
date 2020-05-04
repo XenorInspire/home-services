@@ -132,7 +132,7 @@ $connect = array(
   "forgottenPwd" => "Forgot password ?",
   "clickThere" => "Click there",
   "connect" => "Log in",
-  "QRcodeConnect" => "Log in with my QRcode",
+  "QRcodeConnect" => "Quick Connect",
   "cancel" => "Cancel"
 );
 
