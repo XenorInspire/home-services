@@ -23,7 +23,7 @@ if ($service == NULL) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Création Service</title>
+    <title>Home Services - Moficiation Service</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -37,7 +37,7 @@ if ($service == NULL) {
         <br>
         <div class="container-fluid">
             <div class="jumbotron">
-                <div class="display-4 text-center">Création Service</div>
+                <div class="display-4 text-center">Modification Service</div>
 
                 <?php
                 if (isset($_GET['error']) == "name_tasken") {
@@ -81,7 +81,7 @@ if ($service == NULL) {
                     <div class="form-group">
                         <label>Pourcentage de la commission</label>
                         <input type="number" class="form-control" value="<?= $service->getCommission() ?>" min="0" max="100.00" name="commission" step="0.01" required>
-                        <small class="form-text text-muted">Exemple : 10 pour 10%</small>
+                        <small class="form-text text-muted">Exemple : 0.1 pour 10%</small>
                     </div>
 
                     <input type="hidden" name="serviceTypeId" value="<?= $service->getServiceTypeId() ?>">
