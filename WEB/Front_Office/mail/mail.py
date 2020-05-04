@@ -22,7 +22,7 @@ elif(sys.argv[1] == '2'):  # Subscription
     message = 'Hi there !\nThanks for using Home-Services !\nYour subscription is now effective, don\'t hesitate to contact us if you have any question !'
 elif(sys.argv[1] == '3'):  # Personal information update
     msg['Subject'] = "Home Services - Personal information update"
-    message = 'Hi there !\nThanks for using Home-Services !\nYour personal informations have been updated.'
+    message = 'Hi there !\nThanks for using Home-Services !\nYour personal information have been updated.'
 elif(sys.argv[1] == '4'):  # Password updated
     msg['Subject'] = "Home Services - Password changed"
     message = 'Hi there !\nThanks for using Home-Services !\nYour password has been updated.'

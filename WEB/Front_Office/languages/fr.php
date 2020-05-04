@@ -106,7 +106,7 @@ $book_service = array(
 );
 
 $calendar = array(
-  "services" => "Services",
+  "planning" => "Mon planning",
   "address" => "Adresse",
   "hour" => "Heure",
   "service" => "Service"
