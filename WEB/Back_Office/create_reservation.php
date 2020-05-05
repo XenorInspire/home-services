@@ -12,7 +12,7 @@ $customerId = $_GET['customerId'];
 $servicesType = $hm_database->getServiceTypeList();
 $user = $hm_database->getCustomer($customerId);
 
-if($user == NULL){
+if ($user == NULL) {
     header('Location: reservations.php');
     exit;
 }
@@ -24,7 +24,7 @@ if($user == NULL){
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Création Abonnement</title>
+    <title>Home Services - Création Réservation</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -39,13 +39,25 @@ if($user == NULL){
         <div class="container-fluid">
             <div class="jumbotron">
                 <div class="display-4 text-center">Réservation d'un service</div>
+                <br>
                 <?php
+                // if (($subscription = $hm_database->checkSubscription($customerId)) != NULL) {
 
-                // if (isset($_GET['delete']) == "successful") {
-                //     echo '<div class="alert alert-success text-center alert-dismissible" class="close" data-dismiss="alert" role="alert">Le service a bien été retiré</div>';
+
+                //     if ($service->getTimeMin() > $subscription->getRemainingHours()) {
+
+                //         echo '<div class="alert alert-danger alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Il ne vous reste plus assez d\'heures dans votre abonnement.</div>';
+                //         echo '<br>';
+                //         $canBeBooked = 0;
+                //     } else {
+
+                //         echo '<div class="alert alert-success alert-dimissible text-center" class="close" data-dismiss="alert" role="alert">Il vous reste ' . $subscription->getRemainingHours() . ' heures dans votre abonnement</div>';
+                //         echo '<br>';
+
+                //         $subscriptionType = $hm_database->getSubscriptionTypeById($subscription->getTypeId());
+                //     }
                 // }
                 ?>
-                <br>
                 <form class="container-fluid" action="valid_create_reservation.php" method="POST">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -78,7 +90,7 @@ if($user == NULL){
                     </div>
                     <div class="form-group">
                         <label>Nombre d'heures souhaitées</label>
-                        <input type="number" name="hours" class="form-control" placeholder="" min="0" required>
+                        <input type="number" name="hours" class="form-control" placeholder="" min="0" max="24" required>
                     </div>
 
                     <div class="row">

@@ -21,7 +21,7 @@ require_once('class/DBManager.php');
         <br>
         <div class="container-fluid text-center">
             <div class="jumbotron">
-                <div class="display-4">Liste des prestataires</div>
+                <div class="display-4">Prestataires</div>
                 <br>
                 <a href="associates_bills.php"><button type="button" class="btn btn-dark">Factures des prestatires</button></a>
                 <hr>

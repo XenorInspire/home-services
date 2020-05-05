@@ -8,7 +8,7 @@ $hm_database = new DBManager($bdd);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Services - Clients</title>
+    <title>Home Services - Réservations</title>
     <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -23,17 +23,6 @@ $hm_database = new DBManager($bdd);
             <br>
             <div class="jumbotron">
                 <?php
-                // if (isset($_GET['delete']) == "successful") {
-                //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été supprimé</div>';
-                // }
-
-                // if (isset($_GET['create']) == "successful") {
-                //     echo '<div class="alert alert-success alert-dismissible " class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été créé</div>';
-                // }
-
-                // if (isset($_GET['edit']) == "successful") {
-                //     echo '<div class="alert alert-success alert-dismissible" class="close" data-dismiss="alert" role="alert">L\'abonnement a bien été modifié</div>';
-                // }
 
                 ?>
                 <a href="customers.php"><button type="button" class="btn btn-dark">Créer une réservation pour un client</button></a>
