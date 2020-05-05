@@ -106,7 +106,7 @@ $book_service = array(
 );
 
 $calendar = array(
-  "services" => "Services",
+  "planning" => "My planning",
   "address" => "Address",
   "hour" => "Hour",
   "service" => "Service"
@@ -132,7 +132,7 @@ $connect = array(
   "forgottenPwd" => "Forgot password ?",
   "clickThere" => "Click there",
   "connect" => "Log in",
-  "QRcodeConnect" => "Log in with my QRcode",
+  "QRcodeConnect" => "Quick Connect",
   "cancel" => "Cancel"
 );
 
@@ -273,7 +273,7 @@ $profile_customer = array(
   "firstName" => "First name",
   "phone" => "Phone number",
   "address" => "Address",
-  "changeMyProfile" => "Update my personal information",
+  "changeMyProfile" => "Update my personal informations",
   "myPasswd" => "My password",
   "passwd" => "Current password",
   "newPasswd" => "New password",
