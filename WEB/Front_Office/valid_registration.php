@@ -68,7 +68,7 @@ if (
 
 	if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
 
-		header('Location: registration.php?inscription=email_inv');
+		header('Location: registration.php?error=email_inv');
 		exit;
 	}
 
